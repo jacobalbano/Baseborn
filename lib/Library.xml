@@ -1,0 +1,14 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<!--Created with LibraryBuilder for FLAKit -->
+<!--http://www.thaumaturgistgames.com/FLAKit-->
+<library>
+    <images>
+        <image>horizontal.png</image>
+        <image>icicle.png</image>
+        <image>mage.png</image>
+        <image>rogue.png</image>
+        <image>shuriken.png</image>
+        <image>vertical.png</image>
+    </images>
+    <sounds />
+</library>

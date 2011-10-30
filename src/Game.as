@@ -40,7 +40,7 @@
 			
 			Input.init(stage);
 			
-			man = new Man(50, 260);
+			man = new Man(420, 0);
 			addChild(man);
 			
 			addChild(new HorizontalWall(man, 250, 375, false));
@@ -48,7 +48,7 @@
 			addChild(new HorizontalWall(man, 170, 320, false));
 			addChild(new HorizontalWall(man, 30, 280, false));
 			addChild(new HorizontalWall(man, 310, 250, false));
-			addChild(new HorizontalWall(man, 640, 250, false));
+			addChild(new HorizontalWall(man, 660, 250, false));
 			addChild(new HorizontalWall(man, 700, 320, true));
 			
 			addChild(text);
@@ -70,7 +70,7 @@
 			if (Input.isKeyDown(Input.SPACE))	Man.SB = true;
 			else Man.SB = false;
 			
-			if (Input.isKeyDown(Input.D)) // 'D' key
+			if (Input.isKeyDown(Input.D))
 			{
 				shootTiming();
 			}

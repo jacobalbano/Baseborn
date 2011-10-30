@@ -7,6 +7,12 @@ package ifrit
 	import flash.display.Sprite;
 	import flash.events.Event;
 	
+	
+	//TODO: block any and all objects
+	/*
+	 * Put all objects into an array and have each wall 
+	 * block every element in that object array
+	 */
 	public class HorizontalWall extends Sprite
 	{		
 		public var hWall:Bitmap = Library.IMG("horizontal.png");
@@ -24,10 +30,6 @@ package ifrit
 			this.x = x;
 			this.y = y;
 			
-			//TODO: Change how hor/ver walls are done?
-			/*
-			 * Make a Horizontal and Vertical wall class, and instantiate them within one Wall class?  
-			 */
 			if (vertical) this.rotation = 90;
 			else this.rotation = 0;
 			
@@ -55,24 +57,24 @@ package ifrit
 			{
 				if (this.rotation == 0)
 				{
-					if (obj.y <= this.y) // top
+					if (obj.y < this.y) // top
 					{
 						obj.y -= oy;
 						Man.gravUp = false;
 						Man.jumpTimer.reset();
 					}
-					else if (obj.y >= this.y) // bottom
+					else if (obj.y > this.y) // bottom
 					{
+						Man.vy = 0;
 						obj.y += oy;
-						(obj as Man).jumpReset();
 					}
 					else if (obj.x <= this.x) obj.x -= ox; // left
 					else if (obj.x >= this.x) obj.x += ox; // right
 				}
 				else 
 				{
-					if (obj.x <= this.x) obj.x -= ox; // left
-					else if (obj.x >= this.x) obj.x += ox; // right
+					if (obj.x < this.x) obj.x -= ox; // left
+					else if (obj.x > this.x) obj.x += ox; // right
 					else if (obj.y <= this.y) // top
 					{
 						obj.y -= oy;
@@ -82,7 +84,7 @@ package ifrit
 					else if (obj.y >= this.y) // bottom
 					{
 						obj.y += oy;
-						(obj as Man).jumpReset();
+						Man.vy = 0;
 					}
 				}
 			}
@@ -104,7 +106,7 @@ package ifrit
 	}
 }
 
-//BUG: Strange results if player touching >1 platform at a time
+//BUG: player forced down if touching >1 platform at a time
 /*
  * 
  */

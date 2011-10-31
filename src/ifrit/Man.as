@@ -20,6 +20,7 @@ package ifrit
 		public static var vy:Number;
 		private var speedLimitX:Number;
 		private var speedLimitY:Number;
+		private var jumpSpeedLimit:Number;
 		
 		public static var gravity:Number;
 		
@@ -46,6 +47,7 @@ package ifrit
 			vy = 0;
 			speedLimitX = 7;
 			speedLimitY = 20;
+			jumpSpeedLimit = 7;
 			gravity = 1;
 			
 			addEventListener(Event.ENTER_FRAME, onEnterFrame);
@@ -55,6 +57,8 @@ package ifrit
 		//BUG: Upward thrust when player hits corner of platform
 		private function onEnterFrame(e:Event):void
 		{
+			trace(vy);
+			
 			if (gravUp)	vy += gravity;
 			else vy = 0;
 			
@@ -70,7 +74,7 @@ package ifrit
 			if (vx >= speedLimitX) {  vx = speedLimitX;  }
 			if (vx < -speedLimitX) {  vx = -speedLimitX;  }
 			if (vy >= speedLimitY) {  vy = speedLimitY;  }
-			if (vy < -speedLimitY) {  vy = -speedLimitY;  }
+			if (vy < -jumpSpeedLimit) {  vy = -jumpSpeedLimit;  }
 			
 			// Apply physics to player movement
 			this.x += vx;

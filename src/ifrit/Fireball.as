@@ -12,11 +12,13 @@ package ifrit
 	public class Fireball extends Sprite
 	{		
 		public var fireball:Bitmap = Library.IMG("shuriken.png");
-		public var fireballC:Sprite = new Sprite();
+		protected var fireballC:Sprite = new Sprite();
 		
 		private var dx:int;
 		
-		public function Fireball(direction:int, x:Number, y:Number) 
+		public var friendly:Boolean;
+		
+		public function Fireball(direction:int, x:Number, y:Number, friendly:Boolean = true) 
 		{
 			addChild(fireballC);
 			
@@ -28,6 +30,8 @@ package ifrit
 			dx = direction;
 			this.x = x;
 			this.y = y;
+			
+			this.friendly = friendly;
 			
 			addEventListener(Event.ENTER_FRAME, enterFrame);
 		}

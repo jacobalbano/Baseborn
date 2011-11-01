@@ -7,14 +7,12 @@ package ifrit
 	import flash.display.Sprite;
 	import flash.events.Event;
 	
-	public class HorizontalWall extends Sprite
+	public class Platform extends Sprite
 	{		
 		public var hWall:Bitmap = Library.IMG("horizontal.png");
 		public var hWallC:Sprite = new Sprite();
 		
-		private var obj:DisplayObject;
-		
-		public function HorizontalWall(object:DisplayObject, x:Number, y:Number, vertical:Boolean) 
+		public function Platform(x:Number, y:Number, vertical:Boolean) 
 		{
 			addChild(hWallC);
 			
@@ -32,13 +30,9 @@ package ifrit
 			else this.rotation = 0;
 			
 			hWallC.addChild(hWall);
-			
-			obj = object;
-			
-			addEventListener(Event.ENTER_FRAME, enterFrame);
 		}
 		
-		private function enterFrame(e:Event):void 
+		public function collide(obj:DisplayObject):Boolean 
 		{
 			var objHalfW:Number = obj.width / 2;
 			var objHalfH:Number = obj.height / 2;
@@ -58,13 +52,18 @@ package ifrit
 					if (obj.y <= this.y) // top
 					{
 						obj.y -= oy;
-						Man.gravUp = false;
-						Man.jumpTimer.reset();
+						
+						if (obj is Mob)
+						{
+							(obj as Mob).gravUp = false;
+							(obj as Mob).jumpTimer.reset();
+						}
+						
 					}
 					else if (obj.y >= this.y) // bottom
 					{
 						obj.y += oy;
-						(obj as Man).jumpReset();
+						if (obj is Mob)	(obj as Mob).jumpReset();
 					}
 					else if (obj.x <= this.x) obj.x -= ox; // left
 					else if (obj.x >= this.x) obj.x += ox; // right
@@ -76,31 +75,24 @@ package ifrit
 					else if (obj.y <= this.y) // top
 					{
 						obj.y -= oy;
-						Man.gravUp = false;
-						Man.jumpTimer.reset();
+						if (obj is Mob)
+						{
+							(obj as Mob).gravUp = false;
+							(obj as Mob).jumpTimer.reset();
+						}
 					}
 					else if (obj.y >= this.y) // bottom
 					{
 						obj.y += oy;
-						(obj as Man).jumpReset();
+						if (obj is Mob)	(obj as Mob).jumpReset();
 					}
 				}
+				
+				return true;
 			}
 			
-			//trace("obj x: " + obj.x);
-			//trace("obj y: " + obj.y);
-			//trace("ox: " + ox);
-			//trace("oy: " + oy);
-			//trace("dx: " + dx);
-			//trace("dy: " + Math.abs(dy));
-			//trace("objHalfW: " + objHalfW);
-			//trace("objHalfH: " + objHalfH);
-			//trace("thisHalfW: " + thisHalfW);
-			//trace("thisHalfH: " + thisHalfH);
-			//trace("this x: " + this.x);
-			//trace("this y: " + this.y);
-			//trace("----------------------");
-		} // end enter frame
+			return false;
+		}
 	}
 }
 

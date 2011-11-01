@@ -1,33 +1,32 @@
 ﻿package
 {
 	import com.jacobalbano.Input;
-	
 	import com.thaumaturgistgames.flakit.Engine;
-	
 	import flash.display.DisplayObject;
+	import ifrit.*;
+	
 	import flash.display.Sprite;
 	import flash.events.Event;
 	import flash.text.TextField;
 	import flash.utils.Timer;
-	import ifrit.*;
-	
+	import flash.geom.Point;
 	
 	
 	
 	[SWF(width = "1000", height = "400", backgroundColor = "0xFFFFFF")]
 	public class Game extends Engine 
 	{
+		public static var text:TextField = new TextField();
 		
 		public const MAX_X:uint = stage.stageWidth;
 		public const MIN_X:uint = 0;
 		public const MAX_Y:uint = stage.stageHeight;
 		public const MIN_Y:uint = 0;
 		
-		public var man:Sprite;
-		public var aProjectiles:Array = new Array();
-		public static var text:TextField = new TextField();
-		public var projectile:DisplayObject;
-		private var shootTimer:Timer = new Timer(0, 20);
+		public var man:Player;
+		public static var Projectiles:Vector.<Fireball>;
+		public static var Mobs:Vector.<Mob>;
+		public static var Platforms:Vector.<Platform>;
 		
 		public function Game()	{}
 		
@@ -40,16 +39,26 @@
 			
 			Input.init(stage);
 			
-			man = new Man(50, 260);
-			addChild(man);
+			Platforms = new Vector.<Platform>;
+			Projectiles = new Vector.<Fireball>;
+			Mobs = new Vector.<Mob>;
 			
-			addChild(new HorizontalWall(man, 250, 375, false));
-			addChild(new HorizontalWall(man, 450, 350, false));
-			addChild(new HorizontalWall(man, 170, 320, false));
-			addChild(new HorizontalWall(man, 30, 280, false));
-			addChild(new HorizontalWall(man, 310, 250, false));
-			addChild(new HorizontalWall(man, 640, 250, false));
-			addChild(new HorizontalWall(man, 700, 320, true));
+			Mobs.push(stage.addChild(man = new Player(50, 260)) as Mob);
+			
+			addEnemy(250, 375);
+			addEnemy(450, 350);
+			addEnemy(170, 320);
+			addEnemy(30, 280);
+			addEnemy(310, 250);		
+			addEnemy(640, 250);	
+			
+			addWall(250, 375, false);
+			addWall(450, 350, false);
+			addWall(170, 320, false);
+			addWall(30, 280, false);
+			addWall(310, 250, false);
+			addWall(640, 250, false);
+			addWall(700, 320, true);
 			
 			addChild(text);
 		}
@@ -67,42 +76,88 @@
 				man.rotationY = 0;
 			}
 			
-			if (Input.isKeyDown(Input.SPACE))	Man.SB = true;
-			else Man.SB = false;
-			
-			if (Input.isKeyDown(Input.D)) // 'D' key
+			if (Input.isKeyDown(Input.SPACE))
 			{
-				shootTiming();
+				man.jumping = true;
+			}
+			else man.jumping = false;
+			
+			if (Input.isKeyDown(Input.D) )
+			{
+				man.shoot();
 			}
 			
-			if (aProjectiles.length > 0)
+			if (Mobs.length > 0)
 			{
-				for (var i:int = (aProjectiles.length - 1); i >= 0; i--)
+				for (var l:int = Mobs.length - 1; l >= 0; l--)
 				{
-					projectile = aProjectiles[i];
+					if (Projectiles.length > 0)
+					{						
+						for (var k:int = Projectiles.length - 1; k >= 0; k--) 
+						{
+							if (Point.distance(new Point(Mobs[l].x, Mobs[l].y), new Point(Projectiles[k].x, Projectiles[k].y) ) <= Projectiles[k].width / 2)
+							{
+								if (Projectiles[k].friendly != Mobs[l].friendly)
+								{
+									stage.removeChild(Projectiles[k]);
+									Projectiles.splice(k, 1);
+									
+									Mobs[l].destroy();
+									stage.removeChild(Mobs[l]);
+									Mobs.splice(l, 1);
+									trace("hit");
+									continue;
+								}
+							}
+						}
+					}
+				}	
+			}
+			
+			if (Platforms.length > 0)
+			{
+				for (var ii:int = Platforms.length - 1; ii >= 0; ii--)
+				{
+					if (Projectiles.length > 0)
+					{						
+						for (var j:int = Projectiles.length - 1; j >= 0; j--) 
+						{
+							if (Projectiles[j].x > stage.stageWidth + 20 || Projectiles[j].x < MIN_X - 20)
+							{
+								stage.removeChild(Projectiles[j]);
+								Projectiles.splice(j, 1);
+								continue;
+							}
+							
+							if (Platforms[ii].collide(Projectiles[j] ) )
+							{
+								stage.removeChild( Projectiles[j] );
+								Projectiles.splice(j, 1);
+								continue;
+							}
+						}
+					}
 					
-					if (projectile.x > stage.stageWidth + 20 || projectile.x < MIN_X - 20)
+					if (Mobs.length > 0)
 					{
-						projectile.parent.removeChild(projectile);
-						aProjectiles.splice(i, 1);
+						for (var jj:int = Mobs.length - 1; jj >= 0; jj--) 
+						{
+							Platforms[ii].collide(Mobs[jj] );
+						}
 					}
 				}
 			}
+			
 		}
 		
-		private function shootTiming():void
+		private function addWall(x:Number, y:Number, vertical:Boolean):void
 		{
-			if (shootTimer.currentCount == shootTimer.repeatCount) {  shootTimer.reset();  }
-			
-			if (!shootTimer.running)
-			{
-				if (man.rotationY == 180) {  stage.addChild(new Fireball(-10, man.x, man.y));  }
-				else if (man.rotationY == 0) {  stage.addChild(new Fireball(10, man.x, man.y));  }
-				
-				aProjectiles.push(stage.getChildAt(stage.numChildren - 1));
-				projectile = stage.getChildAt(stage.numChildren - 1);
-			}
-			shootTimer.start();
+			Platforms.push(	addChild(new Platform(x, y, vertical) ) );
+		}
+		
+		private function addEnemy(x:Number, y:Number):void
+		{
+			Mobs.push(stage.addChild(new Enemy(x, y) ) as Mob);		
 		}
 		
 	}

@@ -24,7 +24,7 @@ package ifrit
 		public var jumping:Boolean;
 		public var jumpTimer:Timer = new Timer(0, 2);
 		protected var velocity:Point = new Point(0, 0);
-		protected var speedLimit:Number;
+		protected var speedLimit:Point;
 		
 		protected var halfSize:Point;
 		
@@ -46,7 +46,7 @@ package ifrit
 			
 			this.halfSize = new Point(this.width / 2, this.height / 2);
 			
-			speedLimit = 7;
+			speedLimit = new Point(7, 20);
 			
 			addEventListener(Event.ENTER_FRAME, onEnterFrame);
 		}
@@ -99,10 +99,10 @@ package ifrit
 				
 				velocity.y += -5;
 				
-				if (velocity.x >= speedLimit) {	velocity.x = speedLimit; }
-				if (velocity.x < -speedLimit) {	velocity.x = -speedLimit; }
-				if (velocity.y >= speedLimit) {	velocity.y = speedLimit; }
-				if (velocity.y < -speedLimit) {	velocity.y = -speedLimit; }
+				if (velocity.x >= speedLimit.x) {	velocity.x = speedLimit.x; }
+				if (velocity.x < -speedLimit.x) {	velocity.x = -speedLimit.x; }
+				if (velocity.y >= speedLimit.y) {	velocity.y = speedLimit.y; }
+				if (velocity.y < -speedLimit.x) {	velocity.y = -speedLimit.x; }
 				
 			}
 			

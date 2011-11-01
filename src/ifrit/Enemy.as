@@ -35,13 +35,21 @@ package ifrit
 			super.think();
 			this.rotationY = this.heading ? 0 : 180;
 			
+			var found:Boolean = false;
 			for (var i:int = 0; i < Game.Platforms.length; i++) 
 			{
 				if (Game.Platforms[i].collide(this))
 				{
 					leftBound = Game.Platforms[i].x + this.width / 2 - Game.Platforms[i].width / 2;
 					rightBound = Game.Platforms[i].x - this.width / 2 + Game.Platforms[i].width / 2;
+					found = true;
 				}
+			}
+			
+			if (!found)
+			{
+				this.leftBound = 0;
+				this.rightBound = stage.stageWidth;
 			}
 			
 			if (this.x == this.lastPosition.x) heading = !heading;

@@ -100,7 +100,7 @@
 					{						
 						for (var k:int = Projectiles.length - 1; k >= 0; k--) 
 						{
-							if (Point.distance(new Point(Mobs[l].x, Mobs[l].y), new Point(Projectiles[k].x, Projectiles[k].y) ) <= Projectiles[k].width / 2)
+							if (Projectiles[k].hitTestObject(Mobs[l]))
 							{
 								if (Projectiles[k].friendly != Mobs[l].friendly)
 								{

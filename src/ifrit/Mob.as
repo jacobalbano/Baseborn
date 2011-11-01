@@ -92,23 +92,23 @@ package ifrit
 			else velocity.y = 0;
 			
 			// Jump(rise) until spacebar up or until timer ends.
-			if (jumping && jumpTimer.currentCount < jumpTimer.repeatCount)
+			if (jumping && jumpTimer.currentCount < jumpTimer.repeatCount && velocity.y <=1)
 			{
 				if (!jumpTimer.running)
 					jumpTimer.start();
 				
 				velocity.y += -5;
 				
-				if (velocity.x >= speedLimit.x) {	velocity.x = speedLimit.x; }
-				if (velocity.x < -speedLimit.x) {	velocity.x = -speedLimit.x; }
-				if (velocity.y >= speedLimit.y) {	velocity.y = speedLimit.y; }
-				if (velocity.y < -speedLimit.x) {	velocity.y = -speedLimit.x; }
-				
 			}
 			
 			if (jumpTimer.currentCount == jumpTimer.repeatCount)
 				jumpTimer.stop();
-			
+				
+			if (velocity.x >= speedLimit.x) { velocity.x = speedLimit.x; }
+			if (velocity.x < -speedLimit.x) { velocity.x = -speedLimit.x; }
+			if (velocity.y >= speedLimit.y) { velocity.y = speedLimit.y; }
+			if (velocity.y < -speedLimit.x) { velocity.y = -speedLimit.x; }
+				
 			// Apply physics to player movement
 			this.x += velocity.x;
 			this.y += velocity.y;

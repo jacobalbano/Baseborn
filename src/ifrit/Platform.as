@@ -72,7 +72,7 @@ package ifrit
 				{
 					if (obj.x < this.x) obj.x -= ox; // left
 					else if (obj.x > this.x) obj.x += ox; // right
-					else if (obj.y <= this.y) // top
+					else if (obj.y < this.y) // top
 					{
 						obj.y -= oy;
 						if (obj is Mob)

@@ -50,10 +50,11 @@
 			addEnemy(170, 320);
 			addEnemy(30, 280);
 			addEnemy(310, 250);		
-			addEnemy(640, 250);	
+			addEnemy(640, 250);
+			addEnemy(1000, 400);
 			
 			addWall(250, 375, false);
-			addWall(450, 350, false);
+			addWall(475, 350, false);
 			addWall(170, 320, false);
 			addWall(30, 280, false);
 			addWall(310, 250, false);
@@ -65,11 +66,13 @@
 		
 		private function enterFrame(e:Event):void
 		{
+			
 			if (Input.isKeyDown(Input.LEFT))
 			{
 				man.x -= 7;
 				man.rotationY = 180;
 			}
+			
 			if (Input.isKeyDown(Input.RIGHT))
 			{
 				man.x += 7;
@@ -91,6 +94,8 @@
 			{
 				for (var l:int = Mobs.length - 1; l >= 0; l--)
 				{
+					var removed:Boolean = false;
+					
 					if (Projectiles.length > 0)
 					{						
 						for (var k:int = Projectiles.length - 1; k >= 0; k--) 
@@ -106,11 +111,16 @@
 									stage.removeChild(Mobs[l]);
 									Mobs.splice(l, 1);
 									trace("hit");
-									continue;
+									
+									removed = true;
+									
+									break;
 								}
 							}
 						}
 					}
+					
+					if (removed) break;
 				}	
 			}
 			

@@ -41,11 +41,12 @@ package ifrit
 			var found:Boolean = false;
 			for (var i:int = 0; i < Game.Platforms.length; i++) 
 			{
-				if (Game.Platforms[i].collide(this))
+				if (Game.Platforms[i].collide(this) && Game.Platforms[i].rotation == 0)
 				{
 					leftBound = Game.Platforms[i].x + this.width / 2 - Game.Platforms[i].width / 2;
 					rightBound = Game.Platforms[i].x - this.width / 2 + Game.Platforms[i].width / 2;
 					found = true;
+					break;
 				}
 			}
 			
@@ -61,7 +62,7 @@ package ifrit
 			
 			this.lastPosition.x = this.x;
 			
-			if (heading) this.x += 1 + speed;  else x -= 1 + speed;
+			if (heading) this.x += 1;  else x -= 1;
 		}
 		
 	}

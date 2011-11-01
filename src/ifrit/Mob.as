@@ -23,7 +23,7 @@ package ifrit
 		public var gravUp:Boolean;
 		public var jumping:Boolean;
 		public var jumpTimer:Timer = new Timer(0, 2);
-		protected var velocity:Point = new Point(0, 0);
+		public var velocity:Point = new Point(0, 0);
 		protected var speedLimit:Point;
 		
 		protected var halfSize:Point;

@@ -30,6 +30,9 @@ package ifrit
 			this.speed = Math.random();
 		}
 		
+		/**
+		 * 
+		 */
 		override public function think():void 
 		{
 			super.think();

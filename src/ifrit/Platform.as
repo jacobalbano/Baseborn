@@ -70,8 +70,8 @@ package ifrit
 				}
 				else 
 				{
-					if (obj.x <= this.x) obj.x -= ox; // left
-					else if (obj.x >= this.x) obj.x += ox; // right
+					if (obj.x < this.x) obj.x -= ox; // left
+					else if (obj.x > this.x) obj.x += ox; // right
 					else if (obj.y <= this.y) // top
 					{
 						obj.y -= oy;

@@ -54,7 +54,7 @@
 			addEnemy(1000, 400);
 			
 			addWall(250, 375, false);
-			addWall(475, 350, false);
+			addWall(450, 350, false);
 			addWall(170, 320, false);
 			addWall(30, 280, false);
 			addWall(310, 250, false);

@@ -3,12 +3,16 @@
 <!--http://www.thaumaturgistgames.com/FLAKit-->
 <library>
     <images>
+        <image>enemy.png</image>
+        <image>fighterAtkWalk.png</image>
+        <image>fireballShot.png</image>
         <image>horizontal.png</image>
         <image>icicle.png</image>
-        <image>mage.png</image>
+        <image>lightningBolt.png</image>
+        <image>mageAtkWalk.png</image>
         <image>rogue.png</image>
+        <image>rogueAtkWalk.png</image>
         <image>shuriken.png</image>
-        <image>vertical.png</image>
     </images>
     <sounds />
 </library>

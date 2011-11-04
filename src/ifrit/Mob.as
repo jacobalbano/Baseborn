@@ -22,6 +22,7 @@ package ifrit
 		//	Physics
 		public var gravUp:Boolean;
 		public var jumping:Boolean;
+		public var canJump:Boolean;
 		public var jumpTimer:Timer = new Timer(0, 2);
 		public var velocity:Point = new Point(0, 0);
 		protected var speedLimit:Point;
@@ -96,10 +97,9 @@ package ifrit
 			{
 				if (!jumpTimer.running)
 					jumpTimer.start();
-				
-				velocity.y += -5;
-				
 			}
+			
+			if (jumpTimer.running)  velocity.y += -5;
 			
 			if (jumpTimer.currentCount == jumpTimer.repeatCount)
 				jumpTimer.stop();

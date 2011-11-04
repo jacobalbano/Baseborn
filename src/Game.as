@@ -79,9 +79,13 @@
 				man.rotationY = 0;
 			}
 			
-			if (Input.isKeyDown(Input.SPACE))
+			if (man.canJump)
 			{
-				man.jumping = true;
+				if (Input.isKeyDown(Input.SPACE))
+				{
+					man.jumping = true;
+					man.canJump = false;
+				}
 			}
 			else man.jumping = false;
 			

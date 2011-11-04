@@ -1,6 +1,7 @@
 package ifrit 
 {
 	import com.thaumaturgistgames.flakit.Library;
+	import com.jacobalbano.Input;
 	
 	import flash.display.Sprite;
 	import flash.display.Bitmap;
@@ -18,6 +19,19 @@ package ifrit
 		{
 			super( x, y, Library.IMG("rogue.png") );
 			this.friendly = true;
+		}
+		
+		override public function think():void 
+		{
+			super.think();
+			if (!Input.isKeyDown(Input.SPACE))
+			{
+				this.canJump = true;
+			}
+			else
+			{
+				this.canJump = false;
+			}
 		}
 	}
 }

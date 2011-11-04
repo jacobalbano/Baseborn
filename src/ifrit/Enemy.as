@@ -27,7 +27,7 @@ package ifrit
 		
 		public function Enemy(x:Number, y:Number) 
 		{
-			super(x, y, Library.IMG("mage.png") );
+			super(x, y, Library.IMG("mage.png"), 13, 23);
 			this.lastPosition = new Point(x, y);
 			this.heading = true;
 			this.fleeMode = false;

@@ -6,6 +6,8 @@ package ifrit
 	import flash.geom.Point;
 	import flash.utils.Timer;
 	
+	import com.jacobalbano.Animation;
+	
 	/**
 	 * @author Chris Logsdon
 	 * @author Jake Albano
@@ -14,8 +16,8 @@ package ifrit
 	public class Mob extends Sprite
 	{
 		//	Graphical representation
-		public var bitmap:Bitmap;
-		protected var container:Sprite = new Sprite;
+		public var graphic:Animation;
+		protected var container:Sprite;
 		
 		private var shootTimer:Timer = new Timer(0, 20);
 		
@@ -33,21 +35,28 @@ package ifrit
 		public var hitpoints:int;
 		public var maxHealth:uint;
 		
-		public function Mob(x:Number, y:Number, bitmap:Bitmap) 
+		public function Mob(x:Number, y:Number, bitmap:Bitmap, frameWidth:Number, frameHeight:Number) 
 		{
-			this.bitmap = bitmap;
+			//super(bitmap, frameWidth, frameHeight);
 			
+			//this.bitmap = bitmap;
+			
+			this.container = new Sprite;
 			addChild(container);
+			graphic = new Animation(bitmap, frameWidth, frameHeight);
+			graphic.add("stand", [1], 0, true);
+			graphic.add("walk", [0, 1, 2, 3], 6, true);
+			graphic.add("attack", [6, 7, 8, 9], 12, false);
+			graphic.play("stand");
 			
-			container.x = bitmap.x - (bitmap.width / 2); // Set registration point to center
-			container.y = bitmap.y - (bitmap.height / 2);
-			bitmap.smoothing = true;
-			container.addChild(bitmap);
+			container.x = -frameWidth / 2; // Set registration point to center
+			container.y = -frameHeight / 2;
+			container.addChild(graphic);
 			
 			this.x = x;
 			this.y = y;
 			
-			this.halfSize = new Point(this.width / 2, this.height / 2);
+			this.halfSize = new Point(frameWidth / 2, frameHeight/ 2);
 			
 			speedLimit = new Point(7, 20);
 			

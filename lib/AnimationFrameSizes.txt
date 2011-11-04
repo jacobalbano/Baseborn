@@ -1,0 +1,6 @@
+Rogue:     24x25
+Fighter:   38x33
+Mage:      18x25
+
+Fireball Shot:    25x10
+Lightning Bolt:   10x75

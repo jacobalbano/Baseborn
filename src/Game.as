@@ -23,7 +23,7 @@
 		public const MAX_Y:uint = stage.stageHeight;
 		public const MIN_Y:uint = 0;
 		
-		public var man:Player;
+		public static var man:Player;
 		public static var Projectiles:Vector.<Fireball>;
 		public static var Mobs:Vector.<Mob>;
 		public static var Platforms:Vector.<Platform>;
@@ -111,9 +111,10 @@
 									stage.removeChild(Projectiles[k]);
 									Projectiles.splice(k, 1);
 									
-									Mobs[l].destroy();
-									stage.removeChild(Mobs[l]);
-									Mobs.splice(l, 1);
+									//Mobs[l].destroy();
+									//stage.removeChild(Mobs[l]);
+									//Mobs.splice(l, 1);
+									Mobs[l].hitpoints -= 5;
 									trace("hit");
 									
 									removed = true;

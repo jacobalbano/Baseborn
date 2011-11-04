@@ -16,18 +16,27 @@ package ifrit
 		//	Which way the enemy patrols
 		//	If true, right, else left
 		public var heading:Boolean;
+		public var fleeMode:Boolean;
+		
 		private var rightBound:Number;
 		private var leftBound:Number;
 		private var lastPosition:Point;
 		private var speed:Number;
+		private var confusionTimer:Timer;
+		private var fleeCooldown:Timer;
 		
 		public function Enemy(x:Number, y:Number) 
 		{
 			super(x, y, Library.IMG("mage.png") );
 			this.lastPosition = new Point(x, y);
 			this.heading = true;
+			this.fleeMode = false;
 			this.heading = Boolean(Math.round(Math.random()));
 			this.speed = Math.random();
+			this.hitpoints = 10;
+			this.maxHealth = 10;
+			this.confusionTimer = new Timer(1000, 0);
+			this.fleeCooldown = new Timer(1000, 0);
 		}
 		
 		/**
@@ -56,13 +65,38 @@ package ifrit
 				this.rightBound = stage.stageWidth;
 			}
 			
+			if ( this.hitpoints <= this.maxHealth / 2 && !fleeMode)
+			{
+				fleeMode = true;
+				if (this.x <= Game.man.x) heading = false;	else heading = true;
+				this.fleeCooldown.start();
+			}
+			
+			if (this.fleeCooldown.currentCount >= 4)
+			{
+				this.fleeMode = false;
+				this.fleeCooldown.stop();
+				this.fleeCooldown.reset();
+				this.hitpoints = this.maxHealth;
+			}
+			
 			if (this.x == this.lastPosition.x) heading = !heading;
-			else if (this.x >= this.rightBound) heading = false;
-			else if (this.x <= this.leftBound) heading = true;
+			if (!fleeMode)
+			{
+				if (this.x >= this.rightBound) heading = false;
+				else if (this.x <= this.leftBound) heading = true;
+			}
 			
 			this.lastPosition.x = this.x;
 			
-			if (heading) this.x += 1;  else x -= 1;
+			if (fleeMode)
+			{
+				if (heading) this.x += 5;  else x -= 5;
+			}
+			else
+			{
+				if (heading) this.x += 1;  else x -= 1;
+			}
 		}
 		
 	}

@@ -30,6 +30,8 @@ package ifrit
 		protected var halfSize:Point;
 		
 		public var friendly:Boolean;
+		public var hitpoints:int;
+		public var maxHealth:uint;
 		
 		public function Mob(x:Number, y:Number, bitmap:Bitmap) 
 		{

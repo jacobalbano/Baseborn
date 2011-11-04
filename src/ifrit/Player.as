@@ -17,7 +17,7 @@ package ifrit
 	{		
 		public function Player(x:Number, y:Number) 
 		{
-			super( x, y, Library.IMG("mageWalk.png"), 18, 25 );
+			super( x, y, Library.IMG("mageAtkWalk.png"), 18, 25 );
 			this.friendly = true;
 		}
 		

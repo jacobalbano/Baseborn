@@ -44,6 +44,7 @@ package ifrit
 			this.container = new Sprite;
 			addChild(container);
 			graphic = new Animation(bitmap, frameWidth, frameHeight);
+			
 			graphic.add("stand", [1], 0, true);
 			graphic.add("walk", [0, 1, 2, 3], 6, true);
 			graphic.add("attack", [6, 7, 8, 9], 12, false);

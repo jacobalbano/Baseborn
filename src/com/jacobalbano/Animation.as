@@ -111,7 +111,7 @@ package com.jacobalbano
 		 * @param	restart	Whether the named animation should restart from the beginning
 		 */
 		public function play(name:String, restart:Boolean = false):void
-		{
+		{	
 			for each (var item:Anim in this.animations) 
 			{
 				if (item.name == name)
@@ -154,8 +154,8 @@ package com.jacobalbano
 					}
 					
 					frameDelay = 0;
-					trace("Frame index", frame);
-					trace("Frame", this.animation.frames[frame]);
+					//trace("Frame index", frame);
+					//trace("Frame", this.animation.frames[frame]);
 				}
 				
 				setRect();

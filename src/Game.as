@@ -28,6 +28,11 @@
 		public static var Mobs:Vector.<Mob>;
 		public static var Platforms:Vector.<Platform>;
 		
+		//////////////////////
+		private var boltAttack:LightningBolt;
+		private var bolting:Boolean; // Lightning bolt animation is playing
+		//////////////////////
+		
 		public function Game()	{}
 		
 		override public function init():void 
@@ -61,12 +66,14 @@
 			addWall(640, 250, false);
 			addWall(700, 320, true);
 			
+			boltAttack = null;
+			bolting = false;
+			
 			addChild(text);
 		}
 		
 		private function enterFrame(e:Event):void
 		{
-			
 			if (Input.isKeyDown(Input.LEFT))
 			{
 				man.graphic.play("walk");
@@ -100,6 +107,36 @@
 				man.shoot();
 			}
 			
+			//////////////////Magic Targeting System///////////////////
+			if (Input.isKeyDown(Input.S))
+			{
+				man.graphic.play("attack"); //TODO: Stop animation on last frame
+				if (boltAttack == null)
+				{
+					bolting = false;
+					if (man.rotationY == 0)
+					{
+						boltAttack = new LightningBolt(true, man.x, man.y);
+						addChildAt(boltAttack, 0);
+					}
+					else if (man.rotationY == 180)
+					{
+						boltAttack = new LightningBolt(false, man.x, man.y);
+						addChildAt(boltAttack, 0);
+					}
+				}
+			}
+			else
+			{
+				if (boltAttack)
+				{
+					bolting = true;
+					boltAttack.sendBolt();
+					boltAttack = null;
+				}
+			}
+			///////////////////////////////////////////////////////////
+			
 			if (Mobs.length > 0)
 			{
 				for (var l:int = Mobs.length - 1; l >= 0; l--)
@@ -127,6 +164,19 @@
 									
 									break;
 								}
+							}
+						}
+					}
+					
+					if (boltAttack)
+					{
+						//trace ("2nd: ", bolting);
+						if (Mobs[l].hitTestPoint(boltAttack.wisp.x, boltAttack.wisp.y, true))
+						{
+							//trace ("3rd: ", bolting);
+							if (bolting && !Mobs[l].friendly)
+							{
+								trace("bolt hit");
 							}
 						}
 					}
@@ -168,7 +218,7 @@
 					}
 				}
 			}
-			
+			//trace ("------------------------------------");
 		}
 		
 		private function addWall(x:Number, y:Number, vertical:Boolean):void

@@ -3,6 +3,8 @@
 <!--http://www.thaumaturgistgames.com/FLAKit-->
 <library>
     <images>
+        <image>bolt.png</image>
+        <image>crosshair.png</image>
         <image>enemy.png</image>
         <image>fighterAtkWalk.png</image>
         <image>fireballShot.png</image>
@@ -10,6 +12,7 @@
         <image>icicle.png</image>
         <image>lightningBolt.png</image>
         <image>mageAtkWalk.png</image>
+        <image>mageWalk.png</image>
         <image>rogue.png</image>
         <image>rogueAtkWalk.png</image>
         <image>shuriken.png</image>

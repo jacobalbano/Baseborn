@@ -22,10 +22,6 @@ package ifrit
 			this.x = x;
 			this.y = y;
 			
-			//TODO: Change how hor/ver walls are done?
-			/*
-			 * Make a Horizontal and Vertical wall class, and instantiate them within one Wall class?  
-			 */
 			if (vertical) this.rotation = 90;
 			else this.rotation = 0;
 			

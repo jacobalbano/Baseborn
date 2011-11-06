@@ -3,6 +3,7 @@
 	import com.jacobalbano.Input;
 	import com.thaumaturgistgames.flakit.Engine;
 	import flash.display.DisplayObject;
+	import flash.display.Stage;
 	import ifrit.*;
 	
 	import flash.display.Sprite;
@@ -23,6 +24,7 @@
 		public const MAX_Y:uint = stage.stageHeight;
 		public const MIN_Y:uint = 0;
 		
+		public static var stage:Stage;
 		public static var man:Player;
 		public static var Projectiles:Vector.<Fireball>;
 		public static var Mobs:Vector.<Mob>;
@@ -40,6 +42,8 @@
 		override public function init():void 
 		{
 			super.init();
+			
+			Game.stage = this.stage;
 			
 			removeEventListener(Event.ADDED_TO_STAGE, init);
 			addEventListener(Event.ENTER_FRAME, enterFrame);
@@ -112,7 +116,7 @@
 			}
 			
 			//////////////////Magic Targeting System///////////////////
-			//FIXME: Stop player from moving when shooting target spell
+			
 			if (Input.isKeyDown(Input.S))
 			{
 				if ( !(Input.isKeyDown(Input.LEFT) || Input.isKeyDown(Input.RIGHT) ) )
@@ -163,6 +167,7 @@
 								if (Projectiles[k].friendly != Mobs[l].friendly)
 								{
 									stage.removeChild(Projectiles[k]);
+									Projectiles[k].destroy();
 									Projectiles.splice(k, 1);
 									
 									//Mobs[l].destroy();
@@ -208,6 +213,7 @@
 						{
 							if (Projectiles[j].x > stage.stageWidth + 20 || Projectiles[j].x < MIN_X - 20)
 							{
+								Projectiles[j].destroy();
 								stage.removeChild(Projectiles[j]);
 								Projectiles.splice(j, 1);
 								continue;
@@ -216,6 +222,7 @@
 							if (Platforms[ii].collide(Projectiles[j] ) )
 							{
 								stage.removeChild( Projectiles[j] );
+								Projectiles[j].destroy();
 								Projectiles.splice(j, 1);
 								continue;
 							}

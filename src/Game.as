@@ -31,6 +31,8 @@
 		//////////////////////
 		private var boltAttack:LightningBolt;
 		private var bolting:Boolean; // Lightning bolt animation is playing
+		public var boltTime:Timer = new Timer(10, 0);
+		
 		//////////////////////
 		
 		public function Game()	{}
@@ -108,12 +110,12 @@
 			}
 			
 			//////////////////Magic Targeting System///////////////////
+			//FIXME: Stop player from moving when shooting target spell
 			if (Input.isKeyDown(Input.S))
 			{
 				man.graphic.play("attack"); //TODO: Stop animation on last frame
 				if (boltAttack == null)
 				{
-					bolting = false;
 					if (man.rotationY == 0)
 					{
 						boltAttack = new LightningBolt(true, man.x, man.y);
@@ -130,10 +132,16 @@
 			{
 				if (boltAttack)
 				{
-					bolting = true;
+					boltTime.start();
 					boltAttack.sendBolt();
-					boltAttack = null;
 				}
+			}
+			if (boltTime.currentCount >= 6)
+			{
+				boltTime.stop();
+				bolting = false;
+				boltTime.reset();
+				boltAttack = null;
 			}
 			///////////////////////////////////////////////////////////
 			
@@ -158,7 +166,7 @@
 									//stage.removeChild(Mobs[l]);
 									//Mobs.splice(l, 1);
 									Mobs[l].hitpoints -= 5;
-									trace("hit");
+									trace("shuriken hit");
 									
 									removed = true;
 									
@@ -168,15 +176,19 @@
 						}
 					}
 					
-					if (boltAttack)
+					if (boltAttack && boltTime.running)
 					{
-						//trace ("2nd: ", bolting);
-						if (Mobs[l].hitTestPoint(boltAttack.wisp.x, boltAttack.wisp.y, true))
+						bolting = true;
+						
+						if (boltTime.currentCount >= 4)
 						{
-							//trace ("3rd: ", bolting);
-							if (bolting && !Mobs[l].friendly)
+							if (bolting && Mobs[l].hitTestObject(boltAttack.bolt))
 							{
-								trace("bolt hit");
+								if (!Mobs[l].friendly)
+								{
+									trace("bolt hit")
+									Mobs[l].hitpoints -= 10;
+								}
 							}
 						}
 					}
@@ -218,7 +230,6 @@
 					}
 				}
 			}
-			//trace ("------------------------------------");
 		}
 		
 		private function addWall(x:Number, y:Number, vertical:Boolean):void

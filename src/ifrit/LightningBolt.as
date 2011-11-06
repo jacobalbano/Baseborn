@@ -24,12 +24,10 @@ package ifrit
 		private var vx:Number;
 		private var acceleration:Number;
 		
-		public var boltTime:Timer;
-		
 		public function LightningBolt(direction:Boolean, x:Number, y:Number) 
 		{
 			addChild(wispC);
-			wisp = new Animation(Library.IMG("crosshair.png"), 20, 20);
+			wisp = new Animation(Library.IMG("wisp.png"), 15, 15);
 			wispC.x = -20 / 2;
 			wispC.y = -20 / 2;
 			wispC.addChild(wisp);
@@ -40,11 +38,9 @@ package ifrit
 			boltC.y = -75 / 2;
 			boltHalfHeight = bolt.height / 2;
 			
-			wisp.add("wisp", [0], 12, true);
+			wisp.add("wisp", [0, 1, 2, 3], 10, true);
 			bolt.add("strike", [0, 1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11], 30, false);
-			
-			boltTime = new Timer(10, 0);
-			
+			wisp.play("wisp", true);
 			
 			dir = direction;
 			wisp.x = x;
@@ -70,19 +66,16 @@ package ifrit
 		 * You can see this by the small yellow specks that remain
 		 * afterwards.
 		 */
-		//TODO: Figure out how what is being done wrong with the timer
 		public function sendBolt():void
 		{
-			boltTime.start();
+			vx = 0;
 			bolt.x = wisp.x;
 			bolt.y = wisp.y - (bolt.height / 2);
-			this.removeChild(wispC);
+			
+			if (this.contains(wispC)) this.removeChild(wispC);
 			
 			boltC.addChild(bolt);
 			bolt.play("strike");
-			//trace(boltTime.currentCount);
-			//boltTime.stop();
-			//boltTime.reset();
 		}
 		
 	}

@@ -59,13 +59,6 @@ package ifrit
 			wisp.x += vx;
 		}
 		
-		//FIXME: Bolt child does not get removed
-		/*
-		 * Have not been able to figure out to make it work right,
-		 * so the last chunk of the animation remains on the stage.
-		 * You can see this by the small yellow specks that remain
-		 * afterwards.
-		 */
 		public function sendBolt():void
 		{
 			vx = 0;

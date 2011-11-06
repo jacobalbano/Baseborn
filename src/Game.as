@@ -78,12 +78,14 @@
 		{
 			if (Input.isKeyDown(Input.LEFT))
 			{
+				stopBolt();
 				if (man.graphic.playing != "attack") man.graphic.play("walk");
 				man.x -= 7;
 				man.rotationY = 180;
 			}
 			else if (Input.isKeyDown(Input.RIGHT))
 			{
+				stopBolt();
 				if (man.graphic.playing != "attack") man.graphic.play("walk");
 				man.x += 7;
 				man.rotationY = 0;
@@ -112,19 +114,22 @@
 			//////////////////Magic Targeting System///////////////////
 			//FIXME: Stop player from moving when shooting target spell
 			if (Input.isKeyDown(Input.S))
-			{				
-				man.graphic.play("attack"); //TODO: Stop animation on last frame
-				if (!boltAttack)
+			{
+				if ( !(Input.isKeyDown(Input.LEFT) || Input.isKeyDown(Input.RIGHT) ) )
 				{
-					if (man.rotationY == 0)
+					man.graphic.play("attack"); //TODO: Stop animation on last frame
+					if (!boltAttack)
 					{
-						boltAttack = new LightningBolt(true, man.x, man.y);
-						stage.addChild(boltAttack);
-					}
-					else if (man.rotationY == 180)
-					{
-						boltAttack = new LightningBolt(false, man.x, man.y);
-						stage.addChild(boltAttack);
+						if (man.rotationY == 0)
+						{
+							boltAttack = new LightningBolt(true, man.x, man.y);
+							stage.addChild(boltAttack);
+						}
+						else if (man.rotationY == 180)
+						{
+							boltAttack = new LightningBolt(false, man.x, man.y);
+							stage.addChild(boltAttack);
+						}
 					}
 				}
 			}
@@ -136,13 +141,10 @@
 					boltAttack.sendBolt();
 				}
 			}
+			
 			if (boltTime.currentCount >= 12)
 			{
-				boltTime.stop();
-				bolting = false;
-				boltTime.reset();
-				stage.removeChild(boltAttack);
-				boltAttack = null;
+				stopBolt();
 			}
 			///////////////////////////////////////////////////////////
 			
@@ -167,7 +169,6 @@
 									//stage.removeChild(Mobs[l]);
 									//Mobs.splice(l, 1);
 									Mobs[l].hitpoints -= 5;
-									trace("shuriken hit");
 									
 									removed = true;
 									
@@ -187,7 +188,6 @@
 							{
 								if (!Mobs[l].friendly)
 								{
-									trace("bolt hit")
 									Mobs[l].hitpoints -= 10;
 								}
 							}
@@ -231,6 +231,17 @@
 					}
 				}
 			}
+		}
+		
+		private function stopBolt():void
+		{
+			if (!boltAttack) return;
+			
+			boltTime.stop();
+			bolting = false;
+			boltTime.reset();
+			stage.removeChild(boltAttack);
+			boltAttack = null;
 		}
 		
 		private function addWall(x:Number, y:Number, vertical:Boolean):void

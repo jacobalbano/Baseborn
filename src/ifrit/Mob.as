@@ -36,11 +36,7 @@ package ifrit
 		public var maxHealth:uint;
 		
 		public function Mob(x:Number, y:Number, bitmap:Bitmap, frameWidth:Number, frameHeight:Number) 
-		{
-			//super(bitmap, frameWidth, frameHeight);
-			
-			//this.bitmap = bitmap;
-			
+		{			
 			this.container = new Sprite;
 			addChild(container);
 			graphic = new Animation(bitmap, frameWidth, frameHeight);

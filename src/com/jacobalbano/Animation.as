@@ -20,8 +20,8 @@ package com.jacobalbano
 		private var frameDelay:uint = 0;
 		private var animation:Anim;
 		private var animations:Vector.<Anim> = new Vector.<Anim>;
-		private var frameWidth:Number;
-		private var frameHeight:Number;
+		private var _frameWidth:Number;
+		private var _frameHeight:Number;
 		private var _playing:String;
 		
 		/**
@@ -70,8 +70,8 @@ package com.jacobalbano
 			//	Set the buffer to update every frame
 			this.addEventListener(Event.ENTER_FRAME, runUpdate);
 			
-			this.frameWidth = width;
-			this.frameHeight = height;
+			this._frameWidth = width;
+			this._frameHeight = height;
 		}
 		
 		/**
@@ -133,6 +133,9 @@ package com.jacobalbano
 			}
 		}
 		
+		public function get frameWidth():int 	{	return this.frameWidth;		}
+		public function get frameHeight():int 	{	return this.frameHeight;	}
+		
 		/**
 		 * Internal enterFrame function
 		 */
@@ -171,11 +174,11 @@ package com.jacobalbano
 		 */
 		private function setRect():void 
 		{
-			this.buffer.copyPixels(storage, new Rectangle(this.animation.frames[this.frame] * this.frameWidth, 0, this.frameWidth, this.frameHeight), new Point);
+			this.buffer.copyPixels(storage, new Rectangle(this.animation.frames[this.frame] * this._frameWidth, 0, this._frameWidth, this._frameHeight), new Point);
 			this.graphics.clear();
 			
 			this.graphics.beginBitmapFill(buffer, null, false, false);
-			this.graphics.drawRect(0, 0, this.frameWidth, this.frameHeight);
+			this.graphics.drawRect(0, 0, this._frameWidth, this._frameHeight);
 			this.graphics.endFill();
 		}
 		

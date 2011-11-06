@@ -26,7 +26,7 @@
 		
 		public static var stage:Stage;
 		public static var man:Player;
-		public static var Projectiles:Vector.<Fireball>;
+		public static var Projectiles:Vector.<Projectile>;
 		public static var Mobs:Vector.<Mob>;
 		public static var Platforms:Vector.<Platform>;
 		
@@ -51,7 +51,7 @@
 			Input.init(stage);
 			
 			Platforms = new Vector.<Platform>;
-			Projectiles = new Vector.<Fireball>;
+			Projectiles = new Vector.<Projectile>;
 			Mobs = new Vector.<Mob>;
 			
 			Mobs.push(stage.addChild(man = new Player(50, 260)) as Mob);

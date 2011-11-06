@@ -31,7 +31,7 @@
 		//////////////////////
 		private var boltAttack:LightningBolt;
 		private var bolting:Boolean; // Lightning bolt animation is playing
-		public var boltTime:Timer = new Timer(10, 0);
+		public var boltTime:Timer = new Timer(30, 0);
 		
 		//////////////////////
 		
@@ -112,19 +112,19 @@
 			//////////////////Magic Targeting System///////////////////
 			//FIXME: Stop player from moving when shooting target spell
 			if (Input.isKeyDown(Input.S))
-			{
+			{				
 				man.graphic.play("attack"); //TODO: Stop animation on last frame
-				if (boltAttack == null)
+				if (!boltAttack)
 				{
 					if (man.rotationY == 0)
 					{
 						boltAttack = new LightningBolt(true, man.x, man.y);
-						addChildAt(boltAttack, 0);
+						stage.addChild(boltAttack);
 					}
 					else if (man.rotationY == 180)
 					{
 						boltAttack = new LightningBolt(false, man.x, man.y);
-						addChildAt(boltAttack, 0);
+						stage.addChild(boltAttack);
 					}
 				}
 			}
@@ -136,11 +136,12 @@
 					boltAttack.sendBolt();
 				}
 			}
-			if (boltTime.currentCount >= 6)
+			if (boltTime.currentCount >= 12)
 			{
 				boltTime.stop();
 				bolting = false;
 				boltTime.reset();
+				stage.removeChild(boltAttack);
 				boltAttack = null;
 			}
 			///////////////////////////////////////////////////////////

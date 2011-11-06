@@ -69,13 +69,13 @@
 			
 			if (Input.isKeyDown(Input.LEFT))
 			{
-				man.graphic.play("walk");
+				if (man.graphic.playing != "attack") man.graphic.play("walk");
 				man.x -= 7;
 				man.rotationY = 180;
 			}
 			else if (Input.isKeyDown(Input.RIGHT))
 			{
-				man.graphic.play("walk");
+				if (man.graphic.playing != "attack") man.graphic.play("walk");
 				man.x += 7;
 				man.rotationY = 0;
 			}

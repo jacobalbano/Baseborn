@@ -109,11 +109,16 @@
 			}
 			else man.jumping = false;
 			
-			if (Input.isKeyDown(Input.D) )
+			if (Input.isKeyDown(Input.A) )
 			{
 				man.graphic.play("attack");
 				man.shoot();
 			}
+			
+			//TODO: Create close-range/melee attacks with 'D' button
+			/*
+			 * "iceBlast.png" will be the Mage's close-range attack
+			 */
 			
 			//////////////////Magic Targeting System///////////////////
 			
@@ -263,4 +268,11 @@
 		
 	}
 
+	//TODO: Create a "Class" class?
+	/*
+	 * Eventually we will have to be able to distinguish one class (rogue, mage, etc)
+	 * from another. This is just a note for that in the future.
+	 */
+	
+	
 }

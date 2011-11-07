@@ -61,7 +61,7 @@ package ifrit
 		private function enterFrame(e:Event):void 
 		{
 			this.vy += 0.02;
-			this.y += this.vy;
+			//this.y += this.vy;
 			
 			/**
 			 * Debugging information; displays trajectory

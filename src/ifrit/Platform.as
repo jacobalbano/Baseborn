@@ -30,6 +30,15 @@ package ifrit
 		
 		public function collide(obj:DisplayObject):Boolean 
 		{
+			//FIXME: Unable to land on vertical platforms again
+			
+			//BUG: Being pushed out of collision prohibits attacks
+			/*
+			 * If you try to jump and land on top of a vertical wall and are pushed
+			 * off, if you are facing away from the wall when you land, you cannot use
+			 * any attacks.
+			 */
+			
 			var dx:Number = this.x - obj.x; // Distance between objects (X)
 			var dy:Number = obj.y - this.y; // Distance between objects (Y)
 			

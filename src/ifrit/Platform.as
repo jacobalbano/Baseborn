@@ -35,7 +35,7 @@ package ifrit
 			
 			var ox:Number = ( (this.width / 2) + (obj.height / 2) ) - Math.abs(dx); // Overlap on X axis
 			var oy:Number = ( (this.height / 2) + (obj.height / 2) ) - Math.abs(dy); // Overlap on Y axis
-			
+
 			if (this.hitTestObject(obj))
 			{
 				if (this.rotation == 0)
@@ -86,7 +86,6 @@ package ifrit
 			
 			return false;
 		}
-		
 	}
 }
 

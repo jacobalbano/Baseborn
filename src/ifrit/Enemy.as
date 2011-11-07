@@ -45,8 +45,24 @@ package ifrit
 		override public function think():void 
 		{
 			super.think();
-			this.rotationY = this.heading ? 0 : 180;
 			
+			this.findPlatform();
+			
+			this.beginFlee();
+			
+			this.endFlee();
+			
+			this.adjustHeading();
+			
+			this.move();
+		}
+		
+		/**
+		 * AI synapse
+		 * Search the platform list and decide which platform, if any, to restrict movement to
+		 */
+		private function findPlatform():void
+		{
 			var found:Boolean = false;
 			for (var i:int = 0; i < Game.Platforms.length; i++) 
 			{
@@ -64,14 +80,28 @@ package ifrit
 				this.leftBound = 0;
 				this.rightBound = stage.stageWidth;
 			}
-			
+		}
+		
+		/**
+		 * AI synapse
+		 * Test if hitpoints are at the panic level and begin the flee procedure
+		 */
+		private function beginFlee():void
+		{
 			if ( this.hitpoints <= this.maxHealth / 2 && !fleeMode)
 			{
 				fleeMode = true;
 				if (this.x <= Game.man.x) heading = false;	else heading = true;
 				this.fleeCooldown.start();
 			}
-			
+		}
+		
+		/**
+		 * AI synapse
+		 * Regenerate hitpoints if enough time has gone by and end the flee procedure
+		 */
+		private function endFlee():void
+		{
 			if (this.fleeCooldown.currentCount >= 4)
 			{
 				this.fleeMode = false;
@@ -79,15 +109,33 @@ package ifrit
 				this.fleeCooldown.reset();
 				this.hitpoints = this.maxHealth;
 			}
+		}
+		
+		/**
+		 * AI synapse
+		 * Turn around if the edge of a platform is reached or an obstacle is struck
+		 */
+		private function adjustHeading():void
+		{
+			if (heading)	{	if (this.x <= this.lastPosition.x) heading = !heading;	}
+			else			{ 	if (this.x >= this.lastPosition.x) heading = !heading;	}
 			
-			if (this.x == this.lastPosition.x) heading = !heading;
 			if (!fleeMode)
 			{
 				if (this.x >= this.rightBound) heading = false;
 				else if (this.x <= this.leftBound) heading = true;
 			}
-			
+		}
+		
+		/**
+		 * AI synapse
+		 * Update movement
+		 */
+		private function move():void
+		{
 			this.lastPosition.x = this.x;
+			
+			this.rotationY = this.heading ? 0 : 180;
 			
 			if (fleeMode)
 			{
@@ -95,9 +143,10 @@ package ifrit
 			}
 			else
 			{
-				if (heading) this.x += 1;  else x -= 1;
+				if (heading) this.x += 1 + this.speed;  else x -= 1 + speed;
 			}
 		}
+		
 		
 	}
 

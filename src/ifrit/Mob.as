@@ -31,14 +31,14 @@ package ifrit
 		public var velocity:Point = new Point(0, 0);
 		protected var speedLimit:Point;
 		
-		public var collisionHull:Rectangle;
+		public var collisionHull:Sprite;
 		protected var halfSize:Point;
 		
 		public var friendly:Boolean;
 		public var hitpoints:int;
 		public var maxHealth:uint;
 		
-		public function Mob(x:Number, y:Number, bitmap:Bitmap, frameWidth:Number, frameHeight:Number) 
+		public function Mob(x:Number, y:Number, bitmap:Bitmap, frameWidth:Number, frameHeight:Number, collisionWidth:Number, collisionHeight:Number) 
 		{			
 			this.container = new Sprite;
 			addChild(container);
@@ -57,7 +57,12 @@ package ifrit
 			this.x = x;
 			this.y = y;
 			
-			this.halfSize = new Point(frameWidth / 2, frameHeight/ 2);
+			this.collisionHull = new Sprite;
+			this.collisionHull.addChild(new Bitmap(new BitmapData(collisionWidth, collisionHeight, false, 0x000000)));
+			this.collisionHull.x = -collisionWidth / 2;
+			this.collisionHull.y = -collisionHeight / 2;
+			
+			this.halfSize = new Point(this.collisionHull.width / 2, this.collisionHull.height / 2);
 			
 			speedLimit = new Point(7, 20);
 			
@@ -147,6 +152,9 @@ package ifrit
 			}
 			
 			gravUp = true;
+			
+			this.collisionHull.x = this.x - this.halfSize.x;
+			this.collisionHull.y = this.y - this.halfSize.y;
 		}
 		
 	}

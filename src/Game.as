@@ -253,7 +253,7 @@
 		
 		private function addWall(x:Number, y:Number, vertical:Boolean):void
 		{
-			Platforms.push(	addChild(new Platform(x, y, vertical) ) );
+			Platforms.push(	stage.addChild(new Platform(x, y, vertical) ) );
 		}
 		
 		private function addEnemy(x:Number, y:Number):void

@@ -13,7 +13,7 @@ package ifrit
 	 */
 	public class Projectile extends Sprite
 	{
-		
+		public var hasPhysics:Boolean;
 		public var animation:Animation;
 		protected var container:Sprite = new Sprite();
 		
@@ -60,8 +60,9 @@ package ifrit
 		
 		private function enterFrame(e:Event):void 
 		{
-			this.vy += 0.02;
-			this.y += this.vy;
+			this.update();
+			
+			this.x += dx;
 			
 			/**
 			 * Debugging information; displays trajectory
@@ -72,9 +73,10 @@ package ifrit
 			//bmp.y = this.y;
 			//Game.stage.addChild(bmp);
 			
-			this.x += dx;
+			if (!this.hasPhysics) return;
 			
-			this.update();
+			this.vy += 0.02;
+			this.y += this.vy;
 		}
 		
 	}

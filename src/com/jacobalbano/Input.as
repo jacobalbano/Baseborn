@@ -26,7 +26,7 @@ package com.jacobalbano
 		{
 			_keyStates = new Vector.<Boolean>;
 			
-			for (var i:uint = 0; i < 127; i++)
+			for (var i:uint = 0; i < 255; i++)
 			{
 				_keyStates.push(false);
 			}

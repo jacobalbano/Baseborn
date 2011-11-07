@@ -29,32 +29,35 @@ package ifrit
 		}
 		
 		public function collide(obj:DisplayObject):Boolean 
+		{			
+			var resolve:Function = (obj is Mob) ? resolveAsMob : resolveAsObject;
+			return resolve(obj);
+		}
+		
+		private function resolveAsMob(obj:DisplayObject):Boolean
 		{
 			var dx:Number = this.x - obj.x; // Distance between objects (X)
 			var dy:Number = obj.y - this.y; // Distance between objects (Y)
 			
-			var ox:Number = ( (this.width / 2) + (obj.height / 2) ) - Math.abs(dx); // Overlap on X axis
-			var oy:Number = ( (this.height / 2) + (obj.height / 2) ) - Math.abs(dy); // Overlap on Y axis
-
-			if (this.hitTestObject(obj))
+			var ox:Number = ( (this.width / 2) + ((obj as Mob).collisionHull.height / 2) ) - Math.abs(dx); // Overlap on X axis
+			var oy:Number = ( (this.height / 2) + ((obj as Mob).collisionHull.height / 2) ) - Math.abs(dy); // Overlap on Y axis
+			
+			if (this.hitTestObject((obj as Mob).collisionHull))
 			{
 				if (this.rotation == 0)
 				{
 					if (obj.y <= this.y) // top
 					{
 						obj.y -= oy;
-						
-						if (obj is Mob)
-						{
-							(obj as Mob).gravUp = false;
-							(obj as Mob).jumpTimer.reset();
-						}
+						(obj as Mob).gravUp = false;
+						(obj as Mob).jumpTimer.reset();
+
 						
 					}
 					else if (obj.y >= this.y) // bottom
 					{
 						obj.y += oy;
-						if (obj is Mob)	(obj as Mob).jumpReset();
+						(obj as Mob).jumpReset();
 					}
 					else if (obj.x <= this.x) obj.x -= ox; // left
 					else if (obj.x >= this.x) obj.x += ox; // right
@@ -66,20 +69,59 @@ package ifrit
 					else if (obj.y < this.y) // top
 					{
 						obj.y -= oy;
-						if (obj is Mob)
-						{
-							(obj as Mob).gravUp = false;
-							(obj as Mob).jumpTimer.reset();
-						}
+						(obj as Mob).gravUp = false;
+						(obj as Mob).jumpTimer.reset();
 					}
 					else if (obj.y >= this.y) // bottom
 					{
 						obj.y += oy;
-						if (obj is Mob)	(obj as Mob).jumpReset();
+						(obj as Mob).jumpReset();
 					}
 				}
 				
-				
+				return true;
+			}
+			
+			return false;
+		
+		}
+		
+		private function resolveAsObject(obj:DisplayObject):Boolean
+		{
+			var dx:Number = this.x - obj.x; // Distance between objects (X)
+			var dy:Number = obj.y - this.y; // Distance between objects (Y)
+			
+			var ox:Number = ( (this.width / 2) + (obj.height / 2) ) - Math.abs(dx); // Overlap on X axis
+			var oy:Number = ( (this.height / 2) + (obj.height / 2) ) - Math.abs(dy); // Overlap on Y axis
+			
+			if (this.hitTestObject(obj))
+			{
+				if (this.rotation == 0)
+				{
+					if (obj.y <= this.y) // top
+					{
+						obj.y -= oy;						
+					}
+					else if (obj.y >= this.y) // bottom
+					{
+						obj.y += oy;
+					}
+					else if (obj.x <= this.x) obj.x -= ox; // left
+					else if (obj.x >= this.x) obj.x += ox; // right
+				}
+				else 
+				{
+					if (obj.x < this.x) obj.x -= ox; // left
+					else if (obj.x > this.x) obj.x += ox; // right
+					else if (obj.y < this.y) // top
+					{
+						obj.y -= oy;
+					}
+					else if (obj.y >= this.y) // bottom
+					{
+						obj.y += oy;
+					}
+				}
 				
 				return true;
 			}

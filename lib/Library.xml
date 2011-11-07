@@ -3,20 +3,21 @@
 <!--http://www.thaumaturgistgames.com/FLAKit-->
 <library>
     <images>
-        <image>bolt.png</image>
-        <image>crosshair.png</image>
         <image>enemy.png</image>
         <image>fighterAtkWalk.png</image>
         <image>fireballShot.png</image>
         <image>horizontal.png</image>
-        <image>icicle.png</image>
+        <image>iceBlast.png</image>
         <image>lightningBolt.png</image>
         <image>mageAtkWalk.png</image>
-        <image>mageWalk.png</image>
-        <image>rogue.png</image>
         <image>rogueAtkWalk.png</image>
         <image>shuriken.png</image>
         <image>wisp.png</image>
+        <image>Currently Unused/bolt.png</image>
+        <image>Currently Unused/crosshair.png</image>
+        <image>Currently Unused/icicle.png</image>
+        <image>Currently Unused/rogue.png</image>
+        <image>Currently Unused/skeleton.png</image>
     </images>
     <sounds />
 </library>

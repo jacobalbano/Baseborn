@@ -9,15 +9,15 @@ package ifrit
 	
 	public class Platform extends Sprite
 	{		
-		public var hWall:Bitmap = Library.IMG("horizontal.png");
-		public var hWallC:Sprite = new Sprite();
+		public var bitmap:Bitmap = Library.IMG("horizontal.png");
+		public var container:Sprite = new Sprite();
 		
 		public function Platform(x:Number, y:Number, vertical:Boolean) 
 		{
-			addChild(hWallC);
+			addChild(container);
 			
-			hWallC.x = hWall.x - (hWall.width / 2);
-			hWallC.y = hWall.y - (hWall.height / 2);
+			container.x = bitmap.x - (bitmap.width / 2);
+			container.y = bitmap.y - (bitmap.height / 2);
 			
 			this.x = x;
 			this.y = y;
@@ -25,21 +25,16 @@ package ifrit
 			if (vertical) this.rotation = 90;
 			else this.rotation = 0;
 			
-			hWallC.addChild(hWall);
+			container.addChild(bitmap);
 		}
 		
 		public function collide(obj:DisplayObject):Boolean 
 		{
-			var objHalfW:Number = obj.width / 2;
-			var objHalfH:Number = obj.height / 2;
-			var thisHalfW:Number = this.width / 2;
-			var thisHalfH:Number = this.height / 2;
-			
 			var dx:Number = this.x - obj.x; // Distance between objects (X)
 			var dy:Number = obj.y - this.y; // Distance between objects (Y)
 			
-			var ox:Number = (thisHalfW + objHalfW) - Math.abs(dx); // Overlap on X axis
-			var oy:Number = (thisHalfH + objHalfH) - Math.abs(dy); // Overlap on Y axis
+			var ox:Number = ( (this.width / 2) + (obj.height / 2) ) - Math.abs(dx); // Overlap on X axis
+			var oy:Number = ( (this.height / 2) + (obj.height / 2) ) - Math.abs(dy); // Overlap on Y axis
 			
 			if (this.hitTestObject(obj))
 			{
@@ -91,10 +86,7 @@ package ifrit
 			
 			return false;
 		}
+		
 	}
 }
 
-//BUG: Strange results if player touching >1 platform at a time
-/*
- * 
- */

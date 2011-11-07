@@ -1,9 +1,11 @@
 package ifrit 
 {
 	import flash.display.Bitmap;
+	import flash.display.BitmapData;
 	import flash.display.Sprite;
 	import flash.events.Event;
 	import flash.geom.Point;
+	import flash.geom.Rectangle;
 	import flash.utils.Timer;
 	
 	import com.jacobalbano.Animation;
@@ -29,6 +31,7 @@ package ifrit
 		public var velocity:Point = new Point(0, 0);
 		protected var speedLimit:Point;
 		
+		public var collisionHull:Bitmap;
 		protected var halfSize:Point;
 		
 		public var friendly:Boolean;
@@ -49,6 +52,12 @@ package ifrit
 			container.x = -frameWidth / 2; // Set registration point to center
 			container.y = -frameHeight / 2;
 			container.addChild(graphic);
+			
+			var bounds:BitmapData = new BitmapData(frameWidth, frameHeight, true, 0);
+			bounds.draw(this.container);
+			
+			var rect:Rectangle = bounds.getColorBoundsRect(0xFFFFFF, 0x00000000, false);
+			this.collisionHull = new Bitmap(new BitmapData(rect.width, rect.height, true, 0) );
 			
 			this.x = x;
 			this.y = y;

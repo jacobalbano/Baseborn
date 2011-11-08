@@ -55,7 +55,7 @@ package ifrit
 			{
 				if (this.rotation == 0)
 				{
-					if (obj.y <= this.y) // top
+					if (obj.y < this.y) // top
 					{
 						obj.y -= oy;
 						(obj as Mob).gravUp = false;
@@ -63,17 +63,17 @@ package ifrit
 
 						
 					}
-					else if (obj.y >= this.y) // bottom
+					else if (obj.y > this.y) // bottom
 					{
 						obj.y += oy;
 						(obj as Mob).jumpReset();
 					}
-					else if (obj.x <= this.x) obj.x -= ox; // left
-					else if (obj.x >= this.x) obj.x += ox; // right
+					else if (obj.x < this.x) obj.x -= ox; // left
+					else if (obj.x > this.x) obj.x += ox; // right
 				}
 				else 
 				{
-					if (obj.x <= this.x) obj.x -= ox; // left
+					if (obj.x < this.x) obj.x -= ox; // left
 					else if (obj.x > this.x) obj.x += ox; // right
 					else if (obj.y < this.y) // top
 					{
@@ -81,7 +81,7 @@ package ifrit
 						(obj as Mob).gravUp = false;
 						(obj as Mob).jumpTimer.reset();
 					}
-					else if (obj.y >= this.y) // bottom
+					else if (obj.y > this.y) // bottom
 					{
 						obj.y += oy;
 						(obj as Mob).jumpReset();

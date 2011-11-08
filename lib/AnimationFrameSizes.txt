@@ -2,5 +2,9 @@ Rogue:     24x25
 Fighter:   38x33
 Mage:      18x25
 
-Fireball Shot:    25x10
-Lightning Bolt:   10x75
+Enemy:     36x23
+
+Fireball Shot:    25x10 (2 frames)
+Lightning Bolt:   10x75 (12 frames)
+Ice Blast:        22x23 (4 frames)
+Vortex:           20x15 (12 frames)

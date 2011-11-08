@@ -62,7 +62,6 @@ package ifrit
 			this.collisionHull.x = -collisionWidth / 2;
 			this.collisionHull.y = -collisionHeight / 2;
 			
-			//this.collisionHull.x -= (collisionWidth + this.width);
 			this.collisionHull.y -= (collisionHeight - this.height) / 2;
 			
 			this.collisionHull.visible = false;

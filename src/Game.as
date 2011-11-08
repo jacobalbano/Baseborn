@@ -1,7 +1,10 @@
 ﻿package
 {
+	import com.jacobalbano.Animation;
 	import com.jacobalbano.Input;
 	import com.thaumaturgistgames.flakit.Engine;
+	import com.thaumaturgistgames.flakit.Library;
+	import flash.display.Bitmap;
 	import flash.display.DisplayObject;
 	import flash.display.Stage;
 	import ifrit.*;
@@ -11,6 +14,7 @@
 	import flash.text.TextField;
 	import flash.utils.Timer;
 	import flash.geom.Point;
+	//import flash.display.StageScaleMode;
 	
 	
 	
@@ -29,6 +33,7 @@
 		public static var Projectiles:Vector.<Projectile>;
 		public static var Mobs:Vector.<Mob>;
 		public static var Platforms:Vector.<Platform>;
+		public var decal:Sprite;
 		
 		//////////////////////
 		private var boltAttack:LightningBolt;
@@ -50,29 +55,47 @@
 			
 			Input.init(stage);
 			
+			stage.scaleMode = "noScale";
+			
 			Platforms = new Vector.<Platform>;
 			Projectiles = new Vector.<Projectile>;
 			Mobs = new Vector.<Mob>;
+			
+			stage.addChild(Library.IMG("castle.bg.png"));
+			
+			addDecal(Library.IMG("castle.decals.shield.png"), 145, 69);
+			addDecal(Library.IMG("castle.decals.shield.png"), 265, 69);
+			addDecal(Library.IMG("castle.decals.torch.png"), 200, 60, [0, 1, 2, 3, 4, 5], 40, 40);
+			
+			addDecal(Library.IMG("castle.decals.shield.png"), 630, 69);
+			addDecal(Library.IMG("castle.decals.shield.png"), 750  , 69);
+			addDecal(Library.IMG("castle.decals.torch.png"), 685, 60, [0, 1, 2, 3, 4, 5], 40, 40);
+			
+			this.decal = new Sprite;
+			this.decal.addChild(Library.IMG("castle.decals.shield.png"));
+			stage.addChild(this.decal);
 			
 			this.makeBounds();
 			
 			Mobs.push(stage.addChild(man = new Player(50, 240)) as Mob);
 			
-			addEnemy(250, 365);
-			addEnemy(450, 340);
-			addEnemy(170, 310);
-			addEnemy(30, 270);
-			addEnemy(310, 240);		
-			addEnemy(640, 240);
-			addEnemy(1000, 390);
+			addEnemy(724, 75);
+			addEnemy(924, 75);
 			
-			addWall(250, 375, false);
-			addWall(450, 350, false);
-			addWall(170, 320, false);
-			addWall(30, 280, false);
-			addWall(310, 250, false);
-			addWall(620, 250, false);
-			addWall(680, 320, true);
+			addWall( -25, 75, false);
+			addWall(150, 250, true);
+			addWall(249, 186, false);
+			addWall(495, 229, false);
+			addWall(495, 144, false);
+			addWall(700, 110, false);
+			addWall(913, 110, false);
+			addWall(772, 414, true);
+			addWall(600, 346, false);
+			addWall(397, 371, false);
+			addWall(829, 315, false);
+			addWall(700, 272, false);
+			addWall(227, 109, false);
+			addWall(1024, 315, false);
 			
 			boltAttack = null;
 			bolting = false;
@@ -82,7 +105,15 @@
 		
 		private function enterFrame(e:Event):void
 		{
-			//trace(man.velocity.x);
+			if (Input.isMouseDown)
+			{
+				addDecal(Library.IMG("iceBlast.png"), mouseX, mouseY);
+				
+				trace(mouseX, mouseY);
+				
+				decal.x = mouseX;
+				decal.y = mouseY;
+			}
 			
 			if (Input.isKeyDown(Input.LEFT))
 			{
@@ -268,6 +299,27 @@
 		private function addEnemy(x:Number, y:Number):void
 		{
 			Mobs.push(stage.addChild(new Enemy(x, y) ) as Mob);		
+		}
+		
+		private function addDecal(bitmap:Bitmap, x:Number, y:Number, frames:Array = null, frameWidth:Number = 0, frameHeight:Number = 0 ):void
+		{
+			if (frames)
+			{
+				var a:Animation = new Animation(bitmap, frameWidth, frameHeight);
+				a.add("loop", frames, 5, true);
+				a.play("loop");
+				a.x = x;
+				a.y = y;
+				stage.addChild(a);
+			}
+			else
+			{
+				var s:Sprite = new Sprite;
+				s.addChild(bitmap);
+				s.x = x;
+				s.y = y;
+				stage.addChild(s);
+			}
 		}
 		
 		/**

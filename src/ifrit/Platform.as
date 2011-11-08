@@ -9,21 +9,23 @@ package ifrit
 	
 	public class Platform extends Sprite
 	{		
-		public var bitmap:Bitmap = Library.IMG("horizontal.png");
-		public var container:Sprite = new Sprite();
+		public var bitmap:Bitmap;
+		public var container:Sprite;
 		
 		public function Platform(x:Number, y:Number, vertical:Boolean) 
 		{
-			addChild(container);
+			this.bitmap = Library.IMG("vertical.png");
+			
+			if (vertical)	this.rotation = 90;
+			else 			this.rotation = 0;
+			
+			addChild(container = new Sprite);
 			
 			container.x = bitmap.x - (bitmap.width / 2);
 			container.y = bitmap.y - (bitmap.height / 2);
 			
 			this.x = x;
 			this.y = y;
-			
-			if (vertical) this.rotation = 90;
-			else this.rotation = 0;
 			
 			container.addChild(bitmap);
 		}

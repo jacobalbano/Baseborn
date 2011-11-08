@@ -54,23 +54,25 @@
 			Projectiles = new Vector.<Projectile>;
 			Mobs = new Vector.<Mob>;
 			
-			Mobs.push(stage.addChild(man = new Player(50, 260)) as Mob);
+			this.makeBounds();
 			
-			addEnemy(250, 375);
-			addEnemy(450, 350);
-			addEnemy(170, 320);
-			addEnemy(30, 280);
-			addEnemy(310, 250);		
-			addEnemy(640, 250);
-			addEnemy(1000, 400);
+			Mobs.push(stage.addChild(man = new Player(50, 240)) as Mob);
+			
+			addEnemy(250, 365);
+			addEnemy(450, 340);
+			addEnemy(170, 310);
+			addEnemy(30, 270);
+			addEnemy(310, 240);		
+			addEnemy(640, 240);
+			addEnemy(1000, 390);
 			
 			addWall(250, 375, false);
 			addWall(450, 350, false);
 			addWall(170, 320, false);
 			addWall(30, 280, false);
 			addWall(310, 250, false);
-			addWall(640, 250, false);
-			addWall(700, 320, true);
+			addWall(620, 250, false);
+			addWall(680, 320, true);
 			
 			boltAttack = null;
 			bolting = false;
@@ -80,6 +82,8 @@
 		
 		private function enterFrame(e:Event):void
 		{
+			//trace(man.velocity.x);
+			
 			if (Input.isKeyDown(Input.LEFT))
 			{
 				stopBolt();
@@ -264,6 +268,32 @@
 		private function addEnemy(x:Number, y:Number):void
 		{
 			Mobs.push(stage.addChild(new Enemy(x, y) ) as Mob);		
+		}
+		
+		/**
+		 * Add platforms around the edges of the stage
+		 */
+		private function makeBounds():void
+		{
+			addWall(-5, 100, true);
+			addWall(-5, 300, true);
+			addWall( -5, 500, true);
+			
+			addWall(100, 405, false);
+			addWall(300, 405, false);
+			addWall(500, 405, false);
+			addWall(700, 405, false);
+			addWall(900, 405, false);
+			
+			addWall(1005, 100, true);
+			addWall(1005, 300, true);
+			addWall( 1005, 500, true);
+			
+			addWall(100, -5, false)
+			addWall(300, -5, false)
+			addWall(500, -5, false)
+			addWall(700, -5, false)
+			addWall(900, -5, false)
 		}
 		
 	}

@@ -62,6 +62,12 @@ package ifrit
 			this.collisionHull.x = -collisionWidth / 2;
 			this.collisionHull.y = -collisionHeight / 2;
 			
+			//this.collisionHull.x -= (collisionWidth + this.width);
+			this.collisionHull.y -= (collisionHeight - this.height) / 2;
+			
+			this.collisionHull.visible = false;
+			addChild(collisionHull);
+			
 			this.halfSize = new Point(this.collisionHull.width / 2, this.collisionHull.height / 2);
 			
 			speedLimit = new Point(7, 20);
@@ -124,37 +130,15 @@ package ifrit
 			if (velocity.x >= speedLimit.x) { velocity.x = speedLimit.x; }
 			if (velocity.x < -speedLimit.x) { velocity.x = -speedLimit.x; }
 			if (velocity.y >= speedLimit.y) { velocity.y = speedLimit.y; }
-			if (velocity.y < -speedLimit.x) { velocity.y = -speedLimit.x; }
+			if (velocity.y <= -speedLimit.x) { velocity.y = -speedLimit.x; }
 				
 			// Apply physics to player movement
 			this.x += velocity.x;
 			this.y += velocity.y;
 			
-			// Wrap mob position to stay in the stage
-			if (this.x + this.halfSize.x > stage.stageWidth) {  this.x = stage.stageWidth - this.halfSize.x;  }
-			
-			if (this.x - this.halfSize.x < 0) {  this.x = 0 + this.halfSize.x;  }
-			
-			if (this.y + this.halfSize.y > stage.stageHeight)
-			{
-				velocity.x = 0;
-				velocity.y = 0;
-				this.y = stage.stageHeight - this.halfSize.y;
-				
-				jumpTimer.reset(); // Reset when on floor, to avoid constant jumping in air
-			}
-			
-			if (this.y - this.halfSize.y < 0)
-			{
-				velocity.x = 0;
-				velocity.y = 0;
-				this.y = 0 + this.halfSize.y;
-			}
-			
 			gravUp = true;
 			
-			this.collisionHull.x = this.x - this.halfSize.x;
-			this.collisionHull.y = this.y - this.halfSize.y;
+			this.collisionHull.rotationY = 0;
 		}
 		
 	}

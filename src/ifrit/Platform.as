@@ -45,11 +45,11 @@ package ifrit
 			 * any attacks.
 			 */
 			
-			var dx:Number = this.x - obj.x; // Distance between objects (X)
+			var dx:Number = obj.x - this.x; // Distance between objects (X)
 			var dy:Number = obj.y - this.y; // Distance between objects (Y)
 			
-			var ox:Number = ( (this.width / 2) + ((obj as Mob).collisionHull.height / 2) ) - Math.abs(dx); // Overlap on X axis
-			var oy:Number = ( (this.height / 2) + ((obj as Mob).collisionHull.height / 2) ) - Math.abs(dy); // Overlap on Y axis
+			var ox:Number = Math.abs( ( (this.width / 2) + ((obj as Mob).collisionHull.width / 2) ) - Math.abs(dx ) ); // Overlap on X axis
+			var oy:Number = Math.abs( ( (this.height / 2) + ((obj as Mob).height / 2) ) - Math.abs(dy) ); // Overlap on Y axis
 			
 			if (this.hitTestObject((obj as Mob).collisionHull))
 			{
@@ -73,7 +73,7 @@ package ifrit
 				}
 				else 
 				{
-					if (obj.x < this.x) obj.x -= ox; // left
+					if (obj.x <= this.x) obj.x -= ox; // left
 					else if (obj.x > this.x) obj.x += ox; // right
 					else if (obj.y < this.y) // top
 					{
@@ -100,8 +100,8 @@ package ifrit
 			var dx:Number = this.x - obj.x; // Distance between objects (X)
 			var dy:Number = obj.y - this.y; // Distance between objects (Y)
 			
-			var ox:Number = ( (this.width / 2) + (obj.height / 2) ) - Math.abs(dx); // Overlap on X axis
-			var oy:Number = ( (this.height / 2) + (obj.height / 2) ) - Math.abs(dy); // Overlap on Y axis
+			var ox:Number = Math.abs( ( (this.width / 2) + 	(obj.width / 2	) ) - Math.abs(dx ) );
+			var oy:Number = Math.abs( ( (this.height / 2) + (obj.height / 2	) ) - Math.abs(dy) );
 			
 			if (this.hitTestObject(obj))
 			{
@@ -120,9 +120,9 @@ package ifrit
 				}
 				else 
 				{
-					if (obj.x < this.x) obj.x -= ox; // left
-					else if (obj.x > this.x) obj.x += ox; // right
-					else if (obj.y < this.y) // top
+					if (obj.x <= this.x) obj.x -= ox; // left
+					else if (obj.x >= this.x) obj.x += ox; // right
+					else if (obj.y <= this.y) // top
 					{
 						obj.y -= oy;
 					}

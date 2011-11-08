@@ -94,8 +94,8 @@ package ifrit
 			
 			if (!shootTimer.running)
 			{
-				if (this.rotationY == 180) stage.addChild(new Fireball(-10, this.x, this.y));
-				else stage.addChild(new Fireball(10, this.x, this.y));
+				if (this.rotationY == 180) stage.addChild(new Fireball(-10, this.x - this.halfSize.x, this.y));
+				else stage.addChild(new Fireball(10, this.x + this.halfSize.x, this.y));
 				
 				Game.Projectiles.push(stage.getChildAt(stage.numChildren - 1));
 			}

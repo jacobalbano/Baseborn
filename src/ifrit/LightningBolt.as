@@ -23,6 +23,7 @@ package ifrit
 		private var dir:Boolean; // True = right, False = left
 		private var vx:Number;
 		private var acceleration:Number;
+		private var struckEnemies:Vector.<int>;
 		
 		public function LightningBolt(direction:Boolean, x:Number, y:Number) 
 		{
@@ -50,6 +51,8 @@ package ifrit
 			if (direction)  { acceleration = 0.3; }
 			else if (!direction)  { acceleration = -0.3; }
 			
+			this.struckEnemies = new Vector.<int>;
+			
 			addEventListener(Event.ENTER_FRAME, enterFrame);
 		}
 		
@@ -69,6 +72,21 @@ package ifrit
 			
 			boltC.addChild(bolt);
 			bolt.play("strike");
+		}
+		
+		public function strikeEnemy(index:int):void
+		{
+			struckEnemies.push(index);
+		}
+		
+		public function isEnemyStruck(index:int):Boolean
+		{
+			for (var i:int = 0; i < struckEnemies.length; i++)
+			{
+				if (this.struckEnemies[i] == index)	return true;
+			}
+			
+			return false;
 		}
 		
 	}

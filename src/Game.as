@@ -199,26 +199,20 @@
 				{
 					for (var ll:int = Mobs.length - 1; ll >= 0; ll--)
 					{
-						if (Mobs[l].collideWithMob(Mobs[ll]))
-						{
-						}
+						if (Mobs[l].collideWithMob(Mobs[ll]))	{ }
 					}
 					var removed:Boolean = false;
 					if (Projectiles.length > 0)
 					{						
 						for (var k:int = Projectiles.length - 1; k >= 0; k--) 
 						{
-							if (Projectiles[k].hitTestObject(Mobs[l]))
+							if (Projectiles[k].hitTestObject(Mobs[l].collisionHull))
 							{
 								if (Projectiles[k].friendly != Mobs[l].friendly)
 								{
 									stage.removeChild(Projectiles[k]);
 									Projectiles[k].destroy();
 									Projectiles.splice(k, 1);
-									
-									//Mobs[l].destroy();
-									//stage.removeChild(Mobs[l]);
-									//Mobs.splice(l, 1);
 									Mobs[l].hitpoints -= 5;
 									
 									removed = true;
@@ -235,11 +229,16 @@
 						
 						if (boltTime.currentCount >= 4)
 						{
-							if (bolting && Mobs[l].hitTestObject(boltAttack.bolt))
+							if (bolting && Mobs[l].collisionHull.hitTestObject(boltAttack.bolt))
 							{
 								if (!Mobs[l].friendly)
 								{
-									Mobs[l].hitpoints -= 10;
+									if (!boltAttack.isEnemyStruck(l))
+									{
+										Mobs[l].hitpoints -= 10;
+										Mobs[l].graphic.play("shocked");
+										boltAttack.strikeEnemy(l);
+									}
 								}
 							}
 						}

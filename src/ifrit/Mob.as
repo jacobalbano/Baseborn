@@ -78,10 +78,10 @@ package ifrit
 			var dx:Number = obj.x - this.x; // Distance between objects (X)
 			var dy:Number = obj.y - this.y; // Distance between objects (Y)
 			
-			var ox:Number = Math.abs( ( (this.width / 2) + (obj.collisionHull.width / 2) ) - Math.abs(dx ) ); // Overlap on X axis
-			var oy:Number = Math.abs( ( (this.height / 2) + (obj.height / 2) ) - Math.abs(dy) ); // Overlap on Y axis
+			var ox:Number = Math.abs( ( (this.collisionHull.width / 2) + (obj.collisionHull.width / 2) ) - Math.abs(dx ) ); // Overlap on X axis
+			var oy:Number = Math.abs( ( (this.collisionHull.height / 2) + (obj.collisionHull.height / 2) ) - Math.abs(dy) ); // Overlap on Y axis
 			
-			if (this.hitTestObject(obj.collisionHull))
+			if (this.collisionHull.hitTestObject(obj.collisionHull))
 			{
 				
 				if (obj.x < this.x)

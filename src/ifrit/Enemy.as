@@ -25,19 +25,25 @@ package ifrit
 		private var speed:Number;
 		private var confusionTimer:Timer;
 		private var fleeCooldown:Timer;
+		private var destroyed:Boolean;
 		
 		public function Enemy(x:Number, y:Number) 
 		{
-			super(x, y, Library.IMG("enemy.png"), 13, 23, 13, 23 );
+			super(x, y, Library.IMG("enemy.png"), 60, 23, 13, 23 );
 			this.lastPosition = new Point(x, y);
 			this.heading = true;
 			this.fleeMode = false;
 			this.heading = Boolean(Math.round(Math.random()));
 			this.speed = Math.random();
-			this.hitpoints = 10;
-			this.maxHealth = 10;
+			this.hitpoints = 15;
+			this.maxHealth = 15;
 			this.confusionTimer = new Timer(1000, 0);
 			this.fleeCooldown = new Timer(1000, 0);
+			
+			this.graphic.add("walk", [0, 1, 2, 3], 6, true);
+			this.graphic.add("die", [6, 7, 8, 9], 6, false);
+			this.graphic.add("shocked", [10, 11, 12, 13], 6, false);
+			this.graphic.play("walk");
 		}
 		
 		/**
@@ -47,9 +53,13 @@ package ifrit
 		{
 			super.think();
 			
+			if (destroyed) return;
+			
 			this.findPlatform();
 			
 			this.adjustHeading();
+			
+			this.testHealth();
 			
 			this.beginOffense();
 			
@@ -58,6 +68,14 @@ package ifrit
 			this.endFlee();
 			
 			this.move();
+		}
+		
+		override public function destroy():void 
+		{
+			super.destroy();
+			this.graphic.play("die");
+			this.destroyed = true;
+			this.removeChild(collisionHull);
 		}
 		
 		/**
@@ -71,8 +89,8 @@ package ifrit
 			{
 				if (Game.Platforms[i].collide(this) && Game.Platforms[i].rotation == 0)
 				{
-					leftBound = Game.Platforms[i].x + this.width / 2 - Game.Platforms[i].width / 2;
-					rightBound = Game.Platforms[i].x - this.width / 2 + Game.Platforms[i].width / 2;
+					leftBound = Game.Platforms[i].x - Game.Platforms[i].width / 2;
+					rightBound = Game.Platforms[i].x + Game.Platforms[i].width / 2;
 					found = true;
 					this.platformIndex = i;
 					break;
@@ -92,7 +110,7 @@ package ifrit
 		 * Turn around if the edge of a platform is reached or an obstacle is struck
 		 */
 		private function adjustHeading():void
-		{
+		{			
 			if (heading)	{	if (this.x <= this.lastPosition.x) heading = !heading;	}
 			else			{ 	if (this.x >= this.lastPosition.x) heading = !heading;	}
 			
@@ -101,6 +119,7 @@ package ifrit
 				if (this.x >= this.rightBound) heading = false;
 				else if (this.x <= this.leftBound) heading = true;
 			}
+			
 		}
 		
 		/**
@@ -109,24 +128,21 @@ package ifrit
 		 */
 		private function beginOffense():void
 		{
-			if (this.platformIndex >= 0)
+			if (this.platformIndex >= 0 && !fleeMode)
 			{
 				if (Game.Platforms[this.platformIndex].collide(Game.man) && Game.man.y < Game.Platforms[platformIndex].y)
 				{
-					if (!fleeMode)
-					{
-						if (this.x >= Game.man.x) heading = false;	else heading = true;
-						this.shoot();
-					}
-					else
-					{
-						if (heading)	{	if (Game.man.x > this.x) this.shoot();	}
-						else			{	if (Game.man.x < this.x) this.shoot();	}
-					}
+					if (this.x >= Game.man.x) heading = false;	else heading = true;
+					if (heading)	{	if (Game.man.x > this.x) this.shoot();	}
+					else			{	if (Game.man.x < this.x) this.shoot();	}
 				}
 			}
 		}
 		
+		private function testHealth():void
+		{
+			if (this.hitpoints <= 0)	this.destroy();
+		}
 		
 		/**
 		 * AI synapse
@@ -163,22 +179,26 @@ package ifrit
 		 */
 		private function move():void
 		{
+			if (this.graphic.playing != "shocked" && this.graphic.playing != "die")	this.graphic.play("walk");
+			
 			this.lastPosition.x = this.x;
 			
 			this.rotationY = this.heading ? 0 : 180;
 			
 			if (fleeMode)
 			{
+				
 				if (heading)
 				{
+					if (Game.man.x > this.x && platformIndex >= 0 && Game.Platforms[this.platformIndex].collide(Game.man)) this.shoot();
 					this.x += 5;
-					
 				}
 				else
 				{
-					if (Game.man.x < this.x) this.shoot();
+					if (Game.man.x < this.x && platformIndex >= 0 && Game.Platforms[this.platformIndex].collide(Game.man)) this.shoot();
 					x -= 5;
 				}
+				
 			}
 			else
 			{

@@ -44,11 +44,6 @@ package ifrit
 			addChild(container);
 			graphic = new Animation(bitmap, frameWidth, frameHeight);
 			
-			graphic.add("stand", [1], 0, true);
-			graphic.add("walk", [0, 1, 2, 3], 6, true);
-			graphic.add("attack", [6, 7, 8, 9], 12, false);
-			graphic.play("stand");
-			
 			container.x = -frameWidth / 2; // Set registration point to center
 			container.y = -frameHeight / 2;
 			container.addChild(graphic);
@@ -64,8 +59,9 @@ package ifrit
 			
 			this.collisionHull.y -= (collisionHeight - this.height) / 2;
 			
-			this.collisionHull.visible = false;
-			addChild(collisionHull);
+			//this.collisionHull.visible = false;
+			this.collisionHull.alpha = 0.5;
+			this.addChild(collisionHull);
 			
 			this.halfSize = new Point(this.collisionHull.width / 2, this.collisionHull.height / 2);
 			

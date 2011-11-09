@@ -71,20 +71,23 @@
 			addDecal(Library.IMG("castle.decals.shield.png"), 750  , 69);
 			addDecal(Library.IMG("castle.decals.torch.png"), 685, 60, [0, 1, 2, 3, 4, 5], 40, 40);
 			
-			this.decal = new Sprite;
-			this.decal.addChild(Library.IMG("castle.decals.shield.png"));
-			stage.addChild(this.decal);
+			addDecal(Library.IMG("castle.decals.door.png"), 8, 326);
+			addDecal(Library.IMG("castle.decals.door.png"), 818, 326);
+			
+			//this.decal = new Sprite;
+			//this.decal.addChild(Library.IMG("castle.decals.door.png"));
+			//stage.addChild(this.decal);
 			
 			this.makeBounds();
 			
-			Mobs.push(stage.addChild(man = new Player(50, 240)) as Mob);
+			Mobs.push(stage.addChild(man = new Player(50, 375)) as Mob);
 			
 			addEnemy(724, 75);
 			addEnemy(924, 75);
 			
 			addWall( -25, 75, false);
 			addWall(150, 250, true);
-			addWall(249, 186, false);
+			addWall(255, 186, false);
 			addWall(495, 229, false);
 			addWall(495, 144, false);
 			addWall(700, 110, false);
@@ -100,19 +103,17 @@
 			boltAttack = null;
 			bolting = false;
 			
-			addChild(text);
+			//addChild(text);
 		}
 		
 		private function enterFrame(e:Event):void
 		{
 			if (Input.isMouseDown)
-			{
-				addDecal(Library.IMG("iceBlast.png"), mouseX, mouseY);
-				
+			{				
 				trace(mouseX, mouseY);
 				
-				decal.x = mouseX;
-				decal.y = mouseY;
+				//decal.x = mouseX;
+				//decal.y = mouseY;
 			}
 			
 			if (Input.isKeyDown(Input.LEFT))

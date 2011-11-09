@@ -19,6 +19,11 @@ package ifrit
 		{
 			super( x, y, Library.IMG("mageAtkWalk.png"), 18, 25, 18, 25);
 			this.friendly = true;
+			
+			graphic.add("stand", [1], 0, true);
+			graphic.add("walk", [0, 1, 2, 3], 6, true);
+			graphic.add("attack", [6, 7, 8, 9], 12, false);
+			graphic.play("stand");
 		}
 		
 		override public function think():void 

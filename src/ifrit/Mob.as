@@ -34,6 +34,8 @@ package ifrit
 		public var collisionHull:Sprite;
 		protected var halfSize:Point;
 		
+		public var walkRight:Number;
+		public var walkLeft:Number;
 		public var friendly:Boolean;
 		public var hitpoints:int;
 		public var maxHealth:uint;
@@ -59,8 +61,8 @@ package ifrit
 			
 			this.collisionHull.y -= (collisionHeight - this.height) / 2;
 			
-			//this.collisionHull.visible = false;
-			this.collisionHull.alpha = 0.5;
+			this.collisionHull.visible = false;
+			//this.collisionHull.alpha = 0.5;
 			this.addChild(collisionHull);
 			
 			this.halfSize = new Point(this.collisionHull.width / 2, this.collisionHull.height / 2);
@@ -68,6 +70,50 @@ package ifrit
 			speedLimit = new Point(7, 20);
 			
 			addEventListener(Event.ENTER_FRAME, onEnterFrame);
+		}
+		
+		public function collideWithMob(obj:Mob):Boolean
+		{
+			if (this.friendly == obj.friendly)	return false;
+			var dx:Number = obj.x - this.x; // Distance between objects (X)
+			var dy:Number = obj.y - this.y; // Distance between objects (Y)
+			
+			var ox:Number = Math.abs( ( (this.width / 2) + (obj.collisionHull.width / 2) ) - Math.abs(dx ) ); // Overlap on X axis
+			var oy:Number = Math.abs( ( (this.height / 2) + (obj.height / 2) ) - Math.abs(dy) ); // Overlap on Y axis
+			
+			if (this.hitTestObject(obj.collisionHull))
+			{
+				
+				if (obj.x < this.x)
+				{
+					this.x += ox; // left
+					obj.x -= ox;
+				}
+				else if (obj.x > this.x)
+				{
+					this.x -= ox; // right
+					obj.x += ox; // right
+				}
+				else if (obj.y < this.y) // top
+				{
+					this.hitpoints -= 5;
+					obj.y -= oy;
+					obj.gravUp = false;
+					obj.jumpTimer.reset();
+
+					
+				}
+				else if (obj.y > this.y) // bottom
+				{
+					obj.y += oy;
+					obj.jumpReset();
+				}
+				
+				return true;
+			}
+			
+			return false;
+		
 		}
 		
 		/**
@@ -89,8 +135,8 @@ package ifrit
 			
 			if (!shootTimer.running)
 			{
-				if (this.rotationY == 180) stage.addChild(new Fireball(-10, this.x - this.halfSize.x, this.y));
-				else stage.addChild(new Fireball(10, this.x + this.halfSize.x, this.y));
+				if (this.rotationY == 180) stage.addChild(new Fireball(-10, this.x - this.halfSize.x, this.y, this.friendly));
+				else stage.addChild(new Fireball(10, this.x + this.halfSize.x, this.y, this.friendly));
 				
 				Game.Projectiles.push(stage.getChildAt(stage.numChildren - 1));
 			}

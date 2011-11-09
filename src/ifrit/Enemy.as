@@ -20,6 +20,7 @@ package ifrit
 		
 		private var rightBound:Number;
 		private var leftBound:Number;
+		private var platformIndex:int;
 		private var lastPosition:Point;
 		private var speed:Number;
 		private var confusionTimer:Timer;
@@ -48,11 +49,13 @@ package ifrit
 			
 			this.findPlatform();
 			
+			this.adjustHeading();
+			
+			this.beginOffense();
+			
 			this.beginFlee();
 			
 			this.endFlee();
-			
-			this.adjustHeading();
 			
 			this.move();
 		}
@@ -71,6 +74,7 @@ package ifrit
 					leftBound = Game.Platforms[i].x + this.width / 2 - Game.Platforms[i].width / 2;
 					rightBound = Game.Platforms[i].x - this.width / 2 + Game.Platforms[i].width / 2;
 					found = true;
+					this.platformIndex = i;
 					break;
 				}
 			}
@@ -79,8 +83,50 @@ package ifrit
 			{
 				this.leftBound = 0;
 				this.rightBound = stage.stageWidth;
+				this.platformIndex = -1;
 			}
 		}
+		
+		/**
+		 * AI synapse
+		 * Turn around if the edge of a platform is reached or an obstacle is struck
+		 */
+		private function adjustHeading():void
+		{
+			if (heading)	{	if (this.x <= this.lastPosition.x) heading = !heading;	}
+			else			{ 	if (this.x >= this.lastPosition.x) heading = !heading;	}
+			
+			if (!fleeMode)
+			{
+				if (this.x >= this.rightBound) heading = false;
+				else if (this.x <= this.leftBound) heading = true;
+			}
+		}
+		
+		/**
+		 * AI synapse
+		 * Attepmt to attack player if on the same platform
+		 */
+		private function beginOffense():void
+		{
+			if (this.platformIndex >= 0)
+			{
+				if (Game.Platforms[this.platformIndex].collide(Game.man) && Game.man.y < Game.Platforms[platformIndex].y)
+				{
+					if (!fleeMode)
+					{
+						if (this.x >= Game.man.x) heading = false;	else heading = true;
+						this.shoot();
+					}
+					else
+					{
+						if (heading)	{	if (Game.man.x > this.x) this.shoot();	}
+						else			{	if (Game.man.x < this.x) this.shoot();	}
+					}
+				}
+			}
+		}
+		
 		
 		/**
 		 * AI synapse
@@ -113,22 +159,6 @@ package ifrit
 		
 		/**
 		 * AI synapse
-		 * Turn around if the edge of a platform is reached or an obstacle is struck
-		 */
-		private function adjustHeading():void
-		{
-			if (heading)	{	if (this.x <= this.lastPosition.x) heading = !heading;	}
-			else			{ 	if (this.x >= this.lastPosition.x) heading = !heading;	}
-			
-			if (!fleeMode)
-			{
-				if (this.x >= this.rightBound) heading = false;
-				else if (this.x <= this.leftBound) heading = true;
-			}
-		}
-		
-		/**
-		 * AI synapse
 		 * Update movement
 		 */
 		private function move():void
@@ -139,7 +169,16 @@ package ifrit
 			
 			if (fleeMode)
 			{
-				if (heading) this.x += 5;  else x -= 5;
+				if (heading)
+				{
+					this.x += 5;
+					
+				}
+				else
+				{
+					if (Game.man.x < this.x) this.shoot();
+					x -= 5;
+				}
 			}
 			else
 			{

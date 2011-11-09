@@ -197,8 +197,13 @@
 			{
 				for (var l:int = Mobs.length - 1; l >= 0; l--)
 				{
+					for (var ll:int = Mobs.length - 1; ll >= 0; ll--)
+					{
+						if (Mobs[l].collideWithMob(Mobs[ll]))
+						{
+						}
+					}
 					var removed:Boolean = false;
-					
 					if (Projectiles.length > 0)
 					{						
 						for (var k:int = Projectiles.length - 1; k >= 0; k--) 

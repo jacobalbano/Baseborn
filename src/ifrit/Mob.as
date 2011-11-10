@@ -1,4 +1,4 @@
-package ifrit 
+package ifrit
 {
 	import flash.display.Bitmap;
 	import flash.display.BitmapData;
@@ -41,8 +41,8 @@ package ifrit
 		public var hitpoints:int;
 		public var maxHealth:uint;
 		
-		public function Mob(x:Number, y:Number, bitmap:Bitmap, frameWidth:Number, frameHeight:Number, collisionWidth:Number, collisionHeight:Number) 
-		{			
+		public function Mob(x:Number, y:Number, bitmap:Bitmap, frameWidth:Number, frameHeight:Number, collisionWidth:Number, collisionHeight:Number)
+		{
 			this.container = new Sprite;
 			addChild(container);
 			graphic = new Animation(bitmap, frameWidth, frameHeight);
@@ -55,7 +55,7 @@ package ifrit
 			jumpTimer = new Timer(0, 2);
 			freezeTimer = new Timer(60 * 2, 0);
 			
-			velocity = new Point;			
+			velocity = new Point;
 			
 			this.x = x;
 			this.y = y;
@@ -79,12 +79,13 @@ package ifrit
 		
 		public function collideWithMob(obj:Mob):Boolean
 		{
-			if (this.friendly == obj.friendly)	return false;
+			if (this.friendly == obj.friendly)
+				return false;
 			var dx:Number = obj.x - this.x; // Distance between objects (X)
 			var dy:Number = obj.y - this.y; // Distance between objects (Y)
 			
-			var ox:Number = Math.abs( ( (this.collisionHull.width / 2) + (obj.collisionHull.width / 2) ) - Math.abs(dx ) ); // Overlap on X axis
-			var oy:Number = Math.abs( ( (this.collisionHull.height / 2) + (obj.collisionHull.height / 2) ) - Math.abs(dy) ); // Overlap on Y axis
+			var ox:Number = Math.abs(((this.collisionHull.width / 2) + (obj.collisionHull.width / 2)) - Math.abs(dx)); // Overlap on X axis
+			var oy:Number = Math.abs(((this.collisionHull.height / 2) + (obj.collisionHull.height / 2)) - Math.abs(dy)); // Overlap on Y axis
 			
 			if (this.collisionHull.hitTestObject(obj.collisionHull))
 			{
@@ -104,7 +105,7 @@ package ifrit
 					this.hitpoints -= 5;
 					obj.y -= oy;
 					obj.gravUp = false;
-					obj.jumpTimer.reset();					
+					obj.jumpTimer.reset();
 				}
 				else if (obj.y > this.y) // bottom
 				{
@@ -124,7 +125,7 @@ package ifrit
 		 */
 		public function think():void
 		{
-			
+		
 		}
 		
 		public function jumpReset():void
@@ -134,12 +135,17 @@ package ifrit
 		
 		public function shoot():void
 		{
-			if (shootTimer.currentCount == shootTimer.repeatCount) {  shootTimer.reset();  }
+			if (shootTimer.currentCount == shootTimer.repeatCount)
+			{
+				shootTimer.reset();
+			}
 			
 			if (!shootTimer.running)
 			{
-				if (this.rotationY == 180) stage.addChild(new Fireball(-10, this.x - this.halfSize.x, this.y, this.friendly));
-				else stage.addChild(new Fireball(10, this.x + this.halfSize.x, this.y, this.friendly));
+				if (this.rotationY == 180)
+					stage.addChild(new Fireball(-10, this.x - this.halfSize.x, this.y, this.friendly));
+				else
+					stage.addChild(new Fireball(10, this.x + this.halfSize.x, this.y, this.friendly));
 				
 				Game.Projectiles.push(stage.getChildAt(stage.numChildren - 1));
 			}
@@ -171,34 +177,76 @@ package ifrit
 				this.freezeTimer.stop();
 			}
 			
-			if (gravUp)	velocity.y += Rules.gravity;
-			else velocity.y = 0;
+			if (gravUp)
+				velocity.y += Rules.gravity;
+			else
+				velocity.y = 0;
 			
-			if (jumping && jumpTimer.currentCount < jumpTimer.repeatCount && velocity.y <=1)
+			if (jumping && jumpTimer.currentCount < jumpTimer.repeatCount && velocity.y <= 1)
 			{
 				if (!jumpTimer.running)
 					jumpTimer.start();
 			}
 			
-			if (jumpTimer.running)  velocity.y += -5;
+			if (jumpTimer.running)
+				velocity.y += -5;
 			
 			if (jumpTimer.currentCount == jumpTimer.repeatCount)
 				jumpTimer.stop();
-				
-			if (velocity.x >= speedLimit.x) { velocity.x = speedLimit.x; }
-			if (velocity.x < -speedLimit.x) { velocity.x = -speedLimit.x; }
-			if (velocity.y >= speedLimit.y) { velocity.y = speedLimit.y; }
-			if (velocity.y <= -speedLimit.x) { velocity.y = -speedLimit.x; }
-				
+			
+			if (velocity.x >= speedLimit.x)
+			{
+				velocity.x = speedLimit.x;
+			}
+			if (velocity.x < -speedLimit.x)
+			{
+				velocity.x = -speedLimit.x;
+			}
+			if (velocity.y >= speedLimit.y)
+			{
+				velocity.y = speedLimit.y;
+			}
+			if (velocity.y <= -speedLimit.x)
+			{
+				velocity.y = -speedLimit.x;
+			}
+			
 			// Apply physics to player movement
 			this.x += velocity.x;
 			this.y += velocity.y;
 			
 			gravUp = true;
 			
+			// Wrap mob position to stay in the stage
+			if (this.x + this.halfSize.x > stage.stageWidth)
+			{
+				this.x = stage.stageWidth - this.halfSize.x;
+			}
+			
+			if (this.x - this.halfSize.x < 0)
+			{
+				this.x = 0 + this.halfSize.x;
+			}
+			
+			if (this.y + this.halfSize.y > stage.stageHeight)
+			{
+				velocity.x = 0;
+				velocity.y = 0;
+				this.y = stage.stageHeight - this.halfSize.y;
+				
+				jumpTimer.reset(); // Reset when on floor, to avoid constant jumping in air
+			}
+			
+			if (this.y - this.halfSize.y < 0)
+			{
+				velocity.x = 0;
+				velocity.y = 0;
+				this.y = 0 + this.halfSize.y;
+			}
+			
 			this.collisionHull.rotationY = 0;
 		}
-		
+	
 	}
 
 }

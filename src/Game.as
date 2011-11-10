@@ -151,9 +151,12 @@
 			
 			if (Input.isKeyDown(Input.D))
 			{
-				stopFrost();
-				man.graphic.play("attack");
-				stage.addChild(frostAttack = new FrostBolt(false, man.x, man.y)); 
+				if ( !(Input.isKeyDown(Input.LEFT) || Input.isKeyDown(Input.RIGHT) ) )
+				{
+					stopFrost();
+					man.graphic.play("attack");
+					stage.addChild(frostAttack = new FrostBolt(man.rotationY == 180, man.x, man.y)); 
+				}
 			}
 			
 			/**

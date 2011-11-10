@@ -35,12 +35,18 @@
 		public static var Platforms:Vector.<Platform>;
 		public var decal:Sprite;
 		
-		//////////////////////
-		private var boltAttack:LightningBolt;
+		/**
+		 * Lightning bolt
+		 */
+		private var lightningAttack:LightningBolt;
 		private var bolting:Boolean; // Lightning bolt animation is playing
 		public var boltTime:Timer = new Timer(30, 0);
 		
-		//////////////////////
+		/**
+		 * Frost bolt
+		 */
+		private var frostAttack:FrostBolt;
+		
 		
 		public function Game()	{}
 		
@@ -100,7 +106,7 @@
 			addWall(227, 109, false);
 			addWall(1024, 315, false);
 			
-			boltAttack = null;
+			lightningAttack = null;
 			bolting = false;
 			
 			//addChild(text);
@@ -108,14 +114,6 @@
 		
 		private function enterFrame(e:Event):void
 		{
-			if (Input.isMouseDown)
-			{				
-				trace(mouseX, mouseY);
-				
-				//decal.x = mouseX;
-				//decal.y = mouseY;
-			}
-			
 			if (Input.isKeyDown(Input.LEFT))
 			{
 				stopBolt();
@@ -151,39 +149,42 @@
 				man.shoot();
 			}
 			
-			//TODO: Create close-range/melee attacks with 'D' button
-			/*
-			 * "iceBlast.png" will be the Mage's close-range attack
+			if (Input.isKeyDown(Input.D))
+			{
+				stopFrost();
+				man.graphic.play("attack");
+				stage.addChild(frostAttack = new FrostBolt(false, man.x, man.y)); 
+			}
+			
+			/**
+			 * Lightning attack
 			 */
-			
-			//////////////////Magic Targeting System///////////////////
-			
 			if (Input.isKeyDown(Input.S))
 			{
 				if ( !(Input.isKeyDown(Input.LEFT) || Input.isKeyDown(Input.RIGHT) ) )
 				{
 					man.graphic.play("attack"); //TODO: Stop animation on last frame
-					if (!boltAttack)
+					if (!lightningAttack)
 					{
 						if (man.rotationY == 0)
 						{
-							boltAttack = new LightningBolt(true, man.x, man.y);
-							stage.addChild(boltAttack);
+							lightningAttack = new LightningBolt(true, man.x, man.y);
+							stage.addChild(lightningAttack);
 						}
 						else if (man.rotationY == 180)
 						{
-							boltAttack = new LightningBolt(false, man.x, man.y);
-							stage.addChild(boltAttack);
+							lightningAttack = new LightningBolt(false, man.x, man.y);
+							stage.addChild(lightningAttack);
 						}
 					}
 				}
 			}
 			else
 			{
-				if (boltAttack)
+				if (lightningAttack)
 				{
 					boltTime.start();
-					boltAttack.sendBolt();
+					lightningAttack.sendBolt();
 				}
 			}
 			
@@ -191,7 +192,11 @@
 			{
 				stopBolt();
 			}
-			///////////////////////////////////////////////////////////
+			
+			if (frostAttack && frostAttack.finished)
+			{
+				stopFrost();
+			}
 			
 			if (Mobs.length > 0)
 			{
@@ -223,24 +228,32 @@
 						}
 					}
 					
-					if (boltAttack && boltTime.running)
+					if (lightningAttack && boltTime.running)
 					{
 						bolting = true;
 						
 						if (boltTime.currentCount >= 4)
 						{
-							if (bolting && Mobs[l].collisionHull.hitTestObject(boltAttack.bolt))
+							if (bolting && Mobs[l].collisionHull.hitTestObject(lightningAttack.bolt))
 							{
 								if (!Mobs[l].friendly)
 								{
-									if (!boltAttack.isEnemyStruck(l))
+									if (!lightningAttack.isEnemyStruck(l))
 									{
 										Mobs[l].hitpoints -= 10;
 										Mobs[l].graphic.play("shocked");
-										boltAttack.strikeEnemy(l);
+										lightningAttack.strikeEnemy(l);
 									}
 								}
 							}
+						}
+					}
+					
+					if (frostAttack)
+					{
+						if (Mobs[l].collisionHull.hitTestObject(frostAttack))
+						{
+							if (Mobs[l].friendly != man.friendly)	Mobs[l].freeze();
 						}
 					}
 					
@@ -287,13 +300,20 @@
 		
 		private function stopBolt():void
 		{
-			if (!boltAttack) return;
+			if (!lightningAttack) return;
 			
 			boltTime.stop();
 			bolting = false;
 			boltTime.reset();
-			stage.removeChild(boltAttack);
-			boltAttack = null;
+			stage.removeChild(lightningAttack);
+			lightningAttack = null;
+		}
+		
+		private function stopFrost():void
+		{
+			if (!frostAttack) return;
+			stage.removeChild(frostAttack);
+			frostAttack = null;
 		}
 		
 		private function addWall(x:Number, y:Number, vertical:Boolean):void

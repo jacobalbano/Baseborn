@@ -21,14 +21,15 @@ package ifrit
 		public var graphic:Animation;
 		protected var container:Sprite;
 		
-		private var shootTimer:Timer = new Timer(0, 20);
+		private var shootTimer:Timer;
+		private var freezeTimer:Timer;
 		
 		//	Physics
 		public var gravUp:Boolean;
 		public var jumping:Boolean;
 		public var canJump:Boolean;
-		public var jumpTimer:Timer = new Timer(0, 2);
-		public var velocity:Point = new Point(0, 0);
+		public var jumpTimer:Timer;
+		public var velocity:Point;
 		protected var speedLimit:Point;
 		
 		public var collisionHull:Sprite;
@@ -50,6 +51,11 @@ package ifrit
 			container.y = -frameHeight / 2;
 			container.addChild(graphic);
 			
+			shootTimer = new Timer(0, 20);
+			jumpTimer = new Timer(0, 2);
+			freezeTimer = new Timer(60 * 2, 0);
+			
+			velocity = new Point;			
 			
 			this.x = x;
 			this.y = y;
@@ -62,7 +68,6 @@ package ifrit
 			this.collisionHull.y -= (collisionHeight - this.height) / 2;
 			
 			this.collisionHull.visible = false;
-			//this.collisionHull.alpha = 0.5;
 			this.addChild(collisionHull);
 			
 			this.halfSize = new Point(this.collisionHull.width / 2, this.collisionHull.height / 2);
@@ -99,9 +104,7 @@ package ifrit
 					this.hitpoints -= 5;
 					obj.y -= oy;
 					obj.gravUp = false;
-					obj.jumpTimer.reset();
-
-					
+					obj.jumpTimer.reset();					
 				}
 				else if (obj.y > this.y) // bottom
 				{
@@ -144,6 +147,13 @@ package ifrit
 			shootTimer.start();
 		}
 		
+		public function freeze():void
+		{
+			freezeTimer.stop();
+			freezeTimer.reset();
+			freezeTimer.start();
+		}
+		
 		public function destroy():void
 		{
 			removeEventListener(Event.ENTER_FRAME, onEnterFrame);
@@ -151,12 +161,19 @@ package ifrit
 		
 		private function onEnterFrame(e:Event):void
 		{
-			think();
+			if (!this.freezeTimer.running)
+			{
+				think();
+			}
+			
+			if (this.freezeTimer.currentCount >= 3)
+			{
+				this.freezeTimer.stop();
+			}
 			
 			if (gravUp)	velocity.y += Rules.gravity;
 			else velocity.y = 0;
 			
-			// Jump(rise) until spacebar up or until timer ends.
 			if (jumping && jumpTimer.currentCount < jumpTimer.repeatCount && velocity.y <=1)
 			{
 				if (!jumpTimer.running)

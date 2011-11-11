@@ -23,6 +23,7 @@ package ifrit
 		
 		private var shootTimer:Timer;
 		private var freezeTimer:Timer;
+		private var frozen:Boolean;
 		
 		//	Physics
 		public var gravUp:Boolean;
@@ -40,6 +41,7 @@ package ifrit
 		public var friendly:Boolean;
 		public var hitpoints:int;
 		public var maxHealth:uint;
+		
 		
 		public function Mob(x:Number, y:Number, bitmap:Bitmap, frameWidth:Number, frameHeight:Number, collisionWidth:Number, collisionHeight:Number)
 		{
@@ -120,6 +122,7 @@ package ifrit
 		
 		}
 		
+		public function get isFrozen():Boolean	{	return this.frozen;	}
 		/**
 		 * Override this to add AI
 		 */
@@ -158,6 +161,7 @@ package ifrit
 			freezeTimer.stop();
 			freezeTimer.reset();
 			freezeTimer.start();
+			this.frozen = true;
 		}
 		
 		public function destroy():void
@@ -171,10 +175,15 @@ package ifrit
 			{
 				think();
 			}
+			else
+			{
+				this.graphic.play("stand");
+			}
 			
 			if (this.freezeTimer.currentCount >= 3)
 			{
 				this.freezeTimer.stop();
+				this.frozen = false;
 			}
 			
 			if (gravUp)

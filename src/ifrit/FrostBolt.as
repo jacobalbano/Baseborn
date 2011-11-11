@@ -27,8 +27,9 @@ package ifrit
 			freeze.add("play", [0, 1, 2, 3], 15, false);
 			freeze.play("play");
 			
-			if (direction)	this.x = x - 10;
-			else 			this.x = x + 10;	
+			if (direction)	this.x = x - 20;
+			else 			this.x = x + 20;	
+			
 			this.y = y;
 			
 			if (direction)	this.rotationY = 180;

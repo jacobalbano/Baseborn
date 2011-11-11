@@ -67,6 +67,9 @@
 			
 			addDecal(Library.IMG("castle.decals.stainedGlass.png"), 315.5, 18);
 			
+			addDecal(Library.IMG("castle.decals.chandelier.png"), 900, 115, [0, 1, 2, 3], 46, 101);
+			addDecal(Library.IMG("castle.decals.chandelier.png"), 50, 115, [0, 1, 2, 3], 46, 101);
+			
 			addDecal(Library.IMG("castle.decals.shield.png"), 145, 69);
 			addDecal(Library.IMG("castle.decals.shield.png"), 265, 69);
 			addDecal(Library.IMG("castle.decals.torch.png"), 200, 60, [0, 1, 2, 3, 4, 5], 40, 40);
@@ -85,7 +88,7 @@
 			addEnemy(724, 75);
 			addEnemy(924, 75);
 			
-			addWall( -25, 75, false);
+			addWall( 0, 110, false);
 			addWall(150, 250, true);
 			addWall(255, 186, false);
 			addWall(495, 229, false);

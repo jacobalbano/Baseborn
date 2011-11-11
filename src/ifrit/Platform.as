@@ -5,7 +5,7 @@ package ifrit
 	import flash.display.Bitmap;
 	import flash.display.DisplayObject;
 	import flash.display.Sprite;
-	import flash.events.Event;
+	
 	
 	public class Platform extends Sprite
 	{		

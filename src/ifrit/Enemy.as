@@ -1,12 +1,10 @@
 package ifrit 
 {
 	import com.thaumaturgistgames.flakit.Library;
-	import flash.geom.Point;
 	
-	import flash.display.Sprite;
-	import flash.display.Bitmap;
-	import flash.events.Event;
+	import flash.geom.Point;
 	import flash.utils.Timer;
+	
 	
 	/**
 	 * @author Jake Albano

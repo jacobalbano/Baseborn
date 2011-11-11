@@ -1,11 +1,12 @@
 package ifrit 
 {
 	import com.jacobalbano.Animation;
+	
 	import com.thaumaturgistgames.flakit.Library;
-	import flash.display.Bitmap;
+	
 	import flash.display.Sprite;
 	import flash.events.Event;
-	import flash.utils.Timer;
+	
 	/**
 	 * @author Jake Albano
 	 */

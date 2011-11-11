@@ -2,29 +2,21 @@
 {
 	import com.jacobalbano.Animation;
 	import com.jacobalbano.Input;
+	
 	import com.thaumaturgistgames.flakit.Engine;
 	import com.thaumaturgistgames.flakit.Library;
-	import flash.display.Bitmap;
-	import flash.display.DisplayObject;
-	import flash.display.Stage;
-	import flash.text.TextFormat;
-	import flash.text.TextFieldType;
+	
 	import ifrit.*;
 	
+	import flash.display.Bitmap;
 	import flash.display.Sprite;
+	import flash.display.Stage;
 	import flash.events.Event;
-	import flash.text.TextField;
 	import flash.utils.Timer;
-	import flash.geom.Point;
-	//import flash.display.StageScaleMode;
-	
-	
 	
 	[SWF(width = "1000", height = "400", backgroundColor = "0xFFFFFF")]
 	public class Game extends Engine 
-	{
-		public static var text:TextField = new TextField();
-		
+	{		
 		public const MAX_X:uint = stage.stageWidth;
 		public const MIN_X:uint = 0;
 		public const MAX_Y:uint = stage.stageHeight;
@@ -35,7 +27,9 @@
 		public static var Projectiles:Vector.<Projectile>;
 		public static var Mobs:Vector.<Mob>;
 		public static var Platforms:Vector.<Platform>;
+		
 		public var exit:Bitmap;
+		public var decal:Sprite;
 		
 		/**
 		 * Lightning bolt
@@ -104,17 +98,15 @@
 			addWall(829, 315, false);
 			addWall(700, 272, false);
 			addWall(227, 109, false);
+			addWall(745, 187, false);
 			addWall(1024, 315, false);
 			
 			lightningAttack = null;
 			bolting = false;
-			
-			//addChild(text);
 		}
 		
 		private function enterFrame(e:Event):void
-		{
-			
+		{		
 			var enemiesKilled:int = 0;
 			
 			for (var w:int = 0; w < Mobs.length; w++)

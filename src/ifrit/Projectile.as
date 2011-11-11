@@ -1,15 +1,13 @@
 package ifrit 
 {
 	import com.jacobalbano.Animation;
-	import flash.display.BitmapData;
 	
 	import flash.display.Bitmap;
 	import flash.display.Sprite;
 	import flash.events.Event;
 	
 	/**
-	 * ...
-	 * @author jake
+	 * @author Jake Albano
 	 */
 	public class Projectile extends Sprite
 	{

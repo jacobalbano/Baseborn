@@ -20,6 +20,9 @@ package ifrit
 		
 		public var boltHalfHeight:Number;
 		
+		public var vortex:Animation;
+		protected var vortexC:Sprite = new Sprite();
+		
 		private var dir:Boolean; // True = right, False = left
 		private var vx:Number;
 		private var acceleration:Number;
@@ -39,8 +42,16 @@ package ifrit
 			boltC.y = -75 / 2;
 			boltHalfHeight = bolt.height / 2;
 			
+			addChild(vortexC);
+			vortex = new Animation(Library.IMG("vortex.png"), 20, 15);
+			vortexC.x = -20 / 2;
+			vortexC.y = -15 / 2;
+			
+			
 			wisp.add("wisp", [0, 1, 2, 3], 10, true);
 			bolt.add("strike", [0, 1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11], 30, false);
+			vortex.add("vortex", [0, 1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11], 15, false);
+			
 			wisp.play("wisp", true);
 			
 			dir = direction;
@@ -67,11 +78,16 @@ package ifrit
 			vx = 0;
 			bolt.x = wisp.x;
 			bolt.y = wisp.y - (bolt.height / 2);
+			vortex.x = bolt.x;
+			vortex.y = bolt.y - (bolt.height / 2);
 			
 			if (this.contains(wispC)) this.removeChild(wispC);
 			
 			boltC.addChild(bolt);
+			vortexC.addChild(vortex);
+			
 			bolt.play("strike");
+			vortex.play("vortex");
 		}
 		
 		public function strikeEnemy(index:int):void

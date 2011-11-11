@@ -83,10 +83,13 @@
 			
 			this.makeBounds();
 			
-			Mobs.push(stage.addChild(man = new Player(50, 375)) as Mob);
-			
 			addEnemy(724, 75);
 			addEnemy(924, 75);
+			addEnemy(600, 336);
+			addEnemy(495, 130);
+			addEnemy(170, 180);
+			
+			Mobs.push(stage.addChild(man = new Player(50, 375)) as Mob);
 			
 			addWall( 0, 110, false);
 			addWall(150, 250, true);

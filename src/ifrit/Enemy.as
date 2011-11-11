@@ -23,7 +23,6 @@ package ifrit
 		private var speed:Number;
 		private var confusionTimer:Timer;
 		private var fleeCooldown:Timer;
-		private var destroyed:Boolean;
 		
 		public function Enemy(x:Number, y:Number) 
 		{
@@ -52,13 +51,13 @@ package ifrit
 		{
 			super.think();
 			
-			if (destroyed) return;
+			this.testHealth();
+			
+			if (isDestroyed) return;
 			
 			this.findPlatform();
 			
 			this.adjustHeading();
-			
-			this.testHealth();
 			
 			this.beginOffense();
 			
@@ -73,8 +72,20 @@ package ifrit
 		{
 			super.destroy();
 			this.graphic.play("die");
-			this.destroyed = true;
-			this.removeChild(collisionHull);
+		}
+		
+		/**
+		 * AI synapse
+		 * Check health and destroy enemy if below 0
+		 */
+		private function testHealth():void
+		{
+			if (this.hitpoints <= 0 && !isDestroyed)	this.destroy();
+			if (this.isDestroyed && this.graphic.playing != "die")
+			{
+				this.comeToRest();
+				this.removeChild(collisionHull);
+			}
 		}
 		
 		/**
@@ -138,11 +149,6 @@ package ifrit
 			}
 		}
 		
-		private function testHealth():void
-		{
-			if (this.hitpoints <= 0)	this.destroy();
-		}
-		
 		/**
 		 * AI synapse
 		 * Test if hitpoints are at the panic level and begin the flee procedure
@@ -181,6 +187,7 @@ package ifrit
 			if (this.graphic.playing != "shocked" && this.graphic.playing != "die")	this.graphic.play("walk");
 			
 			this.lastPosition.x = this.x;
+			this.lastPosition.y = this.y;
 			
 			this.rotationY = this.heading ? 0 : 180;
 			

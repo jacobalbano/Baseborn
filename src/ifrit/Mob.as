@@ -41,6 +41,7 @@ package ifrit
 		public var friendly:Boolean;
 		public var hitpoints:int;
 		public var maxHealth:uint;
+		private var destroyed:Boolean;
 		
 		
 		public function Mob(x:Number, y:Number, bitmap:Bitmap, frameWidth:Number, frameHeight:Number, collisionWidth:Number, collisionHeight:Number)
@@ -122,7 +123,8 @@ package ifrit
 		
 		}
 		
-		public function get isFrozen():Boolean	{	return this.frozen;	}
+		public function get isFrozen():Boolean	{	return this.frozen;		}
+		public function get isDestroyed():Boolean	{	return this.destroyed;	}
 		/**
 		 * Override this to add AI
 		 */
@@ -166,18 +168,23 @@ package ifrit
 		
 		public function destroy():void
 		{
+			this.destroyed = true;
+		}
+		
+		public function comeToRest():void
+		{
 			removeEventListener(Event.ENTER_FRAME, onEnterFrame);
 		}
 		
 		private function onEnterFrame(e:Event):void
 		{
-			if (!this.freezeTimer.running)
+			if (this.freezeTimer.running)
 			{
-				think();
+				this.graphic.play("stand");
 			}
 			else
 			{
-				this.graphic.play("stand");
+				think();
 			}
 			
 			if (this.freezeTimer.currentCount >= 3)

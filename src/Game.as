@@ -7,6 +7,8 @@
 	import flash.display.Bitmap;
 	import flash.display.DisplayObject;
 	import flash.display.Stage;
+	import flash.text.TextFormat;
+	import flash.text.TextFieldType;
 	import ifrit.*;
 	
 	import flash.display.Sprite;
@@ -33,7 +35,7 @@
 		public static var Projectiles:Vector.<Projectile>;
 		public static var Mobs:Vector.<Mob>;
 		public static var Platforms:Vector.<Platform>;
-		public var decal:Sprite;
+		public var exit:Bitmap;
 		
 		/**
 		 * Lightning bolt
@@ -78,11 +80,7 @@
 			addDecal(Library.IMG("castle.decals.torch.png"), 685, 60, [0, 1, 2, 3, 4, 5], 40, 40);
 			
 			addDecal(Library.IMG("castle.decals.door.png"), 8, 326);
-			addDecal(Library.IMG("castle.decals.door.png"), 818, 326);
-			
-			//this.decal = new Sprite;
-			//this.decal.addChild(Library.IMG("castle.decals.door.png"));
-			//stage.addChild(this.decal);
+			addDecal(exit = Library.IMG("castle.decals.door.png"), 818, 326);
 			
 			this.makeBounds();
 			
@@ -114,6 +112,26 @@
 		
 		private function enterFrame(e:Event):void
 		{
+			
+			var enemiesKilled:int = 0;
+			
+			for (var w:int = 0; w < Mobs.length; w++)
+			{
+				if (Mobs[w].hitpoints <= 0)
+				{
+					enemiesKilled++;
+				}
+			}
+			
+			if (man.collisionHull.hitTestObject(exit))
+			{
+				addDecal(Library.IMG("victory.png"), Game.stage.stageWidth / 2 - 64, Game.stage.stageHeight / 2 - 19);
+			}
+			
+			if (enemiesKilled == Mobs.length)
+			{
+				Platforms[Platforms.length - 1].x++;
+			}
 			if (Input.isKeyDown(Input.LEFT))
 			{
 				stopBolt();

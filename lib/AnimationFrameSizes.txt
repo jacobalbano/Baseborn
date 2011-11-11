@@ -9,3 +9,5 @@ Lightning Bolt:   10x75 (12 frames)
 Ice Blast:        22x23 (4 frames)
 Vortex:           20x15 (12 frames)
 Wisp:             15x15 (4 frames)
+
+Chandelier:     46x101 (4 frames)

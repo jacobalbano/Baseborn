@@ -69,6 +69,8 @@
 			
 			stage.addChild(Library.IMG("castle.bg.png"));
 			
+			addDecal(Library.IMG("castle.decals.stainedGlass.png"), 315.5, 18);
+			
 			addDecal(Library.IMG("castle.decals.shield.png"), 145, 69);
 			addDecal(Library.IMG("castle.decals.shield.png"), 265, 69);
 			addDecal(Library.IMG("castle.decals.torch.png"), 200, 60, [0, 1, 2, 3, 4, 5], 40, 40);

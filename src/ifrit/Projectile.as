@@ -3,13 +3,14 @@ package ifrit
 	import com.jacobalbano.Animation;
 	
 	import flash.display.Bitmap;
+	import flash.display.BitmapData;
 	import flash.display.Sprite;
 	import flash.events.Event;
 	
 	/**
 	 * @author Jake Albano
 	 */
-	public class Projectile extends Sprite
+	public class Projectile extends Sprite implements IUnloadable
 	{
 		
 		public var animation:Animation;
@@ -17,6 +18,8 @@ package ifrit
 		
 		protected var dx:int;
 		protected var vy:Number;
+		
+		protected var hasPhysics:Boolean;
 		
 		public var friendly:Boolean;
 		
@@ -51,6 +54,11 @@ package ifrit
 			
 		}
 		
+		public function unload():void
+		{
+			destroy();
+		}
+		
 		public function destroy():void
 		{
 			removeEventListener(Event.ENTER_FRAME, enterFrame);
@@ -58,8 +66,8 @@ package ifrit
 		
 		private function enterFrame(e:Event):void 
 		{
-			this.vy += 0.02;
-			//this.y += this.vy;
+			this.vy += 0.01;
+			if (this.hasPhysics)	this.y += this.vy;
 			
 			/**
 			 * Debugging information; displays trajectory

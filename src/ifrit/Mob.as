@@ -15,7 +15,7 @@ package ifrit
 	 * @author Jake Albano
 	 */
 	
-	public class Mob extends Sprite
+	public class Mob extends Sprite implements IUnloadable
 	{
 		//	Graphical representation
 		public var graphic:Animation;
@@ -35,6 +35,7 @@ package ifrit
 		
 		public var collisionHull:Sprite;
 		protected var halfSize:Point;
+		protected var classType:uint;
 		
 		public var walkRight:Number;
 		public var walkLeft:Number;
@@ -63,6 +64,8 @@ package ifrit
 			this.x = x;
 			this.y = y;
 			
+			this.canJump = true;
+			
 			this.collisionHull = new Sprite;
 			this.collisionHull.addChild(new Bitmap(new BitmapData(collisionWidth, collisionHeight, false, 0x000000)));
 			this.collisionHull.x = -collisionWidth / 2;
@@ -78,6 +81,11 @@ package ifrit
 			speedLimit = new Point(7, 20);
 			
 			addEventListener(Event.ENTER_FRAME, onEnterFrame);
+		}
+		
+		public function unload():void
+		{
+			this.removeEventListener(Event.ENTER_FRAME, onEnterFrame);
 		}
 		
 		public function collideWithMob(obj:Mob):Boolean
@@ -145,12 +153,21 @@ package ifrit
 				shootTimer.reset();
 			}
 			
+			var ammunition:Class;
+			
+			switch (this.classType)
+			{
+				case 0:		ammunition = Fireball;	break;
+				case 2:		ammunition = Shuriken;	break;
+				case 4:		ammunition = Shuriken;	break;
+			}
+			
 			if (!shootTimer.running)
 			{
 				if (this.rotationY == 180)
-					stage.addChild(new Fireball(-10, this.x - this.halfSize.x, this.y, this.friendly));
+					stage.addChild(new ammunition(-10, this.x - this.halfSize.x + 10, this.y, this.friendly));
 				else
-					stage.addChild(new Fireball(10, this.x + this.halfSize.x, this.y, this.friendly));
+					stage.addChild(new ammunition(10, this.x + this.halfSize.x + 10, this.y, this.friendly));
 				
 				Game.Projectiles.push(stage.getChildAt(stage.numChildren - 1));
 			}

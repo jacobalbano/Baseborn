@@ -18,6 +18,8 @@ package ifrit
 			super.update();
 			if (dx < 0) { this.rotation -= 20; }
 			else if (dx > 0) { this.rotation += 20; }
+			
+			this.hasPhysics = true;
 		}
 		
 	}

@@ -89,7 +89,7 @@
 			addEnemy(495, 130);
 			addEnemy(170, 180);
 			
-			Mobs.push(stage.addChild(man = new Player(50, 375)) as Mob);
+			Mobs.push(stage.addChild(man = new Player(50, 375, Player.MAGE)) as Mob);
 			
 			addWall( 0, 110, false);
 			addWall(150, 250, true);
@@ -135,20 +135,20 @@
 			if (Input.isKeyDown(Input.LEFT))
 			{
 				stopBolt();
-				if (man.graphic.playing != "attack") man.graphic.play("walk");
+				if (man.graphic.playing != "attack" && man.graphic.playing != "shoot") man.graphic.play("walk");
 				man.x -= 7;
 				man.rotationY = 180;
 			}
 			else if (Input.isKeyDown(Input.RIGHT))
 			{
 				stopBolt();
-				if (man.graphic.playing != "attack") man.graphic.play("walk");
+				if (man.graphic.playing != "attack" && man.graphic.playing != "shoot") man.graphic.play("walk");
 				man.x += 7;
 				man.rotationY = 0;
 			}
 			else
 			{
-				if (man.graphic.playing != "attack") man.graphic.play("stand", true);
+				if (man.graphic.playing != "attack" && man.graphic.playing != "shoot") man.graphic.play("stand", true);
 			}
 			
 			if (man.canJump)
@@ -163,50 +163,21 @@
 			
 			if (Input.isKeyDown(Input.A) )
 			{
-				man.graphic.play("attack");
-				man.shoot();
+				doRangedAttack();
 			}
 			
 			if (Input.isKeyDown(Input.D))
 			{
-				if ( !(Input.isKeyDown(Input.LEFT) || Input.isKeyDown(Input.RIGHT) ) )
-				{
-					stopFrost();
-					man.graphic.play("attack");
-					stage.addChild(frostAttack = new FrostBolt(man.rotationY == 180, man.x, man.y)); 
-				}
+				doMeleeAttack();
 			}
 			
-			/**
-			 * Lightning attack
-			 */
 			if (Input.isKeyDown(Input.S))
 			{
-				if ( !(Input.isKeyDown(Input.LEFT) || Input.isKeyDown(Input.RIGHT) ) )
-				{
-					man.graphic.play("attack"); //TODO: Stop animation on last frame
-					if (!lightningAttack)
-					{
-						if (man.rotationY == 0)
-						{
-							lightningAttack = new LightningBolt(true, man.x, man.y);
-							stage.addChild(lightningAttack);
-						}
-						else if (man.rotationY == 180)
-						{
-							lightningAttack = new LightningBolt(false, man.x, man.y);
-							stage.addChild(lightningAttack);
-						}
-					}
-				}
+				beginSpecialAttack();
 			}
 			else
 			{
-				if (lightningAttack)
-				{
-					boltTime.start();
-					lightningAttack.sendBolt();
-				}
+				finalizeSpecialAttack();
 			}
 			
 			if (boltTime.currentCount >= 12)
@@ -315,6 +286,61 @@
 							Platforms[ii].collide(Mobs[jj] );
 						}
 					}
+				}
+			}
+		}
+		
+		private function doRangedAttack():void 
+		{
+			man.graphic.play("shoot");
+			man.shoot();
+		}
+		
+		private function doMeleeAttack():void 
+		{
+			if (man.type == Player.MAGE)
+			{
+				if ( !(Input.isKeyDown(Input.LEFT) || Input.isKeyDown(Input.RIGHT) ) )
+				{
+					stopFrost();
+					man.graphic.play("attack");
+					stage.addChild(frostAttack = new FrostBolt(man.rotationY == 180, man.x, man.y)); 
+				}
+			}
+		}
+		
+		private function beginSpecialAttack():void 
+		{
+			if (man.type == Player.MAGE)
+			{
+				if ( !(Input.isKeyDown(Input.LEFT) || Input.isKeyDown(Input.RIGHT) ) )
+				{
+					man.graphic.play("casting");
+					if (!lightningAttack)
+					{
+						if (man.rotationY == 0)
+						{
+							lightningAttack = new LightningBolt(true, man.x, man.y);
+							stage.addChild(lightningAttack);
+						}
+						else if (man.rotationY == 180)
+						{
+							lightningAttack = new LightningBolt(false, man.x, man.y);
+							stage.addChild(lightningAttack);
+						}
+					}
+				}
+			}
+		}
+		
+		private function finalizeSpecialAttack():void
+		{
+			if (man.type == Player.MAGE)
+			{
+				if (lightningAttack)
+				{
+					boltTime.start();
+					lightningAttack.sendBolt();
 				}
 			}
 		}

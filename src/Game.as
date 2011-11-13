@@ -43,7 +43,7 @@
 		 */
 		private var frostAttack:FrostBolt;
 		
-		private var hud:Sprite = new Sprite();
+		private var canMelee:Boolean;
 		
 		public function Game()	{}
 		
@@ -108,13 +108,6 @@
 			addWall(745, 187, false);
 			addWall(1024, 315, false);
 			
-			//hud.graphics.beginFill(0xD70000);
-			//hud.graphics.drawRect(0, 0, 200, 10);
-			//hud.graphics.endFill();
-			//
-			//hud.x = 50;
-			//hud.y = 375;
-			//
 			stage.addChild(new HUD);
 			
 			lightningAttack = null;
@@ -178,7 +171,11 @@
 			
 			if (Input.isKeyDown(Input.D))
 			{
-				doMeleeAttack();
+				beginMeleeAttack();
+			}
+			else
+			{
+				finalizeMeleeAttack();
 			}
 			
 			/**
@@ -319,19 +316,26 @@
 			else man.shoot();
 		}
 		
-		private function doMeleeAttack():void 
+		private function beginMeleeAttack():void 
 		{
-			if (man.type == Player.MAGE)
+			canMelee = true;
+		}
+		
+		private function finalizeMeleeAttack():void
+		{
+			if (canMelee)
 			{
-				if ( !(Input.isKeyDown(Input.LEFT) || Input.isKeyDown(Input.RIGHT) ) )
+				if (man.type == Player.MAGE)
 				{
-					stopFrost();
-					man.graphic.play("attack");
 					if (!frostAttack && HUD.energy.width >= 50)
 					{
+						stopFrost();
+						man.graphic.play("attack");
 						stage.addChild(frostAttack = new FrostBolt(man.rotationY == 180, man.x, man.y)); 
 					}
 				}
+				
+				canMelee = false;
 			}
 		}
 		

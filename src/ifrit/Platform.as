@@ -7,7 +7,7 @@ package ifrit
 	import flash.display.Sprite;
 	
 	
-	public class Platform extends Sprite
+	public class Platform extends IfritObject
 	{		
 		public var bitmap:Bitmap;
 		public var container:Sprite;

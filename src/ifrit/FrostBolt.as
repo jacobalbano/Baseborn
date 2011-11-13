@@ -10,7 +10,7 @@ package ifrit
 	/**
 	 * @author Jake Albano
 	 */
-	public class FrostBolt extends Sprite
+	public class FrostBolt extends IfritObject
 	{
 		public var freeze:Animation;
 		public var finished:Boolean;
@@ -37,11 +37,9 @@ package ifrit
 			else 			this.rotationY = 0;
 			
 			HUD.energy.width -= 50;
-			
-			addEventListener(Event.ENTER_FRAME, enterFrame);
 		}
 		
-		private function enterFrame(e:Event):void 
+		override protected function update():void 
 		{
 			if (this.freeze.playing != "play")
 			{

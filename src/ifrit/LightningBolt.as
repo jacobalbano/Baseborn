@@ -10,7 +10,7 @@ package ifrit
 	 * ...
 	 * @author Chris Logsdon
 	 */
-	public class LightningBolt extends Sprite
+	public class LightningBolt extends IfritObject
 	{
 		public var wisp:Animation;
 		protected var wispC:Sprite = new Sprite();
@@ -63,11 +63,9 @@ package ifrit
 			else if (!direction)  { acceleration = -0.3; }
 			
 			this.struckEnemies = new Vector.<int>;
-			
-			addEventListener(Event.ENTER_FRAME, enterFrame);
 		}
 		
-		private function enterFrame(e:Event):void 
+		override protected function update():void 
 		{
 			vx += acceleration;
 			wisp.x += vx;

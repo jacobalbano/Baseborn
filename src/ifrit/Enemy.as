@@ -97,12 +97,12 @@ package ifrit
 		private function findPlatform():void
 		{
 			var found:Boolean = false;
-			for (var i:int = 0; i < Game.Platforms.length; i++) 
+			for (var i:int = 0; i < World.Platforms.length; i++) 
 			{
-				if (Game.Platforms[i].collide(this) && Game.Platforms[i].rotation == 0)
+				if (World.Platforms[i].collide(this) && World.Platforms[i].rotation == 0)
 				{
-					leftBound = Game.Platforms[i].x - Game.Platforms[i].width / 2;
-					rightBound = Game.Platforms[i].x + Game.Platforms[i].width / 2;
+					leftBound = World.Platforms[i].x - World.Platforms[i].width / 2;
+					rightBound = World.Platforms[i].x + World.Platforms[i].width / 2;
 					found = true;
 					this.platformIndex = i;
 					break;
@@ -112,7 +112,7 @@ package ifrit
 			if (!found)
 			{
 				this.leftBound = 0;
-				this.rightBound = stage.stageWidth;
+				this.rightBound = Game.dimensions.x;
 				this.platformIndex = -1;
 			}
 		}
@@ -142,7 +142,7 @@ package ifrit
 		{
 			if (this.platformIndex >= 0 && !fleeMode)
 			{
-				if (Game.Platforms[this.platformIndex].collide(Game.man) && Game.man.y < Game.Platforms[platformIndex].y)
+				if (World.Platforms[this.platformIndex].collide(Game.man) && Game.man.y < World.Platforms[platformIndex].y)
 				{
 					if (this.x >= Game.man.x) heading = false;	else heading = true;
 					if (heading)	{	if (Game.man.x > this.x) this.shoot();	}
@@ -198,12 +198,12 @@ package ifrit
 				
 				if (heading)
 				{
-					if (Game.man.x > this.x && platformIndex >= 0 && Game.Platforms[this.platformIndex].collide(Game.man)) this.shoot();
+					if (Game.man.x > this.x && platformIndex >= 0 && World.Platforms[this.platformIndex].collide(Game.man)) this.shoot();
 					this.x += 5;
 				}
 				else
 				{
-					if (Game.man.x < this.x && platformIndex >= 0 && Game.Platforms[this.platformIndex].collide(Game.man)) this.shoot();
+					if (Game.man.x < this.x && platformIndex >= 0 && World.Platforms[this.platformIndex].collide(Game.man)) this.shoot();
 					x -= 5;
 				}
 				

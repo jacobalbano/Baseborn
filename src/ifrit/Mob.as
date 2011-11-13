@@ -159,7 +159,7 @@ package ifrit
 				else
 					stage.addChild(new ammunition(10, this.x + this.halfSize.x + 10, this.y, this.friendly));
 				
-				Game.Projectiles.push(stage.getChildAt(stage.numChildren - 1));
+				World.Projectiles.push(stage.getChildAt(stage.numChildren - 1));
 			}
 			
 			shootTimer.start();
@@ -246,11 +246,11 @@ package ifrit
 				this.x = 0 + this.halfSize.x;
 			}
 			
-			if (this.y + this.halfSize.y > stage.stageHeight)
+			if (this.y + this.halfSize.y > Game.dimensions.y)
 			{
 				velocity.x = 0;
 				velocity.y = 0;
-				this.y = stage.stageHeight - this.halfSize.y;
+				this.y = Game.dimensions.y - this.halfSize.y;
 				
 				jumpTimer.reset(); // Reset when on floor, to avoid constant jumping in air
 			}

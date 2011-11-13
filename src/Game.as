@@ -2,6 +2,7 @@
 {
 	import com.jacobalbano.Animation;
 	import com.jacobalbano.Input;
+	import flash.geom.Point;
 	
 	import com.thaumaturgistgames.flakit.Engine;
 	import com.thaumaturgistgames.flakit.Library;
@@ -17,18 +18,10 @@
 	[SWF(width = "1000", height = "500", backgroundColor = "0xFFFFFF")]
 	public class Game extends Engine 
 	{		
-		public const MAX_X:uint = stage.stageWidth;
-		public const MIN_X:uint = 0;
-		public const MAX_Y:uint = stage.stageHeight;
-		public const MIN_Y:uint = 0;
+		public static const dimensions:Point = new Point(1000, 400);
 		
 		public static var stage:Stage;
 		public static var man:Player;
-		public static var Projectiles:Vector.<Projectile>;
-		public static var Mobs:Vector.<Mob>;
-		public static var Platforms:Vector.<Platform>;
-		
-		public var decal:Sprite;
 		
 		/**
 		 * Lightning bolt
@@ -59,9 +52,9 @@
 			
 			stage.scaleMode = "noScale";
 			
-			Platforms = new Vector.<Platform>;
-			Projectiles = new Vector.<Projectile>;
-			Mobs = new Vector.<Mob>;
+			World.Platforms = new Vector.<Platform>;
+			World.Projectiles = new Vector.<Projectile>;
+			World.Mobs = new Vector.<Mob>;
 			
 			World.loadCastle_01();
 		}
@@ -70,9 +63,9 @@
 		{		
 			var enemiesKilled:int = 0;
 			
-			for (var w:int = 0; w < Mobs.length; w++)
+			for (var w:int = 0; w < World.Mobs.length; w++)
 			{
-				if (Mobs[w].hitpoints <= 0)
+				if (World.Mobs[w].hitpoints <= 0)
 				{
 					enemiesKilled++;
 				}
@@ -80,13 +73,13 @@
 			
 			if (man.collisionHull.hitTestObject(World.exit))
 			{
-				//World.addDecal(Library.IMG("victory.png"), Game.stage.stageWidth / 2 - 64, Game.stage.stageHeight / 2 - 19);
+				World.addDecal(Library.IMG("victory.png"), Game.dimensions.x / 2 - 64, Game.dimensions.y / 2 - 19);
 				World.next();
 			}
 			
-			if (enemiesKilled == Mobs.length && Platforms.length > 0)
+			if (enemiesKilled == World.Mobs.length && World.Platforms.length > 0)
 			{
-				Platforms[Platforms.length - 1].x++;
+				World.Platforms[World.Platforms.length - 1].x++;
 			}
 			
 			if (Input.isKeyDown(Input.J))
@@ -159,33 +152,33 @@
 				stopFrost();
 			}
 			
-			if (Mobs.length > 0)
+			if (World.Mobs.length > 0)
 			{
-				for (var l:int = Mobs.length - 1; l >= 0; l--)
+				for (var l:int = World.Mobs.length - 1; l >= 0; l--)
 				{
-					for (var ll:int = Mobs.length - 1; ll >= 0; ll--)
+					for (var ll:int = World.Mobs.length - 1; ll >= 0; ll--)
 					{
-						if (Mobs[l].collideWithMob(Mobs[ll]))	{ }
+						if (World.Mobs[l].collideWithMob(World.Mobs[ll]))	{ }
 					}
 					var removed:Boolean = false;
-					if (Projectiles.length > 0)
+					if (World.Projectiles.length > 0)
 					{						
-						for (var k:int = Projectiles.length - 1; k >= 0; k--) 
+						for (var k:int = World.Projectiles.length - 1; k >= 0; k--) 
 						{
-							if (Projectiles[k].hitTestObject(Mobs[l].collisionHull))
+							if (World.Projectiles[k].hitTestObject(World.Mobs[l].collisionHull))
 							{
-								if (Projectiles[k].friendly != Mobs[l].friendly)
+								if (World.Projectiles[k].friendly != World.Mobs[l].friendly)
 								{
-									if (!Projectiles[k].friendly)
+									if (!World.Projectiles[k].friendly)
 									{
 										if (HUD.health.width >= 20) HUD.health.width -= 20;
 										if (HUD.health.width < 20) HUD.health.width -= HUD.health.width;
 									}
 									
-									stage.removeChild(Projectiles[k]);
-									//Projectiles[k].destroy();
-									Projectiles.splice(k, 1);
-									Mobs[l].hitpoints -= 5;
+									stage.removeChild(World.Projectiles[k]);
+									World.Projectiles[k].destroy();
+									World.Projectiles.splice(k, 1);
+									World.Mobs[l].hitpoints -= 5;
 									
 									removed = true;
 									
@@ -201,14 +194,14 @@
 						
 						if (boltTime.currentCount >= 4)
 						{
-							if (bolting && Mobs[l].collisionHull.hitTestObject(lightningAttack.bolt))
+							if (bolting && World.Mobs[l].collisionHull.hitTestObject(lightningAttack.bolt))
 							{
-								if (!Mobs[l].friendly)
+								if (!World.Mobs[l].friendly)
 								{
 									if (!lightningAttack.isEnemyStruck(l))
 									{
-										Mobs[l].hitpoints -= 10;
-										Mobs[l].graphic.play("shocked");
+										World.Mobs[l].hitpoints -= 10;
+										World.Mobs[l].graphic.play("shocked");
 										lightningAttack.strikeEnemy(l);
 									}
 								}
@@ -218,9 +211,9 @@
 					
 					if (frostAttack)
 					{
-						if (Mobs[l].collisionHull.hitTestObject(frostAttack))
+						if (World.Mobs[l].collisionHull.hitTestObject(frostAttack))
 						{
-							if (Mobs[l].friendly != man.friendly)	Mobs[l].freeze();
+							if (World.Mobs[l].friendly != man.friendly)	World.Mobs[l].freeze();
 						}
 					}
 					
@@ -228,37 +221,37 @@
 				}	
 			}
 			
-			if (Platforms.length > 0)
+			if (World.Platforms.length > 0)
 			{
-				for (var ii:int = Platforms.length - 1; ii >= 0; ii--)
+				for (var ii:int = World.Platforms.length - 1; ii >= 0; ii--)
 				{
-					if (Projectiles.length > 0)
+					if (World.Projectiles.length > 0)
 					{						
-						for (var j:int = Projectiles.length - 1; j >= 0; j--) 
+						for (var j:int = World.Projectiles.length - 1; j >= 0; j--) 
 						{
-							if (Projectiles[j].x > stage.stageWidth + 20 || Projectiles[j].x < MIN_X - 20)
+							if (World.Projectiles[j].x > Game.dimensions.x + 20 || World.Projectiles[j].x < -20)
 							{
-								//Projectiles[j].destroy();
-								stage.removeChild(Projectiles[j]);
-								Projectiles.splice(j, 1);
+								World.Projectiles[j].destroy();
+								stage.removeChild(World.Projectiles[j]);
+								World.Projectiles.splice(j, 1);
 								continue;
 							}
 							
-							if (Platforms[ii].collide(Projectiles[j] ) )
+							if (World.Platforms[ii].collide(World.Projectiles[j] ) )
 							{
-								stage.removeChild( Projectiles[j] );
-								//Projectiles[j].destroy();
-								Projectiles.splice(j, 1);
+								stage.removeChild( World.Projectiles[j] );
+								World.Projectiles[j].destroy();
+								World.Projectiles.splice(j, 1);
 								continue;
 							}
 						}
 					}
 					
-					if (Mobs.length > 0)
+					if (World.Mobs.length > 0)
 					{
-						for (var jj:int = Mobs.length - 1; jj >= 0; jj--) 
+						for (var jj:int = World.Mobs.length - 1; jj >= 0; jj--) 
 						{
-							Platforms[ii].collide(Mobs[jj] );
+							World.Platforms[ii].collide(World.Mobs[jj] );
 						}
 					}
 				}

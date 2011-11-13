@@ -19,6 +19,10 @@ package ifrit
 	public class World
 	{
 		
+		public static var Projectiles:Vector.<Projectile>;
+		public static var Mobs:Vector.<Mob>;
+		public static var Platforms:Vector.<Platform>;
+		
 		public static var exit:Bitmap;
 		private static var nextLevel:Function;
 		
@@ -28,6 +32,8 @@ package ifrit
 		public static function loadCastle_01():void 
 		{
 			unloadLevel();
+			
+			makeBounds();
 			
 			Game.stage.addChild(Library.IMG("castle.bg.png"));
 			
@@ -47,15 +53,13 @@ package ifrit
 			addDecal(Library.IMG("castle.decals.door.png"), 8, 326);
 			addDecal(exit = Library.IMG("castle.decals.door.png"), 818, 326);
 			
-			makeBounds();
-			
 			addEnemy(724, 75);
 			addEnemy(924, 75);
 			addEnemy(600, 336);
 			addEnemy(495, 130);
 			addEnemy(170, 180);
 			
-			Game.Mobs.push(Game.stage.addChild(Game.man = new Player(50, 375, Player.MAGE)) as Mob);
+			Mobs.push(Game.stage.addChild(Game.man = new Player(50, 375, Player.ROGUE)) as Mob);
 			
 			addWall( 0, 110, false);
 			addWall(150, 250, true);
@@ -95,7 +99,7 @@ package ifrit
 		 */
 		public static function addWall(x:Number, y:Number, vertical:Boolean):void
 		{
-			Game.Platforms.push(Game.stage.addChild(new Platform(x, y, vertical) ) );
+			Platforms.push(Game.stage.addChild(new Platform(x, y, vertical) ) );
 		}
 		
 		/**
@@ -105,7 +109,7 @@ package ifrit
 		 */
 		public static function addEnemy(x:Number, y:Number):void
 		{
-			Game.Mobs.push(Game.stage.addChild(new Enemy(x, y) ) as Mob);		
+			Mobs.push(Game.stage.addChild(new Enemy(x, y) ) as Mob);		
 		}
 		
 		/**
@@ -169,19 +173,19 @@ package ifrit
 		 */
 		private static function unloadLevel():void 
 		{
-			for (var pr:int = Game.Projectiles.length; pr --> 0; )
+			for (var pr:int = World.Projectiles.length; pr --> 0; )
 			{
-				Game.stage.removeChild(Game.Projectiles.pop());
+				Game.stage.removeChild(World.Projectiles.pop());
 			}
 			
-			for (var pl:int = Game.Platforms.length; pl --> 0; )
+			for (var pl:int = World.Platforms.length; pl --> 0; )
 			{
-				Game.stage.removeChild(Game.Platforms.pop());
+				Game.stage.removeChild(World.Platforms.pop());
 			}
 			
-			for (var mb:int = Game.Mobs.length; mb --> 0; )
+			for (var mb:int = World.Mobs.length; mb --> 0; )
 			{
-				Game.stage.removeChild(Game.Mobs.pop());
+				Game.stage.removeChild(World.Mobs.pop());
 			}
 			
 			while (Game.stage.numChildren > 1) Game.stage.removeChildAt(1);

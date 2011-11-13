@@ -75,19 +75,30 @@ package ifrit
 		
 		public function sendBolt():void
 		{
-			vx = 0;
-			bolt.x = wisp.x;
-			bolt.y = wisp.y - (bolt.height / 2);
-			vortex.x = bolt.x;
-			vortex.y = bolt.y - (bolt.height / 2);
-			
 			if (this.contains(wispC)) this.removeChild(wispC);
 			
-			boltC.addChild(bolt);
-			vortexC.addChild(vortex);
-			
-			bolt.play("strike");
-			vortex.play("vortex");
+			if (wisp.x > 0 && wisp.x < 1000)
+			{
+				vx = 0;
+				bolt.x = wisp.x;
+				bolt.y = wisp.y - (bolt.height / 2);
+				vortex.x = bolt.x;
+				vortex.y = bolt.y - (bolt.height / 2);
+				
+				boltC.addChild(bolt);
+				vortexC.addChild(vortex);
+				
+				
+					if (bolt.playing != "strike" && vortex.playing != "vortex")
+					{
+						HUD.mana.width -= 25;
+						HUD.energy.width -= 95;
+					}
+				
+				
+				bolt.play("strike");
+				vortex.play("vortex");
+			}
 		}
 		
 		public function strikeEnemy(index:int):void

@@ -36,6 +36,9 @@ package ifrit
 			if (direction)	this.rotationY = 180;
 			else 			this.rotationY = 0;
 			
+			trace("t");
+			HUD.energy.width -= 50;
+			
 			addEventListener(Event.ENTER_FRAME, enterFrame);
 		}
 		

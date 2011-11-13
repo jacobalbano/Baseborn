@@ -14,7 +14,7 @@
 	import flash.events.Event;
 	import flash.utils.Timer;
 	
-	[SWF(width = "1000", height = "400", backgroundColor = "0xFFFFFF")]
+	[SWF(width = "1000", height = "500", backgroundColor = "0xFFFFFF")]
 	public class Game extends Engine 
 	{		
 		public const MAX_X:uint = stage.stageWidth;
@@ -43,6 +43,7 @@
 		 */
 		private var frostAttack:FrostBolt;
 		
+		private var hud:Sprite = new Sprite();
 		
 		public function Game()	{}
 		
@@ -106,6 +107,15 @@
 			addWall(227, 109, false);
 			addWall(745, 187, false);
 			addWall(1024, 315, false);
+			
+			//hud.graphics.beginFill(0xD70000);
+			//hud.graphics.drawRect(0, 0, 200, 10);
+			//hud.graphics.endFill();
+			//
+			//hud.x = 50;
+			//hud.y = 375;
+			//
+			stage.addChild(new HUD);
 			
 			lightningAttack = null;
 			bolting = false;
@@ -171,6 +181,9 @@
 				doMeleeAttack();
 			}
 			
+			/**
+			 * Lightning attack
+			 */
 			if (Input.isKeyDown(Input.S))
 			{
 				beginSpecialAttack();
@@ -207,6 +220,12 @@
 							{
 								if (Projectiles[k].friendly != Mobs[l].friendly)
 								{
+									if (!Projectiles[k].friendly)
+									{
+										if (HUD.health.width >= 20) HUD.health.width -= 20;
+										if (HUD.health.width < 20) HUD.health.width -= HUD.health.width;
+									}
+									
 									stage.removeChild(Projectiles[k]);
 									Projectiles[k].destroy();
 									Projectiles.splice(k, 1);
@@ -292,8 +311,12 @@
 		
 		private function doRangedAttack():void 
 		{
-			man.graphic.play("shoot");
-			man.shoot();
+			man.graphic.play("attack");
+			if (man.friendly)
+			{
+				if (HUD.mana.width >= 15 && HUD.energy.width >= 75)   man.shoot();
+			}
+			else man.shoot();
 		}
 		
 		private function doMeleeAttack():void 
@@ -304,7 +327,10 @@
 				{
 					stopFrost();
 					man.graphic.play("attack");
-					stage.addChild(frostAttack = new FrostBolt(man.rotationY == 180, man.x, man.y)); 
+					if (!frostAttack && HUD.energy.width >= 50)
+					{
+						stage.addChild(frostAttack = new FrostBolt(man.rotationY == 180, man.x, man.y)); 
+					}
 				}
 			}
 		}
@@ -316,17 +342,21 @@
 				if ( !(Input.isKeyDown(Input.LEFT) || Input.isKeyDown(Input.RIGHT) ) )
 				{
 					man.graphic.play("casting");
-					if (!lightningAttack)
+					
+					if (HUD.mana.width >= 50 && HUD.energy.width >= 80)
 					{
-						if (man.rotationY == 0)
+						if (!lightningAttack)
 						{
-							lightningAttack = new LightningBolt(true, man.x, man.y);
-							stage.addChild(lightningAttack);
-						}
-						else if (man.rotationY == 180)
-						{
-							lightningAttack = new LightningBolt(false, man.x, man.y);
-							stage.addChild(lightningAttack);
+							if (man.rotationY == 0)
+							{
+								lightningAttack = new LightningBolt(true, man.x, man.y);
+								stage.addChild(lightningAttack);
+							}
+							else if (man.rotationY == 180)
+							{
+								lightningAttack = new LightningBolt(false, man.x, man.y);
+								stage.addChild(lightningAttack);
+							}
 						}
 					}
 				}

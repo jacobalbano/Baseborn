@@ -72,6 +72,8 @@ package ifrit
 		{
 			super.destroy();
 			this.graphic.play("die");
+			if (HUD.health.width <= 170) HUD.health.width += 30;
+			else HUD.health.width += 200 - HUD.health.width;
 		}
 		
 		/**

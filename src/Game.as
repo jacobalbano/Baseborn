@@ -28,14 +28,13 @@
 		public static var Mobs:Vector.<Mob>;
 		public static var Platforms:Vector.<Platform>;
 		
-		public var exit:Bitmap;
 		public var decal:Sprite;
 		
 		/**
 		 * Lightning bolt
 		 */
-		private var lightningAttack:LightningBolt;
-		private var bolting:Boolean; // Lightning bolt animation is playing
+		public static var lightningAttack:LightningBolt;
+		public static var bolting:Boolean; // Lightning bolt animation is playing
 		public var boltTime:Timer = new Timer(30, 0);
 		
 		/**
@@ -64,54 +63,7 @@
 			Projectiles = new Vector.<Projectile>;
 			Mobs = new Vector.<Mob>;
 			
-			stage.addChild(Library.IMG("castle.bg.png"));
-			
-			addDecal(Library.IMG("castle.decals.stainedGlass.png"), 315.5, 18);
-			
-			addDecal(Library.IMG("castle.decals.chandelier.png"), 900, 115, [0, 1, 2, 3], 46, 101);
-			addDecal(Library.IMG("castle.decals.chandelier.png"), 50, 115, [0, 1, 2, 3], 46, 101);
-			
-			addDecal(Library.IMG("castle.decals.shield.png"), 145, 69);
-			addDecal(Library.IMG("castle.decals.shield.png"), 265, 69);
-			addDecal(Library.IMG("castle.decals.torch.png"), 200, 60, [0, 1, 2, 3, 4, 5], 40, 40);
-			
-			addDecal(Library.IMG("castle.decals.shield.png"), 630, 69);
-			addDecal(Library.IMG("castle.decals.shield.png"), 750  , 69);
-			addDecal(Library.IMG("castle.decals.torch.png"), 685, 60, [0, 1, 2, 3, 4, 5], 40, 40);
-			
-			addDecal(Library.IMG("castle.decals.door.png"), 8, 326);
-			addDecal(exit = Library.IMG("castle.decals.door.png"), 818, 326);
-			
-			this.makeBounds();
-			
-			addEnemy(724, 75);
-			addEnemy(924, 75);
-			addEnemy(600, 336);
-			addEnemy(495, 130);
-			addEnemy(170, 180);
-			
-			Mobs.push(stage.addChild(man = new Player(50, 375, Player.MAGE)) as Mob);
-			
-			addWall( 0, 110, false);
-			addWall(150, 250, true);
-			addWall(255, 186, false);
-			addWall(495, 229, false);
-			addWall(495, 144, false);
-			addWall(700, 110, false);
-			addWall(913, 110, false);
-			addWall(772, 414, true);
-			addWall(600, 346, false);
-			addWall(397, 371, false);
-			addWall(829, 315, false);
-			addWall(700, 272, false);
-			addWall(227, 109, false);
-			addWall(745, 187, false);
-			addWall(1024, 315, false);
-			
-			stage.addChild(new HUD);
-			
-			lightningAttack = null;
-			bolting = false;
+			World.loadCastle_01();
 		}
 		
 		private function enterFrame(e:Event):void
@@ -126,15 +78,22 @@
 				}
 			}
 			
-			if (man.collisionHull.hitTestObject(exit))
+			if (man.collisionHull.hitTestObject(World.exit))
 			{
-				addDecal(Library.IMG("victory.png"), Game.stage.stageWidth / 2 - 64, Game.stage.stageHeight / 2 - 19);
+				//World.addDecal(Library.IMG("victory.png"), Game.stage.stageWidth / 2 - 64, Game.stage.stageHeight / 2 - 19);
+				World.next();
 			}
 			
-			if (enemiesKilled == Mobs.length)
+			if (enemiesKilled == Mobs.length && Platforms.length > 0)
 			{
 				Platforms[Platforms.length - 1].x++;
 			}
+			
+			if (Input.isKeyDown(Input.J))
+			{
+				World.loadCastle_01();
+			}
+			
 			if (Input.isKeyDown(Input.LEFT))
 			{
 				stopBolt();
@@ -224,7 +183,7 @@
 									}
 									
 									stage.removeChild(Projectiles[k]);
-									Projectiles[k].destroy();
+									//Projectiles[k].destroy();
 									Projectiles.splice(k, 1);
 									Mobs[l].hitpoints -= 5;
 									
@@ -279,7 +238,7 @@
 						{
 							if (Projectiles[j].x > stage.stageWidth + 20 || Projectiles[j].x < MIN_X - 20)
 							{
-								Projectiles[j].destroy();
+								//Projectiles[j].destroy();
 								stage.removeChild(Projectiles[j]);
 								Projectiles.splice(j, 1);
 								continue;
@@ -288,7 +247,7 @@
 							if (Platforms[ii].collide(Projectiles[j] ) )
 							{
 								stage.removeChild( Projectiles[j] );
-								Projectiles[j].destroy();
+								//Projectiles[j].destroy();
 								Projectiles.splice(j, 1);
 								continue;
 							}
@@ -395,63 +354,6 @@
 			if (!frostAttack) return;
 			stage.removeChild(frostAttack);
 			frostAttack = null;
-		}
-		
-		private function addWall(x:Number, y:Number, vertical:Boolean):void
-		{
-			Platforms.push(	stage.addChild(new Platform(x, y, vertical) ) );
-		}
-		
-		private function addEnemy(x:Number, y:Number):void
-		{
-			Mobs.push(stage.addChild(new Enemy(x, y) ) as Mob);		
-		}
-		
-		private function addDecal(bitmap:Bitmap, x:Number, y:Number, frames:Array = null, frameWidth:Number = 0, frameHeight:Number = 0 ):void
-		{
-			if (frames)
-			{
-				var a:Animation = new Animation(bitmap, frameWidth, frameHeight);
-				a.add("loop", frames, 5, true);
-				a.play("loop");
-				a.x = x;
-				a.y = y;
-				stage.addChild(a);
-			}
-			else
-			{
-				var s:Sprite = new Sprite;
-				s.addChild(bitmap);
-				s.x = x;
-				s.y = y;
-				stage.addChild(s);
-			}
-		}
-		
-		/**
-		 * Add platforms around the edges of the stage
-		 */
-		private function makeBounds():void
-		{
-			addWall(-5, 100, true);
-			addWall(-5, 300, true);
-			addWall( -5, 500, true);
-			
-			addWall(100, 405, false);
-			addWall(300, 405, false);
-			addWall(500, 405, false);
-			addWall(700, 405, false);
-			addWall(900, 405, false);
-			
-			addWall(1005, 100, true);
-			addWall(1005, 300, true);
-			addWall( 1005, 500, true);
-			
-			addWall(100, -5, false)
-			addWall(300, -5, false)
-			addWall(500, -5, false)
-			addWall(700, -5, false)
-			addWall(900, -5, false)
 		}
 		
 	}

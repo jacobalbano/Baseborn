@@ -8,7 +8,7 @@ package ifrit
 	 * ...
 	 * @author Chris Logsdon
 	 */
-	public class HUD extends Sprite
+	public class HUD extends IfritObject
 	{
 		private var area:Bitmap;
 		
@@ -64,11 +64,9 @@ package ifrit
 			//addChild(ammo);
 			
 			healthBarColor = true;
-			
-			addEventListener(Event.ENTER_FRAME, enterFrame);
 		}
 		
-		private function enterFrame(e:Event):void 
+		override protected function update():void 
 		{
 			if (energy.width < 200) { energy.width += 1.5; }
 			

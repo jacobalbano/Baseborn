@@ -10,7 +10,7 @@ package ifrit
 	/**
 	 * @author Jake Albano
 	 */
-	public class Projectile extends Sprite implements IUnloadable
+	public class Projectile extends IfritObject
 	{
 		
 		public var animation:Animation;
@@ -41,31 +41,12 @@ package ifrit
 			vy = 0;
 			this.friendly = friendly;
 			
-			addEventListener(Event.ENTER_FRAME, enterFrame);
-			
 			this.rotationY = direction > 0 ? 0 : 180;
-		}
+		}		
 		
-		/**
-		 * Override this; called in enterFrame
-		 */
-		public function update():void
+		override protected function update():void 
 		{
-			
-		}
-		
-		public function unload():void
-		{
-			destroy();
-		}
-		
-		public function destroy():void
-		{
-			removeEventListener(Event.ENTER_FRAME, enterFrame);
-		}
-		
-		private function enterFrame(e:Event):void 
-		{
+			super.update();
 			this.vy += 0.01;
 			if (this.hasPhysics)	this.y += this.vy;
 			
@@ -79,8 +60,6 @@ package ifrit
 			//Game.stage.addChild(bmp);
 			
 			this.x += dx;
-			
-			this.update();
 		}
 		
 	}

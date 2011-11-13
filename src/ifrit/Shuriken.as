@@ -13,7 +13,7 @@ package ifrit
 			super(Library.IMG("shuriken.png"), 10, 10, direction, x, y, friendly );
 		}
 		
-		override public function update():void 
+		override protected function update():void 
 		{
 			super.update();
 			if (dx < 0) { this.rotation -= 20; }

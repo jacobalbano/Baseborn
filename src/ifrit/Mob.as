@@ -15,7 +15,7 @@ package ifrit
 	 * @author Jake Albano
 	 */
 	
-	public class Mob extends Sprite implements IUnloadable
+	public class Mob extends IfritObject
 	{
 		//	Graphical representation
 		public var graphic:Animation;
@@ -41,9 +41,7 @@ package ifrit
 		public var walkLeft:Number;
 		public var friendly:Boolean;
 		public var hitpoints:int;
-		public var maxHealth:uint;
-		private var destroyed:Boolean;
-		
+		public var maxHealth:uint;		
 		
 		public function Mob(x:Number, y:Number, bitmap:Bitmap, frameWidth:Number, frameHeight:Number, collisionWidth:Number, collisionHeight:Number)
 		{
@@ -79,13 +77,6 @@ package ifrit
 			this.halfSize = new Point(this.collisionHull.width / 2, this.collisionHull.height / 2);
 			
 			speedLimit = new Point(7, 20);
-			
-			addEventListener(Event.ENTER_FRAME, onEnterFrame);
-		}
-		
-		public function unload():void
-		{
-			this.removeEventListener(Event.ENTER_FRAME, onEnterFrame);
 		}
 		
 		public function collideWithMob(obj:Mob):Boolean
@@ -132,7 +123,6 @@ package ifrit
 		}
 		
 		public function get isFrozen():Boolean	{	return this.frozen;		}
-		public function get isDestroyed():Boolean	{	return this.destroyed;	}
 		/**
 		 * Override this to add AI
 		 */
@@ -183,17 +173,12 @@ package ifrit
 			this.frozen = true;
 		}
 		
-		public function destroy():void
-		{
-			this.destroyed = true;
-		}
-		
 		public function comeToRest():void
 		{
-			removeEventListener(Event.ENTER_FRAME, onEnterFrame);
+			stopUpdating();
 		}
 		
-		private function onEnterFrame(e:Event):void
+		override protected function update():void 
 		{
 			if (this.freezeTimer.running)
 			{

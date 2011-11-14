@@ -149,7 +149,7 @@ package ifrit
 			{
 				case 0:		ammunition = Fireball;	break;
 				case 2:		ammunition = Shuriken;	break;
-				case 4:		ammunition = Shuriken;	break;
+				case 4:		ammunition = Arrow;	break;
 			}
 			
 			if (!shootTimer.running)

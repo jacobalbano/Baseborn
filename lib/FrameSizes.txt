@@ -1,0 +1,29 @@
+PLAYER:
+	rogueAtkWalk.png:     24x25 (4 frames) (2 animations)
+	fighterAtkWalk.png:   38x33 (4 frames) (2 animations)
+	mageAtkWalk.png:      18x25 (4 frames) (2 animations)
+
+ENEMIES:
+	enemy.png:     60x23 (4 frames) (3 animations)
+
+MAGIC:
+	fireballShot.png:    25x10 (2 frames)
+	lightningBolt.png:   10x75 (12 frames)
+	iceBlast.png:        22x23 (4 frames)
+	vortex.png:           20x15 (12 frames)
+	wisp.png:             15x15 (4 frames)
+
+WEAPONS:
+	shuriken.png	 10x10
+	arrow.png		 22x6
+
+DECALS:
+	castle.decals.chandelier.png:     46x101 (4 frames)
+	castle.decals.torch.png			  40x40 (6 frames)
+	castle.decals.door.png			  75x75
+	castle.decals.shield.png		  34x27
+	castle.decals.stainedGlass.png	  400x400
+	castle.decals.window.png		  32x45
+
+BACKGROUNDS:
+	castle.bg.png		1000x400

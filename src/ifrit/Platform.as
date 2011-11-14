@@ -14,7 +14,7 @@ package ifrit
 		
 		public function Platform(x:Number, y:Number, vertical:Boolean) 
 		{
-			this.bitmap = Library.IMG("vertical.png");
+			this.bitmap = Library.IMG("platform.png");
 			
 			if (vertical)	this.rotation = 90;
 			else 			this.rotation = 0;

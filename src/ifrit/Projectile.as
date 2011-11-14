@@ -44,6 +44,7 @@ package ifrit
 			this.rotationY = direction > 0 ? 0 : 180;
 		}		
 		
+		//TODO: Allow arrows to follow an angled trajectory
 		override protected function update():void 
 		{
 			super.update();

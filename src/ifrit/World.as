@@ -59,7 +59,7 @@ package ifrit
 			addEnemy(495, 130);
 			addEnemy(170, 180);
 			
-			Mobs.push(Game.stage.addChild(Game.man = new Player(50, 375, Player.MAGE)) as Mob);
+			Mobs.push(Game.stage.addChild(Game.man = new Player(50, 375, Player.FIGHTER)) as Mob);
 			
 			addWall( 0, 110, false);
 			addWall(150, 250, true);

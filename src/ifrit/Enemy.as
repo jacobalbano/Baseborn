@@ -73,6 +73,8 @@ package ifrit
 			super.destroy();
 			this.graphic.play("die");
 			HUD.healPlayer(10, true);
+			
+			this.collisionHull.x += this.collisionHull.width * 1.5;
 		}
 		
 		/**
@@ -82,11 +84,6 @@ package ifrit
 		private function testHealth():void
 		{
 			if (this.hitpoints <= 0 && !isDestroyed)	this.destroy();
-			if (this.isDestroyed && this.graphic.playing != "die")
-			{
-				this.comeToRest();
-				this.removeChild(collisionHull);
-			}
 		}
 		
 		/**

@@ -83,6 +83,10 @@ package ifrit
 		{
 			if (this.friendly == obj.friendly)
 				return false;
+				
+			if (this.isDestroyed || obj.isDestroyed)
+				return false;
+			
 			var dx:Number = obj.x - this.x; // Distance between objects (X)
 			var dy:Number = obj.y - this.y; // Distance between objects (Y)
 			
@@ -173,10 +177,10 @@ package ifrit
 			this.frozen = true;
 		}
 		
-		public function comeToRest():void
-		{
-			stopUpdating();
-		}
+		//public function comeToRest():void
+		//{
+			//stopUpdating();
+		//}
 		
 		override protected function update():void 
 		{

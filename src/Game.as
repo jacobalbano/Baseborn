@@ -205,6 +205,7 @@
 						}
 					}
 					
+					//TODO: Make frost attack do damage (maybe 2.5?)
 					if (frostAttack)
 					{
 						if (World.Mobs[l].collisionHull.hitTestObject(frostAttack))

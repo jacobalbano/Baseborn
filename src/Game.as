@@ -169,11 +169,7 @@
 							{
 								if (World.Projectiles[k].friendly != World.Mobs[l].friendly)
 								{
-									if (!World.Projectiles[k].friendly)
-									{
-										if (HUD.health.width >= 20) HUD.health.width -= 20;
-										if (HUD.health.width < 20) HUD.health.width -= HUD.health.width;
-									}
+									if (!World.Projectiles[k].friendly)	{	HUD.damagePlayer(15, true);   }
 									
 									stage.removeChild(World.Projectiles[k]);
 									World.Projectiles[k].destroy();
@@ -261,7 +257,7 @@
 		private function doRangedAttack():void 
 		{
 			man.graphic.play("attack");
-			if (man.friendly)
+			if (man.type == Player.MAGE && man.friendly)
 			{
 				if (HUD.mana.width >= 15 && HUD.energy.width >= 75)   man.shoot();
 			}

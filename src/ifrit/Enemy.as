@@ -20,7 +20,6 @@ package ifrit
 		
 		private var rightBound:Number;
 		private var leftBound:Number;
-		private var platformIndex:int;
 		private var lastPosition:Point;
 		private var speed:Number;
 		private var confusionTimer:Timer;
@@ -56,9 +55,9 @@ package ifrit
 		{
 			super.think();
 			
-			this.testHealth();
-			
 			if (isDestroyed) return;
+			
+			this.testHealth();
 			
 			this.findPlatform();
 			
@@ -110,7 +109,6 @@ package ifrit
 						leftBound = World.Platforms[i].x - World.Platforms[i].width / 2;
 						rightBound = World.Platforms[i].x + World.Platforms[i].width / 2;
 						found = true;
-						this.platformIndex = i;
 						break;
 					}
 				}
@@ -119,15 +117,23 @@ package ifrit
 				{
 					this.leftBound = 0;
 					this.rightBound = Game.dimensions.x;
-					this.platformIndex = -1;
 				}
 				
 				if (collision)
 				{
-					this.homeRect.height = 50;
-					this.homeRect.width = this.rightBound - this.leftBound;
-					this.homeRect.x = this.x - 50;
-					this.homeRect.y = this.y - 25;;
+					this.homeRect.height = 60;
+					this.homeRect.width = this.rightBound - this.leftBound + 200;
+					this.homeRect.x = this.x - this.homeRect.width / 2;
+					this.homeRect.y = this.y - 25;
+					
+					/**
+					 * Uncomment to see debugging view for search rectangle
+					 */
+					//var r:Sprite = new Sprite;
+					//r.graphics.beginFill(0xff0000, 0.1);
+					//r.graphics.drawRect(this.homeRect.x, this.homeRect.y, this.homeRect.width, this.homeRect.height);
+					//r.graphics.endFill();
+					//Game.stage.addChild(r);
 				}
 			}
 		}
@@ -155,13 +161,13 @@ package ifrit
 		 */
 		private function beginOffense():void
 		{
-			if (this.platformIndex >= 0 && !fleeMode)
+			if (!fleeMode)
 			{
-				if (World.Platforms[this.platformIndex].collide(Game.man) && Game.man.y < World.Platforms[platformIndex].y)
+				if (this.homeRect.contains(Game.man.x, Game.man.y) && Game.man.y <= this.y)
 				{
 					if (this.x >= Game.man.x) heading = false;	else heading = true;
-					if (heading)	{	if (Game.man.x > this.x) this.shoot();	}
-					else			{	if (Game.man.x < this.x) this.shoot();	}
+					if (heading)	{	if (Game.man.x > this.x && this.rotationY == 0) this.shoot();	}
+					else			{	if (Game.man.x < this.x && this.rotationY == 180) this.shoot();	}
 				}
 			}
 		}
@@ -213,12 +219,12 @@ package ifrit
 				
 				if (heading)
 				{
-					if (Game.man.x > this.x && platformIndex >= 0 && World.Platforms[this.platformIndex].collide(Game.man)) this.shoot();
+					if (Game.man.x > this.x && this.homeRect.contains(Game.man.x, Game.man.y)) this.shoot();
 					this.x += 5;
 				}
 				else
 				{
-					if (Game.man.x < this.x && platformIndex >= 0 && World.Platforms[this.platformIndex].collide(Game.man)) this.shoot();
+					if (Game.man.x < this.x && this.homeRect.contains(Game.man.x, Game.man.y)) this.shoot();
 					x -= 5;
 				}
 				

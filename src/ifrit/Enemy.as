@@ -1,6 +1,8 @@
 package ifrit 
 {
 	import com.thaumaturgistgames.flakit.Library;
+	import flash.display.Sprite;
+	import flash.geom.Rectangle;
 	
 	import flash.geom.Point;
 	import flash.utils.Timer;
@@ -24,6 +26,8 @@ package ifrit
 		private var confusionTimer:Timer;
 		private var fleeCooldown:Timer;
 		
+		private var homeRect:Rectangle;
+		
 		public function Enemy(x:Number, y:Number) 
 		{
 			super(x, y, Library.IMG("enemy.png"), 60, 23, 13, 23 );
@@ -36,6 +40,7 @@ package ifrit
 			this.maxHealth = 15;
 			this.confusionTimer = new Timer(1000, 0);
 			this.fleeCooldown = new Timer(1000, 0);
+			this.homeRect = new Rectangle;
 			
 			this.graphic.add("stand", [0], 6, true);
 			this.graphic.add("walk", [0, 1, 2, 3], 6, true);
@@ -84,6 +89,7 @@ package ifrit
 		private function testHealth():void
 		{
 			if (this.hitpoints <= 0 && !isDestroyed)	this.destroy();
+			else if (this.hitpoints <= this.maxHealth)	this.hitpoints += 0.01
 		}
 		
 		/**
@@ -92,24 +98,37 @@ package ifrit
 		 */
 		private function findPlatform():void
 		{
-			var found:Boolean = false;
-			for (var i:int = 0; i < World.Platforms.length; i++) 
-			{
-				if (World.Platforms[i].collide(this) && World.Platforms[i].rotation == 0)
+			if (!homeRect.contains(this.x, this.y))
+			{			
+				var found:Boolean = false;
+				var collision:Boolean = false;
+				for (var i:int = 0; i < World.Platforms.length; i++) 
 				{
-					leftBound = World.Platforms[i].x - World.Platforms[i].width / 2;
-					rightBound = World.Platforms[i].x + World.Platforms[i].width / 2;
-					found = true;
-					this.platformIndex = i;
-					break;
+					if (World.Platforms[i].collide(this) && World.Platforms[i].rotation == 0)
+					{
+						collision = true;
+						leftBound = World.Platforms[i].x - World.Platforms[i].width / 2;
+						rightBound = World.Platforms[i].x + World.Platforms[i].width / 2;
+						found = true;
+						this.platformIndex = i;
+						break;
+					}
 				}
-			}
-			
-			if (!found)
-			{
-				this.leftBound = 0;
-				this.rightBound = Game.dimensions.x;
-				this.platformIndex = -1;
+				
+				if (!found)
+				{
+					this.leftBound = 0;
+					this.rightBound = Game.dimensions.x;
+					this.platformIndex = -1;
+				}
+				
+				if (collision)
+				{
+					this.homeRect.height = 50;
+					this.homeRect.width = this.rightBound - this.leftBound;
+					this.homeRect.x = this.x - 50;
+					this.homeRect.y = this.y - 25;;
+				}
 			}
 		}
 		

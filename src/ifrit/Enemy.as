@@ -1,6 +1,7 @@
 package ifrit 
 {
 	import com.thaumaturgistgames.flakit.Library;
+	import flash.display.Sprite;
 	import flash.geom.Point;
 	import flash.geom.Rectangle;
 	import flash.utils.Timer;
@@ -89,7 +90,7 @@ package ifrit
 		private function testHealth():void
 		{
 			if (this.hitpoints <= 0 && !isDestroyed)	this.destroy();
-			else if (this.hitpoints <= this.maxHealth)	this.hitpoints += 0.01
+			else if (this.hitpoints <= this.maxHealth)	this.hitpoints += 0.05
 		}
 		
 		/**
@@ -98,18 +99,51 @@ package ifrit
 		 */
 		private function findPlatform():void
 		{
-			if (!homeRect.contains(this.x, this.y))
+			if (homeRect.contains(Game.man.x, Game.man.y) || !homeRect.contains(this.x, this.y))
 			{			
 				var found:Boolean = false;
 				var collision:Boolean = false;
+				
 				for (var i:int = 0; i < World.Platforms.length; i++) 
 				{
-					if (World.Platforms[i].collide(this) && World.Platforms[i].rotation == 0)
+					if (World.Platforms[i].collide(this) && World.Platforms[i].rotation == 0 && World.Platforms[i].y > this.y)
 					{
 						collision = true;
 						leftBound = World.Platforms[i].x - World.Platforms[i].width / 2;
 						rightBound = World.Platforms[i].x + World.Platforms[i].width / 2;
 						found = true;
+						
+						var li:int = -1;
+						var ri:int = -1;
+						
+						for (var ii:int = 0; ii < World.Platforms.length; ii++)
+						{
+							if (li == ii || ri == ii || i == ii)		continue;
+							
+							if (World.Platforms[ii].y != World.Platforms[i].y) continue;
+							
+							var distance:int = Math.abs(World.Platforms[ii].x - World.Platforms[i].x) ;
+							
+							if (World.Platforms[ii].x < World.Platforms[i].x)	//	Platform is to the left
+							{								
+								if (distance <= 215)	//	Enemies can pass over a 15 pixel gap without turning
+								{
+									li = ii;
+									leftBound = World.Platforms[ii].x - World.Platforms[ii].width / 2;
+								}
+								continue;
+							}
+							else if (World.Platforms[ii].x > World.Platforms[i].x)	//	Platform is to the right
+							{
+								if (distance <= 215)	//	Enemies can pass over a 15 pixel gap without turning
+								{
+									ri = ii;
+									rightBound = World.Platforms[ii].x + World.Platforms[ii].width / 2;
+								}
+								continue;
+							}
+						}
+						
 						break;
 					}
 				}
@@ -123,15 +157,16 @@ package ifrit
 				if (collision)
 				{
 					this.homeRect.height = 60;
-					this.homeRect.width = this.rightBound - this.leftBound + 200;
-					this.homeRect.x = this.x - this.homeRect.width / 2;
-					this.homeRect.y = this.y - 25;
+					this.homeRect.width = 300;
+					this.homeRect.x = this.x - 150;
+					this.homeRect.y = this.y - 30;
 					
 					/**
 					 * Uncomment to see debugging view for search rectangle
+					 * Warning: Creates a huge amount of sprites when AI is in chase mode
 					 */
 					//var r:Sprite = new Sprite;
-					//r.graphics.beginFill(0xff0000, 0.1);
+					//r.graphics.beginFill(0x00ffff, 0.1);
 					//r.graphics.drawRect(this.homeRect.x, this.homeRect.y, this.homeRect.width, this.homeRect.height);
 					//r.graphics.endFill();
 					//Game.stage.addChild(r);
@@ -167,8 +202,8 @@ package ifrit
 				if (this.homeRect.contains(Game.man.x, Game.man.y) && Game.man.y <= this.y)
 				{
 					if (this.x >= Game.man.x) heading = false;	else heading = true;
-					if (heading)	{	if (Game.man.x > this.x && this.rotationY == 0) this.shoot();	}
-					else			{	if (Game.man.x < this.x && this.rotationY == 180) this.shoot();	}
+					if (heading)	{	if (Game.man.x > this.x && this.rotationY == 0) this.attack();	}
+					else			{	if (Game.man.x < this.x && this.rotationY == 180) this.attack();	}
 				}
 			}
 		}
@@ -236,6 +271,17 @@ package ifrit
 			}
 		}
 		
+		private function attack():void
+		{
+			if (Point.distance(new Point(this.x, this.y), new Point(Game.man.x, Game.man.y)) > 25)
+			{
+				shoot();
+			}
+			else
+			{
+				stab();
+			}
+		}		
 		
 	}
 

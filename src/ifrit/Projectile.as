@@ -11,33 +11,42 @@ package ifrit
 	public class Projectile extends IfritObject
 	{
 		
+		public var friendly:Boolean;
 		public var animation:Animation;
-		protected var container:Sprite = new Sprite();
 		
+		protected var container:Sprite;
 		protected var dx:int;
 		protected var vy:Number;
-		
 		protected var hasPhysics:Boolean;
+		protected var lifetime:uint;
+		protected var ttl:uint;
+		protected var timeLimited:Boolean;
 		
-		public var friendly:Boolean;
-		
-		public function Projectile(bitmap:Bitmap, frameWidth:int, frameHeight:int, direction:int, x:Number, y:Number, friendly:Boolean = true) 
+		public function Projectile(bitmap:Bitmap, frameWidth:int, frameHeight:int, direction:int, x:Number, y:Number, friendly:Boolean = true, ttl:uint = 0) 
 		{
+			this.container = new Sprite;
 			addChild(container);
 			
 			this.animation = new Animation(bitmap, frameWidth, frameHeight);
 			
-			container.x = -frameWidth /2;
-			container.y = -frameHeight /2;
+			this.container.x = -frameWidth /2;
+			this.container.y = -frameHeight /2;
 			
-			container.addChild(animation);
+			this.container.addChild(this.animation);
 			
-			dx = direction;
+			this.dx = direction;
 			this.x = x;
 			this.y = y;
 			
-			vy = 0;
+			this.vy = 0;
 			this.friendly = friendly;
+			
+			if (ttl > 0)
+			{
+				this.timeLimited = true;
+				this.lifetime = 0;
+				this.ttl = ttl;
+			}
 			
 			this.rotationY = direction > 0 ? 0 : 180;
 		}		
@@ -48,6 +57,12 @@ package ifrit
 			super.update();
 			this.vy += 0.01;
 			if (this.hasPhysics)	this.y += this.vy;
+			
+			if (this.timeLimited)
+			{
+				this.lifetime++;
+				if (this.lifetime >= this.ttl)	this.destroy();
+			}
 			
 			/**
 			 * Debugging information; displays trajectory

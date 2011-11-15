@@ -1,11 +1,10 @@
 package ifrit 
 {
 	import com.jacobalbano.Animation;
-	
 	import com.thaumaturgistgames.flakit.Library;
-	
 	import flash.display.Sprite;
-	import flash.events.Event;
+	
+	
 	/**
 	 * ...
 	 * @author Chris Logsdon

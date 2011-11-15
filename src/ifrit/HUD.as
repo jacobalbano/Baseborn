@@ -3,7 +3,6 @@ package ifrit
 	import com.thaumaturgistgames.flakit.Library;
 	import flash.display.Bitmap;
 	import flash.display.Sprite;
-	import flash.events.Event;
 	import flash.utils.Timer;
 	/**
 	 * ...
@@ -141,7 +140,7 @@ package ifrit
 			if (percent)	damageAmount = (totalHealth * damagePercentage);
 			else			damageAmount /= healthScale;
 			
-			if (damageAmount > remainingHealth)		health.width -= remainingHealth;
+			if (damageAmount > remainingHealth)		health.width -= health.width;
 			else 									health.width -= damageAmount / healthScale;
 		}
 		

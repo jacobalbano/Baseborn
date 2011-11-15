@@ -1,19 +1,16 @@
 ﻿package
 {
-	import com.jacobalbano.Animation;
 	import com.jacobalbano.Input;
-	import flash.geom.Point;
-	
 	import com.thaumaturgistgames.flakit.Engine;
 	import com.thaumaturgistgames.flakit.Library;
-	
-	import ifrit.*;
-	
-	import flash.display.Bitmap;
-	import flash.display.Sprite;
 	import flash.display.Stage;
 	import flash.events.Event;
+	import flash.geom.Point;
 	import flash.utils.Timer;
+	import ifrit.*;
+	
+	
+	
 	
 	[SWF(width = "1000", height = "500", backgroundColor = "0xFFFFFF")]
 	public class Game extends Engine 
@@ -160,6 +157,7 @@
 					{
 						if (World.Mobs[l].collideWithMob(World.Mobs[ll]))	{ }
 					}
+					
 					var removed:Boolean = false;
 					if (World.Projectiles.length > 0)
 					{						

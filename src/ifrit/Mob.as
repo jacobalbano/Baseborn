@@ -1,13 +1,12 @@
 package ifrit
 {
 	import com.jacobalbano.Animation;
-	
 	import flash.display.Bitmap;
 	import flash.display.BitmapData;
 	import flash.display.Sprite;
-	import flash.events.Event;
 	import flash.geom.Point;
 	import flash.utils.Timer;
+	
 	
 	
 	/**

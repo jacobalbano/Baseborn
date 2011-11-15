@@ -2,7 +2,6 @@ package ifrit
 {
 	import com.jacobalbano.Input;
 	import com.thaumaturgistgames.flakit.Library;
-	import flash.display.Sprite;
 	
 	
 	/**

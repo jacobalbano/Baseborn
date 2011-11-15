@@ -1,7 +1,6 @@
 package ifrit 
 {
 	import com.thaumaturgistgames.flakit.Library;
-	import flash.events.AsyncErrorEvent;
 	
 	/**
 	 * @author Jake Albano

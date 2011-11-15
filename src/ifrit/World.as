@@ -2,14 +2,10 @@ package ifrit
 {
 	
 	import com.jacobalbano.Animation;
-	
 	import com.thaumaturgistgames.flakit.Library;
-	
-	import ifrit.*;
-	
 	import flash.display.Bitmap;
 	import flash.display.Sprite;
-	
+	import ifrit.*;
 	
 	
 	

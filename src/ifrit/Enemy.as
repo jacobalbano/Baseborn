@@ -1,11 +1,10 @@
 package ifrit 
 {
 	import com.thaumaturgistgames.flakit.Library;
-	import flash.display.Sprite;
-	import flash.geom.Rectangle;
-	
 	import flash.geom.Point;
+	import flash.geom.Rectangle;
 	import flash.utils.Timer;
+	
 	
 	
 	/**
@@ -77,6 +76,8 @@ package ifrit
 			super.destroy();
 			this.graphic.play("die");
 			HUD.healPlayer(10, true);
+			
+			addChild(new Pickup(this.x, this.y, false));
 			
 			this.collisionHull.x += this.collisionHull.width * 1.5;
 		}

@@ -24,9 +24,9 @@ package ifrit
 			
 			switch (type)
 			{
-				case 0:		animationName = "mageAtkWalk.png";		frameWidth = 18;	frameHeight = 25;		break;
-				case 2:		animationName = "rogueAtkWalk.png";		frameWidth = 24;	frameHeight = 25;		break;
-				case 4:		animationName = "fighterAtkWalk.png";	frameWidth = 38;	frameHeight = 33;		break;
+				case 0:		animationName = "mage.png";		        frameWidth = 18;	frameHeight = 25;		break;
+				case 2:		animationName = "rogue.png";		    frameWidth = 24;	frameHeight = 25;		break;
+				case 4:		animationName = "fighter.png";			frameWidth = 38;	frameHeight = 33;		break;
 			}
 			
 			super( x, y, Library.IMG(animationName), frameWidth, frameHeight, 18, 25);
@@ -43,6 +43,9 @@ package ifrit
 					break;
 				case 4:
 					graphic.add("attack", [6, 7, 8, 9], 12, false);
+					graphic.add("archery", [14, 15, 16, 17], 12, false);
+					graphic.add("shield", [10, 11, 12, 13], 12, true);
+					graphic.add("shielding", [13], 0, true);
 					break;
 				default:	
 			}

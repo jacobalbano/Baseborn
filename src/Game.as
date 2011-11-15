@@ -267,10 +267,19 @@
 		
 		private function doRangedAttack():void 
 		{
-			man.graphic.play("attack");
-			if (man.type == Player.MAGE && man.friendly)
+			if (man.type == Player.MAGE)
 			{
-				if (HUD.mana.width >= 15 && HUD.energy.width >= 75)   man.shoot();
+				man.graphic.play("attack");
+				if (man.friendly)
+				{
+					if (HUD.mana.width >= 15 && HUD.energy.width >= 75)   man.shoot();
+				}
+			}
+			
+			else if (man.type == Player.FIGHTER)
+			{
+				man.graphic.play("archery");
+				man.shoot();
 			}
 			else man.shoot();
 		}
@@ -294,6 +303,10 @@
 					}
 				}
 				
+				if (man.type == Player.FIGHTER)
+				{
+					man.graphic.play("attack");
+				}
 				canMelee = false;
 			}
 		}
@@ -323,6 +336,11 @@
 						}
 					}
 				}
+			}
+			
+			if (man.type == Player.FIGHTER)
+			{
+				man.graphic.play("shield");
 			}
 		}
 		

@@ -152,6 +152,18 @@
 				stopFrost();
 			}
 			
+			if (World.Projectiles.length > 0)
+			{
+				for (var t:int = World.Projectiles.length; t --> 0; )
+				{
+					if (World.Projectiles[t].isDestroyed)
+					{
+						Game.stage.removeChild(World.Projectiles[t]);
+						World.Projectiles.splice(t, 1);
+					}
+				}
+			}
+			
 			if (World.Mobs.length > 0)
 			{
 				for (var l:int = World.Mobs.length - 1; l >= 0; l--)
@@ -348,11 +360,4 @@
 		
 	}
 
-	//TODO: Create a "Class" class?
-	/*
-	 * Eventually we will have to be able to distinguish one class (rogue, mage, etc)
-	 * from another. This is just a note for that in the future.
-	 */
-	
-	
 }

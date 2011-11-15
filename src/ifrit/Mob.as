@@ -21,7 +21,7 @@ package ifrit
 		public var graphic:Animation;
 		protected var container:Sprite;
 		
-		private var shootTimer:Timer;
+		private var attackTimer:Timer;
 		private var freezeTimer:Timer;
 		private var frozen:Boolean;
 		
@@ -53,7 +53,7 @@ package ifrit
 			container.y = -frameHeight / 2;
 			container.addChild(graphic);
 			
-			shootTimer = new Timer(0, 20);
+			attackTimer = new Timer(0, 20);
 			jumpTimer = new Timer(0, 2);
 			freezeTimer = new Timer(60 * 2, 0);
 			
@@ -142,9 +142,9 @@ package ifrit
 		
 		public function shoot():void
 		{
-			if (shootTimer.currentCount == shootTimer.repeatCount)
+			if (attackTimer.currentCount == attackTimer.repeatCount)
 			{
-				shootTimer.reset();
+				attackTimer.reset();
 			}
 			
 			var ammunition:Class;
@@ -153,10 +153,10 @@ package ifrit
 			{
 				case 0:		ammunition = Fireball;	break;
 				case 2:		ammunition = Shuriken;	break;
-				case 4:		ammunition = Arrow;	break;
+				case 4:		ammunition = Arrow;		break;
 			}
 			
-			if (!shootTimer.running)
+			if (!attackTimer.running)
 			{
 				if (this.rotationY == 180)
 					stage.addChild(new ammunition(-10, this.x - this.halfSize.x + 10, this.y, this.friendly));
@@ -166,7 +166,27 @@ package ifrit
 				World.Projectiles.push(stage.getChildAt(stage.numChildren - 1));
 			}
 			
-			shootTimer.start();
+			attackTimer.start();
+		}
+		
+		public function stab():void 
+		{
+			if (attackTimer.currentCount == attackTimer.repeatCount)
+			{
+				attackTimer.reset();
+			}
+			
+			if (!attackTimer.running)
+			{
+				if (this.rotationY == 180)
+					stage.addChild(new MeleeSwing(-10, this.x - this.halfSize.x + 10, this.y, this.friendly));
+				else
+					stage.addChild(new MeleeSwing(10, this.x + this.halfSize.x + 10, this.y, this.friendly));
+				
+				World.Projectiles.push(stage.getChildAt(stage.numChildren - 1));
+			}
+			
+			attackTimer.start();
 		}
 		
 		public function freeze():void
@@ -177,10 +197,10 @@ package ifrit
 			this.frozen = true;
 		}
 		
-		//public function comeToRest():void
-		//{
-			//stopUpdating();
-		//}
+		public function comeToRest():void
+		{
+			stopUpdating();
+		}
 		
 		override protected function update():void 
 		{

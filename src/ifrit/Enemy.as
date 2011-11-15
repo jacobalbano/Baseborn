@@ -24,6 +24,7 @@ package ifrit
 		private var speed:Number;
 		private var confusionTimer:Timer;
 		private var fleeCooldown:Timer;
+		private var pickup:Pickup;
 		
 		private var homeRect:Rectangle;
 		
@@ -55,7 +56,9 @@ package ifrit
 		{
 			super.think();
 			
-			if (isDestroyed) return;
+			if (this.pickup)	this.collidePickup();
+			
+			if (isDestroyed) 	return;
 			
 			this.testHealth();
 			
@@ -76,11 +79,34 @@ package ifrit
 		{
 			super.destroy();
 			this.graphic.play("die");
-			HUD.healPlayer(10, true);
 			
-			addChild(new Pickup(this.x, this.y, false));
+			//	Only drop pickups some of the time
+			if (new Boolean(Math.round(Math.random() + 0.2)))		addChild(this.pickup = new Pickup(this.x, this.y, new Boolean(Math.round(Math.random()))));
 			
 			this.collisionHull.x += this.collisionHull.width * 1.5;
+		}
+		
+		/**
+		 * Check if the dropped pickup is colliding with the player
+		 */
+		private function collidePickup():void
+		{
+			if (this.pickup.alpha < 1)	this.pickup.alpha -= 0.1;
+			
+			if (this.pickup.alpha <= 0)
+			{
+				this.pickup.parent.removeChild(this.pickup);
+				this.pickup = null;
+			}
+			else if (this.pickup.hitTestObject(Game.man.collisionHull) && this.pickup.alpha == 1)
+			{
+				if (this.pickup.type) 	HUD.healPlayer(10, true);
+				//else 					HUD.restoreMana(10, true);
+				
+				this.pickup.alpha = 0.9;
+			}
+			
+			
 		}
 		
 		/**

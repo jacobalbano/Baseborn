@@ -10,19 +10,29 @@ package ifrit
 	public class Pickup extends IfritObject
 	{
 		public var animation:Animation;
-		protected var container:Sprite = new Sprite();
+		protected var container:Sprite;
 		
-		private var type:Boolean;
+		public var type:Boolean;
 		
 		/**
 		 * Add a health or mana pickup item to the stage
-		 * @param	x		X position of the pickup
-		 * @param	y		Y position of the pickup
-		 * @param	type	TRUE: health pickup, FALSE: mana pickup
+		 * @param	x			X position of the pickup
+		 * @param	y			Y position of the pickup
+		 * @param	type		TRUE: health pickup, FALSE: mana pickup
+		 * @param	forceType	TRUE: force pickup type regardless of player class
 		 */
-		public function Pickup(x:Number, y:Number, type:Boolean) 
+		public function Pickup(x:Number, y:Number, type:Boolean, forceType:Boolean = false ) 
 		{
-			addChild(container);
+			 this.container = new Sprite;
+			addChild(this.container);
+			
+			if (!forceType)
+			{
+				if (Game.man.type != Player.MAGE)
+				{
+					type = true;
+				}
+			}
 			
 			if (type) this.animation = new Animation(Library.IMG("healthDrop.png"), 15, 18);
 			else this.animation = new Animation(Library.IMG("manaDrop.png"), 15, 18);
@@ -37,20 +47,6 @@ package ifrit
 			
 			this.type = type;
 		}
-		
-		//TODO: Test if picked up. Possibly wrong location for this...
-		//public function testCollision(player:DisplayObject):void
-		//{
-			//if (this.hitTestObject(player))
-			//{
-				//trace("pickup")
-				//
-				//if (type) HUD.healPlayer(10, true);
-				//else HUD.restoreMana(10, true);
-				//
-				//stage.removeChild(this);
-			//}
-		//}
 	}
 
 }

@@ -12,19 +12,20 @@ package ifrit
 	{
 		private var area:Bitmap;
 		
-		public static var health:Sprite;
+		private static var health:Sprite;
 		private var lowHealth:Timer;
 		private static var totalHealth:Number;
 		private static var healthScale:Number;
 		
-		public static var mana:Sprite;
+		private static var mana:Sprite;
 		private static var totalMana:Number;
+		private static var energy:Sprite;
 		
-		public static var energy:Sprite;
+		private static var caltrops:Sprite;
+		private static var shuriken:Sprite;
 		
-		public static var arrows:Sprite;
-		
-		public static var stars:Sprite;
+		private static var arrows:Sprite;
+		private static var shield:Sprite;
 		
 		
 		
@@ -69,13 +70,21 @@ package ifrit
 			{
 				healthScale = 2;
 				
-				stars = new Sprite();
-				stars.graphics.beginFill(0x208000);
-				stars.graphics.drawRect(0, 0, 200, 21);
-				stars.graphics.endFill();
-				stars.x = 750;
-				stars.y = 442;
-				addChild(stars);
+				shuriken = new Sprite();
+				shuriken.graphics.beginFill(0xFFFFFF);
+				shuriken.graphics.drawRect(0, 0, 200, 9);
+				shuriken.graphics.endFill();
+				shuriken.x = 750;
+				shuriken.y = 442;
+				addChild(shuriken);
+				
+				caltrops = new Sprite();
+				caltrops.graphics.beginFill(0x000000);
+				caltrops.graphics.drawRect(0, 0, 200, 9);
+				caltrops.graphics.endFill();
+				caltrops.x = 750;
+				caltrops.y = 454;
+				addChild(caltrops);
 			}
 			
 			if (Game.man.type == Player.FIGHTER)
@@ -83,12 +92,20 @@ package ifrit
 				healthScale = 4;
 				
 				arrows = new Sprite();
-				arrows.graphics.beginFill(0x208000);
-				arrows.graphics.drawRect(0, 0, 200, 21);
+				arrows.graphics.beginFill(0x793300);
+				arrows.graphics.drawRect(0, 0, 200, 9);
 				arrows.graphics.endFill();
 				arrows.x = 750;
 				arrows.y = 442;
 				addChild(arrows);
+				
+				shield = new Sprite();
+				shield.graphics.beginFill(0xA5B5C7);
+				shield.graphics.drawRect(0, 0, 200, 9);
+				shield.graphics.endFill();
+				shield.x = 750;
+				shield.y = 454;
+				addChild(shield);
 			}
 			
 			totalHealth = (200 * healthScale);
@@ -98,6 +115,7 @@ package ifrit
 		override protected function update():void 
 		{
 			if (energy)  {    if (energy.width < 200) { energy.width += 1.5; }    }
+			if (shield) {   if (shield.width < 200) { shield.width += 1.0; }   }
 			
 			if (health.width <= 50)
 			{
@@ -165,6 +183,10 @@ package ifrit
 			else 								health.width += healAmount / healthScale;
 		}
 		
+		/**
+		 * Restore the player's mana.
+		 * @param	amount		Literal amount of mana to restore (based off 200 point mana pool)
+		 */
 		public static function restoreMana(amount:Number):void
 		{
 			var missingMana:Number = (totalMana - (mana.width));
@@ -174,13 +196,91 @@ package ifrit
 		}
 		
 		
+		//TODO: Clean this up and optimize it.
+		/* Jake, if you have any suggestions for this, please let me know */
+		/**
+		 * Determines if there are enough resources to perform an action, and uses up the given resources if possible.
+		 * @param	evaluation		TRUE: Performs check but no action, FALSE: Performs check and action
+		 * @param	manaAmt			Literal cost of action in mana
+		 * @param	energyAmt		Literal cost of action in energy
+		 * @param	rangedAmt		Literal cost of action in shuriken or arrows
+		 * @param	specialAmt		Literal cost of action in caltrops or shield
+		 * @return	
+		 */
+		public static function actionCost(evaluation:Boolean = false, manaAmt:Number = 0, energyAmt:Number = 0, rangedAmt:uint = 0, specialAmt:uint = 0):Boolean
+		{
+			var allowed:Boolean = false;
+			
+			if (Game.man.type == Player.MAGE)
+			{
+				rangedAmt = 0;
+				specialAmt = 0;
+				
+				var remainingMana:Number = mana.width;
+				var remainingEnergy:Number = energy.width;
+				
+				if (manaAmt <= remainingMana && energyAmt <= remainingEnergy)
+				{
+					allowed = true;
+					
+					if (!evaluation)
+					{
+						mana.width -= manaAmt;
+						energy.width -= energyAmt;
+					}
+				}
+				else allowed = false;
+			}
+			
+			if (Game.man.type == Player.ROGUE)
+			{
+				manaAmt = 0;
+				energyAmt = 0;
+				
+				var remainingShuriken:Number = shuriken.width;
+				var remainingCaltrops:Number = caltrops.width;
+				
+				if (rangedAmt <= remainingShuriken && specialAmt <= remainingCaltrops)
+				{
+					allowed = true;
+					
+					if (!evaluation)
+					{
+						shuriken.width -= rangedAmt;
+						caltrops.width -= specialAmt;
+					}
+				}
+				else allowed = false;
+			}
+			
+			if (Game.man.type == Player.FIGHTER)
+			{
+				manaAmt = 0;
+				energyAmt = 0;
+				
+				var remainingArrows:Number = arrows.width;
+				var remainingShield:Number = shield.width;
+				
+				if (rangedAmt <= remainingArrows && specialAmt <= remainingShield)
+				{
+					allowed = true;
+					
+					if (!evaluation)
+					{
+						arrows.width -= rangedAmt;
+						shield.width -= specialAmt;
+					}
+				}
+				else allowed = false;
+			}
+			
+			return allowed;
+		}
 		
 		//TODO: Make the following functions:
 		/*
-		 * restoreMana()	Restore player's mana by a specified amount
 		 * restoreEnergy()	" energy
 		 * restoreAmmo()		" ammo
-		 * actionCost(mana, energy, ammo)		The mana, energy and/or ammo cost of a spell
 		 * 
 		 * ######## Any ideas here, Jake? #########
 		 * 

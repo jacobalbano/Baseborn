@@ -270,16 +270,17 @@
 			if (man.type == Player.MAGE)
 			{
 				man.graphic.play("attack");
-				if (man.friendly)
-				{
-					if (HUD.mana.width >= 15 && HUD.energy.width >= 75)   man.shoot();
-				}
+				if (man.friendly) {    if (HUD.actionCost(true, 15, 75))   man.shoot();    }
 			}
-			
 			else if (man.type == Player.FIGHTER)
 			{
 				man.graphic.play("archery");
-				man.shoot();
+				if (man.friendly) {    if (HUD.actionCost(true, 0, 0, 20))   man.shoot();    }
+			}
+			else if (man.type == Player.ROGUE)
+			{
+				man.graphic.play("throw");
+				if (man.friendly) {    if (HUD.actionCost(true, 0, 0, 20))   man.shoot();    }
 			}
 			else man.shoot();
 		}
@@ -295,7 +296,7 @@
 			{
 				if (man.type == Player.MAGE)
 				{
-					if (!frostAttack && HUD.energy.width >= 50)
+					if (!frostAttack && HUD.actionCost(true, 0, 50))
 					{
 						stopFrost();
 						man.graphic.play("attack");
@@ -305,7 +306,12 @@
 				
 				if (man.type == Player.FIGHTER)
 				{
-					man.graphic.play("attack");
+					man.graphic.play("slash");
+				}
+				
+				if (man.type == Player.ROGUE)
+				{
+					man.graphic.play("stab");
 				}
 				canMelee = false;
 			}
@@ -319,7 +325,7 @@
 				{
 					man.graphic.play("casting");
 					
-					if (HUD.mana.width >= 50 && HUD.energy.width >= 80)
+					if (HUD.actionCost(true, 25, 95))
 					{
 						if (!lightningAttack)
 						{
@@ -340,7 +346,13 @@
 			
 			if (man.type == Player.FIGHTER)
 			{
-				man.graphic.play("shield");
+				if ( !(Input.isKeyDown(Input.LEFT) || Input.isKeyDown(Input.RIGHT) ) )
+				{
+					if (HUD.actionCost(false, 0, 0, 0, 200))
+					{
+						man.graphic.play("shield");
+					}
+				}
 			}
 		}
 		

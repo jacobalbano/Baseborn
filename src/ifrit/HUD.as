@@ -18,6 +18,8 @@ package ifrit
 		private static var healthScale:Number;
 		
 		public static var mana:Sprite;
+		private static var totalMana:Number;
+		
 		public static var energy:Sprite;
 		
 		public static var arrows:Sprite;
@@ -90,6 +92,7 @@ package ifrit
 			}
 			
 			totalHealth = (200 * healthScale);
+			totalMana = 200;
 		}
 		
 		override protected function update():void 
@@ -161,6 +164,16 @@ package ifrit
 			if (healAmount > missingHealth)		health.width += missingHealth;
 			else 								health.width += healAmount / healthScale;
 		}
+		
+		public static function restoreMana(amount:Number):void
+		{
+			var missingMana:Number = (totalMana - (mana.width));
+			
+			if (amount > missingMana)	mana.width += missingMana;
+			else						mana.width += amount;
+		}
+		
+		
 		
 		//TODO: Make the following functions:
 		/*

@@ -101,7 +101,7 @@ package ifrit
 			else if (this.pickup.hitTestObject(Game.man.collisionHull) && this.pickup.alpha == 1)
 			{
 				if (this.pickup.type) 	HUD.healPlayer(10, true);
-				//else 					HUD.restoreMana(10, true);
+				else 					HUD.restoreMana(25);
 				
 				this.pickup.alpha = 0.9;
 			}

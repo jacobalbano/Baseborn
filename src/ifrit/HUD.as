@@ -196,7 +196,7 @@ package ifrit
 		}
 		
 		
-		//TODO: Clean this up and optimize it.
+		//TODO: Clean up and optimize this if possible.
 		/* Jake, if you have any suggestions for this, please let me know */
 		/**
 		 * Determines if there are enough resources to perform an action, and uses up the given resources if possible.

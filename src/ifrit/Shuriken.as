@@ -18,8 +18,8 @@ package ifrit
 		override protected function update():void 
 		{
 			super.update();
-			if (dx < 0) { this.rotation -= 20; }
-			else if (dx > 0) { this.rotation += 20; }
+			if (dx < 0) { this.rotation -= vx*2; }
+			else if (dx > 0) { this.rotation += vx*2; }
 			
 			this.hasPhysics = true;
 		}

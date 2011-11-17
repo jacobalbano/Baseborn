@@ -2,6 +2,7 @@ package ifrit
 {
 	import com.jacobalbano.Animation;
 	import flash.display.Bitmap;
+	import flash.display.BitmapData;
 	import flash.display.Sprite;
 	
 	
@@ -17,6 +18,7 @@ package ifrit
 		protected var container:Sprite;
 		protected var dx:int;
 		protected var vy:Number;
+		protected var vx:Number;
 		protected var hasPhysics:Boolean;
 		protected var lifetime:uint;
 		protected var ttl:uint;
@@ -39,6 +41,7 @@ package ifrit
 			this.y = y;
 			
 			this.vy = 0;
+			this.vx = this.dx;
 			this.friendly = friendly;
 			
 			if (ttl > 0)
@@ -51,12 +54,18 @@ package ifrit
 			this.rotationY = direction > 0 ? 0 : 180;
 		}		
 		
-		//TODO: Allow arrows to follow an angled trajectory
 		override protected function update():void 
 		{
 			super.update();
-			this.vy += 0.03;
-			if (this.hasPhysics)	this.y += this.vy;
+			
+			if (this.hasPhysics)
+			{
+				if (this.dx > 0)   this.vx -= 0.1;
+				if (this.dx < 0)   this.vx += 0.1;
+				
+				this.vy += 0.1;
+				this.y += this.vy;
+			}
 			
 			if (this.timeLimited)
 			{
@@ -73,7 +82,7 @@ package ifrit
 			//bmp.y = this.y;
 			//Game.stage.addChild(bmp);
 			
-			this.x += dx;
+			this.x += vx;
 		}
 		
 	}

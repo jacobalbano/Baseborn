@@ -20,11 +20,12 @@ package ifrit
 		protected var vy:Number;
 		protected var vx:Number;
 		protected var hasPhysics:Boolean;
+		protected var isBallistic:Boolean;
 		protected var lifetime:uint;
 		protected var ttl:uint;
 		protected var timeLimited:Boolean;
 		
-		public function Projectile(bitmap:Bitmap, frameWidth:int, frameHeight:int, direction:int, x:Number, y:Number, friendly:Boolean = true, ttl:uint = 0) 
+		public function Projectile(bitmap:Bitmap, frameWidth:int, frameHeight:int, direction:int, x:Number, y:Number, friendly:Boolean = true, ttl:uint = 0, isBallistic:Boolean = false) 
 		{
 			this.container = new Sprite;
 			addChild(container);
@@ -51,7 +52,8 @@ package ifrit
 				this.ttl = ttl;
 			}
 			
-			this.rotationY = direction > 0 ? 0 : 180;
+			this.isBallistic = isBallistic;
+			if (!this.isBallistic)	this.rotationY = direction > 0 ? 0 : 180;
 		}		
 		
 		override protected function update():void 
@@ -63,8 +65,14 @@ package ifrit
 				if (this.dx > 0)   this.vx -= 0.1;
 				if (this.dx < 0)   this.vx += 0.1;
 				
-				this.vy += 0.1;
+				this.vy += 0.05;
 				this.y += this.vy;
+				
+				if (this.isBallistic)
+				{
+					this.rotation = Math.atan2( this.y + this.vy - this.y, this.x + this.vx - this.x) * 180 / Math.PI;
+				}
+				
 			}
 			
 			if (this.timeLimited)

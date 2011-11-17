@@ -31,8 +31,6 @@ package ifrit
 			
 			super( x, y, Library.IMG(animationName), frameWidth, frameHeight, 18, 25);
 			
-			//FIXME: Animations do not play all the way through
-			/* I'm sure it's something that I'm doing wrong... ~Chris */
 			switch (type)
 			{
 				case 0:
@@ -41,14 +39,13 @@ package ifrit
 					
 					break;
 				case 2:
-					graphic.add("stab", [6, 7, 8, 9], 12, false);
-					graphic.add("throw", [2, 2, 2, 2], 12, false); 
+					graphic.add("attack", [6, 7, 8, 9], 12, false);
 					break;
 				case 4:
-					graphic.add("slash", [6, 7, 8, 9], 12, false);
+					graphic.add("attack", [6, 7, 8, 9], 12, false);
 					graphic.add("archery", [14, 15, 16, 17], 12, false);
-					graphic.add("shield", [10, 11, 12, 13], 12, false);
-					graphic.add("shielding", [13, 13, 13, 13], 12, false);
+					graphic.add("shield", [10, 11, 12, 13], 12, false, true);
+					graphic.add("shielding", [13], 0, true);
 					break;
 				default:	
 			}
@@ -66,8 +63,14 @@ package ifrit
 		override public function think():void 
 		{
 			super.think();
-			if (!Input.isKeyDown(Input.SPACE))    this.canJump = true;
-			else this.canJump = false;
+			if (!Input.isKeyDown(Input.SPACE))
+			{
+				this.canJump = true;
+			}
+			else
+			{
+				this.canJump = false;
+			}
 		}
 		
 		public function get type():uint

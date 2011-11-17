@@ -6,8 +6,6 @@ package ifrit
 	import flash.geom.Rectangle;
 	import flash.utils.Timer;
 	
-	
-	
 	/**
 	 * @author Jake Albano
 	 */

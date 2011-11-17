@@ -19,6 +19,7 @@
 		
 		public static var stage:Stage;
 		public static var man:Player;
+		public static var playerClass:uint = Player.FIGHTER;
 		
 		/**
 		 * Lightning bolt
@@ -100,7 +101,12 @@
 			}
 			else
 			{
-				if (man.graphic.playing != "attack" && man.graphic.playing != "shoot") man.graphic.play("stand", true);
+				if (man.graphic.playing != "attack" 	&&
+					man.graphic.playing != "shoot"		&&
+					man.graphic.playing != "shield" 	&&
+					man.graphic.playing != "casting" 	&&
+					man.graphic.playing != "archery"
+					) man.graphic.play("stand", true);
 			}
 			
 			if (man.canJump)
@@ -127,9 +133,6 @@
 				finalizeMeleeAttack();
 			}
 			
-			/**
-			 * Lightning attack
-			 */
 			if (Input.isKeyDown(Input.S))
 			{
 				beginSpecialAttack();
@@ -348,10 +351,11 @@
 			{
 				if ( !(Input.isKeyDown(Input.LEFT) || Input.isKeyDown(Input.RIGHT) ) )
 				{
-					if (HUD.actionCost(false, 0, 0, 0, 200))
-					{
+					//if (HUD.actionCost(false, 0, 0, 0, 200))
+					//{
+						//if (man.graphic.playing != "shield")	
 						man.graphic.play("shield");
-					}
+					//}
 				}
 			}
 		}

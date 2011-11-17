@@ -81,7 +81,7 @@ package com.jacobalbano
 		 * @param	framerate	How many times per second the animation should update
 		 * @param	loop		Whether the animation should restart when it reaches the end
 		 */
-		public function add(name:String, array:Array, framerate:uint, loop:Boolean):void
+		public function add(name:String, array:Array, framerate:uint, loop:Boolean, hold:Boolean = false ):void
 		{
 			//	Animation names must be unique, so throw an error if an animation is added again
 			for each (var item:Anim in this.animations) 
@@ -93,7 +93,7 @@ package com.jacobalbano
 				}
 			}
 			
-			this.animations.push(new Anim(name, framerate, array, loop) );
+			this.animations.push(new Anim(name, framerate, array, loop, hold) );
 		}
 		
 		/**
@@ -145,9 +145,15 @@ package com.jacobalbano
 			{
 				if (frameDelay >=  30 / animation.framerate)
 				{
-					if (this.frame == animation.frames.length - 1)
+					if (this.frame == this.animation.frames[animation.frames.length - 1])
 					{
-						if (this.animation.loop)  this.frame = 0;
+						if (this.animation.hold)
+						{
+							return;
+							trace("LOL");
+						}
+						
+						if (this.animation.loop)  	this.frame = 0;
 						else
 						{
 							this.animation = null;
@@ -160,8 +166,6 @@ package com.jacobalbano
 					}
 					
 					frameDelay = 0;
-					//trace("Frame index", frame);
-					//trace("Frame", this.animation.frames[frame]);
 				}
 				
 				setRect();

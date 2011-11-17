@@ -79,7 +79,17 @@ package ifrit
 			this.graphic.play("die");
 			
 			//	Only drop pickups some of the time
-			if (new Boolean(Math.round(Math.random() + 0.2)))		addChild(this.pickup = new Pickup(this.x, this.y, new Boolean(Math.round(Math.random()))));
+			if (new Boolean(Math.round(Math.random() + 0.3)))
+			{
+				if (Game.man.type == Player.MAGE)
+				{
+					addChild(this.pickup = new Pickup(this.x, this.y, new Boolean(Math.round(Math.random()))));
+				}
+				else
+				{
+					addChild(this.pickup = new Pickup(this.x, this.y, true));
+				}
+			}
 			
 			this.collisionHull.x += this.collisionHull.width * 1.5;
 		}

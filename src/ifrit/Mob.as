@@ -190,6 +190,8 @@ package ifrit
 		
 		public function freeze():void
 		{
+			if (this.isDestroyed)	return;
+			
 			freezeTimer.stop();
 			freezeTimer.reset();
 			freezeTimer.start();

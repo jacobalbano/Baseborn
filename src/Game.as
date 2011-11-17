@@ -2,24 +2,23 @@
 {
 	import com.jacobalbano.Input;
 	import com.thaumaturgistgames.flakit.Engine;
-	import com.thaumaturgistgames.flakit.Library;
+	
 	import flash.display.Stage;
 	import flash.events.Event;
 	import flash.geom.Point;
 	import flash.utils.Timer;
+	
 	import ifrit.*;
-	
-	
 	
 	
 	[SWF(width = "1000", height = "500", backgroundColor = "0xFFFFFF")]
 	public class Game extends Engine 
-	{		
+	{
 		public static const dimensions:Point = new Point(1000, 400);
 		
 		public static var stage:Stage;
 		public static var man:Player;
-		public static var playerClass:uint = Player.MAGE;
+		public static var playerClass:uint = Player.FIGHTER;
 		
 		/**
 		 * Lightning bolt
@@ -69,20 +68,14 @@
 				}
 			}
 			
-			if (man.collisionHull.hitTestObject(World.exit))
+			if (World.exit && man.collisionHull.hitTestObject(World.exit))
 			{
-				World.addDecal(Library.IMG("victory.png"), Game.dimensions.x / 2 - 64, Game.dimensions.y / 2 - 19);
 				World.next();
 			}
 			
 			if (enemiesKilled == World.Mobs.length && World.Platforms.length > 0)
 			{
 				World.Platforms[World.Platforms.length - 1].x++;
-			}
-			
-			if (Input.isKeyDown(Input.J))
-			{
-				World.loadCastle_01();
 			}
 			
 			if (Input.isKeyDown(Input.LEFT))
@@ -126,6 +119,7 @@
 			
 			if (Input.isKeyDown(Input.D))
 			{
+				man.graphic.play("attack");
 				beginMeleeAttack();
 			}
 			else
@@ -291,6 +285,12 @@
 		private function beginMeleeAttack():void 
 		{
 			canMelee = true;
+			
+			if (man.type != Player.MAGE)
+			{
+				man.stab();
+				man.graphic.play("attack");
+			}
 		}
 		
 		private function finalizeMeleeAttack():void
@@ -307,15 +307,6 @@
 					}
 				}
 				
-				if (man.type == Player.FIGHTER)
-				{
-					man.graphic.play("attack");
-				}
-				
-				if (man.type == Player.ROGUE)
-				{
-					man.graphic.play("attack");
-				}
 				canMelee = false;
 			}
 		}
@@ -351,11 +342,10 @@
 			{
 				if ( !(Input.isKeyDown(Input.LEFT) || Input.isKeyDown(Input.RIGHT) ) )
 				{
-					//if (HUD.actionCost(false, 0, 0, 0, 200))
-					//{
-						//if (man.graphic.playing != "shield")	
+					if (HUD.actionCost(false, 0, 0, 0, 200))
+					{
 						man.graphic.play("shield");
-					//}
+					}
 				}
 			}
 		}

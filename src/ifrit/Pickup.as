@@ -20,20 +20,11 @@ package ifrit
 		 * @param	x			X position of the pickup
 		 * @param	y			Y position of the pickup
 		 * @param	type		TRUE: health pickup, FALSE: mana pickup
-		 * @param	forceType	TRUE: force pickup type regardless of player class
 		 */
-		public function Pickup(x:Number, y:Number, type:Boolean, forceType:Boolean = false ) 
+		public function Pickup(x:Number, y:Number, type:Boolean)
 		{
 			 this.container = new Sprite;
 			addChild(this.container);
-			
-			if (!forceType)
-			{
-				if (Game.man.type != Player.MAGE)
-				{
-					type = true;
-				}
-			}
 			
 			if (type) this.animation = new Animation(Library.IMG("healthDrop.png"), 15, 15);
 			else this.animation = new Animation(Library.IMG("manaDrop.png"), 15, 15);

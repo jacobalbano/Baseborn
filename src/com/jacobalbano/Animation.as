@@ -9,8 +9,9 @@ package com.jacobalbano
 	import flash.events.MouseEvent;
 	import flash.display.Sprite;
 	import com.jacobalbano.Anim;
+	import ifrit.IfritObject;
 
-	public class Animation extends Sprite
+	public class Animation extends IfritObject
 	{
 		public var clipRect:Rectangle = new Rectangle(0, 0, 100, 100);
 		public var frame:uint = 0;
@@ -20,8 +21,8 @@ package com.jacobalbano
 		private var frameDelay:uint = 0;
 		private var animation:Anim;
 		private var animations:Vector.<Anim> = new Vector.<Anim>;
-		private var _frameWidth:Number;
-		private var _frameHeight:Number;
+		private var frameWidth:Number;
+		private var frameHeight:Number;
 		private var _playing:String;
 		
 		/**
@@ -67,11 +68,8 @@ package com.jacobalbano
 			this.graphics.drawRect(0, 0, width, height);
 			this.graphics.endFill();
 			
-			//	Set the buffer to update every frame
-			this.addEventListener(Event.ENTER_FRAME, runUpdate);
-			
-			this._frameWidth = width;
-			this._frameHeight = height;
+			this.frameWidth = width;
+			this.frameHeight = height;
 		}
 		
 		/**
@@ -80,8 +78,9 @@ package com.jacobalbano
 		 * @param	array		An arbitrary array denoting frames, i.e. [0, 2, 3]
 		 * @param	framerate	How many times per second the animation should update
 		 * @param	loop		Whether the animation should restart when it reaches the end
+		 * @param	hold		Whether the animation should stop on the last frame
 		 */
-		public function add(name:String, array:Array, framerate:uint, loop:Boolean, hold:Boolean = false ):void
+		public function add(name:String, array:Array, framerate:uint, loop:Boolean, hold:Boolean = false):void
 		{
 			//	Animation names must be unique, so throw an error if an animation is added again
 			for each (var item:Anim in this.animations) 
@@ -111,7 +110,7 @@ package com.jacobalbano
 		 * @param	restart	Whether the named animation should restart from the beginning
 		 */
 		public function play(name:String, restart:Boolean = false):void
-		{	
+		{
 			for each (var item:Anim in this.animations) 
 			{
 				if (item.name == name)
@@ -133,27 +132,18 @@ package com.jacobalbano
 			}
 		}
 		
-		public function get frameWidth():int 	{	return this.frameWidth;		}
-		public function get frameHeight():int 	{	return this.frameHeight;	}
-		
-		/**
-		 * Internal enterFrame function
-		 */
-		private function runUpdate(e:Event):void 
-		{			
+		override protected function update():void 
+		{
+			super.update();
 			if (animation)
 			{
 				if (frameDelay >=  30 / animation.framerate)
 				{
-					if (this.frame == this.animation.frames[animation.frames.length - 1])
+					if (this.frame == animation.frames.length - 1)
 					{
-						if (this.animation.hold)
-						{
-							return;
-							trace("LOL");
-						}
+						if (this.animation.hold)	return;
 						
-						if (this.animation.loop)  	this.frame = 0;
+						if (this.animation.loop)  this.frame = 0;
 						else
 						{
 							this.animation = null;
@@ -178,11 +168,11 @@ package com.jacobalbano
 		 */
 		private function setRect():void 
 		{
-			this.buffer.copyPixels(storage, new Rectangle(this.animation.frames[this.frame] * this._frameWidth, 0, this._frameWidth, this._frameHeight), new Point);
+			this.buffer.copyPixels(storage, new Rectangle(this.animation.frames[this.frame] * this.frameWidth, 0, this.frameWidth, this.frameHeight), new Point);
 			this.graphics.clear();
 			
 			this.graphics.beginBitmapFill(buffer, null, false, false);
-			this.graphics.drawRect(0, 0, this._frameWidth, this._frameHeight);
+			this.graphics.drawRect(0, 0, this.frameWidth, this.frameHeight);
 			this.graphics.endFill();
 		}
 		

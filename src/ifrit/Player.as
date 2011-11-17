@@ -35,7 +35,7 @@ package ifrit
 			{
 				case 0:
 					graphic.add("attack", [6, 7, 8, 9], 12, false);
-					graphic.add("casting", [6, 6, 6, 6], 12, false);
+					graphic.add("casting", [6, 6, 6, 6], 12, false, true);
 					
 					break;
 				case 2:

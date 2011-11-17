@@ -19,7 +19,7 @@
 		
 		public static var stage:Stage;
 		public static var man:Player;
-		public static var playerClass:uint = Player.FIGHTER;
+		public static var playerClass:uint = Player.MAGE;
 		
 		/**
 		 * Lightning bolt
@@ -309,12 +309,12 @@
 				
 				if (man.type == Player.FIGHTER)
 				{
-					man.graphic.play("slash");
+					man.graphic.play("attack");
 				}
 				
 				if (man.type == Player.ROGUE)
 				{
-					man.graphic.play("stab");
+					man.graphic.play("attack");
 				}
 				canMelee = false;
 			}

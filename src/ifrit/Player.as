@@ -44,8 +44,7 @@ package ifrit
 				case 4:
 					graphic.add("attack", [6, 7, 8, 9], 12, false);
 					graphic.add("archery", [14, 15, 16, 17], 12, false);
-					graphic.add("shield", [10, 11, 12, 13], 12, false, true);
-					graphic.add("shielding", [13], 0, true);
+					graphic.add("shield", [10, 11, 12, 13], 20, false, true);
 					break;
 				default:	
 			}

@@ -55,7 +55,7 @@ package ifrit
 		override protected function update():void 
 		{
 			super.update();
-			this.vy += 0.01;
+			this.vy += 0.03;
 			if (this.hasPhysics)	this.y += this.vy;
 			
 			if (this.timeLimited)

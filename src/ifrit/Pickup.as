@@ -2,6 +2,7 @@ package ifrit
 {
 	import com.jacobalbano.Animation;
 	import com.thaumaturgistgames.flakit.Library;
+	import flash.display.Bitmap;
 	import flash.display.Sprite;
 	/**
 	 * ...
@@ -34,11 +35,11 @@ package ifrit
 				}
 			}
 			
-			if (type) this.animation = new Animation(Library.IMG("healthDrop.png"), 15, 18);
-			else this.animation = new Animation(Library.IMG("manaDrop.png"), 15, 18);
+			if (type) this.animation = new Animation(Library.IMG("healthDrop.png"), 15, 15);
+			else this.animation = new Animation(Library.IMG("manaDrop.png"), 15, 15);
 			
 			container.x = -15 /2;
-			container.y = -18 /2;
+			container.y = -15 /2;
 			
 			container.addChild(animation);
 			
@@ -47,6 +48,12 @@ package ifrit
 			
 			this.type = type;
 		}
+		
+		override protected function update():void
+		{
+			this.rotation += 10;
+		}
+		
 	}
 
 }

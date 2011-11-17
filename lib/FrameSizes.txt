@@ -16,9 +16,11 @@ MAGIC:
 WEAPONS:
 	shuriken.png	 10x10
 	arrow.png		 22x6
+	caltrop.png		 12x13
 	
 MISC:
-	manaDrop.png	15x18 (6 frames)
+	manaDrop.png	15x15 (6 frames)
+	healthDrop.png	15x15 (6 frames)
 	
 DECALS:
 	castle.decals.chandelier.png:     46x101 (4 frames)

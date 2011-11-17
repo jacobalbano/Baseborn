@@ -3,6 +3,9 @@ package ifrit
 	import com.thaumaturgistgames.flakit.Library;
 	import flash.display.Bitmap;
 	import flash.display.Sprite;
+	import flash.text.TextField;
+	import flash.text.TextFormat;
+	import flash.text.TextFieldType;
 	import flash.utils.Timer;
 	/**
 	 * ...
@@ -16,16 +19,30 @@ package ifrit
 		private var lowHealth:Timer;
 		private static var totalHealth:Number;
 		private static var healthScale:Number;
+		private static var remainingHealth:Number;
+		private var healthTxt:TextField;
+		private var healthTxtFormat:TextFormat;
 		
 		private static var mana:Sprite;
 		private static var totalMana:Number;
+		private var manaTxt:TextField;
+		private var manaTxtFormat:TextFormat;
 		private static var energy:Sprite;
+		private var energyTxt:TextField;
+		private var energyTxtFormat:TextFormat;
 		
-		private static var caltrops:Sprite;
 		private static var shuriken:Sprite;
+		private var shurikenTxt:TextField
+		private var shurikenTxtFormat:TextFormat;
+		private static var caltrops:Sprite;
+		private var caltropTxt:TextField
+		private var caltropTxtFormat:TextFormat;
 		
 		private static var arrows:Sprite;
+		private var arrowTxt:TextField
+		private var arrowTxtFormat:TextFormat;
 		private static var shield:Sprite;
+		
 		
 		
 		
@@ -45,6 +62,21 @@ package ifrit
 			health.y = 442;
 			addChild(health);
 			
+			healthTxt = new TextField();
+			healthTxt.type = TextFieldType.DYNAMIC;
+			healthTxt.textColor = 0xFFFFFF;
+			healthTxt.x = health.x;
+			healthTxt.y = health.y - 2;
+			healthTxt.height = 20;
+			healthTxt.width = 200;
+			
+			healthTxtFormat = new TextFormat();
+			healthTxtFormat.size = 18;
+			healthTxtFormat.align = "center";
+			healthTxt.defaultTextFormat = healthTxtFormat;
+			
+			addChild(healthTxt);
+			
 			if (Game.man.type == Player.MAGE)
 			{	
 				healthScale = 1;
@@ -57,6 +89,20 @@ package ifrit
 				mana.y = 442;
 				addChild(mana);
 				
+				manaTxt = new TextField();
+				manaTxt.type = TextFieldType.DYNAMIC;
+				manaTxt.textColor = 0xFFF584;
+				manaTxt.x = mana.x;
+				manaTxt.y = mana.y - 4;
+				manaTxt.height = 14;
+				manaTxt.width = 200;
+				
+				manaTxtFormat = new TextFormat();
+				manaTxtFormat.size = 10;
+				manaTxtFormat.align = "center";
+				manaTxt.defaultTextFormat = manaTxtFormat;
+				addChild(manaTxt);
+				
 				energy = new Sprite();
 				energy.graphics.beginFill(0xD9D300);
 				energy.graphics.drawRect(0, 0, 200, 9);
@@ -64,6 +110,20 @@ package ifrit
 				energy.x = 750;
 				energy.y = 454;
 				addChild(energy);
+				
+				energyTxt = new TextField();
+				energyTxt.type = TextFieldType.DYNAMIC;
+				energyTxt.textColor = 0x00376F;
+				energyTxt.x = energy.x;
+				energyTxt.y = energy.y - 4;
+				energyTxt.height = 14;
+				energyTxt.width = 200;
+				
+				energyTxtFormat = new TextFormat();
+				energyTxtFormat.size = 10;
+				energyTxtFormat.align = "center";
+				energyTxt.defaultTextFormat = energyTxtFormat;
+				addChild(energyTxt);
 			}
 			
 			if (Game.man.type == Player.ROGUE)
@@ -78,6 +138,20 @@ package ifrit
 				shuriken.y = 442;
 				addChild(shuriken);
 				
+				shurikenTxt = new TextField();
+				shurikenTxt.type = TextFieldType.DYNAMIC;
+				shurikenTxt.textColor = 0x000000;
+				shurikenTxt.x = shuriken.x;
+				shurikenTxt.y = shuriken.y - 4;
+				shurikenTxt.height = 14;
+				shurikenTxt.width = 200;
+				
+				shurikenTxtFormat = new TextFormat();
+				shurikenTxtFormat.size = 10;
+				shurikenTxtFormat.align = "center";
+				shurikenTxt.defaultTextFormat = shurikenTxtFormat;
+				addChild(shurikenTxt);
+				
 				caltrops = new Sprite();
 				caltrops.graphics.beginFill(0x000000);
 				caltrops.graphics.drawRect(0, 0, 200, 9);
@@ -85,6 +159,20 @@ package ifrit
 				caltrops.x = 750;
 				caltrops.y = 454;
 				addChild(caltrops);
+				
+				caltropTxt = new TextField();
+				caltropTxt.type = TextFieldType.DYNAMIC;
+				caltropTxt.textColor = 0xFFFFFF;
+				caltropTxt.x = caltrops.x;
+				caltropTxt.y = caltrops.y - 4;
+				caltropTxt.height = 14;
+				caltropTxt.width = 200;
+				
+				caltropTxtFormat = new TextFormat();
+				caltropTxtFormat.size = 10;
+				caltropTxtFormat.align = "center";
+				caltropTxt.defaultTextFormat = caltropTxtFormat;
+				addChild(caltropTxt);
 			}
 			
 			if (Game.man.type == Player.FIGHTER)
@@ -98,6 +186,20 @@ package ifrit
 				arrows.x = 750;
 				arrows.y = 442;
 				addChild(arrows);
+				
+				arrowTxt = new TextField();
+				arrowTxt.type = TextFieldType.DYNAMIC;
+				arrowTxt.textColor = 0xC7C8C9;
+				arrowTxt.x = arrows.x;
+				arrowTxt.y = arrows.y - 4;
+				arrowTxt.height = 14;
+				arrowTxt.width = 200;
+				
+				arrowTxtFormat = new TextFormat();
+				arrowTxtFormat.size = 10;
+				arrowTxtFormat.align = "center";
+				arrowTxt.defaultTextFormat = arrowTxtFormat;
+				addChild(arrowTxt);
 				
 				shield = new Sprite();
 				shield.graphics.beginFill(0xA5B5C7);
@@ -114,8 +216,9 @@ package ifrit
 		
 		override protected function update():void 
 		{
-			if (energy)  {    if (energy.width < 200) { energy.width += 1.5; }    }
-			if (shield) {   if (shield.width < 200) { shield.width += 1.0; }   }
+			remainingHealth = (health.width * healthScale);
+			
+			healthTxt.text = String(remainingHealth) + "/" + String(totalHealth);
 			
 			if (health.width <= 50)
 			{
@@ -146,6 +249,15 @@ package ifrit
 				health.graphics.drawRect(0, 0, 200, 21);
 				health.graphics.endFill();
 			}
+			
+			if (mana)  manaTxt.text = String(mana.width) + "/" + String(totalMana);
+			if (energy) {   if (energy.width < 200)   energy.width += 1.5;   }
+			
+			if (shuriken)  shurikenTxt.text = String(shuriken.width / 20) + "/" + String(200 / 20)
+			if (caltrops)  caltropTxt.text = String(Math.round(caltrops.width / 13.33)) + "/" + String(Math.round(200 / 13.33));
+			
+			if (arrows)  arrowTxt.text = String(arrows.width / 10) + "/" + String(200 / 10);
+			if (shield) {   if (shield.width < 200)   shield.width += 1.0;   }
 		}
 		
 		/**
@@ -155,7 +267,6 @@ package ifrit
 		 */
 		public static function damagePlayer(damageAmount:Number, percent:Boolean = false):void
 		{
-			var remainingHealth:Number = (health.width * healthScale);
 			var damagePercentage:Number = (damageAmount * .01);
 			
 			if (percent)	damageAmount = (totalHealth * damagePercentage);

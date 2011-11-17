@@ -23,6 +23,7 @@ package ifrit
 		private var attackTimer:Timer;
 		private var freezeTimer:Timer;
 		private var frozen:Boolean;
+		public var struck:Boolean;
 		
 		//	Physics
 		public var gravUp:Boolean;
@@ -218,6 +219,7 @@ package ifrit
 			{
 				this.freezeTimer.stop();
 				this.frozen = false;
+				this.struck = false;
 			}
 			
 			if (gravUp)

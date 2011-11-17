@@ -212,12 +212,19 @@
 						}
 					}
 					
-					//TODO: Make frost attack do damage (maybe 2.5?)
 					if (frostAttack)
 					{
 						if (World.Mobs[l].collisionHull.hitTestObject(frostAttack))
 						{
-							if (World.Mobs[l].friendly != man.friendly)	World.Mobs[l].freeze();
+							if (World.Mobs[l].friendly != man.friendly)
+							{
+								World.Mobs[l].freeze();
+								if (!World.Mobs[l].struck)
+								{
+									World.Mobs[l].hitpoints -= 3;
+									World.Mobs[l].struck = true;
+								}
+							}
 						}
 					}
 					
@@ -272,7 +279,7 @@
 			else if (man.type == Player.FIGHTER)
 			{
 				man.graphic.play("archery");
-				if (man.friendly) {    if (HUD.actionCost(true, 0, 0, 20))   man.shoot();    }
+				if (man.friendly) {    if (HUD.actionCost(true, 0, 0, 10))   man.shoot();    }
 			}
 			else if (man.type == Player.ROGUE)
 			{
@@ -303,7 +310,7 @@
 					{
 						stopFrost();
 						man.graphic.play("attack");
-						stage.addChild(frostAttack = new FrostBolt(man.rotationY == 180, man.x, man.y)); 
+						stage.addChild(frostAttack = new FrostBolt(man.rotationY == 180, man.x, man.y));
 					}
 				}
 				

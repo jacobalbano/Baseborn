@@ -12,7 +12,7 @@ package ifrit
 		{
 			super(Library.IMG("arrow.png"), 22, 6, direction, x, y, friendly );
 			
-			HUD.actionCost(false, 0, 0, 20);
+			HUD.actionCost(false, 0, 0, 10);
 		}
 		
 		override protected function update():void 

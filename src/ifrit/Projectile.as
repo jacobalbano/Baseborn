@@ -62,10 +62,12 @@ package ifrit
 			
 			if (this.hasPhysics)
 			{
-				if (this.dx > 0)   this.vx -= 0.1;
-				if (this.dx < 0)   this.vx += 0.1;
+				if (this.dx > 0)   	this.vx -= 0.05;
+				if (this.dx < 0)   	this.vx += 0.05;
 				
-				this.vy += 0.05;
+				if (Math.abs(this.vx) < 6)	this.vy += 0.1;
+				else						this.vy += 0.05;
+				
 				this.y += this.vy;
 				
 				if (this.isBallistic)
@@ -81,6 +83,8 @@ package ifrit
 				if (this.lifetime >= this.ttl)	this.destroy();
 			}
 			
+			this.x += vx;
+			
 			/**
 			 * Debugging information; displays trajectory
 			 * Uncomment the lines below to see in action
@@ -89,8 +93,6 @@ package ifrit
 			//bmp.x = this.x;
 			//bmp.y = this.y;
 			//Game.stage.addChild(bmp);
-			
-			this.x += vx;
 		}
 		
 	}

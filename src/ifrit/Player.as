@@ -16,6 +16,8 @@ package ifrit
 		public static const ROGUE:uint = 2;
 		public static const FIGHTER:uint = 4;
 		
+		private	var idle:Boolean;
+		
 		public function Player(x:Number, y:Number, type:uint) 
 		{
 			var animationName:String;
@@ -42,9 +44,14 @@ package ifrit
 					graphic.add("attack", [6, 7, 8, 9], 12, false);
 					break;
 				case 4:
-					graphic.add("attack", [6, 7, 8, 9], 12, false);
-					graphic.add("archery", [14, 15, 16, 17], 12, false);
-					graphic.add("shield", [10, 11, 12, 13], 20, false, true);
+					graphic.add("attack", [4, 5, 6, 7], 12, false);
+					graphic.add("shield", [8, 9, 10, 11], 20, false, true);
+					graphic.add("pull", [12, 13, 14, 15], 12, false, true);
+					graphic.add("aimUp", [16], 12, true);
+					graphic.add("aimDown", [17], 12, true);
+					graphic.add("release90", [18, 19, 20, 21], 18, false);
+					graphic.add("release45", [22, 23, 24, 25], 18, false);
+					graphic.add("release135", [26, 27, 28, 29], 18, false);
 					break;
 				default:	
 			}
@@ -57,6 +64,7 @@ package ifrit
 			graphic.play("stand");
 			
 			this.friendly = true;
+			this.idle = false;
 		}
 		
 		override public function think():void 
@@ -75,6 +83,28 @@ package ifrit
 		public function get type():uint
 		{
 			return this.classType;
+		}
+		
+		/**
+		 * Check if the player has no action animations playing.
+		 * @return
+		 */
+		public function isIdle():Boolean
+		{
+		if (this.graphic.playing != "attack"		&&
+			this.graphic.playing != "casting"		&&
+			this.graphic.playing != "shield" 		&&
+			this.graphic.playing != "pull"			&&
+			this.graphic.playing != "aimUp"			&&
+			this.graphic.playing != "aimDown"		&&
+			this.graphic.playing != "release90"		&&
+			this.graphic.playing != "release45"		&&
+			this.graphic.playing != "release135"
+			) this.idle = true;
+			
+			else this.idle = false;
+			
+			return this.idle;
 		}
 	}
 }

@@ -159,9 +159,19 @@ package ifrit
 			if (!attackTimer.running)
 			{
 				if (this.rotationY == 180)
-					stage.addChild(new ammunition(-10, this.x - this.halfSize.x + 10, this.y, this.friendly));
+				{
+					if (this.classType == Player.FIGHTER)
+						stage.addChild(new ammunition(-15, this.x - this.halfSize.x + 6, this.y + 6, this.friendly));
+					else
+						stage.addChild(new ammunition(-10, this.x - this.halfSize.x + 10, this.y, this.friendly));
+				}
 				else
-					stage.addChild(new ammunition(10, this.x + this.halfSize.x + 10, this.y, this.friendly));
+				{
+					if (this.classType == Player.FIGHTER)
+						stage.addChild(new ammunition(15, this.x - this.halfSize.x + 16, this.y + 6, this.friendly));
+					else
+						stage.addChild(new ammunition(10, this.x - this.halfSize.x + 10, this.y, this.friendly));
+				}
 				
 				World.Projectiles.push(stage.getChildAt(stage.numChildren - 1));
 			}

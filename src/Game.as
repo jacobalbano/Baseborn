@@ -33,6 +33,7 @@
 		private var frostAttack:FrostBolt;
 		
 		private var canMelee:Boolean;
+		private var canShoot:Boolean;
 		
 		public function Game()	{}
 		
@@ -94,12 +95,7 @@
 			}
 			else
 			{
-				if (man.graphic.playing != "attack" 	&&
-					man.graphic.playing != "shoot"		&&
-					man.graphic.playing != "shield" 	&&
-					man.graphic.playing != "casting" 	&&
-					man.graphic.playing != "archery"
-					) man.graphic.play("stand", true);
+				if (man.isIdle()) 	man.graphic.play("stand", true);
 			}
 			
 			if (man.canJump)
@@ -114,7 +110,16 @@
 			
 			if (Input.isKeyDown(Input.A) )
 			{
+				if (man.type == Player.FIGHTER && HUD.actionCost(true, 0, 0, 10))
+				{
+					man.graphic.play("pull");
+				}
 				doRangedAttack();
+			}
+			else
+			{
+				if (canShoot)
+					finalizeRangedAttack();
 			}
 			
 			if (Input.isKeyDown(Input.D))
@@ -124,7 +129,8 @@
 			}
 			else
 			{
-				finalizeMeleeAttack();
+				if (canMelee)
+					finalizeMeleeAttack();
 			}
 			
 			if (Input.isKeyDown(Input.S))
@@ -269,8 +275,11 @@
 			}
 		}
 		
+		
 		private function doRangedAttack():void 
 		{
+			canShoot = true;
+			
 			if (man.type == Player.MAGE)
 			{
 				man.graphic.play("attack");
@@ -278,8 +287,7 @@
 			}
 			else if (man.type == Player.FIGHTER)
 			{
-				man.graphic.play("archery");
-				if (man.friendly) {    if (HUD.actionCost(true, 0, 0, 10))   man.shoot();    }
+				
 			}
 			else if (man.type == Player.ROGUE)
 			{
@@ -287,6 +295,22 @@
 				if (man.friendly) {    if (HUD.actionCost(true, 0, 0, 20))   man.shoot();    }
 			}
 			else man.shoot();
+		}
+		
+		private function finalizeRangedAttack():void 
+		{
+			if (man.type == Player.FIGHTER)
+			{
+				if (man.friendly)
+				{
+					if (HUD.actionCost(true, 0, 0, 10))
+					{
+						man.graphic.play("release90");
+						man.shoot();
+					}
+				}
+			}
+			canShoot = false;
 		}
 		
 		private function beginMeleeAttack():void 
@@ -302,20 +326,16 @@
 		
 		private function finalizeMeleeAttack():void
 		{
-			if (canMelee)
+			if (man.type == Player.MAGE)
 			{
-				if (man.type == Player.MAGE)
+				if (!frostAttack && HUD.actionCost(true, 0, 50))
 				{
-					if (!frostAttack && HUD.actionCost(true, 0, 50))
-					{
-						stopFrost();
-						man.graphic.play("attack");
-						stage.addChild(frostAttack = new FrostBolt(man.rotationY == 180, man.x, man.y));
-					}
+					stopFrost();
+					man.graphic.play("attack");
+					stage.addChild(frostAttack = new FrostBolt(man.rotationY == 180, man.x, man.y));
 				}
-				
-				canMelee = false;
 			}
+			canMelee = false;
 		}
 		
 		private function beginSpecialAttack():void 

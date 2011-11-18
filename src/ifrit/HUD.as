@@ -14,8 +14,11 @@ package ifrit
 	public class HUD extends IfritObject
 	{
 		private var area:Bitmap;
+		private var icon1:Bitmap;
+		private var icon2:Bitmap;
 		
 		private static var health:Sprite;
+		private var healthIcon:Bitmap;
 		private var lowHealth:Timer;
 		private static var totalHealth:Number;
 		private static var healthScale:Number;
@@ -77,6 +80,11 @@ package ifrit
 			
 			addChild(healthTxt);
 			
+			healthIcon = Library.IMG("icons.healthIcon.png");
+			healthIcon.x = health.x - 22
+			healthIcon.y = health.y + 2;
+			addChild(healthIcon);
+			
 			if (Game.man.type == Player.MAGE)
 			{	
 				healthScale = 1;
@@ -103,6 +111,11 @@ package ifrit
 				manaTxt.defaultTextFormat = manaTxtFormat;
 				addChild(manaTxt);
 				
+				icon1 = Library.IMG("icons.manaIcon.png");
+				icon1.x = mana.x + 92;
+				icon1.y = mana.y - 23;
+				addChild(icon1);
+				
 				energy = new Sprite();
 				energy.graphics.beginFill(0xD9D300);
 				energy.graphics.drawRect(0, 0, 200, 9);
@@ -124,6 +137,11 @@ package ifrit
 				energyTxtFormat.align = "center";
 				energyTxt.defaultTextFormat = energyTxtFormat;
 				addChild(energyTxt);
+				
+				icon2 = Library.IMG("icons.energyIcon.png");
+				icon2.x = energy.x + 92;
+				icon2.y = energy.y + 18;
+				addChild(icon2);
 			}
 			
 			if (Game.man.type == Player.ROGUE)
@@ -152,6 +170,11 @@ package ifrit
 				shurikenTxt.defaultTextFormat = shurikenTxtFormat;
 				addChild(shurikenTxt);
 				
+				icon1 = Library.IMG("icons.shurikenIcon.png");
+				icon1.x = shuriken.x + 92;
+				icon1.y = shuriken.y - 23;
+				addChild(icon1);
+				
 				caltrops = new Sprite();
 				caltrops.graphics.beginFill(0x000000);
 				caltrops.graphics.drawRect(0, 0, 200, 9);
@@ -173,6 +196,11 @@ package ifrit
 				caltropTxtFormat.align = "center";
 				caltropTxt.defaultTextFormat = caltropTxtFormat;
 				addChild(caltropTxt);
+				
+				icon2 = Library.IMG("icons.caltropIcon.png");
+				icon2.x = caltrops.x + 92;
+				icon2.y = caltrops.y + 16;
+				addChild(icon2);
 			}
 			
 			if (Game.man.type == Player.FIGHTER)
@@ -201,6 +229,11 @@ package ifrit
 				arrowTxt.defaultTextFormat = arrowTxtFormat;
 				addChild(arrowTxt);
 				
+				icon1 = Library.IMG("icons.arrowIcon.png");
+				icon1.x = arrows.x + 92;
+				icon1.y = arrows.y - 23;
+				addChild(icon1);
+				
 				shield = new Sprite();
 				shield.graphics.beginFill(0xA5B5C7);
 				shield.graphics.drawRect(0, 0, 200, 9);
@@ -208,6 +241,11 @@ package ifrit
 				shield.x = 750;
 				shield.y = 454;
 				addChild(shield);
+				
+				icon2 = Library.IMG("icons.shieldIcon.png");
+				icon2.x = shield.x + 92;
+				icon2.y = shield.y + 16;
+				addChild(icon2);
 			}
 			
 			totalHealth = (200 * healthScale);

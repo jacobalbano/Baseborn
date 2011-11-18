@@ -203,7 +203,7 @@
 						
 						if (boltTime.currentCount >= 4)
 						{
-							if (bolting && World.Mobs[l].collisionHull.hitTestObject(lightningAttack.bolt))
+							if (bolting && !World.Mobs[l].isDestroyed && World.Mobs[l].collisionHull.hitTestObject(lightningAttack.bolt))
 							{
 								if (!World.Mobs[l].friendly)
 								{

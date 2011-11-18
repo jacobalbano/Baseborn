@@ -89,7 +89,7 @@ package ifrit
 		 * Check if the player has no action animations playing.
 		 * @return
 		 */
-		public function isIdle():Boolean
+		public function get isIdle():Boolean
 		{
 		if (this.graphic.playing != "attack"		&&
 			this.graphic.playing != "casting"		&&

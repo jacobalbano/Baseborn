@@ -32,6 +32,11 @@
 		 */
 		private var frostAttack:FrostBolt;
 		
+		/**
+		 * Shield
+		 */
+		private var shielding:Boolean;
+		
 		private var canMelee:Boolean;
 		private var canShoot:Boolean;
 		
@@ -82,20 +87,30 @@
 			if (Input.isKeyDown(Input.LEFT))
 			{
 				stopBolt();
-				if (man.graphic.playing != "attack" && man.graphic.playing != "shoot") man.graphic.play("walk");
-				man.x -= 7;
+				
+				if (man.graphic.playing != "attack" && man.graphic.playing != "shoot" && !shielding)
+					man.graphic.play("walk");
+					
+				if (shielding)	man.x -= 2;
+				else 			man.x -= 7;
+				
 				man.rotationY = 180;
 			}
 			else if (Input.isKeyDown(Input.RIGHT))
 			{
 				stopBolt();
-				if (man.graphic.playing != "attack" && man.graphic.playing != "shoot") man.graphic.play("walk");
-				man.x += 7;
+				
+				if (man.graphic.playing != "attack" && man.graphic.playing != "shoot" && !shielding)
+					man.graphic.play("walk");
+					
+				if (shielding)	man.x += 2;
+				else			man.x += 7;
+				
 				man.rotationY = 0;
 			}
 			else
 			{
-				if (man.isIdle()) 	man.graphic.play("stand", true);
+				if (man.isIdle) 	man.graphic.play("stand", true);
 			}
 			
 			if (man.canJump)
@@ -110,10 +125,6 @@
 			
 			if (Input.isKeyDown(Input.A) )
 			{
-				if (man.type == Player.FIGHTER && HUD.actionCost(true, 0, 0, 10))
-				{
-					man.graphic.play("pull");
-				}
 				doRangedAttack();
 			}
 			else
@@ -182,7 +193,18 @@
 							{
 								if (World.Projectiles[k].friendly != World.Mobs[l].friendly)
 								{
-									if (!World.Projectiles[k].friendly)	{	HUD.damagePlayer(15, true);   }
+									if (!World.Projectiles[k].friendly)
+									{
+										if (shielding)
+										{
+											if (World.Projectiles[k].rotationY == 0)
+												if (World.Mobs[l].rotationY != 180)	HUD.damagePlayer(15, true);
+												
+											if (World.Projectiles[k].rotationY == 180)
+												if (World.Mobs[l].rotationY != 0)	HUD.damagePlayer(15, true);
+										}
+										else	HUD.damagePlayer(15, true);
+									}
 									
 									stage.removeChild(World.Projectiles[k]);
 									World.Projectiles[k].destroy();
@@ -287,7 +309,8 @@
 			}
 			else if (man.type == Player.FIGHTER)
 			{
-				
+				if (HUD.actionCost(true, 0, 0, 10))
+					man.graphic.play("pull");
 			}
 			else if (man.type == Player.ROGUE)
 			{
@@ -367,12 +390,10 @@
 			
 			if (man.type == Player.FIGHTER)
 			{
-				if ( !(Input.isKeyDown(Input.LEFT) || Input.isKeyDown(Input.RIGHT) ) )
+				if (!shielding && HUD.actionCost(false, 0, 0, 0, 200))
 				{
-					if (HUD.actionCost(false, 0, 0, 0, 200))
-					{
-						man.graphic.play("shield");
-					}
+					shielding = true;
+					man.graphic.play("shield");
 				}
 			}
 		}
@@ -385,6 +406,15 @@
 				{
 					boltTime.start();
 					lightningAttack.sendBolt();
+				}
+			}
+			
+			if (man.type == Player.FIGHTER)
+			{
+				if (shielding)
+				{
+					man.graphic.play("stand");
+					shielding = false;
 				}
 			}
 		}

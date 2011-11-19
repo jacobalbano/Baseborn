@@ -112,9 +112,6 @@ package ifrit
 				addChild(manaTxt);
 				
 				icon1 = Library.IMG("icons.manaIcon.png");
-				icon1.x = mana.x + 92;
-				icon1.y = mana.y - 23;
-				addChild(icon1);
 				
 				energy = new Sprite();
 				energy.graphics.beginFill(0xD9D300);
@@ -139,9 +136,6 @@ package ifrit
 				addChild(energyTxt);
 				
 				icon2 = Library.IMG("icons.energyIcon.png");
-				icon2.x = energy.x + 92;
-				icon2.y = energy.y + 18;
-				addChild(icon2);
 			}
 			
 			if (Game.man.type == Player.ROGUE)
@@ -171,9 +165,6 @@ package ifrit
 				addChild(shurikenTxt);
 				
 				icon1 = Library.IMG("icons.shurikenIcon.png");
-				icon1.x = shuriken.x + 92;
-				icon1.y = shuriken.y - 23;
-				addChild(icon1);
 				
 				caltrops = new Sprite();
 				caltrops.graphics.beginFill(0x000000);
@@ -198,9 +189,6 @@ package ifrit
 				addChild(caltropTxt);
 				
 				icon2 = Library.IMG("icons.caltropIcon.png");
-				icon2.x = caltrops.x + 92;
-				icon2.y = caltrops.y + 16;
-				addChild(icon2);
 			}
 			
 			if (Game.man.type == Player.FIGHTER)
@@ -230,9 +218,6 @@ package ifrit
 				addChild(arrowTxt);
 				
 				icon1 = Library.IMG("icons.arrowIcon.png");
-				icon1.x = arrows.x + 92;
-				icon1.y = arrows.y - 23;
-				addChild(icon1);
 				
 				shield = new Sprite();
 				shield.graphics.beginFill(0xA5B5C7);
@@ -243,10 +228,15 @@ package ifrit
 				addChild(shield);
 				
 				icon2 = Library.IMG("icons.shieldIcon.png");
-				icon2.x = shield.x + 92;
-				icon2.y = shield.y + 16;
-				addChild(icon2);
 			}
+			
+			icon1.x = 842;
+			icon1.y = 419;
+			addChild(icon1);
+			
+			icon2.x = 842;
+			icon2.y = 472;
+			addChild(icon2);
 			
 			totalHealth = (200 * healthScale);
 			totalMana = 200;
@@ -254,6 +244,8 @@ package ifrit
 		
 		override protected function update():void 
 		{
+			if (health.width > 200) health.width = 200;
+			
 			remainingHealth = (health.width * healthScale);
 			
 			healthTxt.text = String(remainingHealth) + "/" + String(totalHealth);

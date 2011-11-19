@@ -18,7 +18,7 @@
 		
 		public static var stage:Stage;
 		public static var man:Player;
-		public static var playerClass:uint = Player.MAGE;
+		public static var playerClass:uint = Player.FIGHTER;
 		
 		/**
 		 * Lightning bolt

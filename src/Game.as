@@ -53,11 +53,12 @@
 			World.Projectiles = new Vector.<Projectile>;
 			World.Mobs = new Vector.<Mob>;
 			
-			World.loadCastle_01();
+			World.mainMenu();
 		}
 		
 		private function enterFrame(e:Event):void
-		{		
+		{
+			
 			var enemiesKilled:int = 0;
 			
 			for (var w:int = 0; w < World.Mobs.length; w++)
@@ -68,82 +69,85 @@
 				}
 			}
 			
-			if (World.exit && man.collisionHull.hitTestObject(World.exit))
+			if (man)
 			{
-				World.next();
-			}
-			
-			if (enemiesKilled == World.Mobs.length && World.Platforms.length > 0)
-			{
-				World.Platforms[World.Platforms.length - 1].x++;
-			}
-			
-			if (Input.isKeyDown(Input.LEFT))
-			{
-				stopBolt();
-				if (man.graphic.playing != "attack" && man.graphic.playing != "shoot") man.graphic.play("walk");
-				man.x -= 7;
-				man.rotationY = 180;
-			}
-			else if (Input.isKeyDown(Input.RIGHT))
-			{
-				stopBolt();
-				if (man.graphic.playing != "attack" && man.graphic.playing != "shoot") man.graphic.play("walk");
-				man.x += 7;
-				man.rotationY = 0;
-			}
-			else
-			{
-				if (man.graphic.playing != "attack" 	&&
-					man.graphic.playing != "shoot"		&&
-					man.graphic.playing != "shield" 	&&
-					man.graphic.playing != "casting" 	&&
-					man.graphic.playing != "archery"
-					) man.graphic.play("stand", true);
-			}
-			
-			if (man.canJump)
-			{
-				if (Input.isKeyDown(Input.SPACE))
+				if (World.exit && man.collisionHull.hitTestObject(World.exit))
 				{
-					man.jumping = true;
-					man.canJump = false;
+					World.next();
 				}
-			}
-			else man.jumping = false;
-			
-			if (Input.isKeyDown(Input.A) )
-			{
-				doRangedAttack();
-			}
-			
-			if (Input.isKeyDown(Input.D))
-			{
-				man.graphic.play("attack");
-				beginMeleeAttack();
-			}
-			else
-			{
-				finalizeMeleeAttack();
-			}
-			
-			if (Input.isKeyDown(Input.S))
-			{
-				beginSpecialAttack();
-			}
-			else
-			{
-				finalizeSpecialAttack();
-			}
-			
-			if (boltTime.currentCount >= 12)
-			{
-				stopBolt();
-			}
-			
-			if (frostAttack && frostAttack.finished)
-			{
-				stopFrost();
+				
+				if (enemiesKilled == World.Mobs.length && World.Platforms.length > 0)
+				{
+					World.Platforms[World.Platforms.length - 1].x++;
+				}
+				
+				if (Input.isKeyDown(Input.LEFT))
+				{
+					stopBolt();
+					if (man.graphic.playing != "attack" && man.graphic.playing != "shoot") man.graphic.play("walk");
+					man.x -= 7;
+					man.rotationY = 180;
+				}
+				else if (Input.isKeyDown(Input.RIGHT))
+				{
+					stopBolt();
+					if (man.graphic.playing != "attack" && man.graphic.playing != "shoot") man.graphic.play("walk");
+					man.x += 7;
+					man.rotationY = 0;
+				}
+				else
+				{
+					if (man.graphic.playing != "attack" 	&&
+						man.graphic.playing != "shoot"		&&
+						man.graphic.playing != "shield" 	&&
+						man.graphic.playing != "casting" 	&&
+						man.graphic.playing != "archery"
+						) man.graphic.play("stand", true);
+				}
+				
+				if (man.canJump)
+				{
+					if (Input.isKeyDown(Input.SPACE))
+					{
+						man.jumping = true;
+						man.canJump = false;
+					}
+				}
+				else man.jumping = false;
+				
+				if (Input.isKeyDown(Input.A) )
+				{
+					doRangedAttack();
+				}
+				
+				if (Input.isKeyDown(Input.D))
+				{
+					man.graphic.play("attack");
+					beginMeleeAttack();
+				}
+				else
+				{
+					finalizeMeleeAttack();
+				}
+				
+				if (Input.isKeyDown(Input.S))
+				{
+					beginSpecialAttack();
+				}
+				else
+				{
+					finalizeSpecialAttack();
+				}
+				
+				if (boltTime.currentCount >= 12)
+				{
+					stopBolt();
+				}
+				
+				if (frostAttack && frostAttack.finished)
+				{
+					stopFrost();
+				}
 			}
 			
 			if (World.Projectiles.length > 0)

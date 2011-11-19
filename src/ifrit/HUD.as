@@ -77,136 +77,144 @@ package ifrit
 			
 			addChild(healthTxt);
 			
+			mana = new Sprite();
+			mana.graphics.beginFill(0x006BD7);
+			mana.graphics.drawRect(0, 0, 200, 9);
+			mana.graphics.endFill();
+			mana.x = 750;
+			mana.y = 442;
+			
+			manaTxt = new TextField();
+			manaTxt.type = TextFieldType.DYNAMIC;
+			manaTxt.textColor = 0xFFF584;
+			manaTxt.x = mana.x;
+			manaTxt.y = mana.y - 4;
+			manaTxt.height = 14;
+			manaTxt.width = 200;
+			
+			manaTxtFormat = new TextFormat();
+			manaTxtFormat.size = 10;
+			manaTxtFormat.align = "center";
+			manaTxt.defaultTextFormat = manaTxtFormat;
+			
+			energy = new Sprite();
+			energy.graphics.beginFill(0xD9D300);
+			energy.graphics.drawRect(0, 0, 200, 9);
+			energy.graphics.endFill();
+			energy.x = 750;
+			energy.y = 454;
+			
+			energyTxt = new TextField();
+			energyTxt.type = TextFieldType.DYNAMIC;
+			energyTxt.textColor = 0x00376F;
+			energyTxt.x = energy.x;
+			energyTxt.y = energy.y - 4;
+			energyTxt.height = 14;
+			energyTxt.width = 200;
+			
+			energyTxtFormat = new TextFormat();
+			energyTxtFormat.size = 10;
+			energyTxtFormat.align = "center";
+			energyTxt.defaultTextFormat = energyTxtFormat;
+			
 			if (Game.man.type == Player.MAGE)
 			{	
 				healthScale = 1;
-				
-				mana = new Sprite();
-				mana.graphics.beginFill(0x006BD7);
-				mana.graphics.drawRect(0, 0, 200, 9);
-				mana.graphics.endFill();
-				mana.x = 750;
-				mana.y = 442;
 				addChild(mana);
-				
-				manaTxt = new TextField();
-				manaTxt.type = TextFieldType.DYNAMIC;
-				manaTxt.textColor = 0xFFF584;
-				manaTxt.x = mana.x;
-				manaTxt.y = mana.y - 4;
-				manaTxt.height = 14;
-				manaTxt.width = 200;
-				
-				manaTxtFormat = new TextFormat();
-				manaTxtFormat.size = 10;
-				manaTxtFormat.align = "center";
-				manaTxt.defaultTextFormat = manaTxtFormat;
 				addChild(manaTxt);
 				
-				energy = new Sprite();
-				energy.graphics.beginFill(0xD9D300);
-				energy.graphics.drawRect(0, 0, 200, 9);
-				energy.graphics.endFill();
-				energy.x = 750;
-				energy.y = 454;
 				addChild(energy);
-				
-				energyTxt = new TextField();
-				energyTxt.type = TextFieldType.DYNAMIC;
-				energyTxt.textColor = 0x00376F;
-				energyTxt.x = energy.x;
-				energyTxt.y = energy.y - 4;
-				energyTxt.height = 14;
-				energyTxt.width = 200;
-				
-				energyTxtFormat = new TextFormat();
-				energyTxtFormat.size = 10;
-				energyTxtFormat.align = "center";
-				energyTxt.defaultTextFormat = energyTxtFormat;
 				addChild(energyTxt);
 			}
+				
+			shuriken = new Sprite();
+			shuriken.graphics.beginFill(0xFFFFFF);
+			shuriken.graphics.drawRect(0, 0, 200, 9);
+			shuriken.graphics.endFill();
+			shuriken.x = 750;
+			shuriken.y = 442;
+			
+			shurikenTxt = new TextField();
+			shurikenTxt.type = TextFieldType.DYNAMIC;
+			shurikenTxt.textColor = 0x000000;
+			shurikenTxt.x = shuriken.x;
+			shurikenTxt.y = shuriken.y - 4;
+			shurikenTxt.height = 14;
+			shurikenTxt.width = 200;
+			
+			shurikenTxtFormat = new TextFormat();
+			shurikenTxtFormat.size = 10;
+			shurikenTxtFormat.align = "center";
+			shurikenTxt.defaultTextFormat = shurikenTxtFormat;
+			
+			
+			caltrops = new Sprite();
+			caltrops.graphics.beginFill(0x000000);
+			caltrops.graphics.drawRect(0, 0, 200, 9);
+			caltrops.graphics.endFill();
+			caltrops.x = 750;
+			caltrops.y = 454;
+			
+			
+			caltropTxt = new TextField();
+			caltropTxt.type = TextFieldType.DYNAMIC;
+			caltropTxt.textColor = 0xFFFFFF;
+			caltropTxt.x = caltrops.x;
+			caltropTxt.y = caltrops.y - 4;
+			caltropTxt.height = 14;
+			caltropTxt.width = 200;
+			
+			caltropTxtFormat = new TextFormat();
+			caltropTxtFormat.size = 10;
+			caltropTxtFormat.align = "center";
+			caltropTxt.defaultTextFormat = caltropTxtFormat;
+			
 			
 			if (Game.man.type == Player.ROGUE)
 			{
 				healthScale = 2;
-				
-				shuriken = new Sprite();
-				shuriken.graphics.beginFill(0xFFFFFF);
-				shuriken.graphics.drawRect(0, 0, 200, 9);
-				shuriken.graphics.endFill();
-				shuriken.x = 750;
-				shuriken.y = 442;
 				addChild(shuriken);
-				
-				shurikenTxt = new TextField();
-				shurikenTxt.type = TextFieldType.DYNAMIC;
-				shurikenTxt.textColor = 0x000000;
-				shurikenTxt.x = shuriken.x;
-				shurikenTxt.y = shuriken.y - 4;
-				shurikenTxt.height = 14;
-				shurikenTxt.width = 200;
-				
-				shurikenTxtFormat = new TextFormat();
-				shurikenTxtFormat.size = 10;
-				shurikenTxtFormat.align = "center";
-				shurikenTxt.defaultTextFormat = shurikenTxtFormat;
 				addChild(shurikenTxt);
 				
-				caltrops = new Sprite();
-				caltrops.graphics.beginFill(0x000000);
-				caltrops.graphics.drawRect(0, 0, 200, 9);
-				caltrops.graphics.endFill();
-				caltrops.x = 750;
-				caltrops.y = 454;
 				addChild(caltrops);
-				
-				caltropTxt = new TextField();
-				caltropTxt.type = TextFieldType.DYNAMIC;
-				caltropTxt.textColor = 0xFFFFFF;
-				caltropTxt.x = caltrops.x;
-				caltropTxt.y = caltrops.y - 4;
-				caltropTxt.height = 14;
-				caltropTxt.width = 200;
-				
-				caltropTxtFormat = new TextFormat();
-				caltropTxtFormat.size = 10;
-				caltropTxtFormat.align = "center";
-				caltropTxt.defaultTextFormat = caltropTxtFormat;
 				addChild(caltropTxt);
 			}
+			
+			
+			arrows = new Sprite();
+			arrows.graphics.beginFill(0x793300);
+			arrows.graphics.drawRect(0, 0, 200, 9);
+			arrows.graphics.endFill();
+			arrows.x = 750;
+			arrows.y = 442;
+			
+			arrowTxt = new TextField();
+			arrowTxt.type = TextFieldType.DYNAMIC;
+			arrowTxt.textColor = 0xC7C8C9;
+			arrowTxt.x = arrows.x;
+			arrowTxt.y = arrows.y - 4;
+			arrowTxt.height = 14;
+			arrowTxt.width = 200;
+			
+			arrowTxtFormat = new TextFormat();
+			arrowTxtFormat.size = 10;
+			arrowTxtFormat.align = "center";
+			arrowTxt.defaultTextFormat = arrowTxtFormat;
+			
+			
+			shield = new Sprite();
+			shield.graphics.beginFill(0xA5B5C7);
+			shield.graphics.drawRect(0, 0, 200, 9);
+			shield.graphics.endFill();
+			shield.x = 750;
+			shield.y = 454;
 			
 			if (Game.man.type == Player.FIGHTER)
 			{
 				healthScale = 4;
-				
-				arrows = new Sprite();
-				arrows.graphics.beginFill(0x793300);
-				arrows.graphics.drawRect(0, 0, 200, 9);
-				arrows.graphics.endFill();
-				arrows.x = 750;
-				arrows.y = 442;
 				addChild(arrows);
-				
-				arrowTxt = new TextField();
-				arrowTxt.type = TextFieldType.DYNAMIC;
-				arrowTxt.textColor = 0xC7C8C9;
-				arrowTxt.x = arrows.x;
-				arrowTxt.y = arrows.y - 4;
-				arrowTxt.height = 14;
-				arrowTxt.width = 200;
-				
-				arrowTxtFormat = new TextFormat();
-				arrowTxtFormat.size = 10;
-				arrowTxtFormat.align = "center";
-				arrowTxt.defaultTextFormat = arrowTxtFormat;
 				addChild(arrowTxt);
 				
-				shield = new Sprite();
-				shield.graphics.beginFill(0xA5B5C7);
-				shield.graphics.drawRect(0, 0, 200, 9);
-				shield.graphics.endFill();
-				shield.x = 750;
-				shield.y = 454;
 				addChild(shield);
 			}
 			

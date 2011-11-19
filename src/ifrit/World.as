@@ -4,7 +4,9 @@ package ifrit
 	import com.jacobalbano.Animation;
 	import com.thaumaturgistgames.flakit.Library;
 	import flash.display.Bitmap;
+	import flash.display.BitmapData;
 	import flash.display.Sprite;
+	import flash.events.Event;
 	import ifrit.*;
 	
 	
@@ -20,10 +22,25 @@ package ifrit
 		public static var Platforms:Vector.<Platform>;
 		
 		public static var exit:Bitmap;
+		
 		private static var nextLevel:Function;
 		
 		public function World() { }
-		public static function next():void	{	if	(nextLevel != null)	nextLevel();	}
+		public static function next():void
+		{
+			nextLevel();
+		}
+		
+		public static function mainMenu():void
+		{
+			unloadLevel();
+			
+			addButton(600, 200, Library.IMG("menu.rogue_button.png"), function ():void { Game.playerClass = Player.ROGUE; next();} );
+			addButton(600, 250, Library.IMG("menu.fighter_button.png"), function ():void { Game.playerClass = Player.FIGHTER; next();} );
+			addButton(600, 300, Library.IMG("menu.mage_button.png"), function ():void { Game.playerClass = Player.MAGE; next(); } );
+			
+			nextLevel = loadCastle_01;
+		}
 		
 		public static function loadCastle_01():void 
 		{
@@ -78,7 +95,7 @@ package ifrit
 			Game.lightningAttack = null;
 			Game.bolting = false;
 			
-			nextLevel = loadCastle_02;
+			nextLevel = mainMenu;
 		}
 		
 		public static function loadCastle_02():void
@@ -136,6 +153,12 @@ package ifrit
 				s.y = y;
 				Game.stage.addChild(s);
 			}
+		}
+		
+		public static function addButton(x:Number, y:Number, image:Bitmap, callback:Function = null):void
+		{
+			Game.stage.addChild(new MenuButton(x, y, image, callback));
+			
 		}
 		
 		/**

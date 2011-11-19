@@ -191,7 +191,7 @@ package ifrit
 				if (collision)
 				{
 					this.homeRect.height = 60;
-					this.homeRect.width = 300;
+					this.homeRect.width = 350;
 					this.homeRect.x = this.x - 150;
 					this.homeRect.y = this.y - 30;
 					

@@ -54,7 +54,7 @@ package ifrit
 		{
 			super.think();
 			
-			if (this.pickup)	this.collidePickup();
+			if (this.pickup)	this.checkPickup();
 			
 			if (isDestroyed) 	return;
 			
@@ -95,9 +95,9 @@ package ifrit
 		}
 		
 		/**
-		 * Check if the dropped pickup is colliding with the player
+		 * Check if the dropped pickup is colliding with the player or if pickup lifetime is reached.
 		 */
-		private function collidePickup():void
+		private function checkPickup():void
 		{
 			if (this.pickup.alpha < 1)	this.pickup.alpha -= 0.1;
 			
@@ -106,11 +106,16 @@ package ifrit
 				this.pickup.parent.removeChild(this.pickup);
 				this.pickup = null;
 			}
-			else if (this.pickup.hitTestObject(Game.man.collisionHull) && this.pickup.alpha == 1)
+			else if (this.pickup.hitTestObject(Game.man.collisionHull))
 			{
 				if (this.pickup.type) 	HUD.healPlayer(10, true);
 				else 					HUD.restoreMana(25);
 				
+				this.pickup.parent.removeChild(this.pickup);
+				this.pickup = null;
+			}
+			else if (this.pickup.lifetime == 270)
+			{
 				this.pickup.alpha = 0.9;
 			}
 			

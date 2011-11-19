@@ -235,7 +235,7 @@
 								{
 									if (!lightningAttack.isEnemyStruck(l))
 									{
-										World.Mobs[l].hitpoints -= 10;
+										World.Mobs[l].hitpoints -= 12;
 										World.Mobs[l].graphic.play("shocked");
 										lightningAttack.strikeEnemy(l);
 									}

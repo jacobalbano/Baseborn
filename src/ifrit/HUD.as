@@ -46,7 +46,7 @@ package ifrit
 		private var arrowTxtFormat:TextFormat;
 		private static var shield:Sprite;
 		
-		
+		//private var enemyHealth:Sprite;
 		
 		
 		public function HUD() 
@@ -252,6 +252,18 @@ package ifrit
 			
 			totalHealth = (200 * healthScale);
 			totalMana = 200;
+			
+			//enemyHealth = new Sprite();
+			//enemyHealth.graphics.beginFill(0x43CE00, 0.9);
+			//enemyHealth.graphics.drawRect(0, 0, 15, 3);
+			//enemyHealth.graphics.endFill();
+			//
+			//for (var l:int = World.Mobs.length - 1; l >= 0; l--)
+			//{
+				//enemyHealth.x = World.Mobs[l].x;
+				//enemyHealth.y = World.Mobs[l].y - 4;
+				//addChild(enemyHealth);
+			//}
 		}
 		
 		override protected function update():void 
@@ -430,14 +442,6 @@ package ifrit
 			return allowed;
 		}
 		
-		//TODO: Make the following functions:
-		/*
-		 * restoreEnergy()	" energy
-		 * restoreAmmo()		" ammo
-		 * 
-		 * ######## Any ideas here, Jake? #########
-		 * 
-		 */
 	}
 
 }

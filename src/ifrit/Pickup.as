@@ -15,6 +15,8 @@ package ifrit
 		
 		public var type:Boolean;
 		
+		public var lifetime:int;
+		
 		/**
 		 * Add a health or mana pickup item to the stage
 		 * @param	x			X position of the pickup
@@ -43,6 +45,7 @@ package ifrit
 		override protected function update():void
 		{
 			this.rotation += 10;
+			lifetime++;
 		}
 		
 	}

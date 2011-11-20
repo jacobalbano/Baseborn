@@ -48,7 +48,7 @@ package ifrit
 			
 			makeBounds();
 			
-			Game.stage.addChild(Library.IMG("castle.bg.png"));
+			Game.stage.addChild(Library.IMG("castle.bg2.png"));
 			
 			addDecal(Library.IMG("castle.decals.stainedGlass.png"), 315.5, 18);
 			

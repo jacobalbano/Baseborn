@@ -12,7 +12,8 @@ package ifrit
 		{
 			super(Library.IMG("shuriken.png"), 10, 10, direction, x, y, friendly );
 			
-			HUD.actionCost(false, 0, 0, 20);
+			if (this.friendly)	HUD.actionCost(false, 20, HUD.AMMO);
+			this.damage = 5;
 		}
 		
 		override protected function update():void 

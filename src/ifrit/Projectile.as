@@ -15,11 +15,14 @@ package ifrit
 		public var friendly:Boolean;
 		public var animation:Animation;
 		
+		public var hasPhysics:Boolean;
+		public var stopped:Boolean;
+		public var static:Boolean;
+		public var damage:Number;
 		protected var container:Sprite;
 		protected var dx:int;
 		protected var vy:Number;
 		protected var vx:Number;
-		protected var hasPhysics:Boolean;
 		protected var isBallistic:Boolean;
 		protected var lifetime:uint;
 		protected var ttl:uint;
@@ -54,45 +57,55 @@ package ifrit
 			
 			this.isBallistic = isBallistic;
 			if (!this.isBallistic)	this.rotationY = direction > 0 ? 0 : 180;
-		}		
+		}
+		
+		public function stop():void
+		{
+			this.vx = 0;
+			this.vy = 0;
+			this.stopped = true;
+		}
 		
 		override protected function update():void 
 		{
 			super.update();
 			
-			if (this.hasPhysics)
+			if (!this.stopped)
 			{
-				if (this.dx > 0)   	this.vx -= 0.05;
-				if (this.dx < 0)   	this.vx += 0.05;
-				
-				if (Math.abs(this.vx) < 6)	this.vy += 0.1;
-				else						this.vy += 0.05;
-				
-				this.y += this.vy;
-				
-				if (this.isBallistic)
+				if (this.hasPhysics)
 				{
-					this.rotation = Math.atan2( this.y + this.vy - this.y, this.x + this.vx - this.x) * 180 / Math.PI;
+					if (this.dx > 0)   	this.vx -= 0.05;
+					if (this.dx < 0)   	this.vx += 0.05;
+					
+					if (Math.abs(this.vx) < 6)	this.vy += 0.1;
+					else						this.vy += 0.05;
+					
+					this.y += this.vy;
+					
+					if (this.isBallistic && !this.stopped)
+					{
+						this.rotation = Math.atan2( this.y + this.vy - this.y, this.x + this.vx - this.x) * 180 / Math.PI;
+					}
+					
 				}
 				
+				if (this.timeLimited)
+				{
+					this.lifetime++;
+					if (this.lifetime >= this.ttl)	this.destroy();
+				}
+				
+				this.x += vx;
+				
+				/**
+				 * Debugging information; displays trajectory
+				 * Uncomment the lines below to see in action
+				 */
+				//var bmp:Bitmap = new Bitmap(new BitmapData(10, 1, false, 0xff0000));
+				//bmp.x = this.x;
+				//bmp.y = this.y;
+				//Game.stage.addChild(bmp);
 			}
-			
-			if (this.timeLimited)
-			{
-				this.lifetime++;
-				if (this.lifetime >= this.ttl)	this.destroy();
-			}
-			
-			this.x += vx;
-			
-			/**
-			 * Debugging information; displays trajectory
-			 * Uncomment the lines below to see in action
-			 */
-			//var bmp:Bitmap = new Bitmap(new BitmapData(10, 1, false, 0xff0000));
-			//bmp.x = this.x;
-			//bmp.y = this.y;
-			//Game.stage.addChild(bmp);
 		}
 		
 	}

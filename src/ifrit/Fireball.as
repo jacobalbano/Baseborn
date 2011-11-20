@@ -16,6 +16,8 @@ package ifrit
 			this.animation.play("fly");
 			
 			if (this.friendly)   HUD.actionCost(false, 15, 75);
+			
+			this.damage = 5;
 		}
 		
 	}

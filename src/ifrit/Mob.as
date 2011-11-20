@@ -140,7 +140,7 @@ package ifrit
 			velocity.y = 0;
 		}
 		
-		public function shoot():void
+		public function shoot(ammo:Class = null):void
 		{
 			if (attackTimer.currentCount == attackTimer.repeatCount)
 			{
@@ -149,11 +149,18 @@ package ifrit
 			
 			var ammunition:Class;
 			
-			switch (this.classType)
+			if (ammo)
 			{
-				case 0:		ammunition = Fireball;	break;
-				case 2:		ammunition = Shuriken;	break;
-				case 4:		ammunition = Arrow;		break;
+				ammunition = ammo;
+			}
+			else
+			{
+				switch (this.classType)
+				{
+					case 0:		ammunition = Fireball;	break;
+					case 2:		ammunition = Shuriken;	break;
+					case 4:		ammunition = Arrow;		break;
+				}
 			}
 			
 			if (!attackTimer.running)

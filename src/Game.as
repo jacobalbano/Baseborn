@@ -11,7 +11,7 @@
 	import ifrit.*;
 	
 	
-	[SWF(width = "1000", height = "500", backgroundColor = "0xFFFFFF")]
+	[SWF(width = "1000", height = "500", backgroundColor = "0xFFFFFF", frameRate = "30")]
 	public class Game extends Engine 
 	{
 		public static const dimensions:Point = new Point(1000, 400);
@@ -195,29 +195,44 @@
 						{
 							if (World.Projectiles[k].hitTestObject(World.Mobs[l].collisionHull))
 							{
-								if (World.Projectiles[k].friendly != World.Mobs[l].friendly)
+								if (World.Projectiles[k].static || !World.Projectiles[k].stopped)
 								{
-									if (!World.Projectiles[k].friendly)
+									if (World.Projectiles[k].friendly != World.Mobs[l].friendly)
 									{
-										if (shielding)
+										if (!World.Projectiles[k].friendly)
 										{
-											if (World.Projectiles[k].rotationY == 0)
-												if (World.Mobs[l].rotationY != 180)	HUD.damagePlayer(15, true);
-												
-											if (World.Projectiles[k].rotationY == 180)
-												if (World.Mobs[l].rotationY != 0)	HUD.damagePlayer(15, true);
+											if (shielding)
+											{
+												if (World.Projectiles[k].rotationY == 0)
+													if (World.Mobs[l].rotationY != 180)	HUD.damagePlayer(15, true);
+													
+												if (World.Projectiles[k].rotationY == 180)
+													if (World.Mobs[l].rotationY != 0)	HUD.damagePlayer(15, true);
+											}
+											else	HUD.damagePlayer(15, true);
 										}
-										else	HUD.damagePlayer(15, true);
+										
+										World.Mobs[l].hitpoints -= World.Projectiles[k].damage;
+										stage.removeChild(World.Projectiles[k]);
+										World.Projectiles[k].destroy();
+										World.Projectiles.splice(k, 1);
+										
+										removed = true;
+										
+										break;
 									}
-									
-									stage.removeChild(World.Projectiles[k]);
-									World.Projectiles[k].destroy();
-									World.Projectiles.splice(k, 1);
-									World.Mobs[l].hitpoints -= 5;
-									
-									removed = true;
-									
-									break;
+								}
+								else
+								{
+									if (World.Projectiles[k].friendly == World.Mobs[l].friendly && !World.Projectiles[k].static)
+									{
+										HUD.restoreAmmo(1);
+										stage.removeChild(World.Projectiles[k]);
+										World.Projectiles[k].destroy();
+										World.Projectiles.splice(k, 1);
+										
+										break;
+									}
 								}
 							}
 						}
@@ -282,10 +297,18 @@
 							
 							if (World.Platforms[ii].collide(World.Projectiles[j] ) )
 							{
-								stage.removeChild( World.Projectiles[j] );
-								World.Projectiles[j].destroy();
-								World.Projectiles.splice(j, 1);
-								continue;
+								
+								if (World.Projectiles[j].hasPhysics)
+								{
+									World.Projectiles[j].stop();
+								}
+								else
+								{
+									stage.removeChild( World.Projectiles[j] );
+									World.Projectiles[j].destroy();
+									World.Projectiles.splice(j, 1);
+									continue;
+								}
 							}
 						}
 					}
@@ -313,13 +336,13 @@
 			}
 			else if (man.type == Player.FIGHTER)
 			{
-				if (HUD.actionCost(true, 0, 0, 10))
+				if (HUD.actionCost(true, 10, HUD.AMMO))
 					man.graphic.play("pull");
 			}
 			else if (man.type == Player.ROGUE)
 			{
 				man.graphic.play("throw");
-				if (man.friendly) {    if (HUD.actionCost(true, 0, 0, 20))   man.shoot();    }
+				if (man.friendly) {    if (HUD.actionCost(true, 20, HUD.AMMO))   man.shoot();    }
 			}
 			else man.shoot();
 		}
@@ -330,7 +353,7 @@
 			{
 				if (man.friendly)
 				{
-					if (HUD.actionCost(true, 0, 0, 10))
+					if (HUD.actionCost(true, 10, HUD.AMMO))
 					{
 						man.graphic.play("release90");
 						man.shoot();
@@ -394,11 +417,16 @@
 			
 			if (man.type == Player.FIGHTER)
 			{
-				if (!shielding && HUD.actionCost(false, 0, 0, 0, 200))
+				if (!shielding && HUD.actionCost(false, 200, HUD.SPECIAL))
 				{
 					shielding = true;
 					man.graphic.play("shield");
 				}
+			}
+			
+			if (man.type == Player.ROGUE)
+			{
+				man.shoot(Caltrop);
 			}
 		}
 		
@@ -421,6 +449,7 @@
 					shielding = false;
 				}
 			}
+			
 		}
 		
 		private function stopBolt():void

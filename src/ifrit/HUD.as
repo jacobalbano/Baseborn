@@ -13,6 +13,12 @@ package ifrit
 	 */
 	public class HUD extends IfritObject
 	{
+		
+		public static const MANA:uint = 0;
+		public static const ENERGY:uint = 2;
+		public static const AMMO:uint = 4;
+		public static const SPECIAL:uint = 6;
+		
 		private var area:Bitmap;
 		private var icon1:Bitmap;
 		private var icon2:Bitmap;
@@ -45,8 +51,6 @@ package ifrit
 		private var arrowTxt:TextField
 		private var arrowTxtFormat:TextFormat;
 		private static var shield:Sprite;
-		
-		//private var enemyHealth:Sprite;
 		
 		
 		public function HUD() 
@@ -360,83 +364,140 @@ package ifrit
 			else						mana.width += amount;
 		}
 		
+		/**
+		 * Restore the player's ammunition.
+		 * @param	amount		How much ammunition to restore
+		 */
+		public static function restoreAmmo(amount:Number):void
+		{
+			//TODO: Chris, you're more familiar with the HUD system...mind filling in this function for me?
+			
+			if (Game.man.type == Player.FIGHTER)
+			{
+				
+			}
+			
+			if (Game.man.type == Player.ROGUE)
+			{
+				
+			}
+			
+		}
 		
-		//TODO: Clean up and optimize this if possible.
-		/* Jake, if you have any suggestions for this, please let me know */
 		/**
 		 * Determines if there are enough resources to perform an action, and uses up the given resources if possible.
 		 * @param	evaluation		TRUE: Performs check but no action, FALSE: Performs check and action
-		 * @param	manaAmt			Literal cost of action in mana
-		 * @param	energyAmt		Literal cost of action in energy
-		 * @param	rangedAmt		Literal cost of action in shuriken or arrows
-		 * @param	specialAmt		Literal cost of action in caltrops or shield
-		 * @return	
+		 * @param	cost			How much of the specified meter to deplete
+		 * @param	type			A value of HUD.MANA, HUD.ENERGY, HUD.AMMO or HUD.SPECIAL
+		 * @return					Whether the requested action can be performed
 		 */
-		public static function actionCost(evaluation:Boolean = false, manaAmt:Number = 0, energyAmt:Number = 0, rangedAmt:uint = 0, specialAmt:uint = 0):Boolean
+		public static function actionCost(evaluation:Boolean, cost:Number, type:uint):Boolean
 		{
 			var allowed:Boolean = false;
 			
 			if (Game.man.type == Player.MAGE)
 			{
-				rangedAmt = 0;
-				specialAmt = 0;
-				
-				var remainingMana:Number = mana.width;
-				var remainingEnergy:Number = energy.width;
-				
-				if (manaAmt <= remainingMana && energyAmt <= remainingEnergy)
+				if (type == MANA)
 				{
-					allowed = true;
+					var remainingMana:Number = mana.width;
 					
-					if (!evaluation)
+					if (cost <= remainingMana)
 					{
-						mana.width -= manaAmt;
-						energy.width -= energyAmt;
+						allowed = true;
+						
+						if (!evaluation)
+						{
+							mana.width -= cost;
+						}
 					}
+					else allowed = false;
 				}
-				else allowed = false;
+				
+				if (type == ENERGY)
+				{
+					var remainingEnergy:Number = energy.width;
+					
+					if (cost <= remainingEnergy)
+					{
+						allowed = true;
+						
+						if (!evaluation)
+						{
+							energy.width -= cost;
+						}
+					}
+					else allowed = false;
+				}
 			}
 			
 			if (Game.man.type == Player.ROGUE)
 			{
-				manaAmt = 0;
-				energyAmt = 0;
 				
-				var remainingShuriken:Number = shuriken.width;
-				var remainingCaltrops:Number = caltrops.width;
-				
-				if (rangedAmt <= remainingShuriken && specialAmt <= remainingCaltrops)
+				if (type == AMMO)
 				{
-					allowed = true;
-					
-					if (!evaluation)
+					var remainingShuriken:Number = shuriken.width;
+					if (cost <= remainingShuriken)
 					{
-						shuriken.width -= rangedAmt;
-						caltrops.width -= specialAmt;
+						allowed = true;
+						
+						if (!evaluation)
+						{
+							shuriken.width -= cost;
+						}
 					}
+					else allowed = false;
 				}
-				else allowed = false;
+				
+				if (type == SPECIAL)
+				{
+					var remainingCaltrops:Number = caltrops.width;
+					
+					if (cost <= remainingCaltrops)
+					{
+						allowed = true;
+						
+						if (!evaluation)
+						{
+							caltrops.width -= cost;
+						}
+					}
+					else allowed = false;
+				}
 			}
 			
 			if (Game.man.type == Player.FIGHTER)
-			{
-				manaAmt = 0;
-				energyAmt = 0;
-				
-				var remainingArrows:Number = arrows.width;
-				var remainingShield:Number = shield.width;
-				
-				if (rangedAmt <= remainingArrows && specialAmt <= remainingShield)
+			{				
+				if (type == AMMO)
 				{
-					allowed = true;
+					var remainingArrows:Number = arrows.width;
 					
-					if (!evaluation)
+					if (cost <= remainingArrows)
 					{
-						arrows.width -= rangedAmt;
-						shield.width -= specialAmt;
+						allowed = true;
+						
+						if (!evaluation)
+						{
+							arrows.width -= cost;
+						}
 					}
+					else allowed = false;
 				}
-				else allowed = false;
+				
+				if (type == SPECIAL)
+				{
+					var remainingShield:Number = shield.width;
+					
+					if (cost <= remainingShield)
+					{
+						allowed = true;
+						
+						if (!evaluation)
+						{
+							shield.width -= cost;
+						}
+					}
+					else allowed = false;
+				}
 			}
 			
 			return allowed;

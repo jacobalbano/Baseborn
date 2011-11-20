@@ -2,7 +2,6 @@ package ifrit
 {
 	import com.thaumaturgistgames.flakit.Library;
 	/**
-	 * ...
 	 * @author Chris Logsdon
 	 */
 	public class Arrow extends Projectile
@@ -12,7 +11,9 @@ package ifrit
 		{
 			super(Library.IMG("arrow.png"), 22, 6, direction, x, y, friendly, 0, true);
 			
-			HUD.actionCost(false, 0, 0, 10);
+			if (this.friendly)	HUD.actionCost(false, 10, HUD.AMMO);
+			
+			this.damage = 5;
 		}
 		
 		override protected function update():void 

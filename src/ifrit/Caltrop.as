@@ -13,17 +13,23 @@ package ifrit
 			super(Library.IMG("caltrop.png"), 12, 9, direction, x, y, friendly, 0, true);
 			this.hasPhysics = true;
 			this.isBallistic = false;
-			if (direction > 0)	this.vx = 1;
-			if (direction < 0)	this.vx = -1;
+			if (direction > 0)	this.vx = 3;
+			if (direction < 0)	this.vx = -3;
 			
 			this.damage = 10;
 			this.static = true;
+			
+			if (this.friendly)	HUD.buyAction(13.3, HUD.SPECIAL);
 		}
 		
 		override protected function update():void 
 		{
 			super.update();
-			this.dx = 0;
+
+			if (!this.stopped)
+			{
+				this.vy += Rules.gravity / 2;
+			}
 		}
 		
 	}

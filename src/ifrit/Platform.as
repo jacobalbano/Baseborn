@@ -110,9 +110,7 @@ package ifrit
 						{
 							if (obj.y - (obj as Projectile).lastPosition.y >= this.height)
 							{
-								trace("clip");
 								obj.y -= 20;
-								(obj as Projectile).stop();
 							}
 						}
 						obj.y += oy;

@@ -15,7 +15,11 @@ package ifrit
 			this.animation.add("fly", [0, 1, 2, 3, 4, 5, 6, 7], 12, true);
 			this.animation.play("fly");
 			
-			if (this.friendly)   HUD.actionCost(false, 15, 75);
+			if (this.friendly)
+			{
+				HUD.buyAction(15, HUD.MANA);
+				HUD.buyAction(75, HUD.ENERGY);
+			}
 			
 			this.damage = 5;
 		}

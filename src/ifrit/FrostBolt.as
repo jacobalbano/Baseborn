@@ -35,7 +35,7 @@ package ifrit
 			if (direction)	this.rotationY = 180;
 			else 			this.rotationY = 0;
 			
-			HUD.actionCost(false, 0, 50);
+			HUD.buyAction(50, HUD.ENERGY);
 		}
 		
 		override protected function update():void 

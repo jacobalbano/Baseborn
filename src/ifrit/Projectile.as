@@ -84,18 +84,12 @@ package ifrit
 					if (this.dx > 0)   	this.vx -= 0.05;
 					if (this.dx < 0)   	this.vx += 0.05;
 					
+					if (Math.abs(this.vx) < 6)	this.vy += 0.2;
+					else						this.vy += 0.05;
 					
-					if (this.isBallistic && !this.stopped)
-					{
-						if (Math.abs(this.vx) < 6)	this.vy += 0.2;
-						else						this.vy += 0.05;
-						
+					
+					if (this.isBallistic)
 						this.rotation = Math.atan2( this.y + this.vy - this.y, this.x + this.vx - this.x) * 180 / Math.PI;
-					}
-					else if (!this.stopped)
-					{
-						this.vy += Rules.gravity;
-					}
 					
 					this.y += this.vy;
 					
@@ -104,7 +98,9 @@ package ifrit
 				if (this.timeLimited)
 				{
 					this.lifetime++;
-					if (this.lifetime >= this.ttl)	this.destroy();
+					if (this.lifetime >= this.ttl)	this.alpha -= 0.2;
+					
+					if (this.alpha <= 0) 	this.destroy();
 				}
 				
 				this.x += vx;

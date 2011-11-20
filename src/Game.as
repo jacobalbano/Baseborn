@@ -325,25 +325,28 @@
 		
 		
 		private function doRangedAttack():void 
-		{
-			canShoot = true;
-			
+		{			
 			if (man.type == Player.MAGE)
 			{
-				man.graphic.play("attack");
-				if (man.friendly) {    if (HUD.actionCost(true, 15, 75))   man.shoot();    }
+				if (HUD.testCost(75, 15))
+				{
+					man.graphic.play("attack");
+					man.shoot();
+				}
 			}
 			else if (man.type == Player.FIGHTER)
 			{
-				if (HUD.actionCost(true, 10, HUD.AMMO))
+				if (HUD.testCost(0, 0, 10))
+				{
 					man.graphic.play("pull");
+					canShoot = true;
+				}
 			}
 			else if (man.type == Player.ROGUE)
 			{
 				man.graphic.play("throw");
-				if (man.friendly) {    if (HUD.actionCost(true, 20, HUD.AMMO))   man.shoot();    }
+				if (HUD.testCost(0, 0, 20))   man.shoot();
 			}
-			else man.shoot();
 		}
 		
 		private function finalizeRangedAttack():void 
@@ -352,11 +355,8 @@
 			{
 				if (man.friendly)
 				{
-					if (HUD.actionCost(true, 10, HUD.AMMO))
-					{
-						man.graphic.play("release90");
-						man.shoot();
-					}
+					man.graphic.play("release90");
+					man.shoot();
 				}
 			}
 			canShoot = false;
@@ -377,7 +377,7 @@
 		{
 			if (man.type == Player.MAGE)
 			{
-				if (!frostAttack && HUD.actionCost(true, 0, 50))
+				if (!frostAttack && HUD.testCost(0, 50))
 				{
 					stopFrost();
 					man.graphic.play("attack");
@@ -392,11 +392,11 @@
 			if (man.type == Player.MAGE)
 			{
 				if ( !(Input.isKeyDown(Input.LEFT) || Input.isKeyDown(Input.RIGHT) ) )
-				{
-					man.graphic.play("casting");
-					
-					if (HUD.actionCost(true, 25, 95))
+				{					
+					if (HUD.testCost(15, 25))
 					{
+						man.graphic.play("casting");
+						
 						if (!lightningAttack)
 						{
 							if (man.rotationY == 0)
@@ -416,8 +416,9 @@
 			
 			if (man.type == Player.FIGHTER)
 			{
-				if (!shielding && HUD.actionCost(false, 200, HUD.SPECIAL))
+				if (!shielding && HUD.testCost(0, 0, 0, 200))
 				{
+					HUD.buyAction(200, HUD.SPECIAL);
 					shielding = true;
 					man.graphic.play("shield");
 				}
@@ -425,7 +426,8 @@
 			
 			if (man.type == Player.ROGUE)
 			{
-				man.shoot(Caltrop);
+				if (HUD.testCost(0, 0, 0, 13.3))
+					man.shoot(Caltrop);
 			}
 		}
 		

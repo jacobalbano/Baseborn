@@ -272,6 +272,7 @@ package ifrit
 		
 		override protected function update():void 
 		{
+			
 			if (health.width > 200) health.width = 200;
 			
 			remainingHealth = (health.width * healthScale);
@@ -385,13 +386,31 @@ package ifrit
 		}
 		
 		/**
+		 * Determine whether enough energy, ammunition, mana or special ability remains to activate an action
+		 * @param	e	Energy cost
+		 * @param	m	Mana cost
+		 * @param	a	Ammunition cost
+		 * @param	s	Special ability cost
+		 * @return	Whether the action can be activated
+		 */
+		public static function testCost(e:Number = 0, m:Number = 0, a:Number = 0, s:Number = 0):Boolean
+		{
+			return (
+				e <= energy.width 	&&
+				m <= mana.width		&&
+				a <= shuriken.width	&&
+				a <= arrows.width	&&
+				s <= shield.width	&&
+				s <= caltrops.width);
+		}
+		
+		/**
 		 * Determines if there are enough resources to perform an action, and uses up the given resources if possible.
-		 * @param	evaluation		TRUE: Performs check but no action, FALSE: Performs check and action
 		 * @param	cost			How much of the specified meter to deplete
 		 * @param	type			A value of HUD.MANA, HUD.ENERGY, HUD.AMMO or HUD.SPECIAL
 		 * @return					Whether the requested action can be performed
 		 */
-		public static function actionCost(evaluation:Boolean, cost:Number, type:uint):Boolean
+		public static function buyAction(cost:Number, type:uint):void
 		{
 			var allowed:Boolean = false;
 			
@@ -403,14 +422,8 @@ package ifrit
 					
 					if (cost <= remainingMana)
 					{
-						allowed = true;
-						
-						if (!evaluation)
-						{
-							mana.width -= cost;
-						}
+						mana.width -= cost;
 					}
-					else allowed = false;
 				}
 				
 				if (type == ENERGY)
@@ -419,14 +432,8 @@ package ifrit
 					
 					if (cost <= remainingEnergy)
 					{
-						allowed = true;
-						
-						if (!evaluation)
-						{
-							energy.width -= cost;
-						}
+						energy.width -= cost;
 					}
-					else allowed = false;
 				}
 			}
 			
@@ -438,14 +445,8 @@ package ifrit
 					var remainingShuriken:Number = shuriken.width;
 					if (cost <= remainingShuriken)
 					{
-						allowed = true;
-						
-						if (!evaluation)
-						{
-							shuriken.width -= cost;
-						}
+						shuriken.width -= cost;
 					}
-					else allowed = false;
 				}
 				
 				if (type == SPECIAL)
@@ -454,14 +455,8 @@ package ifrit
 					
 					if (cost <= remainingCaltrops)
 					{
-						allowed = true;
-						
-						if (!evaluation)
-						{
-							caltrops.width -= cost;
-						}
+						caltrops.width -= cost;
 					}
-					else allowed = false;
 				}
 			}
 			
@@ -473,14 +468,9 @@ package ifrit
 					
 					if (cost <= remainingArrows)
 					{
-						allowed = true;
-						
-						if (!evaluation)
-						{
-							arrows.width -= cost;
-						}
+						arrows.width -= cost;
 					}
-					else allowed = false;
+
 				}
 				
 				if (type == SPECIAL)
@@ -489,18 +479,10 @@ package ifrit
 					
 					if (cost <= remainingShield)
 					{
-						allowed = true;
-						
-						if (!evaluation)
-						{
-							shield.width -= cost;
-						}
+						shield.width -= cost;
 					}
-					else allowed = false;
 				}
 			}
-			
-			return allowed;
 		}
 		
 	}

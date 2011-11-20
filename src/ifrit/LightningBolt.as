@@ -86,7 +86,11 @@ package ifrit
 				vortexC.addChild(vortex);
 				
 				
-				if (bolt.playing != "strike" && vortex.playing != "vortex")   HUD.actionCost(false, 25, 95);
+				if (bolt.playing != "strike" && vortex.playing != "vortex")
+				{
+					HUD.buyAction(25, HUD.ENERGY);
+					HUD.buyAction(95, HUD.MANA);
+				}
 				
 				
 				bolt.play("strike");

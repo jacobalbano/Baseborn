@@ -11,7 +11,7 @@ package ifrit
 		{
 			super(Library.IMG("arrow.png"), 22, 6, direction, x, y, friendly, 0, true);
 			
-			if (this.friendly)	HUD.actionCost(false, 10, HUD.AMMO);
+			if (this.friendly)	HUD.buyAction(10, HUD.AMMO);
 			
 			this.damage = 5;
 		}

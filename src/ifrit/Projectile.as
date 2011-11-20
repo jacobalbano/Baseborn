@@ -4,6 +4,7 @@ package ifrit
 	import flash.display.Bitmap;
 	import flash.display.BitmapData;
 	import flash.display.Sprite;
+	import flash.geom.Point;
 	
 	
 	/**
@@ -14,6 +15,7 @@ package ifrit
 		
 		public var friendly:Boolean;
 		public var animation:Animation;
+		public var lastPosition:Point;
 		
 		public var hasPhysics:Boolean;
 		public var stopped:Boolean;
@@ -44,6 +46,8 @@ package ifrit
 			this.x = x;
 			this.y = y;
 			
+			this.lastPosition = new Point;
+			
 			this.vy = 0;
 			this.vx = this.dx;
 			this.friendly = friendly;
@@ -70,6 +74,9 @@ package ifrit
 		{
 			super.update();
 			
+			this.lastPosition.x = this.x;
+			this.lastPosition.y = this.y;
+			
 			if (!this.stopped)
 			{
 				if (this.hasPhysics)
@@ -77,15 +84,20 @@ package ifrit
 					if (this.dx > 0)   	this.vx -= 0.05;
 					if (this.dx < 0)   	this.vx += 0.05;
 					
-					if (Math.abs(this.vx) < 6)	this.vy += 0.1;
-					else						this.vy += 0.05;
-					
-					this.y += this.vy;
 					
 					if (this.isBallistic && !this.stopped)
 					{
+						if (Math.abs(this.vx) < 6)	this.vy += 0.2;
+						else						this.vy += 0.05;
+						
 						this.rotation = Math.atan2( this.y + this.vy - this.y, this.x + this.vx - this.x) * 180 / Math.PI;
 					}
+					else if (!this.stopped)
+					{
+						this.vy += Rules.gravity;
+					}
+					
+					this.y += this.vy;
 					
 				}
 				

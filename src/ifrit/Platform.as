@@ -106,6 +106,15 @@ package ifrit
 					}
 					else if (obj.y >= this.y) // bottom
 					{
+						if (obj is Projectile)
+						{
+							if (obj.y - (obj as Projectile).lastPosition.y >= this.height)
+							{
+								trace("clip");
+								obj.y -= 20;
+								(obj as Projectile).stop();
+							}
+						}
 						obj.y += oy;
 					}
 					else if (obj.x <= this.x) obj.x -= ox; // left

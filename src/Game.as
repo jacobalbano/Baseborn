@@ -297,7 +297,6 @@
 							
 							if (World.Platforms[ii].collide(World.Projectiles[j] ) )
 							{
-								
 								if (World.Projectiles[j].hasPhysics)
 								{
 									World.Projectiles[j].stop();

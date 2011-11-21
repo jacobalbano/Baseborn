@@ -8,7 +8,6 @@ package ifrit
 	import flash.text.TextFieldType;
 	import flash.utils.Timer;
 	/**
-	 * ...
 	 * @author Chris Logsdon
 	 */
 	public class HUD extends IfritObject
@@ -344,10 +343,10 @@ package ifrit
 		 */
 		public static function healPlayer(healAmount:Number, percent:Boolean = false):void
 		{
-			var missingHealth:Number = (totalHealth - (health.width * healthScale));
-			var healPercentage:Number = (healAmount * .01);
+			var missingHealth:Number = totalHealth - (health.width * healthScale);
+			var healPercentage:Number = healAmount * .01;
 			
-			if (percent)	healAmount = (totalHealth * healPercentage);
+			if (percent)	healAmount = totalHealth * healPercentage;
 			else			healAmount /= healthScale;
 			
 			if (healAmount > missingHealth)		health.width += missingHealth;

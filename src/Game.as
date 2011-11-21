@@ -425,7 +425,7 @@
 			{
 				if ( !(Input.isKeyDown(Input.LEFT) || Input.isKeyDown(Input.RIGHT) ) )
 				{					
-					if (HUD.testCost(15, 25))
+					if (HUD.testCost(25, 95))
 					{
 						man.graphic.play("casting");
 						

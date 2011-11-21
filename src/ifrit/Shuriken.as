@@ -13,6 +13,9 @@ package ifrit
 			super(Library.IMG("shuriken.png"), 10, 10, direction, x, y, friendly );
 			
 			if (this.friendly)	HUD.buyAction(20, HUD.AMMO);
+			
+			this.hasPhysics = true;
+			
 			this.damage = 5;
 		}
 		
@@ -21,8 +24,6 @@ package ifrit
 			super.update();
 			if (dx < 0) { this.rotation -= vx*2; }
 			else if (dx > 0) { this.rotation += vx*2; }
-			
-			this.hasPhysics = true;
 		}
 		
 	}

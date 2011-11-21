@@ -13,14 +13,14 @@ package ifrit
 			
 			if (this.friendly)	HUD.buyAction(10, HUD.AMMO);
 			
+			this.hasPhysics = true;
+			
 			this.damage = 5;
 		}
 		
 		override protected function update():void 
 		{
 			super.update();
-			
-			this.hasPhysics = true;
 		}
 		
 	}

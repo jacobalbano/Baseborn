@@ -2,32 +2,49 @@ package ifrit
 {
 	import com.thaumaturgistgames.flakit.Library;
 	import flash.display.Bitmap;
+	import flash.display.BitmapData;
 	import flash.display.DisplayObject;
 	import flash.display.Sprite;
-	
+	import flash.geom.Point;
+	import flash.geom.Rectangle;
 	
 	
 	public class Platform extends IfritObject
 	{		
-		public var bitmap:Bitmap;
+		public var buffer:BitmapData;
 		public var container:Sprite;
 		
-		public function Platform(x:Number, y:Number, vertical:Boolean) 
+		public function Platform(x:Number, y:Number, vertical:Boolean, size:int = 200) 
 		{
-			this.bitmap = Library.IMG("platform.png");
+			var source:BitmapData = Library.IMG("platform.png").bitmapData;
+			var w:int = size < 3 ? 3 : size;
+			
+			this.buffer = new BitmapData(w, 10, true, 0);
+			
+			this.buffer.copyPixels(source, new Rectangle(0, 0, 1, 10), new Point);
+			
+			for (var i:int = 1; i < w; i++)
+			{
+				this.buffer.copyPixels(source, new Rectangle(1, 0, 1, 10), new Point(i));
+			}
+			
+			this.buffer.copyPixels(source, new Rectangle(0, 0, 1, 10), new Point(w - 1));
 			
 			if (vertical)	this.rotation = 90;
 			else 			this.rotation = 0;
 			
+			
+			
 			addChild(container = new Sprite);
-			
-			container.x = bitmap.x - (bitmap.width / 2);
-			container.y = bitmap.y - (bitmap.height / 2);
-			
+				
 			this.x = x;
 			this.y = y;
 			
+			var bitmap:Bitmap = new Bitmap(buffer);
 			container.addChild(bitmap);
+			
+			bitmap.x = -bitmap.width / 2;
+			bitmap.y = -bitmap.height / 2;
 		}
 		
 		public function collide(obj:DisplayObject):Boolean 

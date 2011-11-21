@@ -64,6 +64,7 @@ package ifrit
 			addDecal(Library.IMG("castle.decals.torch.png"), 685, 60, [0, 1, 2, 3, 4, 5], 40, 40);
 			
 			addDecal(Library.IMG("castle.decals.door.png"), 8, 326);
+			addDecal(Library.IMG("misc.ladder.png"), 800, 210);
 			addDecal(exit = Library.IMG("castle.decals.door.png"), 818, 326);
 			
 			addEnemy(724, 75);
@@ -87,7 +88,7 @@ package ifrit
 			addWall(829, 315, false);
 			addWall(700, 272, false);
 			addWall(227, 109, false);
-			addWall(745, 187, false);
+			addWall(745, 210, false);
 			addWall(1024, 315, false);
 			
 			Game.stage.addChild(new HUD);

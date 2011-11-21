@@ -257,6 +257,7 @@ package ifrit
 			totalHealth = (200 * healthScale);
 			totalMana = 200;
 			
+			
 			//enemyHealth = new Sprite();
 			//enemyHealth.graphics.beginFill(0x43CE00, 0.9);
 			//enemyHealth.graphics.drawRect(0, 0, 15, 3);
@@ -309,13 +310,13 @@ package ifrit
 				health.graphics.endFill();
 			}
 			
-			if (mana)  manaTxt.text = String(mana.width) + "/" + String(totalMana);
+			if (mana)  manaTxt.text = String(Math.round(mana.width)) + "/" + String(totalMana);
 			if (energy) {   if (energy.width < 200)   energy.width += 1.5;   }
 			
-			if (shuriken)  shurikenTxt.text = String(shuriken.width / 20) + "/" + String(200 / 20)
+			if (shuriken)  shurikenTxt.text = String(Math.round(shuriken.width / 20)) + "/" + String(200 / 20)
 			if (caltrops)  caltropTxt.text = String(Math.round(caltrops.width / 13.33)) + "/" + String(Math.round(200 / 13.33));
 			
-			if (arrows)  arrowTxt.text = String(arrows.width / 10) + "/" + String(200 / 10);
+			if (arrows)  arrowTxt.text = String(Math.round(arrows.width / 10)) + "/" + String(200 / 10);
 			if (shield) {   if (shield.width < 200)   shield.width += 1.0;   }
 		}
 		
@@ -371,18 +372,21 @@ package ifrit
 		 */
 		public static function restoreAmmo(amount:Number):void
 		{
-			//TODO: Chris, you're more familiar with the HUD system...mind filling in this function for me?
-			
 			if (Game.man.type == Player.FIGHTER)
 			{
+				var missingArrows:Number = ((200 - arrows.width) / 10);
 				
+				if (amount > missingArrows)	arrows.width += missingArrows;
+				else arrows.width += amount * 10;
 			}
 			
 			if (Game.man.type == Player.ROGUE)
 			{
+				var missingShuriken:Number = ((200 - shuriken.width) / 20);
 				
+				if (amount > missingShuriken)	shuriken.width += missingShuriken;
+				else shuriken.width += amount * 20;
 			}
-			
 		}
 		
 		/**

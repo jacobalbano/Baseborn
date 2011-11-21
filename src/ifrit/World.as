@@ -51,21 +51,21 @@ package ifrit
 			
 			Game.stage.addChild(Library.IMG("castle.bg2.png"));
 			
-			addDecal(Library.IMG("castle.decals.stainedGlass.png"), 315.5, 18);
+			addDecal(Library.IMG("castle.decals.stainedGlass.png"), 515.5, 218);
 			
-			addDecal(Library.IMG("castle.decals.chandelier.png"), 900, 115, [0, 1, 2, 3], 46, 101);
-			addDecal(Library.IMG("castle.decals.chandelier.png"), 50, 115, [0, 1, 2, 3], 46, 101);
+			addDecal(Library.IMG("castle.decals.chandelier.png"), 923, 165.5, null, [0, 1, 2, 3], 46, 101);
+			addDecal(Library.IMG("castle.decals.chandelier.png"), 73, 165.5, null, [0, 1, 2, 3], 46, 101);
 			
-			addDecal(Library.IMG("castle.decals.shield.png"), 145, 69);
-			addDecal(Library.IMG("castle.decals.shield.png"), 265, 69);
-			addDecal(Library.IMG("castle.decals.torch.png"), 200, 60, [0, 1, 2, 3, 4, 5], 40, 40);
+			addDecal(Library.IMG("castle.decals.shield.png"), 180, 80);
+			addDecal(Library.IMG("castle.decals.shield.png"), 280, 80);
+			addDecal(Library.IMG("castle.decals.torch.png"), 230, 80, null, [0, 1, 2, 3, 4, 5], 40, 40);
 			
-			addDecal(Library.IMG("castle.decals.shield.png"), 630, 69);
-			addDecal(Library.IMG("castle.decals.shield.png"), 750  , 69);
-			addDecal(Library.IMG("castle.decals.torch.png"), 685, 60, [0, 1, 2, 3, 4, 5], 40, 40);
+			addDecal(Library.IMG("castle.decals.shield.png"), 650, 80);
+			addDecal(Library.IMG("castle.decals.shield.png"), 750, 80);
+			addDecal(Library.IMG("castle.decals.torch.png"), 700, 80, null, [0, 1, 2, 3, 4, 5], 40, 40);
 			
-			addDecal(Library.IMG("castle.decals.door.png"), 8, 326);
-			addDecal(exit = Library.IMG("castle.decals.door.png"), 818, 326);
+			addDecal(Library.IMG("castle.decals.door.png"), 55, 363.5);
+			addDecal(exit = Library.IMG("castle.decals.door.png"), 855, 363.5);
 			
 			addLadder(112, 100, 260);
 			addLadder(855, 200, 115);
@@ -99,6 +99,11 @@ package ifrit
 			Game.bolting = false;
 			
 			nextLevel = mainMenu;
+		}
+		
+		static private function thing (i:IfritObject):void
+		{
+			if (Game.man.collisionHull.hitTestObject(i)) trace ("lol");
 		}
 		
 		public static function loadCastle_02():void
@@ -137,25 +142,9 @@ package ifrit
 		 * @param	frameWidth	Width of animation frames
 		 * @param	frameHeight	Height of animation frames
 		 */
-		public static function addDecal(bitmap:Bitmap, x:Number, y:Number, frames:Array = null, frameWidth:Number = 0, frameHeight:Number = 0 ):void
+		public static function addDecal(bitmap:Bitmap, x:Number, y:Number, callback:Function = null, frames:Array = null, frameWidth:Number = 0, frameHeight:Number = 0 ):void
 		{
-			if (frames)
-			{
-				var a:Animation = new Animation(bitmap, frameWidth, frameHeight);
-				a.add("loop", frames, 5, true);
-				a.play("loop");
-				a.x = x;
-				a.y = y;
-				Game.stage.addChild(a);
-			}
-			else
-			{
-				var s:Sprite = new Sprite;
-				s.addChild(bitmap);
-				s.x = x;
-				s.y = y;
-				Game.stage.addChild(s);
-			}
+			Game.stage.addChild(new Decal(bitmap, x, y, callback, frames, frameWidth, frameHeight));			
 		}
 		
 		public static function addLadder(x:Number, y:Number, height:int):void

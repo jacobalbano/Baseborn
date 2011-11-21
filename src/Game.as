@@ -518,6 +518,10 @@
 					{
 						man.gravUp = false;
 						oneLadder = true;
+						if (!Input.isKeyDown(Input.LEFT) && !Input.isKeyDown(Input.RIGHT))
+						{
+							man.x = World.Ladders[l].x;
+						}
 						break;
 					}
 				}

@@ -206,11 +206,11 @@ package ifrit
 					 * Uncomment to see debugging view for search rectangle
 					 * Warning: Creates a huge amount of sprites when AI is in chase mode
 					 */
-					var r:Sprite = new Sprite;
-					r.graphics.beginFill(0x00ffff, 0.1);
-					r.graphics.drawRect(this.homeRect.x, this.homeRect.y, this.homeRect.width, this.homeRect.height);
-					r.graphics.endFill();
-					Game.stage.addChild(r);
+					//var r:Sprite = new Sprite;
+					//r.graphics.beginFill(0x00ffff, 0.1);
+					//r.graphics.drawRect(this.homeRect.x, this.homeRect.y, this.homeRect.width, this.homeRect.height);
+					//r.graphics.endFill();
+					//Game.stage.addChild(r);
 				}
 			}
 		}

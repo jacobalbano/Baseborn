@@ -70,11 +70,11 @@ package ifrit
 			addLadder(112, 100, 260);
 			addLadder(855, 200, 115);
 			
-			addEnemy(724, 75);
-			addEnemy(924, 75);
-			addEnemy(600, 336);
-			addEnemy(495, 130);
-			addEnemy(170, 180);
+			addEnemy(724, 75, ElfMage);
+			addEnemy(924, 75, ElfMage);
+			addEnemy(600, 336, ElfMage);
+			addEnemy(495, 130, ElfMage);
+			addEnemy(170, 180, ElfMage);
 			
 			Mobs.push(Game.stage.addChild(Game.man = new Player(50, 375, Game.playerClass)) as Mob);
 			
@@ -127,10 +127,11 @@ package ifrit
 		 * Add an enemy to the world
 		 * @param	x			Position on x
 		 * @param	y			Position on y
+		 * @param	type		The class of enemy to add	
 		 */
-		public static function addEnemy(x:Number, y:Number):void
+		public static function addEnemy(x:Number, y:Number, type:Class):void
 		{
-			Mobs.push(Game.stage.addChild(new Enemy(x, y) ) as Mob);		
+			Mobs.push(Game.stage.addChild(new type(x, y) ) as Mob);		
 		}
 		
 		/**

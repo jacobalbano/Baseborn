@@ -12,7 +12,16 @@ package ifrit
 	{
 		
 		private var callback:Function;
-		
+		/**
+		 * Simple static or animated sprite
+		 * @param	bitmap			The source image to use
+		 * @param	x				Position on x
+		 * @param	y				Position on y
+		 * @param	callback		Callback function reference
+		 * @param	frames			If the decal is animated, specify frames
+		 * @param	frameWidth		Width of animation frames
+		 * @param	frameHeight		Height of animation frames
+		 */
 		public function Decal(bitmap:Bitmap, x:Number, y:Number, callback:Function = null, frames:Array = null, frameWidth:Number = 0, frameHeight:Number = 0 ) 
 		{
 			if (frames)

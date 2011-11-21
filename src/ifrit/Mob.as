@@ -42,6 +42,7 @@ package ifrit
 		public var friendly:Boolean;
 		public var hitpoints:int;
 		public var maxHealth:uint;		
+		public var hasGravity:Boolean;
 		
 		public function Mob(x:Number, y:Number, bitmap:Bitmap, frameWidth:Number, frameHeight:Number, collisionWidth:Number, collisionHeight:Number)
 		{
@@ -76,7 +77,9 @@ package ifrit
 			
 			this.halfSize = new Point(this.collisionHull.width / 2, this.collisionHull.height / 2);
 			
-			speedLimit = new Point(7, 20);
+			this.speedLimit = new Point(7, 20);
+			
+			this.hasGravity = true;
 		}
 		
 		public function collideWithMob(obj:Mob):Boolean
@@ -277,7 +280,7 @@ package ifrit
 			this.x += velocity.x;
 			this.y += velocity.y;
 			
-			gravUp = true;
+			if (hasGravity) gravUp = true;
 			
 			// Wrap mob position to stay in the stage
 			if (this.x + this.halfSize.x > stage.stageWidth)

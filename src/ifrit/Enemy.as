@@ -1,6 +1,7 @@
 package ifrit 
 {
 	import com.thaumaturgistgames.flakit.Library;
+	import flash.display.Bitmap;
 	import flash.display.Sprite;
 	import flash.geom.Point;
 	import flash.geom.Rectangle;
@@ -11,26 +12,38 @@ package ifrit
 	 */
 	public class Enemy extends Mob 
 	{
-		//	Which way the enemy patrols
-		//	If true, right, else left
+		public static var NO_FEAR:uint = 1;
+		public static var NO_MELEE:uint = 2;
+		public static var NO_RANGED:uint = 4;
+		public static var FLYING:uint = 8;
+		public static var PASSIVE:uint = 16;
+		public static var AFRAID:uint = 32;
+		
 		public var heading:Boolean;
 		public var lastHeading:Boolean;
 		public var fleeMode:Boolean;
 		
-		private var rightBound:Number;
-		private var leftBound:Number;
-		private var lastPosition:Point;
-		private var speed:Number;
-		private var confusionTimer:Timer;
-		private var fleeCooldown:Timer;
-		private var pickup:Pickup;
+		protected var behaviorFlags:uint;
+		protected var rightBound:Number;
+		protected var leftBound:Number;
+		protected var lastPosition:Point;
+		protected var speed:Number;
+		protected var confusionTimer:Timer;
+		protected var fleeCooldown:Timer;
+		protected var pickup:Pickup;
 		
 		private var homeRect:Rectangle;
 		
-		public function Enemy(x:Number, y:Number) 
+		public function Enemy(x:Number, y:Number, bitmap:Bitmap, frameWidth:int, frameHeight:int, collisionWidth:int, collisionHeight:int, behaviorFlags:uint = 0) 
 		{
-			super(x, y, Library.IMG("enemy.png"), 60, 23, 13, 23 );
+			super(x, y, bitmap, frameWidth, frameHeight, collisionWidth, collisionHeight);
+			
 			this.lastPosition = new Point(x, y);
+			
+			this.behaviorFlags = behaviorFlags;
+			
+			if ( (this.behaviorFlags & FLYING) > 0)	this.hasGravity = false;
+			
 			this.heading = true;
 			this.fleeMode = false;
 			this.heading = Boolean(Math.round(Math.random()));
@@ -47,10 +60,8 @@ package ifrit
 			this.graphic.add("shocked", [10, 11, 12, 13], 6, false);
 			this.graphic.play("walk");
 		}
+
 		
-		/**
-		 * 
-		 */
 		override public function think():void 
 		{
 			super.think();
@@ -79,16 +90,20 @@ package ifrit
 			super.destroy();
 			this.graphic.play("die");
 			
-			//	Only drop pickups some of the time
-			if (new Boolean(Math.round(Math.random() + 0.3)))
+			if ( ! (this.behaviorFlags & PASSIVE) > 0)
 			{
-				if (Game.man.type == Player.MAGE)
+			
+				//	Only drop pickups some of the time
+				if (new Boolean(Math.round(Math.random() + 0.3)))
 				{
-					addChild(this.pickup = new Pickup(this.x, this.y, new Boolean(Math.round(Math.random()))));
-				}
-				else
-				{
-					addChild(this.pickup = new Pickup(this.x, this.y, true));
+					if (Game.man.type == Player.MAGE)
+					{
+						addChild(this.pickup = new Pickup(this.x, this.y, new Boolean(Math.round(Math.random()))));
+					}
+					else
+					{
+						addChild(this.pickup = new Pickup(this.x, this.y, true));
+					}
 				}
 			}
 			
@@ -144,52 +159,55 @@ package ifrit
 				var found:Boolean = false;
 				var collision:Boolean = false;
 				
-				for (var i:int = 0; i < World.Platforms.length; i++) 
+				if ( ! ( this.behaviorFlags & FLYING) > 0)
 				{
-					if (World.Platforms[i].collide(this) && World.Platforms[i].rotation == 0 && World.Platforms[i].y > this.y)
+					for (var i:int = 0; i < World.Platforms.length; i++) 
 					{
-						collision = true;
-						leftBound = World.Platforms[i].x - World.Platforms[i].width / 2;
-						rightBound = World.Platforms[i].x + World.Platforms[i].width / 2;
-						found = true;
-						
-						var li:int = -1;
-						var ri:int = -1;
-
-						
-						for (var ii:int = 0; ii < World.Platforms.length; ii++)
+						if (World.Platforms[i].collide(this) && World.Platforms[i].rotation == 0 && World.Platforms[i].y > this.y)
 						{
-							if (li == ii || ri == ii || i == ii)		continue;
+							collision = true;
+							leftBound = World.Platforms[i].x - World.Platforms[i].width / 2;
+							rightBound = World.Platforms[i].x + World.Platforms[i].width / 2;
+							found = true;
 							
-							if (World.Platforms[ii].y != World.Platforms[i].y) continue;
+							var li:int = -1;
+							var ri:int = -1;
+
 							
-							var distance:int = Math.abs(World.Platforms[ii].x - World.Platforms[i].x) ;
-							
-							if (World.Platforms[ii].x < World.Platforms[i].x)	//	Platform is to the left
-							{								
-								if (distance <= 210)	//	Enemies can pass over a 10 pixel gap without turning
-								{
-									li = ii;
-									leftBound = World.Platforms[ii].x - World.Platforms[ii].width / 2;
-								}
-								continue;
-							}
-							else if (World.Platforms[ii].x > World.Platforms[i].x)	//	Platform is to the right
+							for (var ii:int = 0; ii < World.Platforms.length; ii++)
 							{
-								if (distance <= 215)	//	Enemies can pass over a 15 pixel gap without turning
-								{
-									ri = ii;
-									rightBound = World.Platforms[ii].x + World.Platforms[ii].width / 2;
+								if (li == ii || ri == ii || i == ii)		continue;
+								
+								if (World.Platforms[ii].y != World.Platforms[i].y) continue;
+								
+								var distance:int = Math.abs(World.Platforms[ii].x - World.Platforms[i].x) ;
+								
+								if (World.Platforms[ii].x < World.Platforms[i].x)	//	Platform is to the left
+								{								
+									if (distance <= 210)	//	Enemies can pass over a 10 pixel gap without turning
+									{
+										li = ii;
+										leftBound = World.Platforms[ii].x - World.Platforms[ii].width / 2;
+									}
+									continue;
 								}
-								continue;
+								else if (World.Platforms[ii].x > World.Platforms[i].x)	//	Platform is to the right
+								{
+									if (distance <= 215)	//	Enemies can pass over a 15 pixel gap without turning
+									{
+										ri = ii;
+										rightBound = World.Platforms[ii].x + World.Platforms[ii].width / 2;
+									}
+									continue;
+								}
 							}
+							
+							break;
 						}
-						
-						break;
 					}
 				}
 				
-				if (!found)
+				if (!found || (this.behaviorFlags & FLYING) > 0 )
 				{
 					this.leftBound = 0;
 					this.rightBound = Game.dimensions.x;
@@ -242,11 +260,25 @@ package ifrit
 		{
 			if (!fleeMode)
 			{
+				
 				if (this.homeRect.contains(Game.man.x, Game.man.y) && Game.man.y <= this.y)
 				{
-					if (this.x >= Game.man.x) heading = false;	else heading = true;
-					if (heading)	{	if (Game.man.x > this.x && this.rotationY == 0) this.attack();	}
-					else			{	if (Game.man.x < this.x && this.rotationY == 180) this.attack();	}
+					if ( ! (this.behaviorFlags & PASSIVE) > 0)
+					{
+						if (this.x >= Game.man.x) heading = false;	else heading = true;
+						if (heading)	{	if (Game.man.x > this.x && this.rotationY == 0) this.attack();	}
+						else			{	if (Game.man.x < this.x && this.rotationY == 180) this.attack();	}
+					}
+					
+					if ( (this.behaviorFlags & AFRAID) > 0)
+					{
+						fleeMode = true;
+						if (this.x <= Game.man.x) heading = false;	else heading = true;
+						
+						this.fleeCooldown.stop();
+						this.fleeCooldown.reset();
+						this.fleeCooldown.start();
+					}
 				}
 			}
 		}
@@ -257,11 +289,14 @@ package ifrit
 		 */
 		private function beginFlee():void
 		{
-			if ( this.hitpoints <= this.maxHealth / 2 && !fleeMode)
+			if (! (behaviorFlags & NO_FEAR) < 0)
 			{
-				fleeMode = true;
-				if (this.x <= Game.man.x) heading = false;	else heading = true;
-				this.fleeCooldown.start();
+				if ( this.hitpoints <= this.maxHealth / 2 && !fleeMode)
+				{
+					fleeMode = true;
+					if (this.x <= Game.man.x) heading = false;	else heading = true;
+					this.fleeCooldown.start();
+				}
 			}
 		}
 		
@@ -318,11 +353,11 @@ package ifrit
 		{
 			if (Point.distance(new Point(this.x, this.y), new Point(Game.man.x, Game.man.y)) > 25)
 			{
-				shoot();
+				if (! (behaviorFlags & NO_RANGED) > 0 )	shoot();
 			}
 			else
 			{
-				stab();
+				if (! (behaviorFlags & NO_MELEE) > 0 )	stab();
 			}
 		}		
 		

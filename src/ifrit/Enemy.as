@@ -139,7 +139,7 @@ package ifrit
 		 */
 		private function findPlatform():void
 		{
-			if (homeRect.contains(Game.man.x, Game.man.y) || !homeRect.contains(this.x, this.y) || this.lastHeading != this.heading)
+			if (this.lastHeading != this.heading || homeRect.contains(Game.man.x, Game.man.y) || !homeRect.contains(this.x, this.y))
 			{			
 				var found:Boolean = false;
 				var collision:Boolean = false;
@@ -167,7 +167,7 @@ package ifrit
 							
 							if (World.Platforms[ii].x < World.Platforms[i].x)	//	Platform is to the left
 							{								
-								if (distance <= 215)	//	Enemies can pass over a 15 pixel gap without turning
+								if (distance <= 210)	//	Enemies can pass over a 10 pixel gap without turning
 								{
 									li = ii;
 									leftBound = World.Platforms[ii].x - World.Platforms[ii].width / 2;

@@ -14,6 +14,7 @@ package ifrit
 		//	Which way the enemy patrols
 		//	If true, right, else left
 		public var heading:Boolean;
+		public var lastHeading:Boolean;
 		public var fleeMode:Boolean;
 		
 		private var rightBound:Number;
@@ -138,7 +139,7 @@ package ifrit
 		 */
 		private function findPlatform():void
 		{
-			if (homeRect.contains(Game.man.x, Game.man.y) || !homeRect.contains(this.x, this.y))
+			if (homeRect.contains(Game.man.x, Game.man.y) || !homeRect.contains(this.x, this.y) || this.lastHeading != this.heading)
 			{			
 				var found:Boolean = false;
 				var collision:Boolean = false;
@@ -154,6 +155,7 @@ package ifrit
 						
 						var li:int = -1;
 						var ri:int = -1;
+
 						
 						for (var ii:int = 0; ii < World.Platforms.length; ii++)
 						{
@@ -196,19 +198,19 @@ package ifrit
 				if (collision)
 				{
 					this.homeRect.height = 60;
-					this.homeRect.width = 350;
-					this.homeRect.x = this.x - 150;
+					this.homeRect.width = 300;
+					this.homeRect.x = this.heading ? this.x - 100 : this.x - 200;
 					this.homeRect.y = this.y - 30;
 					
 					/**
 					 * Uncomment to see debugging view for search rectangle
 					 * Warning: Creates a huge amount of sprites when AI is in chase mode
 					 */
-					//var r:Sprite = new Sprite;
-					//r.graphics.beginFill(0x00ffff, 0.1);
-					//r.graphics.drawRect(this.homeRect.x, this.homeRect.y, this.homeRect.width, this.homeRect.height);
-					//r.graphics.endFill();
-					//Game.stage.addChild(r);
+					var r:Sprite = new Sprite;
+					r.graphics.beginFill(0x00ffff, 0.1);
+					r.graphics.drawRect(this.homeRect.x, this.homeRect.y, this.homeRect.width, this.homeRect.height);
+					r.graphics.endFill();
+					Game.stage.addChild(r);
 				}
 			}
 		}
@@ -218,7 +220,9 @@ package ifrit
 		 * Turn around if the edge of a platform is reached or an obstacle is struck
 		 */
 		private function adjustHeading():void
-		{			
+		{
+			this.lastHeading = heading;
+			
 			if (heading)	{	if (this.x <= this.lastPosition.x) heading = !heading;	}
 			else			{ 	if (this.x >= this.lastPosition.x) heading = !heading;	}
 			

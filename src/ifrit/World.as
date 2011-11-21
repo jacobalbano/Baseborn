@@ -83,8 +83,7 @@ package ifrit
 			addWall(255, 186, false);
 			addWall(495, 229, false);
 			addWall(495, 144, false);
-			addWall(700, 110, false);
-			addWall(913, 110, false);
+			addWall(800, 110, false, 400);
 			addWall(772, 414, true);
 			addWall(600, 346, false);
 			addWall(375, 371, false);
@@ -114,9 +113,9 @@ package ifrit
 		 * @param	y			Position on y
 		 * @param	vertical	Whether the platform should be rotated vertically
 		 */
-		public static function addWall(x:Number, y:Number, vertical:Boolean):void
+		public static function addWall(x:Number, y:Number, vertical:Boolean, size:int = 200):void
 		{
-			Platforms.push(Game.stage.addChild(new Platform(x, y, vertical) ) );
+			Platforms.push(Game.stage.addChild(new Platform(x, y, vertical, size) ) );
 		}
 		
 		/**

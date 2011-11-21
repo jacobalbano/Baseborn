@@ -43,6 +43,7 @@ package ifrit
 		public var hitpoints:int;
 		public var maxHealth:uint;		
 		public var hasGravity:Boolean;
+		public var rangedType:Class;
 		
 		public function Mob(x:Number, y:Number, bitmap:Bitmap, frameWidth:Number, frameHeight:Number, collisionWidth:Number, collisionHeight:Number)
 		{
@@ -80,6 +81,8 @@ package ifrit
 			this.speedLimit = new Point(7, 20);
 			
 			this.hasGravity = true;
+			
+			this.rangedType = MeleeSwing;
 		}
 		
 		public function collideWithMob(obj:Mob):Boolean
@@ -158,12 +161,7 @@ package ifrit
 			}
 			else
 			{
-				switch (this.classType)
-				{
-					case 0:		ammunition = Fireball;	break;
-					case 2:		ammunition = Shuriken;	break;
-					case 4:		ammunition = Arrow;		break;
-				}
+				ammunition = this.rangedType;
 			}
 			
 			if (!attackTimer.running)

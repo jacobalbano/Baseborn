@@ -36,14 +36,16 @@ package ifrit
 			switch (type)
 			{
 				case 0:
+					this.rangedType = Fireball;
 					graphic.add("attack", [6, 7, 8, 9], 12, false);
 					graphic.add("casting", [6, 6, 6, 6], 12, false, true);
-					
 					break;
 				case 2:
+					this.rangedType = Shuriken;
 					graphic.add("attack", [6, 7, 8, 9], 12, false);
 					break;
 				case 4:
+					this.rangedType = Arrow;
 					graphic.add("attack", [4, 5, 6, 7], 12, false);
 					graphic.add("shield", [8, 9, 10, 11], 20, false, true);
 					graphic.add("pull", [12, 13, 14, 15], 12, false, true);

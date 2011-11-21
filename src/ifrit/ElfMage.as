@@ -10,7 +10,8 @@ package ifrit
 		
 		public function ElfMage(x:Number, y:Number) 
 		{
-			super(x, y, Library.IMG("enemy.png"), 60, 23, 13, 23);
+			super(x, y, Library.IMG("enemies.elfMage.png"), 60, 23, 13, 23);
+			this.rangedType = Fireball;
 		}
 		
 	}

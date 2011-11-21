@@ -58,6 +58,7 @@
 			World.Platforms = new Vector.<Platform>;
 			World.Projectiles = new Vector.<Projectile>;
 			World.Mobs = new Vector.<Mob>;
+			World.Ladders = new Vector.<Ladder>;
 			
 			World.mainMenu();
 		}
@@ -76,7 +77,6 @@
 			
 			if (man)
 			{
-			
 				if (World.exit && man.collisionHull.hitTestObject(World.exit))
 				{
 					World.next();
@@ -87,33 +87,65 @@
 					World.Platforms[World.Platforms.length - 1].x++;
 				}
 				
-				if (Input.isKeyDown(Input.LEFT))
+				if (checkLadder())
 				{
-					stopBolt();
-					
-					if (man.graphic.playing != "attack" && man.graphic.playing != "shoot" && !shielding)
-						man.graphic.play("walk");
+					if (Input.isKeyDown(Input.LEFT))
+					{
+						man.x -= 7;
 						
-					if (shielding)	man.x -= 2;
-					else 			man.x -= 7;
+						man.rotationY = 180;
+					}
 					
-					man.rotationY = 180;
-				}
-				else if (Input.isKeyDown(Input.RIGHT))
-				{
-					stopBolt();
-					
-					if (man.graphic.playing != "attack" && man.graphic.playing != "shoot" && !shielding)
-						man.graphic.play("walk");
+					if (Input.isKeyDown(Input.RIGHT))
+					{
+						man.x += 7;
 						
-					if (shielding)	man.x += 2;
-					else			man.x += 7;
+						man.rotationY = 0;
+					}
 					
-					man.rotationY = 0;
+					if (Input.isKeyDown(Input.UP))
+					{
+						man.y -= 5;
+					}
+					else if (Input.isKeyDown(Input.DOWN))
+					{
+						man.y += 5;
+					}
+					else
+					{
+						if (man.isIdle) 	man.graphic.play("stand", true);
+					}
 				}
 				else
 				{
-					if (man.isIdle) 	man.graphic.play("stand", true);
+					if (Input.isKeyDown(Input.LEFT))
+					{
+						stopBolt();
+						
+						if (man.graphic.playing != "attack" && man.graphic.playing != "shoot" && !shielding)
+							man.graphic.play("walk");
+							
+						if (shielding)	man.x -= 2;
+						else 			man.x -= 7;
+						
+						man.rotationY = 180;
+					}
+					else if (Input.isKeyDown(Input.RIGHT))
+					{
+						stopBolt();
+						
+						if (man.graphic.playing != "attack" &&	man.graphic.playing != "shoot" 	&& !shielding)
+								man.graphic.play("walk");
+							
+						if (shielding)	man.x += 2;
+						else			man.x += 7;
+						
+						man.rotationY = 0;
+					}
+					else
+					{
+						if (man.isIdle) 	man.graphic.play("stand", true);
+					}
 				}
 				
 				if (man.canJump)
@@ -469,6 +501,31 @@
 			if (!frostAttack) return;
 			stage.removeChild(frostAttack);
 			frostAttack = null;
+		}
+		
+		private function checkLadder():Ladder
+		{
+			var oneLadder:Boolean = false;
+			var l:int;
+			
+			if (World.Ladders.length > 0)
+			{
+				for (l = World.Ladders.length; l --> 0; )
+				{
+					if (Point.distance(new Point(man.x, man.y), new Point(World.Ladders[l].x, man.y)) < 14 &&
+						man.y > World.Ladders[l].getRect(Game.stage).top - man.height / 2					&&
+						man.y < World.Ladders[l].getRect(Game.stage).bottom)
+					{
+						man.gravUp = false;
+						oneLadder = true;
+						break;
+					}
+				}
+				
+				if (!oneLadder)	man.gravUp = true;
+			}
+			
+			return oneLadder ? World.Ladders[l] : null;
 		}
 		
 	}

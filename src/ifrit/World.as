@@ -20,6 +20,7 @@ package ifrit
 		public static var Projectiles:Vector.<Projectile>;
 		public static var Mobs:Vector.<Mob>;
 		public static var Platforms:Vector.<Platform>;
+		public static var Ladders:Vector.<Ladder>;
 		
 		public static var exit:Bitmap;
 		
@@ -64,8 +65,10 @@ package ifrit
 			addDecal(Library.IMG("castle.decals.torch.png"), 685, 60, [0, 1, 2, 3, 4, 5], 40, 40);
 			
 			addDecal(Library.IMG("castle.decals.door.png"), 8, 326);
-			addDecal(Library.IMG("misc.ladder.png"), 800, 210);
 			addDecal(exit = Library.IMG("castle.decals.door.png"), 818, 326);
+			
+			addLadder(112, 100, 260);
+			addLadder(855, 200, 115);
 			
 			addEnemy(724, 75);
 			addEnemy(924, 75);
@@ -84,7 +87,7 @@ package ifrit
 			addWall(913, 110, false);
 			addWall(772, 414, true);
 			addWall(600, 346, false);
-			addWall(397, 371, false);
+			addWall(375, 371, false);
 			addWall(829, 315, false);
 			addWall(700, 272, false);
 			addWall(227, 109, false);
@@ -156,6 +159,11 @@ package ifrit
 			}
 		}
 		
+		public static function addLadder(x:Number, y:Number, height:int):void
+		{
+			Ladders.push(Game.stage.addChild(new Ladder(x, y, height)) as Ladder);
+		}
+		
 		public static function addButton(x:Number, y:Number, image:Bitmap, callback:Function = null):void
 		{
 			Game.stage.addChild(new MenuButton(x, y, image, callback));
@@ -206,6 +214,11 @@ package ifrit
 			for (var mb:int = World.Mobs.length; mb --> 0; )
 			{
 				Game.stage.removeChild(World.Mobs.pop());
+			}
+			
+			for (var l:int = World.Ladders.length; l --> 0; )
+			{
+				Game.stage.removeChild(World.Ladders.pop());
 			}
 			
 			while (Game.stage.numChildren > 1) Game.stage.removeChildAt(1);

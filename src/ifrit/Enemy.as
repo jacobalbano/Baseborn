@@ -289,7 +289,7 @@ package ifrit
 		 */
 		private function beginFlee():void
 		{
-			if (! (behaviorFlags & NO_FEAR) < 0)
+			if ( ! (behaviorFlags & NO_FEAR) > 0)
 			{
 				if ( this.hitpoints <= this.maxHealth / 2 && !fleeMode)
 				{

@@ -203,14 +203,14 @@ package ifrit
 				Game.stage.removeChild(World.Platforms.pop());
 			}
 			
-			for (var mb:int = World.Mobs.length; mb --> 0; )
-			{
-				Game.stage.removeChild(World.Mobs.pop());
-			}
-			
 			for (var l:int = World.Ladders.length; l --> 0; )
 			{
 				Game.stage.removeChild(World.Ladders.pop());
+			}
+			
+			for (var mb:int = World.Mobs.length; mb --> 0; )
+			{
+				Game.stage.removeChild(World.Mobs.pop());
 			}
 			
 			while (Game.stage.numChildren > 1) Game.stage.removeChildAt(1);

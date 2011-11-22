@@ -77,11 +77,6 @@
 			
 			if (man)
 			{
-				if (World.exit && man.collisionHull.hitTestObject(World.exit))
-				{
-					World.next();
-				}
-				
 				if (enemiesKilled == World.Mobs.length && World.Platforms.length > 0)
 				{
 					World.Platforms[World.Platforms.length - 1].x++;

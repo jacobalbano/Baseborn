@@ -22,8 +22,6 @@ package ifrit
 		public static var Platforms:Vector.<Platform>;
 		public static var Ladders:Vector.<Ladder>;
 		
-		public static var exit:Bitmap;
-		
 		private static var nextLevel:Function;
 		
 		public function World() { }
@@ -65,7 +63,7 @@ package ifrit
 			addDecal(Library.IMG("castle.decals.torch.png"), 700, 80, null, [0, 1, 2, 3, 4, 5], 40, 40);
 			
 			addDecal(Library.IMG("castle.decals.door.png"), 55, 363.5);
-			addDecal(exit = Library.IMG("castle.decals.door.png"), 855, 363.5);
+			addDecal(Library.IMG("castle.decals.door.png"), 855, 363.5, advance);
 			
 			addLadder(112, 100, 260);
 			addLadder(855, 200, 115);
@@ -99,6 +97,11 @@ package ifrit
 			Game.bolting = false;
 			
 			nextLevel = mainMenu;
+		}
+		
+		static public function advance(i:IfritObject):void 
+		{
+			if (Game.man.collisionHull.hitTestObject(i))	next();
 		}
 		
 		static private function thing (i:IfritObject):void

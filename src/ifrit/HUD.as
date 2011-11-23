@@ -45,7 +45,7 @@ package ifrit
 		private static var caltrops:Sprite;
 		private var caltropTxt:TextField
 		private var caltropTxtFormat:TextFormat;
-		
+		private static var blink:Sprite;
 		private static var arrows:Sprite;
 		private var arrowTxt:TextField
 		private var arrowTxtFormat:TextFormat;
@@ -145,7 +145,7 @@ package ifrit
 			}
 			
 			shuriken = new Sprite();
-			shuriken.graphics.beginFill(0xFFFFFF);
+			shuriken.graphics.beginFill(0x000000);
 			shuriken.graphics.drawRect(0, 0, 200, 9);
 			shuriken.graphics.endFill();
 			shuriken.x = 750;
@@ -153,7 +153,7 @@ package ifrit
 			
 			shurikenTxt = new TextField();
 			shurikenTxt.type = TextFieldType.DYNAMIC;
-			shurikenTxt.textColor = 0x000000;
+			shurikenTxt.textColor = 0xFFFFFF;
 			shurikenTxt.x = shuriken.x;
 			shurikenTxt.y = shuriken.y - 4;
 			shurikenTxt.height = 14;
@@ -185,6 +185,14 @@ package ifrit
 			caltropTxt.defaultTextFormat = caltropTxtFormat;
 			
 			
+			
+			blink = new Sprite();
+			blink.graphics.beginFill(0x9AC193);
+			blink.graphics.drawRect(0, 0, 200, 9);
+			blink.graphics.endFill();
+			blink.x = 750;
+			blink.y = 454;
+			
 			if (Game.man.type == Player.ROGUE)
 			{
 				healthScale = 2;
@@ -192,11 +200,13 @@ package ifrit
 				icon1 = Library.IMG("icons.shurikenIcon.png");
 				icon2 = Library.IMG("icons.caltropIcon.png");
 				
-				addChild(caltrops);
-				addChild(caltropTxt);
+				//addChild(caltrops);
+				//addChild(caltropTxt);
 				
 				addChild(shuriken);
 				addChild(shurikenTxt);
+				
+				addChild(blink);
 			}
 			
 			arrows = new Sprite();
@@ -232,7 +242,7 @@ package ifrit
 
 			if (Game.man.type == Player.FIGHTER)
 			{
-				healthScale = 4;
+				healthScale = 3;
 				
 				addChild(arrows);
 				addChild(arrowTxt);
@@ -314,6 +324,7 @@ package ifrit
 			
 			if (shuriken)  shurikenTxt.text = String(Math.round(shuriken.width / 20)) + "/" + String(200 / 20)
 			if (caltrops)  caltropTxt.text = String(Math.round(caltrops.width / 13.33)) + "/" + String(Math.round(200 / 13.33));
+			if (blink)	{	if (blink.width < 200)	blink.width += .75;	}
 			
 			if (arrows)  arrowTxt.text = String(Math.round(arrows.width / 10)) + "/" + String(200 / 10);
 			if (shield) {   if (shield.width < 200)   shield.width += 1.0;   }
@@ -404,7 +415,7 @@ package ifrit
 				a <= shuriken.width	&&
 				a <= arrows.width	&&
 				s <= shield.width	&&
-				s <= caltrops.width);
+				s <= blink.width);
 		}
 		
 		/**
@@ -454,11 +465,12 @@ package ifrit
 				
 				if (type == SPECIAL)
 				{
-					var remainingCaltrops:Number = caltrops.width;
+					//var remainingCaltrops:Number = caltrops.width;
+					var remainingBlink:Number = blink.width;
 					
-					if (cost <= remainingCaltrops)
+					if (cost <= remainingBlink)
 					{
-						caltrops.width -= cost;
+						blink.width -= cost;
 					}
 				}
 			}

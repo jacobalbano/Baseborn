@@ -38,6 +38,12 @@
 		 */
 		private var shielding:Boolean;
 		
+		/**
+		 * Blink
+		 */
+		private var blinkTimer:Timer = new Timer(0, 7);
+		private var canBlink:Boolean;
+		 
 		private var canMelee:Boolean;
 		private var canShoot:Boolean;
 		
@@ -122,6 +128,17 @@
 						else 			man.x -= 7;
 						
 						man.rotationY = 180;
+						
+						if (man.type == Player.ROGUE)
+						{
+							blinkTimer.start();
+							if (canBlink)
+							{
+								man.x -= 75;
+								canBlink = false;
+								HUD.buyAction(200, HUD.SPECIAL);
+							}
+						}
 					}
 					else if (Input.isKeyDown(Input.RIGHT))
 					{
@@ -134,12 +151,30 @@
 						else			man.x += 7;
 						
 						man.rotationY = 0;
+						
+						if (man.type == Player.ROGUE)
+						{
+							blinkTimer.start();
+							if (canBlink)
+							{
+								man.x += 75;
+								canBlink = false;
+								HUD.buyAction(200, HUD.SPECIAL);
+							}
+						}
 					}
 					else
 					{
 						if (man.isIdle) 	man.graphic.play("stand", true);
+						
+						if (blinkTimer.running && HUD.testCost(0, 0, 0, 200))	canBlink = true;
+						else canBlink = false;
+						
+						if (blinkTimer.currentCount == blinkTimer.repeatCount)
+							if (!blinkTimer.running)	blinkTimer.reset();
 					}
 				}
+				if (blinkTimer.currentCount == blinkTimer.repeatCount)	blinkTimer.stop();
 				
 				if (man.canJump)
 				{
@@ -451,7 +486,7 @@
 			
 			if (man.type == Player.ROGUE)
 			{
-				if (HUD.testCost(0, 0, 0, 13.3))
+				//if (HUD.testCost(0, 0, 0, 13.3))
 					man.shoot(Caltrop);
 			}
 		}

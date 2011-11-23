@@ -47,8 +47,6 @@
 		{
 			super.init();
 			
-			SaveState.loadLastLevel();
-			
 			Game.stage = this.stage;
 			
 			removeEventListener(Event.ADDED_TO_STAGE, init);
@@ -58,12 +56,9 @@
 			
 			stage.scaleMode = "noScale";
 			
-			World.Platforms = new Vector.<Platform>;
-			World.Projectiles = new Vector.<Projectile>;
-			World.Mobs = new Vector.<Mob>;
-			World.Ladders = new Vector.<Ladder>;
+			World.init();
 			
-			World.mainMenu();
+			World.loadLevel("mainMenu");
 		}
 		
 		private function enterFrame(e:Event):void

@@ -2,6 +2,7 @@ package ifrit
 {
 	
 	import com.jacobalbano.Animation;
+	import com.jacobalbano.Map;
 	import com.thaumaturgistgames.flakit.Library;
 	import flash.display.Bitmap;
 	import flash.display.BitmapData;
@@ -22,15 +23,40 @@ package ifrit
 		public static var Platforms:Vector.<Platform>;
 		public static var Ladders:Vector.<Ladder>;
 		
-		private static var nextLevel:Function;
+		private static var Worlds:Map;
+		private static var nextLevel:String;
+		
+		
 		
 		public function World() { }
-		public static function next():void
+		
+		public static function init():void 
 		{
-			nextLevel();
+			
+			World.Platforms = new Vector.<Platform>;
+			World.Projectiles = new Vector.<Projectile>;
+			World.Mobs = new Vector.<Mob>;
+			World.Ladders = new Vector.<Ladder>;
+			
+			Worlds = new Map(String, Function);
+			
+			Worlds.add("mainMenu", mainMenu);
+			Worlds.add("castle_01", loadCastle_01);
+			Worlds.add("castle_02", loadCastle_02);
+			
 		}
 		
-		public static function mainMenu():void
+		public static function loadLevel(name:String):void
+		{
+			Worlds.retrive(name)();
+		}
+		
+		public static function next():void
+		{
+			Worlds.retrive(nextLevel)();
+		}
+		
+		private static function mainMenu():void
 		{
 			unloadLevel();
 			
@@ -38,10 +64,10 @@ package ifrit
 			addButton(600, 250, Library.IMG("menu.fighter_button.png"), function ():void { Game.playerClass = Player.FIGHTER; next();} );
 			addButton(600, 300, Library.IMG("menu.mage_button.png"), function ():void { Game.playerClass = Player.MAGE; next(); } );
 			
-			nextLevel = loadCastle_01;
+			nextLevel = "castle_01";
 		}
 		
-		public static function loadCastle_01():void 
+		private static function loadCastle_01():void 
 		{
 			unloadLevel();
 			
@@ -96,7 +122,7 @@ package ifrit
 			Game.lightningAttack = null;
 			Game.bolting = false;
 			
-			nextLevel = mainMenu;
+			nextLevel = "mainMenu";
 		}
 		
 		static public function advance(i:IfritObject):void 
@@ -104,12 +130,7 @@ package ifrit
 			if (Game.man.collisionHull.hitTestObject(i))	next();
 		}
 		
-		static private function thing (i:IfritObject):void
-		{
-			if (Game.man.collisionHull.hitTestObject(i)) trace ("lol");
-		}
-		
-		public static function loadCastle_02():void
+		private static function loadCastle_02():void
 		{
 			unloadLevel();
 		}

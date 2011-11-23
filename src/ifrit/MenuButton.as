@@ -34,7 +34,6 @@ package ifrit
 			
 			this.addEventListener(MouseEvent.MOUSE_OVER, function(e:Event):void { Mouse.cursor = MouseCursor.BUTTON; i.alpha = 0.9; } );
 			this.addEventListener(MouseEvent.MOUSE_OUT, function(e:Event):void { Mouse.cursor = MouseCursor.ARROW; i.alpha = 1; } );
-			//this.addEventListener(Event.REMOVED_FROM_STAGE, function(e:Event):void { this.removeEventListener(MouseEvent.CLICK, click); } );
 			
 			function click (e:Event):void
 			{

@@ -12,7 +12,7 @@
 	import ifrit.*;
 	
 	
-	[SWF(width = "1000", height = "500", backgroundColor = "0xFFFFFF", frameRate = "30")]
+	[SWF(width = "1000", height = "500", backgroundColor = "0x000000", frameRate = "30")]
 	public class Game extends Engine 
 	{
 		public static const dimensions:Point = new Point(1000, 400);
@@ -58,7 +58,7 @@
 			
 			World.init();
 			
-			World.loadLevel("mainMenu");
+			World.loadLevel( SaveState.level || "mainMenu");
 		}
 		
 		private function enterFrame(e:Event):void

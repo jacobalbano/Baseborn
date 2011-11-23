@@ -30,36 +30,29 @@ package ifrit
 		
 		public function World() { }
 		
+		/**
+		 * Initialize the world manager
+		 * Register world functions here
+		 */
 		public static function init():void 
 		{
-			
-			World.Platforms = new Vector.<Platform>;
-			World.Projectiles = new Vector.<Projectile>;
-			World.Mobs = new Vector.<Mob>;
-			World.Ladders = new Vector.<Ladder>;
+			World.Platforms 	= new Vector.<Platform>;
+			World.Projectiles 	= new Vector.<Projectile>;
+			World.Mobs 			= new Vector.<Mob>;
+			World.Ladders 		= new Vector.<Ladder>;
 			
 			Worlds = new Map(String, Function);
 			
-			Worlds.add("mainMenu", mainMenu);
+			Worlds.add("mainMenu", 	mainMenu);
 			Worlds.add("castle_01", loadCastle_01);
 			Worlds.add("castle_02", loadCastle_02);
-			
 		}
 		
-		public static function loadLevel(name:String):void
-		{
-			Worlds.retrive(name)();
-		}
-		
-		public static function next():void
-		{
-			Worlds.retrive(nextLevel)();
-		}
+		//	Worlds begin
+		//{
 		
 		private static function mainMenu():void
-		{
-			unloadLevel();
-			
+		{			
 			addButton(600, 200, Library.IMG("menu.rogue_button.png"), function ():void { Game.playerClass = Player.ROGUE; next();} );
 			addButton(600, 250, Library.IMG("menu.fighter_button.png"), function ():void { Game.playerClass = Player.FIGHTER; next();} );
 			addButton(600, 300, Library.IMG("menu.mage_button.png"), function ():void { Game.playerClass = Player.MAGE; next(); } );
@@ -69,8 +62,6 @@ package ifrit
 		
 		private static function loadCastle_01():void 
 		{
-			unloadLevel();
-			
 			makeBounds();
 			
 			Game.stage.addChild(Library.IMG("castle.bg2.png"));
@@ -125,14 +116,55 @@ package ifrit
 			nextLevel = "mainMenu";
 		}
 		
+		private static function loadCastle_02():void
+		{
+			
+		}
+		
+		//}
+		//	Worlds end
+		
+				/**
+		 * Loads a level and unloads the previous one
+		 * @param	name			The level to load
+		 */
+		public static function loadLevel(name:String):void
+		{
+			unloadLevel();
+			Worlds.retrive(name)();
+			
+			//	Interact with the save file here
+			SaveState.level = name;
+			
+			addDecal(new Bitmap(new BitmapData(1000, 500, true, 0xff000000)), 500, 250, fade );
+		}
+		
+		/**
+		 * Load the level identified by the current as next
+		 */
+		public static function next():void
+		{
+			loadLevel(nextLevel);
+		}
+		
+		
+		/**
+		 * Callback for the fade decal
+		 * @param	i			Standard reference parameter
+		 */
+		private static function fade(i:IfritObject):void
+		{
+			if (i.alpha > 0) i.alpha -= 0.075;
+			if (i.alpha <= 0)	Game.stage.removeChild(i);
+		}
+		
+		/**
+		 * Check if player has reached the exit and load the next level
+		 * @param	i			Standard reference parameter
+		 */
 		static public function advance(i:IfritObject):void 
 		{
 			if (Game.man.collisionHull.hitTestObject(i))	next();
-		}
-		
-		private static function loadCastle_02():void
-		{
-			unloadLevel();
 		}
 		
 		
@@ -172,15 +204,27 @@ package ifrit
 			Game.stage.addChild(new Decal(bitmap, x, y, callback, frames, frameWidth, frameHeight, loop));
 		}
 		
+		/**
+		 * Adds a procedurally generated ladder to the world
+		 * @param	x			Position on x
+		 * @param	y			Position on y
+		 * @param	height		How high the ladder should be
+		 */
 		public static function addLadder(x:Number, y:Number, height:int):void
 		{
 			Ladders.push(Game.stage.addChild(new Ladder(x, y, height)) as Ladder);
 		}
 		
+		/**
+		 * Adds a bitmap image that acts as a button
+		 * @param	x			Position on x
+		 * @param	y			Position on y
+		 * @param	image		The bitmap to use
+		 * @param	callback	A function reference to call when the button is clicked
+		 */
 		public static function addButton(x:Number, y:Number, image:Bitmap, callback:Function = null):void
 		{
 			Game.stage.addChild(new MenuButton(x, y, image, callback));
-			
 		}
 		
 		/**
@@ -214,27 +258,11 @@ package ifrit
 		 */
 		private static function unloadLevel():void 
 		{
-			for (var pr:int = World.Projectiles.length; pr --> 0; )
-			{
-				Game.stage.removeChild(World.Projectiles.pop());
-			}
-			
-			for (var pl:int = World.Platforms.length; pl --> 0; )
-			{
-				Game.stage.removeChild(World.Platforms.pop());
-			}
-			
-			for (var l:int = World.Ladders.length; l --> 0; )
-			{
-				Game.stage.removeChild(World.Ladders.pop());
-			}
-			
-			for (var mb:int = World.Mobs.length; mb --> 0; )
-			{
-				Game.stage.removeChild(World.Mobs.pop());
-			}
-			
-			while (Game.stage.numChildren > 1) Game.stage.removeChildAt(1);
+			for 	(var pr:int = World.Projectiles.length; 	pr 	--> 0; )	Game.stage.removeChild(World.Projectiles.pop());
+			for 	(var pl:int = World.Platforms.length; 		pl	--> 0; )	Game.stage.removeChild(World.Platforms.pop());
+			for 	(var l:int 	= World.Ladders.length; 		l 	--> 0; )	Game.stage.removeChild(World.Ladders.pop());
+			for 	(var m:int 	= World.Mobs.length; 			m	--> 0; )	Game.stage.removeChild(World.Mobs.pop());
+			while 	(Game.stage.numChildren > 1) 								Game.stage.removeChildAt(1);
 			
 		}
 		

@@ -2,6 +2,7 @@
 {
 	import com.jacobalbano.Input;
 	import com.thaumaturgistgames.flakit.Engine;
+	import flash.net.SharedObject;
 	
 	import flash.display.Stage;
 	import flash.events.Event;
@@ -45,6 +46,8 @@
 		override public function init():void 
 		{
 			super.init();
+			
+			SaveState.loadLastLevel();
 			
 			Game.stage = this.stage;
 			

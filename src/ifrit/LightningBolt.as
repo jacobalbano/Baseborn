@@ -88,8 +88,8 @@ package ifrit
 				
 				if (bolt.playing != "strike" && vortex.playing != "vortex")
 				{
-					HUD.buyAction(25, HUD.ENERGY);
-					HUD.buyAction(95, HUD.MANA);
+					HUD.buyAction(95, HUD.ENERGY);
+					HUD.buyAction(25, HUD.MANA);
 				}
 				
 				

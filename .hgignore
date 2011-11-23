@@ -1,0 +1,3 @@
+syntax: glob
+obj/IfritConfig.old
+bin/FLAKit.swf

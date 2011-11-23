@@ -53,9 +53,9 @@ package ifrit
 		
 		private static function mainMenu():void
 		{			
-			addButton(600, 200, Library.IMG("menu.rogue_button.png"), function ():void { Game.playerClass = Player.ROGUE; next();} );
-			addButton(600, 250, Library.IMG("menu.fighter_button.png"), function ():void { Game.playerClass = Player.FIGHTER; next();} );
-			addButton(600, 300, Library.IMG("menu.mage_button.png"), function ():void { Game.playerClass = Player.MAGE; next(); } );
+			addButton(600, 200, Library.IMG("menu.rogue_button.png"), 	function ():void { Game.playerClass = Player.ROGUE; 	SaveState.playerClass = Game.playerClass;	next();} );
+			addButton(600, 250, Library.IMG("menu.fighter_button.png"), function ():void { Game.playerClass = Player.FIGHTER; 	SaveState.playerClass = Game.playerClass;	next();} );
+			addButton(600, 300, Library.IMG("menu.mage_button.png"), 	function ():void { Game.playerClass = Player.MAGE; 		SaveState.playerClass = Game.playerClass;	next(); } );
 			
 			nextLevel = "castle_01";
 		}
@@ -124,7 +124,7 @@ package ifrit
 		//}
 		//	Worlds end
 		
-				/**
+		/**
 		 * Loads a level and unloads the previous one
 		 * @param	name			The level to load
 		 */
@@ -133,7 +133,6 @@ package ifrit
 			unloadLevel();
 			Worlds.retrive(name)();
 			
-			//	Interact with the save file here
 			SaveState.level = name;
 			
 			addDecal(new Bitmap(new BitmapData(1000, 500, true, 0xff000000)), 500, 250, fade );

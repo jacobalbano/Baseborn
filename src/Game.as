@@ -58,6 +58,8 @@
 			
 			World.init();
 			
+			Game.playerClass = SaveState.playerClass;
+			
 			World.loadLevel( SaveState.level || "mainMenu");
 		}
 		

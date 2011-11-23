@@ -7,39 +7,26 @@ package ifrit
 	 */
 	public class SaveState 
 	{
-		public function SaveState() { }
+		private static const so:SharedObject = SharedObject.getLocal("com.thaumaturgistgames.ifrit");
 		
 		public static function set level(level:String):void
 		{
-			var so_save:SharedObject = SharedObject.getLocal("./com.thaumaturgistgames.ifrit");
-			
-			if (so_save)
-			{
-				so_save.data.level = level;				
-			}
+			if (so)	so.data.level = level;
 		}
 		
 		public static function get level():String
 		{
-			return SharedObject.getLocal("./com.thaumaturgistgames.ifrit").data.level || null;
+			return so.data.level || null;
 		}
 		
 		public static function set playerClass(playerClass:uint):void
 		{
-			var so_save:SharedObject = SharedObject.getLocal("./com.thaumaturgistgames.ifrit");
-			
-			if (so_save)
-			{
-				trace("writing class");
-				trace(playerClass);
-				so_save.data.playerClass = playerClass;				
-			}
+			if (so)	so.data.playerClass = playerClass;
 		}
 		
 		public static function get playerClass():uint
 		{
-			trace(SharedObject.getLocal("./com.thaumaturgistgames.ifrit").data.playerClass);
-			return SharedObject.getLocal("./com.thaumaturgistgames.ifrit").data.playerClass || 0;
+			return so.data.playerClass || 0;
 		}
 		
 	}

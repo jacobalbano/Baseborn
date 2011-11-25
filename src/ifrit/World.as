@@ -198,9 +198,9 @@ package ifrit
 		 * @param	frameWidth	Width of animation frames
 		 * @param	frameHeight	Height of animation frames
 		 */
-		public static function addDecal(bitmap:Bitmap, x:Number, y:Number, callback:Function = null, frames:Array = null, frameWidth:Number = 0, frameHeight:Number = 0, loop:Boolean = true):void
+		public static function addDecal(bitmap:Bitmap, x:Number, y:Number, callback:Function = null, frames:Array = null, frameWidth:Number = 0, frameHeight:Number = 0, frameRate:Number = 0, loop:Boolean = true):void
 		{
-			Game.stage.addChild(new Decal(bitmap, x, y, callback, frames, frameWidth, frameHeight, loop));
+			Game.stage.addChild(new Decal(bitmap, x, y, callback, frames, frameWidth, frameHeight, frameRate, loop));
 		}
 		
 		/**

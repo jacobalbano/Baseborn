@@ -13,6 +13,7 @@ package ifrit
 	{		
 		public var buffer:BitmapData;
 		public var container:Sprite;
+		public var vertical:Boolean;
 		
 		public function Platform(x:Number, y:Number, vertical:Boolean, size:int = 200) 
 		{
@@ -33,7 +34,7 @@ package ifrit
 			if (vertical)	this.rotation = 90;
 			else 			this.rotation = 0;
 			
-			
+			this.vertical = vertical;
 			
 			addChild(container = new Sprite);
 				

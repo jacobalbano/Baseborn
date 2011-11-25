@@ -22,12 +22,12 @@ package ifrit
 		 * @param	frameWidth		Width of animation frames
 		 * @param	frameHeight		Height of animation frames
 		 */
-		public function Decal(bitmap:Bitmap, x:Number, y:Number, callback:Function = null, frames:Array = null, frameWidth:Number = 0, frameHeight:Number = 0, loop:Boolean = true ) 
+		public function Decal(bitmap:Bitmap, x:Number, y:Number, callback:Function = null, frames:Array = null, frameWidth:Number = 0, frameHeight:Number = 0, frameRate:Number = 0, loop:Boolean = true ) 
 		{
 			if (frames)
 			{
 				var a:Animation = new Animation(bitmap, frameWidth, frameHeight);
-				a.add("animation", frames, 5, loop);
+				a.add("animation", frames, frameRate, loop);
 				a.play("animation");
 				a.x = x - a.width / 2;
 				a.y = y - a.height / 2;

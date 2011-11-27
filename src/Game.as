@@ -3,6 +3,8 @@
 	import com.jacobalbano.Input;
 	import com.thaumaturgistgames.flakit.Engine;
 	import flash.net.SharedObject;
+	import com.thaumaturgistgames.flakit.Library;
+	import ifrit.IfritObject;
 	
 	import flash.display.Stage;
 	import flash.events.Event;
@@ -42,6 +44,8 @@
 		 * Blink
 		 */
 		private var blinkTimer:Timer = new Timer(0, 7);
+		private var blinkTo:Point;
+		private var endBlink:Boolean;
 		private var canBlink:Boolean;
 		 
 		private var canMelee:Boolean;
@@ -136,11 +140,33 @@
 							blinkTimer.start();
 							if (canBlink)
 							{
-								man.x -= 75;
+								blinkTo = new Point(man.x, man.y);
+								while (Point.distance(new Point(man.x, man.y), blinkTo) <= 75 && !endBlink)
+								{
+									blinkTo.x -=  5;
+									for (var a:int = World.Platforms.length - 1; a >= 0; a--)
+									{
+										if (World.Platforms[a].vertical)
+										{
+											if (World.Platforms[a].hitTestPoint(blinkTo.x, blinkTo.y))
+											{
+												endBlink = true;
+												break;
+											}
+											else  endBlink = false;
+										}
+									 }
+								}
+								
+								//TODO: See smokeFunc function definition below
+								World.addDecal(Library.IMG("smoke.png"), man.x, man.y, null, [0, 1, 2, 3, 4, 5], 40, 40, 10, false);
+								man.x = blinkTo.x;
 								canBlink = false;
 								HUD.buyAction(200, HUD.SPECIAL);
 							}
 						}
+						
+
 					}
 					else if (Input.isKeyDown(Input.RIGHT))
 					{
@@ -159,7 +185,25 @@
 							blinkTimer.start();
 							if (canBlink)
 							{
-								man.x += 75;
+								blinkTo = new Point(man.x, man.y);
+								while (Point.distance(new Point(man.x, man.y), blinkTo) <= 75 && !endBlink)
+								{
+									blinkTo.x +=  5;
+									for (var b:int = World.Platforms.length - 1; b >= 0; b--)
+									{
+										if (World.Platforms[b].vertical)
+										{
+											if (World.Platforms[b].hitTestPoint(blinkTo.x, blinkTo.y, true))
+											{
+												endBlink = true;
+												break;
+											}
+											else  endBlink = false;
+										}
+									 }
+								}
+								World.addDecal(Library.IMG("smoke.png"), man.x, man.y, null, [0, 1, 2, 3, 4, 5], 40, 40, 20, false);
+								man.x = blinkTo.x;
 								canBlink = false;
 								HUD.buyAction(200, HUD.SPECIAL);
 							}
@@ -263,14 +307,7 @@
 									{
 										if (!World.Projectiles[k].friendly)
 										{
-											if (shielding)
-											{
-												if (World.Projectiles[k].rotationY == 0)
-													if (World.Mobs[l].rotationY != 180)	HUD.damagePlayer(15, true);
-													
-												if (World.Projectiles[k].rotationY == 180)
-													if (World.Mobs[l].rotationY != 0)	HUD.damagePlayer(15, true);
-											}
+											if (shielding && (World.Projectiles[k].rotationY != World.Mobs[l].rotationY)) HUD.damagePlayer(0);
 											else	HUD.damagePlayer(15, true);
 										}
 										
@@ -383,6 +420,12 @@
 					}
 				}
 			}
+		}
+		
+		//TODO: Jake, could you fill this in for removing the smoke animation?
+		private function smokeFunc():void 
+		{
+			/* I tried what you suggested in the Issue but I couldn't really get it working */
 		}
 		
 		

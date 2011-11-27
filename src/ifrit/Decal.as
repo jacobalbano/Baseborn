@@ -22,7 +22,7 @@ package ifrit
 		 * @param	frameWidth		Width of animation frames
 		 * @param	frameHeight		Height of animation frames
 		 */
-		public function Decal(bitmap:Bitmap, x:Number, y:Number, callback:Function = null, frames:Array = null, frameRate:uint = 5, frameWidth:Number = 0, frameHeight:Number = 0, loop:Boolean = true ) 
+		public function Decal(bitmap:Bitmap, x:Number, y:Number, callback:Function = null, frames:Array = null, frameWidth:Number = 0, frameHeight:Number = 0, frameRate:Number = 0, loop:Boolean = true ) 
 		{
 			if (frames)
 			{

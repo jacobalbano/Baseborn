@@ -18,7 +18,9 @@ package ifrit
 		public static var FLYING:uint = 8;
 		public static var PASSIVE:uint = 16;
 		public static var AFRAID:uint = 32;
+		public static var BRAIN_DEAD:uint = 64;
 		
+		public var brainDead:Boolean;
 		public var heading:Boolean;
 		public var lastHeading:Boolean;
 		public var fleeMode:Boolean;
@@ -42,7 +44,8 @@ package ifrit
 			
 			this.behaviorFlags = behaviorFlags;
 			
-			if ( (this.behaviorFlags & FLYING) > 0)	this.hasGravity = false;
+			if ( (this.behaviorFlags & FLYING) > 0)		this.hasGravity = false;
+			if ( (this.behaviorFlags & BRAIN_DEAD) > 0)	this.brainDead = true;
 			
 			this.heading = true;
 			this.fleeMode = false;
@@ -65,6 +68,8 @@ package ifrit
 		override public function think():void 
 		{
 			super.think();
+			
+			if (this.brainDead)	return;
 			
 			if (this.pickup)	this.checkPickup();
 			

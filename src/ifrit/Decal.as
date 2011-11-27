@@ -10,6 +10,7 @@ package ifrit
 	 */
 	public class Decal extends IfritObject 
 	{
+		public var animation:Animation;
 		
 		private var callback:Function;
 		/**
@@ -26,20 +27,19 @@ package ifrit
 		{
 			if (frames)
 			{
-				var a:Animation = new Animation(bitmap, frameWidth, frameHeight);
-				a.add("animation", frames, frameRate, loop);
-				a.play("animation");
-				a.x = x - a.width / 2;
-				a.y = y - a.height / 2;
-				Game.stage.addChild(a);
+				this.animation = new Animation(bitmap, frameWidth, frameHeight);
+				animation.add("animation", frames, frameRate, loop);
+				animation.play("animation");
+				animation.x = x - animation.width / 2;
+				animation.y = y - animation.height / 2;
+				addChild(this.animation);
 			}
 			else
 			{
-				var s:Sprite = new Sprite;
-				s.addChild(bitmap);
-				s.x = x - s.width / 2;
-				s.y = y - s.height / 2;
-				addChild(s);
+				this.animation = new Animation(bitmap, bitmap.width, bitmap.height);
+				animation.x = x - animation.width / 2;
+				animation.y = y - animation.height / 2;
+				addChild(this.animation);
 			}
 			
 			if (callback != null)

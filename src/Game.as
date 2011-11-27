@@ -1,5 +1,6 @@
 ﻿package
 {
+	import com.jacobalbano.Animation;
 	import com.jacobalbano.Input;
 	import com.thaumaturgistgames.flakit.Engine;
 	import flash.net.SharedObject;
@@ -159,7 +160,7 @@
 								}
 								
 								//TODO: See smokeFunc function definition below
-								World.addDecal(Library.IMG("smoke.png"), man.x, man.y, null, [0, 1, 2, 3, 4, 5], 40, 40, 10, false);
+								World.addDecal(Library.IMG("smoke.png"), man.x, man.y, removeSmoke, [0, 1, 2, 3, 4, 5], 40, 40, 10, false);
 								man.x = blinkTo.x;
 								canBlink = false;
 								HUD.buyAction(200, HUD.SPECIAL);
@@ -202,7 +203,8 @@
 										}
 									 }
 								}
-								World.addDecal(Library.IMG("smoke.png"), man.x, man.y, null, [0, 1, 2, 3, 4, 5], 40, 40, 20, false);
+								
+								World.addDecal(Library.IMG("smoke.png"), man.x, man.y, removeSmoke, [0, 1, 2, 3, 4, 5], 40, 40, 20, false);
 								man.x = blinkTo.x;
 								canBlink = false;
 								HUD.buyAction(200, HUD.SPECIAL);
@@ -422,10 +424,9 @@
 			}
 		}
 		
-		//TODO: Jake, could you fill this in for removing the smoke animation?
-		private function smokeFunc():void 
+		private function removeSmoke(d:Decal):void 
 		{
-			/* I tried what you suggested in the Issue but I couldn't really get it working */
+			if (d.animation.playing != "animation")	Game.stage.removeChild(d);
 		}
 		
 		

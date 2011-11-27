@@ -44,6 +44,7 @@ package ifrit
 			Worlds = new Map(String, Function);
 			
 			Worlds.add("mainMenu", 	mainMenu);
+			Worlds.add("beach_01", loadBeach_01);
 			Worlds.add("castle_01", loadCastle_01);
 			Worlds.add("castle_02", loadCastle_02);
 		}
@@ -57,14 +58,37 @@ package ifrit
 			addButton(600, 250, Library.IMG("menu.fighter_button.png"), function ():void { Game.playerClass = Player.FIGHTER; 	SaveState.playerClass = Game.playerClass;	next();} );
 			addButton(600, 300, Library.IMG("menu.mage_button.png"), 	function ():void { Game.playerClass = Player.MAGE; 		SaveState.playerClass = Game.playerClass;	next(); } );
 			
+			nextLevel = "beach_01";
+		}
+		
+		private static function loadBeach_01():void
+		{
+			makeBounds();
+			
+			addDecal(Library.IMG("beach.bg.png"), 500, 250);
+			
+			addDecal(new Bitmap(new BitmapData(50, 50, true, 0)), 1023, 375, advance);
+			
+			addDecal(Library.IMG("beach.lightningBolt.png"), 100, 170, null, [0, 1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11, 12], 10, 66, 45, false);
+			addDecal(Library.IMG("beach.tower.png"), 942, 121);
+			addDecal(Library.IMG("beach.towerLightning.png"), 835, 30, null, [0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0 , 0 , 0, 0, 0, 0, 0, 0, 0, 0 ,1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11, 12, 13, 14, 15, 16, 17], 340, 72,  30, true);
+			
+			
+			addMan(500, 490);
+			
 			nextLevel = "castle_01";
+		}
+		
+		private static function addMan(x:int, y:int):void 
+		{
+			Mobs.push(Game.stage.addChild(Game.man = new Player(x, y, Game.playerClass)) as Mob);
 		}
 		
 		private static function loadCastle_01():void 
 		{
 			makeBounds();
 			
-			Game.stage.addChild(Library.IMG("castle.bg2.png"));
+			Game.stage.addChild(Library.IMG("castle.bg.png"));
 			
 			addDecal(Library.IMG("castle.decals.stainedGlass.png"), 515.5, 218);
 			
@@ -91,8 +115,6 @@ package ifrit
 			addEnemy(495, 130, ElfMage);
 			addEnemy(170, 180, ElfMage);
 			
-			Mobs.push(Game.stage.addChild(Game.man = new Player(50, 375, Game.playerClass)) as Mob);
-			
 			addWall( 0, 110, false);
 			addWall(150, 250, true);
 			addWall(255, 186, false);
@@ -107,6 +129,8 @@ package ifrit
 			addWall(227, 109, false);
 			addWall(745, 210, false);
 			addWall(1024, 315, false);
+			
+			addMan(50, 375);
 			
 			Game.stage.addChild(new HUD);
 			
@@ -151,19 +175,19 @@ package ifrit
 		 * Callback for the fade decal
 		 * @param	i			Standard reference parameter
 		 */
-		private static function fade(i:IfritObject):void
+		private static function fade(d:Decal):void
 		{
-			if (i.alpha > 0) i.alpha -= 0.075;
-			if (i.alpha <= 0)	Game.stage.removeChild(i);
+			if (d.alpha > 0) 	d.alpha -= 0.075;
+			if (d.alpha <= 0)	Game.stage.removeChild(d);
 		}
 		
 		/**
 		 * Check if player has reached the exit and load the next level
 		 * @param	i			Standard reference parameter
 		 */
-		static public function advance(i:IfritObject):void 
+		static public function advance(d:Decal):void 
 		{
-			if (Game.man.collisionHull.hitTestObject(i))	next();
+			if (Game.man.collisionHull.hitTestObject(d))	next();
 		}
 		
 		
@@ -198,7 +222,7 @@ package ifrit
 		 * @param	frameWidth	Width of animation frames
 		 * @param	frameHeight	Height of animation frames
 		 */
-		public static function addDecal(bitmap:Bitmap, x:Number, y:Number, callback:Function = null, frames:Array = null, frameWidth:Number = 0, frameHeight:Number = 0, frameRate:Number = 0, loop:Boolean = true):void
+		public static function addDecal(bitmap:Bitmap, x:Number, y:Number, callback:Function = null, frames:Array = null, frameWidth:Number = 0, frameHeight:Number = 0, frameRate:Number = 5, loop:Boolean = true):void
 		{
 			Game.stage.addChild(new Decal(bitmap, x, y, callback, frames, frameWidth, frameHeight, frameRate, loop));
 		}

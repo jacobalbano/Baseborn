@@ -43,9 +43,8 @@ package ifrit
 		private var shurikenTxt:TextField
 		private var shurikenTxtFormat:TextFormat;
 		private static var caltrops:Sprite;
-		private var caltropTxt:TextField
-		private var caltropTxtFormat:TextFormat;
 		private static var blink:Sprite;
+		
 		private static var arrows:Sprite;
 		private var arrowTxt:TextField
 		private var arrowTxtFormat:TextFormat;
@@ -171,21 +170,6 @@ package ifrit
 			caltrops.x = 750;
 			caltrops.y = 454;
 			
-			caltropTxt = new TextField();
-			caltropTxt.type = TextFieldType.DYNAMIC;
-			caltropTxt.textColor = 0xFFFFFF;
-			caltropTxt.x = caltrops.x;
-			caltropTxt.y = caltrops.y - 4;
-			caltropTxt.height = 14;
-			caltropTxt.width = 200;
-			
-			caltropTxtFormat = new TextFormat();
-			caltropTxtFormat.size = 10;
-			caltropTxtFormat.align = "center";
-			caltropTxt.defaultTextFormat = caltropTxtFormat;
-			
-			
-			
 			blink = new Sprite();
 			blink.graphics.beginFill(0x9AC193);
 			blink.graphics.drawRect(0, 0, 200, 9);
@@ -199,9 +183,6 @@ package ifrit
 				
 				icon1 = Library.IMG("icons.shurikenIcon.png");
 				icon2 = Library.IMG("icons.caltropIcon.png");
-				
-				//addChild(caltrops);
-				//addChild(caltropTxt);
 				
 				addChild(shuriken);
 				addChild(shurikenTxt);
@@ -265,19 +246,6 @@ package ifrit
 			
 			totalHealth = (200 * healthScale);
 			totalMana = 200;
-			
-			
-			//enemyHealth = new Sprite();
-			//enemyHealth.graphics.beginFill(0x43CE00, 0.9);
-			//enemyHealth.graphics.drawRect(0, 0, 15, 3);
-			//enemyHealth.graphics.endFill();
-			//
-			//for (var l:int = World.Mobs.length - 1; l >= 0; l--)
-			//{
-				//enemyHealth.x = World.Mobs[l].x;
-				//enemyHealth.y = World.Mobs[l].y - 4;
-				//addChild(enemyHealth);
-			//}
 		}
 		
 		override protected function update():void 
@@ -323,7 +291,7 @@ package ifrit
 			if (energy) {   if (energy.width < 200)   energy.width += 1.5;   }
 			
 			if (shuriken)  shurikenTxt.text = String(Math.round(shuriken.width / 20)) + "/" + String(200 / 20)
-			if (caltrops)  caltropTxt.text = String(Math.round(caltrops.width / 13.33)) + "/" + String(Math.round(200 / 13.33));
+			//if (caltrops)  caltropTxt.text = String(Math.round(caltrops.width / 13.33)) + "/" + String(Math.round(200 / 13.33));
 			if (blink)	{	if (blink.width < 200)	blink.width += .75;	}
 			
 			if (arrows)  arrowTxt.text = String(Math.round(arrows.width / 10)) + "/" + String(200 / 10);

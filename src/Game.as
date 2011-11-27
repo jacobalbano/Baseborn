@@ -246,7 +246,7 @@
 				
 				if (Input.isKeyDown(Input.D))
 				{
-					man.graphic.play("attack");
+					if (man.type != Player.MAGE)	man.graphic.play("attack");
 					beginMeleeAttack();
 				}
 				else
@@ -483,7 +483,7 @@
 		{
 			if (man.type == Player.MAGE)
 			{
-				if (!frostAttack && HUD.testCost(0, 50))
+				if (!frostAttack && HUD.testCost(50))
 				{
 					stopFrost();
 					man.graphic.play("attack");
@@ -499,7 +499,7 @@
 			{
 				if ( !(Input.isKeyDown(Input.LEFT) || Input.isKeyDown(Input.RIGHT) ) )
 				{					
-					if (HUD.testCost(25, 95))
+					if (HUD.testCost(95, 25))
 					{
 						man.graphic.play("casting");
 						

@@ -36,6 +36,7 @@ package ifrit
 		public var collisionHull:Sprite;
 		protected var halfSize:Point;
 		protected var classType:uint;
+		private var healthMeter:Sprite;
 		
 		public var walkRight:Number;
 		public var walkLeft:Number;
@@ -83,6 +84,15 @@ package ifrit
 			this.hasGravity = true;
 			
 			this.rangedType = MeleeSwing;
+			
+			//if (!this.friendly)
+			//{
+				//this.healthMeter = new Sprite();
+				//this.healthMeter.graphics.beginFill(0x18BF00, 0.75);
+				//this.healthMeter.graphics.drawRect(this.x, this.y - 20, this.hitpoints, 3);
+				//this.healthMeter.graphics.endFill();
+				//Game.stage.addChild(this.healthMeter);
+			//}
 		}
 		
 		public function collideWithMob(obj:Mob):Boolean
@@ -224,6 +234,13 @@ package ifrit
 		
 		override protected function update():void 
 		{
+			//if (healthMeter)
+			//{
+				//healthMeter.width = this.hitpoints;
+				//this.healthMeter.x = this.container.x;
+				//this.healthMeter.y = this.container.y;
+			//}
+			
 			if (this.freezeTimer.running)
 			{
 				this.graphic.play("stand");

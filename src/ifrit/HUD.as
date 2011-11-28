@@ -129,7 +129,7 @@ package ifrit
 			energyTxtFormat.align = "center";
 			energyTxt.defaultTextFormat = energyTxtFormat;
 			
-			if (Game.man.type == Player.MAGE)
+			if (Game.playerClass == Player.MAGE)
 			{	
 				healthScale = 1;
 				
@@ -177,7 +177,7 @@ package ifrit
 			blink.x = 750;
 			blink.y = 454;
 			
-			if (Game.man.type == Player.ROGUE)
+			if (Game.playerClass == Player.ROGUE)
 			{
 				healthScale = 2;
 				
@@ -221,7 +221,7 @@ package ifrit
 			shield.x = 750;
 			shield.y = 454;
 
-			if (Game.man.type == Player.FIGHTER)
+			if (Game.playerClass == Player.FIGHTER)
 			{
 				healthScale = 3;
 				

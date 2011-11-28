@@ -15,9 +15,9 @@ package ifrit
 		public var container:Sprite;
 		public var vertical:Boolean;
 		
-		public function Platform(x:Number, y:Number, vertical:Boolean, size:int = 200) 
+		public function Platform(x:Number, y:Number, vertical:Boolean, bitmap:Bitmap, size:int = 200 ) 
 		{
-			var source:BitmapData = Library.IMG("platform.png").bitmapData;
+			var source:BitmapData = bitmap.bitmapData;
 			var w:int = size < 3 ? 3 : size;
 			
 			this.buffer = new BitmapData(w, 10, true, 0);

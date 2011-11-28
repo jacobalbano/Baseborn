@@ -45,6 +45,7 @@ package ifrit
 			
 			Worlds.add("mainMenu", 	mainMenu);
 			Worlds.add("beach_01", loadBeach_01);
+			Worlds.add("forest_01", loadForest_01);
 			Worlds.add("castle_01", loadCastle_01);
 			Worlds.add("castle_02", loadCastle_02);
 		}
@@ -75,12 +76,18 @@ package ifrit
 			
 			addMan(500, 490, Player.NONE);
 			
-			nextLevel = "castle_01";
+			nextLevel = "forest_01";
 		}
 		
-		private static function addMan(x:int, y:int, type:uint):void 
+		private static function loadForest_01():void
 		{
-			Mobs.push(Game.stage.addChild(Game.man = new Player(x, y, type)) as Mob);
+			makeBounds();
+			
+			addDecal(Library.IMG("forest.forestBG.png"), 500, 200);
+			
+			addMan(50, 375, Game.playerClass);
+			
+			Game.stage.addChild(new HUD);
 		}
 		
 		private static function loadCastle_01():void 
@@ -114,20 +121,20 @@ package ifrit
 			addEnemy(495, 130, ElfMage);
 			addEnemy(170, 180, ElfMage);
 			
-			addWall( 0, 110, false);
-			addWall(150, 250, true);
-			addWall(255, 186, false);
-			addWall(495, 229, false);
-			addWall(495, 144, false);
-			addWall(800, 110, false, 400);
-			addWall(772, 414, true);
-			addWall(600, 346, false);
-			addWall(375, 371, false);
-			addWall(829, 315, false);
-			addWall(700, 272, false);
-			addWall(227, 109, false);
-			addWall(745, 210, false);
-			addWall(1024, 315, false);
+			addWall( 0, 110, false, Library.IMG("castle.platform.png"));
+			addWall(150, 250, true, Library.IMG("castle.platform.png"));
+			addWall(255, 186, false, Library.IMG("castle.platform.png"));
+			addWall(495, 229, false, Library.IMG("castle.platform.png"));
+			addWall(495, 144, false, Library.IMG("castle.platform.png"));
+			addWall(800, 110, false, Library.IMG("castle.platform.png"), 400);
+			addWall(772, 414, true, Library.IMG("castle.platform.png"));
+			addWall(600, 346, false, Library.IMG("castle.platform.png"));
+			addWall(375, 371, false, Library.IMG("castle.platform.png"));
+			addWall(829, 315, false, Library.IMG("castle.platform.png"));
+			addWall(700, 272, false, Library.IMG("castle.platform.png"));
+			addWall(227, 109, false, Library.IMG("castle.platform.png"));
+			addWall(745, 210, false, Library.IMG("castle.platform.png"));
+			addWall(1024, 315, false, Library.IMG("castle.platform.png"));
 			
 			addMan(50, 375, Game.playerClass);
 			
@@ -143,6 +150,19 @@ package ifrit
 		
 		//}
 		//	Worlds end
+		
+		
+		/**
+		 * Add the player to the world
+		 * @param	x		Position on x
+		 * @param	y		Position on y
+		 * @param	type	Player class
+		 */
+		private static function addMan(x:int, y:int, type:uint):void 
+		{
+			Mobs.push(Game.stage.addChild(Game.man = new Player(x, y, type)) as Mob);
+		}
+		
 		
 		/**
 		 * Loads a level and unloads the previous one
@@ -193,9 +213,9 @@ package ifrit
 		 * @param	y			Position on y
 		 * @param	vertical	Whether the platform should be rotated vertically
 		 */
-		public static function addWall(x:Number, y:Number, vertical:Boolean, size:int = 200):void
+		public static function addWall(x:Number, y:Number, vertical:Boolean, bitmap:Bitmap, size:int = 200):void
 		{
-			Platforms.push(Game.stage.addChild(new Platform(x, y, vertical, size) ) );
+			Platforms.push(Game.stage.addChild(new Platform(x, y, vertical, bitmap, size) ) );
 		}
 		
 		/**
@@ -251,25 +271,25 @@ package ifrit
 		 */
 		public static function makeBounds():void
 		{
-			addWall(-5, 100, true);
-			addWall(-5, 300, true);
-			addWall( -5, 500, true);
+			addWall(-5, 100, true, Library.IMG("misc.clipPlatform.png"));
+			addWall(-5, 300, true, Library.IMG("misc.clipPlatform.png"));
+			addWall( -5, 500, true, Library.IMG("misc.clipPlatform.png"));
 			
-			addWall(100, 405, false);
-			addWall(300, 405, false);
-			addWall(500, 405, false);
-			addWall(700, 405, false);
-			addWall(900, 405, false);
+			addWall(100, 405, false, Library.IMG("misc.clipPlatform.png"));
+			addWall(300, 405, false, Library.IMG("misc.clipPlatform.png"));
+			addWall(500, 405, false, Library.IMG("misc.clipPlatform.png"));
+			addWall(700, 405, false, Library.IMG("misc.clipPlatform.png"));
+			addWall(900, 405, false, Library.IMG("misc.clipPlatform.png"));
 			
-			addWall(1005, 100, true);
-			addWall(1005, 300, true);
-			addWall( 1005, 500, true);
+			addWall(1005, 100, true, Library.IMG("misc.clipPlatform.png"));
+			addWall(1005, 300, true, Library.IMG("misc.clipPlatform.png"));
+			addWall( 1005, 500, true, Library.IMG("misc.clipPlatform.png"));
 			
-			addWall(100, -5, false)
-			addWall(300, -5, false)
-			addWall(500, -5, false)
-			addWall(700, -5, false)
-			addWall(900, -5, false)
+			addWall(100, -5, false, Library.IMG("misc.clipPlatform.png"));
+			addWall(300, -5, false, Library.IMG("misc.clipPlatform.png"));
+			addWall(500, -5, false, Library.IMG("misc.clipPlatform.png"));
+			addWall(700, -5, false, Library.IMG("misc.clipPlatform.png"));
+			addWall(900, -5, false, Library.IMG("misc.clipPlatform.png"));
 		}
 		
 		/**

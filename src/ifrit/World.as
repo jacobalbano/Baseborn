@@ -70,7 +70,6 @@ package ifrit
 			addDecal(new Bitmap(new BitmapData(50, 50, true, 0)), 1023, 375, advance);
 			
 			addDecal(Library.IMG("beach.lightningBolt.png"), 100, 170, null, [0, 1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11, 12], 10, 66, 45, false);
-			addDecal(Library.IMG("beach.tower.png"), 942, 121);
 			addDecal(Library.IMG("beach.towerLightning.png"), 835, 30, null, [0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0 , 0 , 0, 0, 0, 0, 0, 0, 0, 0 ,1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11, 12, 13, 14, 15, 16, 17], 340, 72,  30, true);
 			
 			

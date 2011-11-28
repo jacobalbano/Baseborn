@@ -18,8 +18,6 @@ package ifrit
 			
 			this.damage = 10;
 			this.static = true;
-			
-			//if (this.friendly)	HUD.buyAction(13.3, HUD.SPECIAL);
 		}
 		
 		override protected function update():void 

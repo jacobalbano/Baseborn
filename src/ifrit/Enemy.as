@@ -63,7 +63,24 @@ package ifrit
 			this.graphic.add("shocked", [10, 11, 12, 13], 6, false);
 			this.graphic.play("walk");
 		}
-
+		
+		override public function preThink():void 
+		{
+			super.preThink();
+			
+			if (this.freezeTimer.currentCount >= 3)
+			{
+				this.freezeTimer.stop();
+				this.frozen = false;
+				this.struck = false;
+			}
+			
+			if (this.freezeTimer.running)
+			{
+				this.graphic.play("stand");
+				skipThink = true;
+			}
+		}
 		
 		override public function think():void 
 		{

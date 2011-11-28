@@ -236,7 +236,7 @@
 				
 				if (Input.isKeyDown(Input.A) )
 				{
-					doRangedAttack();
+					beginRangedAttack();
 				}
 				else
 				{
@@ -430,7 +430,7 @@
 		}
 		
 		
-		private function doRangedAttack():void 
+		private function beginRangedAttack():void 
 		{			
 			if (man.type == Player.MAGE)
 			{
@@ -532,8 +532,11 @@
 			
 			if (man.type == Player.ROGUE)
 			{
-				//if (HUD.testCost(0, 0, 0, 13.3))
+				if (hasCaltrop)
+				{
+					hasCaltrop = false;
 					man.shoot(Caltrop);
+				}
 			}
 		}
 		

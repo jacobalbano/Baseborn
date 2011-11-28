@@ -20,9 +20,9 @@ package ifrit
 		public var graphic:Animation;
 		protected var container:Sprite;
 		
-		private var attackTimer:Timer;
-		private var freezeTimer:Timer;
-		private var frozen:Boolean;
+		protected var attackTimer:Timer;
+		protected var freezeTimer:Timer;
+		protected var frozen:Boolean;
 		public var struck:Boolean;
 		
 		//	Physics
@@ -37,6 +37,7 @@ package ifrit
 		protected var halfSize:Point;
 		protected var classType:uint;
 		private var healthMeter:Sprite;
+		protected var skipThink:Boolean;
 		
 		public var walkRight:Number;
 		public var walkLeft:Number;
@@ -156,7 +157,7 @@ package ifrit
 			velocity.y = 0;
 		}
 		
-		public function shoot(ammo:Class = null):void
+		public function shoot(ammo:Class = null):Projectile
 		{
 			if (attackTimer.currentCount == attackTimer.repeatCount)
 			{
@@ -233,29 +234,13 @@ package ifrit
 		}
 		
 		override protected function update():void 
-		{
-			//if (healthMeter)
-			//{
-				//healthMeter.width = this.hitpoints;
-				//this.healthMeter.x = this.container.x;
-				//this.healthMeter.y = this.container.y;
-			//}
+		{			
+			preThink();
 			
-			if (this.freezeTimer.running)
-			{
-				this.graphic.play("stand");
-			}
-			else
-			{
-				think();
-			}
+			if (!skipThink)	think();
+			skipThink = false;
 			
-			if (this.freezeTimer.currentCount >= 3)
-			{
-				this.freezeTimer.stop();
-				this.frozen = false;
-				this.struck = false;
-			}
+			postThink();
 			
 			if (gravUp)
 				velocity.y += Rules.gravity;
@@ -325,6 +310,22 @@ package ifrit
 			}
 			
 			this.collisionHull.rotationY = 0;
+		}
+		
+		/**
+		 * Override this; Called before think phase
+		 */
+		public function preThink():void 
+		{
+			
+		}
+		
+		/**
+		 * Override this; Called after think phase
+		 */
+		public function postThink():void 
+		{
+			
 		}
 	
 	}

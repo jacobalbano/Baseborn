@@ -15,6 +15,7 @@ package ifrit
 		public static const MAGE:uint = 0;
 		public static const ROGUE:uint = 2;
 		public static const FIGHTER:uint = 4;
+		public static const NONE:uint = 8;
 		
 		private	var idle:Boolean;
 		
@@ -29,6 +30,7 @@ package ifrit
 				case 0:		animationName = "mage.png";		        frameWidth = 18;	frameHeight = 25;		break;
 				case 2:		animationName = "rogue.png";		    frameWidth = 24;	frameHeight = 25;		break;
 				case 4:		animationName = "fighter.png";			frameWidth = 38;	frameHeight = 33;		break;
+				case 8:		animationName = "unclassed.png";		frameWidth = 15;	frameHeight = 25;		break;
 			}
 			
 			super( x, y, Library.IMG(animationName), frameWidth, frameHeight, 18, 25);
@@ -37,15 +39,18 @@ package ifrit
 			{
 				case 0:
 					this.rangedType = Fireball;
+					graphic.add("stand", [1], 0, true);
 					graphic.add("attack", [6, 7, 8, 9], 12, false);
 					graphic.add("casting", [6, 6, 6, 6], 12, false, true);
 					break;
 				case 2:
 					this.rangedType = Shuriken;
+					graphic.add("stand", [1], 0, true);
 					graphic.add("attack", [6, 7, 8, 9], 12, false);
 					break;
 				case 4:
 					this.rangedType = Arrow;
+					graphic.add("stand", [1], 0, true);
 					graphic.add("attack", [4, 5, 6, 7], 12, false);
 					graphic.add("shield", [8, 9, 10, 11], 20, false, true);
 					graphic.add("pull", [12, 13, 14, 15], 12, false, true);
@@ -55,12 +60,13 @@ package ifrit
 					graphic.add("release45", [22, 23, 24, 25], 18, false);
 					graphic.add("release135", [26, 27, 28, 29], 18, false);
 					break;
+				case 8:
+					graphic.add("stand", [4], 0, true);
 				default:	
 			}
 			
 			this.classType = type;
 			
-			graphic.add("stand", [1], 0, true);
 			graphic.add("walk", [0, 1, 2, 3], 6, true);
 			graphic.add("shoot", [6, 7, 8, 9], 12, false);
 			graphic.play("stand");

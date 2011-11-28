@@ -74,14 +74,14 @@ package ifrit
 			addDecal(Library.IMG("beach.towerLightning.png"), 835, 30, null, [0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0 , 0 , 0, 0, 0, 0, 0, 0, 0, 0 ,1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11, 12, 13, 14, 15, 16, 17], 340, 72,  30, true);
 			
 			
-			addMan(500, 490);
+			addMan(500, 490, Player.NONE);
 			
 			nextLevel = "castle_01";
 		}
 		
-		private static function addMan(x:int, y:int):void 
+		private static function addMan(x:int, y:int, type:uint):void 
 		{
-			Mobs.push(Game.stage.addChild(Game.man = new Player(x, y, Game.playerClass)) as Mob);
+			Mobs.push(Game.stage.addChild(Game.man = new Player(x, y, type)) as Mob);
 		}
 		
 		private static function loadCastle_01():void 
@@ -130,7 +130,7 @@ package ifrit
 			addWall(745, 210, false);
 			addWall(1024, 315, false);
 			
-			addMan(50, 375);
+			addMan(50, 375, Game.playerClass);
 			
 			Game.stage.addChild(new HUD);
 			

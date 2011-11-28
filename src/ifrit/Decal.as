@@ -25,22 +25,33 @@ package ifrit
 		 */
 		public function Decal(bitmap:Bitmap, x:Number, y:Number, callback:Function = null, frames:Array = null, frameWidth:Number = 0, frameHeight:Number = 0, frameRate:Number = 0, loop:Boolean = true ) 
 		{
+			var container:Sprite = new Sprite;
+			addChild(container);
+			
 			if (frames)
 			{
 				this.animation = new Animation(bitmap, frameWidth, frameHeight);
+				container.addChild(this.animation);
 				animation.add("animation", frames, frameRate, loop);
 				animation.play("animation");
-				animation.x = x - animation.width / 2;
-				animation.y = y - animation.height / 2;
-				addChild(this.animation);
+				
+				container.x = -frameWidth /2;
+				container.y = -frameHeight /2;
+			
+				this.x = x;
+				this.y = y;
 			}
 			else
 			{
 				this.animation = new Animation(bitmap, bitmap.width, bitmap.height);
-				animation.x = x - animation.width / 2;
-				animation.y = y - animation.height / 2;
-				addChild(this.animation);
-			}
+				container.addChild(this.animation);
+				
+				container.x = -this.animation.width /2;
+				container.y = -this.animation.height /2;
+			
+				this.x = x;
+				this.y = y;
+			}			
 			
 			if (callback != null)
 			{

@@ -157,7 +157,7 @@ package ifrit
 			velocity.y = 0;
 		}
 		
-		public function shoot(ammo:Class = null):void
+		public function shoot(ammo:Class = null):Projectile
 		{
 			if (attackTimer.currentCount == attackTimer.repeatCount)
 			{
@@ -165,6 +165,7 @@ package ifrit
 			}
 			
 			var ammunition:Class;
+			var shot:Projectile = null;
 			
 			if (ammo)
 			{
@@ -182,20 +183,22 @@ package ifrit
 				if (this.rotationY == 180)
 				{
 					if (this.classType == Player.FIGHTER)
-						stage.addChild(new ammunition(-15, this.x - this.halfSize.x + 6, this.y + 6, this.friendly));
+						stage.addChild(shot = new ammunition(-15, this.x - this.halfSize.x + 6, this.y + 6, this.friendly));
 					else
-						stage.addChild(new ammunition(-10, this.x - this.halfSize.x + 10, this.y, this.friendly));
+						stage.addChild(shot = new ammunition(-10, this.x - this.halfSize.x + 10, this.y, this.friendly));
 				}
 				else
 				{
 					if (this.classType == Player.FIGHTER)
-						stage.addChild(new ammunition(15, this.x - this.halfSize.x + 16, this.y + 6, this.friendly));
+						stage.addChild(shot = new ammunition(15, this.x - this.halfSize.x + 16, this.y + 6, this.friendly));
 					else
-						stage.addChild(new ammunition(10, this.x - this.halfSize.x + 10, this.y, this.friendly));
+						stage.addChild(shot = new ammunition(10, this.x - this.halfSize.x + 10, this.y, this.friendly));
 				}
 				
-				World.Projectiles.push(stage.getChildAt(stage.numChildren - 1));
+				World.Projectiles.push(shot);
 			}
+			
+			return shot;
 			
 		}
 		

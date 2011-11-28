@@ -19,7 +19,7 @@ package ifrit
 		
 		public var hasPhysics:Boolean;
 		public var stopped:Boolean;
-		public var static:Boolean;
+		public var isStatic:Boolean;
 		public var damage:Number;
 		protected var container:Sprite;
 		protected var dx:int;

@@ -39,12 +39,16 @@ package ifrit
 		 
 		public var canMelee:Boolean;
 		public var canShoot:Boolean;
+		
 		public var hasCaltrop:Boolean;
+		public var activeCaltrop:Caltrop;
+		public var canDrop:Boolean;	
 		
 		public static const MAGE:uint = 0;
 		public static const ROGUE:uint = 2;
 		public static const FIGHTER:uint = 4;
 		public static const NONE:uint = 8;
+
 		
 		private	var idle:Boolean;
 		

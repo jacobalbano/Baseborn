@@ -17,7 +17,7 @@ package ifrit
 			if (direction < 0)	this.vx = -3;
 			
 			this.damage = 10;
-			this.static = true;
+			this.isStatic = true;
 		}
 		
 		override protected function update():void 

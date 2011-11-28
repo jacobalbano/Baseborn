@@ -275,7 +275,7 @@
 						{
 							if (World.Projectiles[k].hitTestObject(World.Mobs[l].collisionHull))
 							{
-								if (World.Projectiles[k].static || !World.Projectiles[k].stopped)
+								if (World.Projectiles[k].isStatic || !World.Projectiles[k].stopped)
 								{
 									if (World.Projectiles[k].friendly != World.Mobs[l].friendly)
 									{
@@ -286,18 +286,21 @@
 										}
 										
 										World.Mobs[l].hitpoints -= World.Projectiles[k].damage;
-										stage.removeChild(World.Projectiles[k]);
-										World.Projectiles[k].destroy();
-										World.Projectiles.splice(k, 1);
-										
-										removed = true;
-										
-										break;
+										if (!World.Projectiles[k].isStatic)
+										{
+											stage.removeChild(World.Projectiles[k]);
+											World.Projectiles[k].destroy();
+											World.Projectiles.splice(k, 1);
+											
+											removed = true;
+											
+											break;
+										}
 									}
 								}
 								else
 								{
-									if (World.Projectiles[k].friendly == World.Mobs[l].friendly && !World.Projectiles[k].static)
+									if (World.Projectiles[k].friendly == World.Mobs[l].friendly && !World.Projectiles[k].isStatic)
 									{
 										HUD.restoreAmmo(1);
 										stage.removeChild(World.Projectiles[k]);
@@ -504,12 +507,10 @@
 			
 			if (man.type == Player.ROGUE)
 			{
-				if (man.hasCaltrop)
-				{
-					man.hasCaltrop = false;
-					man.shoot(Caltrop);
-				}
+				man.canDrop = true;
 			}
+			
+			
 		}
 		
 		private function finalizeSpecialAttack():void
@@ -529,6 +530,39 @@
 				{
 					man.graphic.play("stand");
 					man.shielding = false;
+				}
+			}
+			
+			if (man.type == Player.ROGUE)
+			{
+				if (man.canDrop)
+				{
+					if (man.hasCaltrop)
+					{
+						man.hasCaltrop = false;
+						man.activeCaltrop =	(man.shoot(Caltrop) as Caltrop);
+					}
+					else
+					{
+						if (man.activeCaltrop)
+						{
+							if (man.collisionHull.hitTestObject(man.activeCaltrop))
+							{
+								man.hasCaltrop = true;
+								Game.stage.removeChild(man.activeCaltrop);
+								
+								for (var p:int = World.Projectiles.length; p --> 0; )
+								{
+									if (World.Projectiles[p] == man.activeCaltrop)
+									{
+										World.Projectiles.splice(p, 1);
+										break;
+									}
+								}
+							}
+						}
+					}
+					man.canDrop = false;
 				}
 			}
 			

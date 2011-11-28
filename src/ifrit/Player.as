@@ -2,7 +2,8 @@ package ifrit
 {
 	import com.jacobalbano.Input;
 	import com.thaumaturgistgames.flakit.Library;
-	
+	import flash.utils.Timer;
+	import flash.geom.Point;
 	
 	/**
 	 * ...
@@ -11,6 +12,34 @@ package ifrit
 	 */
 	public class Player extends Mob
 	{
+				/**
+		 * Lightning bolt
+		 */
+		public var lightningAttack:LightningBolt;
+		public var bolting:Boolean; // Lightning bolt animation is playing
+		public var boltTime:Timer = new Timer(30, 0);
+		
+		/**
+		 * Frost bolt
+		 */
+		public var frostAttack:FrostBolt;
+		
+		/**
+		 * Shield
+		 */
+		public var shielding:Boolean;
+		
+		/**
+		 * Blink
+		 */
+		public var blinkTimer:Timer;
+		public var blinkTo:Point;
+		public var endBlink:Boolean;
+		public var canBlink:Boolean;
+		 
+		public var canMelee:Boolean;
+		public var canShoot:Boolean;
+		public var hasCaltrop:Boolean;
 		
 		public static const MAGE:uint = 0;
 		public static const ROGUE:uint = 2;
@@ -73,6 +102,11 @@ package ifrit
 			
 			this.friendly = true;
 			this.idle = false;
+			
+			this.hasCaltrop = true;
+			this.blinkTimer = new Timer(0, 7);
+			this.lightningAttack = null;
+			this.bolting = false;
 		}
 		
 		override public function think():void 

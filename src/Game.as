@@ -24,34 +24,6 @@
 		public static var man:Player;
 		public static var playerClass:uint = Player.FIGHTER;
 		
-		/**
-		 * Lightning bolt
-		 */
-		public static var lightningAttack:LightningBolt;
-		public static var bolting:Boolean; // Lightning bolt animation is playing
-		public var boltTime:Timer = new Timer(30, 0);
-		
-		/**
-		 * Frost bolt
-		 */
-		private var frostAttack:FrostBolt;
-		
-		/**
-		 * Shield
-		 */
-		private var shielding:Boolean;
-		
-		/**
-		 * Blink
-		 */
-		private var blinkTimer:Timer = new Timer(0, 7);
-		private var blinkTo:Point;
-		private var endBlink:Boolean;
-		private var canBlink:Boolean;
-		 
-		private var canMelee:Boolean;
-		private var canShoot:Boolean;
-		
 		public function Game()	{}
 		
 		override public function init():void 
@@ -128,41 +100,41 @@
 					{
 						stopBolt();
 						
-						if (man.graphic.playing != "attack" && man.graphic.playing != "shoot" && !shielding)
+						if (man.graphic.playing != "attack" && man.graphic.playing != "shoot" && !man.shielding)
 							man.graphic.play("walk");
 							
-						if (shielding)	man.x -= 2;
-						else 			man.x -= 7;
+						if (man.shielding)	man.x -= 2;
+						else 				man.x -= 7;
 						
 						man.rotationY = 180;
 						
 						if (man.type == Player.ROGUE)
 						{
-							blinkTimer.start();
-							if (canBlink)
+							man.blinkTimer.start();
+							if (man.canBlink)
 							{
-								blinkTo = new Point(man.x, man.y);
-								while (Point.distance(new Point(man.x, man.y), blinkTo) <= 75 && !endBlink)
+								man.blinkTo = new Point(man.x, man.y);
+								while (Point.distance(new Point(man.x, man.y), man.blinkTo) <= 75 && !man.endBlink)
 								{
-									blinkTo.x -=  5;
+									man.blinkTo.x -=  5;
 									for (var a:int = World.Platforms.length - 1; a >= 0; a--)
 									{
 										if (World.Platforms[a].vertical)
 										{
-											if (World.Platforms[a].hitTestPoint(blinkTo.x, blinkTo.y))
+											if (World.Platforms[a].hitTestPoint(man.blinkTo.x, man.blinkTo.y))
 											{
-												endBlink = true;
+												man.endBlink = true;
 												break;
 											}
-											else  endBlink = false;
+											else  man.endBlink = false;
 										}
 									 }
 								}
 								
 								//TODO: See smokeFunc function definition below
 								World.addDecal(Library.IMG("smoke.png"), man.x, man.y, removeSmoke, [0, 1, 2, 3, 4, 5], 40, 40, 10, false);
-								man.x = blinkTo.x;
-								canBlink = false;
+								man.x = man.blinkTo.x;
+								man.canBlink = false;
 								HUD.buyAction(200, HUD.SPECIAL);
 							}
 						}
@@ -173,40 +145,40 @@
 					{
 						stopBolt();
 						
-						if (man.graphic.playing != "attack" &&	man.graphic.playing != "shoot" 	&& !shielding)
+						if (man.graphic.playing != "attack" &&	man.graphic.playing != "shoot" 	&& !man.shielding)
 								man.graphic.play("walk");
 							
-						if (shielding)	man.x += 2;
+						if (man.shielding)	man.x += 2;
 						else			man.x += 7;
 						
 						man.rotationY = 0;
 						
 						if (man.type == Player.ROGUE)
 						{
-							blinkTimer.start();
-							if (canBlink)
+							man.blinkTimer.start();
+							if (man.canBlink)
 							{
-								blinkTo = new Point(man.x, man.y);
-								while (Point.distance(new Point(man.x, man.y), blinkTo) <= 75 && !endBlink)
+								man.blinkTo = new Point(man.x, man.y);
+								while (Point.distance(new Point(man.x, man.y), man.blinkTo) <= 75 && !man.endBlink)
 								{
-									blinkTo.x +=  5;
+									man.blinkTo.x +=  5;
 									for (var b:int = World.Platforms.length - 1; b >= 0; b--)
 									{
 										if (World.Platforms[b].vertical)
 										{
-											if (World.Platforms[b].hitTestPoint(blinkTo.x, blinkTo.y, true))
+											if (World.Platforms[b].hitTestPoint(man.blinkTo.x, man.blinkTo.y, true))
 											{
-												endBlink = true;
+												man.endBlink = true;
 												break;
 											}
-											else  endBlink = false;
+											else  man.endBlink = false;
 										}
 									 }
 								}
 								
 								World.addDecal(Library.IMG("smoke.png"), man.x, man.y, removeSmoke, [0, 1, 2, 3, 4, 5], 40, 40, 20, false);
-								man.x = blinkTo.x;
-								canBlink = false;
+								man.x = man.blinkTo.x;
+								man.canBlink = false;
 								HUD.buyAction(200, HUD.SPECIAL);
 							}
 						}
@@ -215,14 +187,14 @@
 					{
 						if (man.isIdle) 	man.graphic.play("stand", true);
 						
-						if (blinkTimer.running && HUD.testCost(0, 0, 0, 200))	canBlink = true;
-						else canBlink = false;
+						if (man.blinkTimer.running && HUD.testCost(0, 0, 0, 200))	man.canBlink = true;
+						else man.canBlink = false;
 						
-						if (blinkTimer.currentCount == blinkTimer.repeatCount)
-							if (!blinkTimer.running)	blinkTimer.reset();
+						if (man.blinkTimer.currentCount == man.blinkTimer.repeatCount)
+							if (!man.blinkTimer.running)	man.blinkTimer.reset();
 					}
 				}
-				if (blinkTimer.currentCount == blinkTimer.repeatCount)	blinkTimer.stop();
+				if (man.blinkTimer.currentCount == man.blinkTimer.repeatCount)	man.blinkTimer.stop();
 				
 				if (man.canJump)
 				{
@@ -240,7 +212,7 @@
 				}
 				else
 				{
-					if (canShoot)
+					if (man.canShoot)
 						finalizeRangedAttack();
 				}
 				
@@ -251,7 +223,7 @@
 				}
 				else
 				{
-					if (canMelee)
+					if (man.canMelee)
 						finalizeMeleeAttack();
 				}
 				
@@ -264,12 +236,12 @@
 					finalizeSpecialAttack();
 				}
 				
-				if (boltTime.currentCount >= 12)
+				if (man.boltTime.currentCount >= 12)
 				{
 					stopBolt();
 				}
 				
-				if (frostAttack && frostAttack.finished)
+				if (man.frostAttack && man.frostAttack.finished)
 				{
 					stopFrost();
 				}
@@ -309,7 +281,7 @@
 									{
 										if (!World.Projectiles[k].friendly)
 										{
-											if (shielding && (World.Projectiles[k].rotationY != World.Mobs[l].rotationY)) HUD.damagePlayer(0);
+											if (man.shielding && (World.Projectiles[k].rotationY != World.Mobs[l].rotationY)) HUD.damagePlayer(0);
 											else	HUD.damagePlayer(15, true);
 										}
 										
@@ -339,30 +311,30 @@
 						}
 					}
 					
-					if (lightningAttack && boltTime.running)
+					if (man.lightningAttack && man.boltTime.running)
 					{
-						bolting = true;
+						man.bolting = true;
 						
-						if (boltTime.currentCount >= 4)
+						if (man.boltTime.currentCount >= 4)
 						{
-							if (bolting && !World.Mobs[l].isDestroyed && World.Mobs[l].collisionHull.hitTestObject(lightningAttack.bolt))
+							if (man.bolting && !World.Mobs[l].isDestroyed && World.Mobs[l].collisionHull.hitTestObject(man.lightningAttack.bolt))
 							{
 								if (!World.Mobs[l].friendly)
 								{
-									if (!lightningAttack.isEnemyStruck(l))
+									if (!man.lightningAttack.isEnemyStruck(l))
 									{
 										World.Mobs[l].hitpoints -= 12;
 										World.Mobs[l].graphic.play("shocked");
-										lightningAttack.strikeEnemy(l);
+										man.lightningAttack.strikeEnemy(l);
 									}
 								}
 							}
 						}
 					}
 					
-					if (frostAttack)
+					if (man.frostAttack)
 					{
-						if (World.Mobs[l].collisionHull.hitTestObject(frostAttack))
+						if (World.Mobs[l].collisionHull.hitTestObject(man.frostAttack))
 						{
 							if (World.Mobs[l].friendly != man.friendly)
 							{
@@ -445,7 +417,7 @@
 				if (HUD.testCost(0, 0, 10))
 				{
 					man.graphic.play("pull");
-					canShoot = true;
+					man.canShoot = true;
 				}
 			}
 			else if (man.type == Player.ROGUE)
@@ -465,12 +437,12 @@
 					man.shoot();
 				}
 			}
-			canShoot = false;
+			man.canShoot = false;
 		}
 		
 		private function beginMeleeAttack():void 
 		{
-			canMelee = true;
+			man.canMelee = true;
 			
 			if (man.type != Player.MAGE)
 			{
@@ -483,14 +455,14 @@
 		{
 			if (man.type == Player.MAGE)
 			{
-				if (!frostAttack && HUD.testCost(50))
+				if (!man.frostAttack && HUD.testCost(50))
 				{
 					stopFrost();
 					man.graphic.play("attack");
-					stage.addChild(frostAttack = new FrostBolt(man.rotationY == 180, man.x, man.y));
+					stage.addChild(man.frostAttack = new FrostBolt(man.rotationY == 180, man.x, man.y));
 				}
 			}
-			canMelee = false;
+			man.canMelee = false;
 		}
 		
 		private function beginSpecialAttack():void 
@@ -503,17 +475,17 @@
 					{
 						man.graphic.play("casting");
 						
-						if (!lightningAttack)
+						if (!man.lightningAttack)
 						{
 							if (man.rotationY == 0)
 							{
-								lightningAttack = new LightningBolt(true, man.x, man.y);
-								stage.addChild(lightningAttack);
+								man.lightningAttack = new LightningBolt(true, man.x, man.y);
+								stage.addChild(man.lightningAttack);
 							}
 							else if (man.rotationY == 180)
 							{
-								lightningAttack = new LightningBolt(false, man.x, man.y);
-								stage.addChild(lightningAttack);
+								man.lightningAttack = new LightningBolt(false, man.x, man.y);
+								stage.addChild(man.lightningAttack);
 							}
 						}
 					}
@@ -522,19 +494,19 @@
 			
 			if (man.type == Player.FIGHTER)
 			{
-				if (!shielding && HUD.testCost(0, 0, 0, 200))
+				if (!man.shielding && HUD.testCost(0, 0, 0, 200))
 				{
 					HUD.buyAction(200, HUD.SPECIAL);
-					shielding = true;
+					man.shielding = true;
 					man.graphic.play("shield");
 				}
 			}
 			
 			if (man.type == Player.ROGUE)
 			{
-				if (hasCaltrop)
+				if (man.hasCaltrop)
 				{
-					hasCaltrop = false;
+					man.hasCaltrop = false;
 					man.shoot(Caltrop);
 				}
 			}
@@ -544,19 +516,19 @@
 		{
 			if (man.type == Player.MAGE)
 			{
-				if (lightningAttack)
+				if (man.lightningAttack)
 				{
-					boltTime.start();
-					lightningAttack.sendBolt();
+					man.boltTime.start();
+					man.lightningAttack.sendBolt();
 				}
 			}
 			
 			if (man.type == Player.FIGHTER)
 			{
-				if (shielding)
+				if (man.shielding)
 				{
 					man.graphic.play("stand");
-					shielding = false;
+					man.shielding = false;
 				}
 			}
 			
@@ -564,20 +536,20 @@
 		
 		private function stopBolt():void
 		{
-			if (!lightningAttack) return;
+			if (!man.lightningAttack) return;
 			
-			boltTime.stop();
-			bolting = false;
-			boltTime.reset();
-			stage.removeChild(lightningAttack);
-			lightningAttack = null;
+			man.boltTime.stop();
+			man.bolting = false;
+			man.boltTime.reset();
+			stage.removeChild(man.lightningAttack);
+			man.lightningAttack = null;
 		}
 		
 		private function stopFrost():void
 		{
-			if (!frostAttack) return;
-			stage.removeChild(frostAttack);
-			frostAttack = null;
+			if (!man.frostAttack) return;
+			stage.removeChild(man.frostAttack);
+			man.frostAttack = null;
 		}
 		
 		private function checkLadder():Ladder

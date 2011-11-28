@@ -134,9 +134,6 @@ package ifrit
 			
 			Game.stage.addChild(new HUD);
 			
-			Game.lightningAttack = null;
-			Game.bolting = false;
-			
 			nextLevel = "mainMenu";
 		}
 		

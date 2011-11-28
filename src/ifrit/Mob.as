@@ -157,7 +157,7 @@ package ifrit
 			velocity.y = 0;
 		}
 		
-		public function shoot(ammo:Class = null):Projectile
+		public function shoot(ammo:Class = null):void
 		{
 			if (attackTimer.currentCount == attackTimer.repeatCount)
 			{
@@ -177,6 +177,8 @@ package ifrit
 			
 			if (!attackTimer.running)
 			{
+				attackTimer.start();
+				
 				if (this.rotationY == 180)
 				{
 					if (this.classType == Player.FIGHTER)
@@ -195,7 +197,6 @@ package ifrit
 				World.Projectiles.push(stage.getChildAt(stage.numChildren - 1));
 			}
 			
-			attackTimer.start();
 		}
 		
 		public function stab():void 

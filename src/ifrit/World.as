@@ -49,6 +49,7 @@ package ifrit
 			Worlds.add("beach_01", loadBeach_01);
 			Worlds.add("forest_01", loadForest_01);
 			Worlds.add("forest_02", loadForest_02);
+			Worlds.add("forest_03", loadForest_03);
 			Worlds.add("castle_01", loadCastle_01);
 			Worlds.add("castle_02", loadCastle_02);
 		}
@@ -129,6 +130,25 @@ package ifrit
 			addDecal(new Bitmap(new BitmapData(50, 50, true, 0)), 1023, 375, advance);
 			
 			Game.stage.addChild(new HUD);
+			
+			nextLevel = "forest_03";
+		}
+		
+		private static function loadForest_03():void
+		{
+			makeBounds();
+			
+			addDecal(Library.IMG("forest.towerEntranceBG.png"), 500, 200);
+			
+			
+			
+			addMan(50, 375, Game.playerClass);
+			
+			addDecal(new Bitmap(new BitmapData(50, 50, true, 0)), 500, 375, advance);
+			
+			Game.stage.addChild(new HUD);
+			
+			nextLevel = "castle_01";
 		}
 		
 		private static function loadCastle_01():void 

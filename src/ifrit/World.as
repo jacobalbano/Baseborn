@@ -89,16 +89,24 @@ package ifrit
 			addDecal(Library.IMG("forest.forestBG.png"), 500, 200 );
 			
 			addWall(158, 285, false, Library.IMG("forest.platform.png"), 125);
-			addWall(409, 285, false, Library.IMG("forest.platform.png"), 125);
+			addWall(390, 285, false, Library.IMG("forest.platform.png"), 125);
+			addWall(585, 350, false, Library.IMG("forest.platform.png"), 125);
+			addWall(700, 275, false, Library.IMG("forest.platform.png"), 100);
+			addWall(975, 275, false, Library.IMG("forest.platform.png"), 50);
 			
-			addLadder(85, 275, 115);
+			
+			addLadder(80, 275, 115);
+			addLadder(635, 270, 75);
 			
 			addMan(50, 375, Game.playerClass);
 			
 			Game.stage.addChild(new RopeBridge(280, 275, 125));
 			addWall(280, 285, false, Library.IMG("misc.clipPlatform.png"), 125);
 			
-			addDecal(new Bitmap(new BitmapData(50, 50, true, 0)), 1023, 375, advance);
+			Game.stage.addChild(new RopeBridge(845, 265, 200));
+			addWall(845, 275, false, Library.IMG("misc.clipPlatform.png"), 200);
+			
+			addDecal(new Bitmap(new BitmapData(50, 50, true, 0)), 1023, 265, advance);
 			
 			Game.stage.addChild(new HUD);
 			

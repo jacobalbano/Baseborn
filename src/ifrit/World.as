@@ -94,6 +94,8 @@ package ifrit
 			
 			addLadder(85, 275, 115, "misc.ropeLadder.png");
 			
+			addEnemy(400, 350, Skeleton);
+			
 			addMan(50, 375, Game.playerClass);
 			
 			Game.stage.addChild(new RopeBridge(280, 275, 125));

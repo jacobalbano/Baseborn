@@ -87,11 +87,12 @@ package ifrit
 			makeBounds();
 			
 			addDecal(Library.IMG("forest.forestBG.png"), 500, 200 );
+			addDecal(Library.IMG("forest.decals.stump.png"), 600, 375);
 			
 			addWall(158, 285, false, Library.IMG("forest.platform.png"), 125);
 			addWall(409, 285, false, Library.IMG("forest.platform.png"), 125);
 			
-			addLadder(85, 275, 115);
+			addLadder(85, 275, 115, "misc.ropeLadder.png");
 			
 			addMan(50, 375, Game.playerClass);
 			
@@ -282,9 +283,9 @@ package ifrit
 		 * @param	y			Position on y
 		 * @param	height		How high the ladder should be
 		 */
-		public static function addLadder(x:Number, y:Number, height:int):void
+		public static function addLadder(x:Number, y:Number, height:int, imageName:String = "misc.ladder.png"):void
 		{
-			Ladders.push(Game.stage.addChild(new Ladder(x, y, height)) as Ladder);
+			Ladders.push(Game.stage.addChild(new Ladder(x, y, height, Library.IMG(imageName).bitmapData)) as Ladder);
 		}
 		
 		/**

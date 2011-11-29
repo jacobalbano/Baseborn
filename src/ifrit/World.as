@@ -75,7 +75,7 @@ package ifrit
 			
 			addDecal(Library.IMG("beach.lightningBolt.png"), 100, 170, null, null, [0, 1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11, 12], 10, 66, 45, false);
 			addDecal(Library.IMG("beach.towerLightning.png"), 835, 30, null, null, [0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0 , 0 , 0, 0, 0, 0, 0, 0, 0, 0 ,1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11, 12, 13, 14, 15, 16, 17], 340, 72,  30, true);
-			
+			addDecal(Library.IMG("beach.shipAnimation.png"), 400, 175, null, null, [0, 1, 2, 3], 270, 193, 5);
 			
 			addMan(500, 490, Player.NONE);
 			

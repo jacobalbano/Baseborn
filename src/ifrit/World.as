@@ -75,7 +75,7 @@ package ifrit
 			
 			addDecal(Library.IMG("beach.lightningBolt.png"), 100, 170, null, null, [0, 1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11, 12], 10, 66, 45, false);
 			addDecal(Library.IMG("beach.towerLightning.png"), 835, 30, null, null, [0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0 , 0 , 0, 0, 0, 0, 0, 0, 0, 0 ,1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11, 12, 13, 14, 15, 16, 17], 340, 72,  30, true);
-			
+			addDecal(Library.IMG("beach.shipAnimation.png"), 400, 175, null, null, [0, 1, 2, 3], 270, 193, 5);
 			
 			addMan(500, 490, Player.NONE);
 			
@@ -87,26 +87,21 @@ package ifrit
 			makeBounds();
 			
 			addDecal(Library.IMG("forest.forestBG.png"), 500, 200 );
+			addDecal(Library.IMG("forest.decals.stump.png"), 600, 375);
 			
 			addWall(158, 285, false, Library.IMG("forest.platform.png"), 125);
-			addWall(390, 285, false, Library.IMG("forest.platform.png"), 125);
-			addWall(585, 350, false, Library.IMG("forest.platform.png"), 125);
-			addWall(700, 275, false, Library.IMG("forest.platform.png"), 100);
-			addWall(975, 275, false, Library.IMG("forest.platform.png"), 50);
+			addWall(409, 285, false, Library.IMG("forest.platform.png"), 125);
 			
+			addLadder(85, 275, 115, "misc.ropeLadder.png");
 			
-			addLadder(80, 275, 115);
-			addLadder(635, 270, 75);
+			addEnemy(400, 350, Skeleton);
 			
 			addMan(50, 375, Game.playerClass);
 			
 			Game.stage.addChild(new RopeBridge(280, 275, 125));
 			addWall(280, 285, false, Library.IMG("misc.clipPlatform.png"), 125);
 			
-			Game.stage.addChild(new RopeBridge(845, 265, 200));
-			addWall(845, 275, false, Library.IMG("misc.clipPlatform.png"), 200);
-			
-			addDecal(new Bitmap(new BitmapData(50, 50, true, 0)), 1023, 265, advance);
+			addDecal(new Bitmap(new BitmapData(50, 50, true, 0)), 1023, 375, advance);
 			
 			Game.stage.addChild(new HUD);
 			
@@ -289,10 +284,11 @@ package ifrit
 		 * @param	x			Position on x
 		 * @param	y			Position on y
 		 * @param	height		How high the ladder should be
+		 * @param	imageName	Name of image to use for procedural generation
 		 */
-		public static function addLadder(x:Number, y:Number, height:int):void
+		public static function addLadder(x:Number, y:Number, height:int, imageName:String = "misc.ladder.png"):void
 		{
-			Ladders.push(Game.stage.addChild(new Ladder(x, y, height)) as Ladder);
+			Ladders.push(Game.stage.addChild(new Ladder(x, y, height, Library.IMG(imageName).bitmapData)) as Ladder);
 		}
 		
 		/**

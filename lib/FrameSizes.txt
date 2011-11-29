@@ -22,7 +22,7 @@ MISC:
 	manaDrop.png	15x15 (6 frames)
 	healthDrop.png	15x15 (6 frames)
 	
-DECALS:
+CASTLE:
 	castle.decals.chandelier.png:     46x101 (4 frames)
 	castle.decals.torch.png			  40x40 (6 frames)
 	castle.decals.door.png			  75x75
@@ -30,5 +30,9 @@ DECALS:
 	castle.decals.stainedGlass.png	  400x400
 	castle.decals.window.png		  32x45
 
-BACKGROUNDS:
-	castle.bg.png		1000x400
+FOREST:
+	forest.decals.stump.png			117x57
+	
+BEACH:
+	beach.shipAnimation.png		270x193 (4 frames)
+	

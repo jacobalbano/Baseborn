@@ -13,10 +13,9 @@ package ifrit
 	{
 		private var buffer:BitmapData;
 		
-		public function Ladder(x:Number, y:Number, height:int) 
+		public function Ladder(x:Number, y:Number, height:int, source:BitmapData) 
 		{
 			var h:Number = height < 9 ? 9 : height;
-			var source:BitmapData = Library.IMG("misc.ladder.png").bitmapData;
 			
 			this.buffer = new BitmapData(24, h, true, 0);
 			

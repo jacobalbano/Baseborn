@@ -282,6 +282,7 @@ package ifrit
 		 * @param	x			Position on x
 		 * @param	y			Position on y
 		 * @param	height		How high the ladder should be
+		 * @param	imageName	Name of image to use for procedural generation
 		 */
 		public static function addLadder(x:Number, y:Number, height:int, imageName:String = "misc.ladder.png"):void
 		{

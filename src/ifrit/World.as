@@ -41,11 +41,14 @@ package ifrit
 			World.Mobs 			= new Vector.<Mob>;
 			World.Ladders 		= new Vector.<Ladder>;
 			
+			//	Using my custom map class to store levels
+			//	It works the same way as a C++ map, storing objects with keys
 			Worlds = new Map(String, Function);
 			
 			Worlds.add("mainMenu", 	mainMenu);
 			Worlds.add("beach_01", loadBeach_01);
 			Worlds.add("forest_01", loadForest_01);
+			Worlds.add("forest_02", loadForest_02);
 			Worlds.add("castle_01", loadCastle_01);
 			Worlds.add("castle_02", loadCastle_02);
 		}
@@ -85,18 +88,25 @@ package ifrit
 			
 			addDecal(Library.IMG("forest.forestBG.png"), 500, 200 );
 			
+			addDecal(new Bitmap(new BitmapData(50, 50, true, 0)), 1023, 375, advance);
+			
 			addMan(50, 375, Game.playerClass);
 			
 			Game.stage.addChild(new HUD);
+			
+			nextLevel = "forest_02";
 		}
 		
 		private static function loadForest_02():void
 		{
 			makeBounds();
 			
+			//	Manipulation function to flip the backround horizontally when we load it
 			addDecal(Library.IMG("forest.forestBG.png"), 500, 200, null, function (d:Decal):* {	d.rotationY = 180;	} );
 			
 			addMan(50, 375, Game.playerClass);
+			
+			addDecal(new Bitmap(new BitmapData(50, 50, true, 0)), 1023, 375, advance);
 			
 			Game.stage.addChild(new HUD);
 		}

@@ -88,11 +88,21 @@ package ifrit
 			
 			addDecal(Library.IMG("forest.forestBG.png"), 500, 200 );
 			
-			addDecal(new Bitmap(new BitmapData(50, 50, true, 0)), 1023, 375, advance);
+			addWall(158, 285, false, Library.IMG("forest.platform.png"), 125);
+			addWall(409, 285, false, Library.IMG("forest.platform.png"), 125);
+			
+			addLadder(85, 275, 115);
 			
 			addMan(50, 375, Game.playerClass);
 			
+			Game.stage.addChild(new RopeBridge(280, 275, 125));
+			addWall(280, 285, false, Library.IMG("misc.clipPlatform.png"), 125);
+			
+			addDecal(new Bitmap(new BitmapData(50, 50, true, 0)), 1023, 375, advance);
+			
 			Game.stage.addChild(new HUD);
+			
+			addWall(1000, 1000, false, Library.IMG("misc.clipPlatform.png"));
 			
 			nextLevel = "forest_02";
 		}

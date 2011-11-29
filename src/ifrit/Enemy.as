@@ -176,7 +176,7 @@ package ifrit
 		 */
 		private function findPlatform():void
 		{
-			if (this.lastHeading != this.heading || homeRect.contains(Game.man.x, Game.man.y) || !homeRect.contains(this.x, this.y))
+			if (this.lastHeading != this.heading || homeRect.contains(Game.man.x, Game.man.y) || !homeRect.contains(this.x + homeRect.width / 3, this.y) || !homeRect.contains(this.x - homeRect.width / 3, this.y))
 			{			
 				var found:Boolean = false;
 				var collision:Boolean = false;
@@ -283,7 +283,7 @@ package ifrit
 			if (!fleeMode)
 			{
 				
-				if (this.homeRect.contains(Game.man.x, Game.man.y) && Game.man.y <= this.y)
+				if (this.homeRect.contains(Game.man.x, Game.man.y) && Game.man.y <= this.y + this.height / 2)
 				{
 					if ( ! (this.behaviorFlags & PASSIVE) > 0)
 					{

@@ -87,11 +87,7 @@ package ifrit
 					graphic.add("attack", [4, 5, 6, 7], 12, false);
 					graphic.add("shield", [8, 9, 10, 11], 20, false, true);
 					graphic.add("pull", [12, 13, 14, 15], 12, false, true);
-					graphic.add("aimUp", [16], 12, true);
-					graphic.add("aimDown", [17], 12, true);
 					graphic.add("release90", [18, 19, 20, 21], 18, false);
-					graphic.add("release45", [22, 23, 24, 25], 18, false);
-					graphic.add("release135", [26, 27, 28, 29], 18, false);
 					break;
 				case 8:
 					graphic.add("stand", [4], 0, true);
@@ -102,6 +98,9 @@ package ifrit
 			
 			graphic.add("walk", [0, 1, 2, 3], 6, true);
 			graphic.add("shoot", [6, 7, 8, 9], 12, false);
+			graphic.add("climbUp", [22, 23, 24, 25], 8, true);
+			graphic.add("climbDown", [25, 24, 23, 22], 8, true);
+			graphic.add("climbIdle", [23], 0, true);
 			graphic.play("stand");
 			
 			this.friendly = true;

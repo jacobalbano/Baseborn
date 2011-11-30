@@ -84,14 +84,16 @@
 					if (Input.isKeyDown(Input.UP))
 					{
 						man.y -= 5;
+						man.graphic.play("climbUp");
 					}
 					else if (Input.isKeyDown(Input.DOWN))
 					{
 						man.y += 5;
+						man.graphic.play("climbDown");
 					}
 					else
 					{
-						if (man.isIdle) 	man.graphic.play("stand", true);
+						if (man.isIdle) 	man.graphic.play("climbIdle", true);
 					}
 				}
 				else

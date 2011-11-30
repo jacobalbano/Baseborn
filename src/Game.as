@@ -278,7 +278,7 @@
 							{
 								if (World.Projectiles[k].isStatic || !World.Projectiles[k].stopped)
 								{
-									if (World.Projectiles[k].friendly != World.Mobs[l].friendly)
+									if (World.Projectiles[k].friendly != World.Mobs[l].friendly && !World.Mobs[l].isDestroyed)
 									{
 										if (!World.Projectiles[k].friendly)
 										{

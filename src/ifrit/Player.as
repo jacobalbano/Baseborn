@@ -73,6 +73,8 @@ package ifrit
 				case 0:
 					this.rangedType = Fireball;
 					graphic.add("stand", [1], 0, true);
+					graphic.add("ladder", [11], 0, true);
+					graphic.add("climb", [10, 11, 12, 13], 6, true);
 					graphic.add("attack", [6, 7, 8, 9], 12, false);
 					graphic.add("casting", [6, 6, 6, 6], 12, false, true);
 					break;
@@ -84,6 +86,8 @@ package ifrit
 				case 4:
 					this.rangedType = Arrow;
 					graphic.add("stand", [1], 0, true);
+					graphic.add("ladder", [23], 0, true);
+					graphic.add("climb", [22, 23, 24, 25], 6, true);
 					graphic.add("attack", [4, 5, 6, 7], 12, false);
 					graphic.add("shield", [8, 9, 10, 11], 20, false, true);
 					graphic.add("pull", [12, 13, 14, 15], 12, false, true);

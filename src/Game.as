@@ -47,7 +47,7 @@
 		}
 		
 		private function enterFrame(e:Event):void
-		{		
+		{
 			var enemiesKilled:int = 0;
 			
 			for (var w:int = 0; w < World.Mobs.length; w++)

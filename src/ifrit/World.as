@@ -103,7 +103,8 @@ package ifrit
 			addLadder(80, 275, 115, "misc.ropeLadder.png");
 			addLadder(635, 270, 75, "misc.ropeLadder.png");
 			
-			addEnemy(400, 350, Skeleton);
+			addEnemy(100, 250, Skeleton);
+			addEnemy(400, 350, SkeletonMage);
 			
 			addMan(50, 375, Game.playerClass);
 			

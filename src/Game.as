@@ -315,11 +315,11 @@
 					
 					if (man.lightningAttack && man.boltTime.running)
 					{
-						man.bolting = true;
+						man.boltPlaying = true;
 						
 						if (man.boltTime.currentCount >= 4)
 						{
-							if (man.bolting && !World.Mobs[l].isDestroyed && World.Mobs[l].collisionHull.hitTestObject(man.lightningAttack.bolt))
+							if (man.boltPlaying && !World.Mobs[l].isDestroyed && World.Mobs[l].collisionHull.hitTestObject(man.lightningAttack.bolt))
 							{
 								if (!World.Mobs[l].friendly)
 								{
@@ -506,7 +506,7 @@
 			
 			if (man.type == Player.ROGUE)
 			{
-				man.canDrop = true;
+				man.canDropCaltrop = true;
 			}
 			
 			
@@ -534,7 +534,7 @@
 			
 			if (man.type == Player.ROGUE)
 			{
-				if (man.canDrop)
+				if (man.canDropCaltrop)
 				{
 					if (man.hasCaltrop)
 					{
@@ -561,7 +561,7 @@
 							}
 						}
 					}
-					man.canDrop = false;
+					man.canDropCaltrop = false;
 				}
 			}
 			
@@ -572,7 +572,7 @@
 			if (!man.lightningAttack) return;
 			
 			man.boltTime.stop();
-			man.bolting = false;
+			man.boltPlaying = false;
 			man.boltTime.reset();
 			stage.removeChild(man.lightningAttack);
 			man.lightningAttack = null;

@@ -70,7 +70,7 @@ package ifrit
 		{
 			makeBounds();
 			
-			addDecal(Library.IMG("beach.bg.png"), 500, 250);
+			addDecal(Library.IMG("beach.bg(1).png"), 500, 250);
 			
 			addDecal(new Bitmap(new BitmapData(50, 50, true, 0)), 1023, 375, advance);
 			

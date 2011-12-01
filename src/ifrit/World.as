@@ -69,7 +69,7 @@ package ifrit
 		{
 			WorldUtils.makeBounds();
 			
-			WorldUtils.addDecal(Library.IMG("beach.bg.png"), 500, 250);
+			WorldUtils.addDecal(Library.IMG("beach.bg(1).png"), 500, 250);
 			
 			WorldUtils.addMan(500, 490, Player.NONE);
 			

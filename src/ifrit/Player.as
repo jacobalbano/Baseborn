@@ -58,11 +58,13 @@ package ifrit
 			var frameWidth:int = 18;
 			var frameHeight:int = 25;
 			
+			//TODO: Adjust frame width so that there is as much space behind as there is in front
+			/* The problem is obvious when the image is rotated for heading in various directions. */
 			switch (type)
 			{
-				case 0:		animationName = "mage.png";		        frameWidth = 18;	frameHeight = 25;		break;
-				case 2:		animationName = "rogue.png";		    frameWidth = 24;	frameHeight = 25;		break;
-				case 4:		animationName = "fighter.png";			frameWidth = 38;	frameHeight = 33;		break;
+				case 0:		animationName = "mage.png";		        frameWidth = 41;	frameHeight = 25;		break;
+				case 2:		animationName = "rogue.png";		    frameWidth = 38;	frameHeight = 25;		break;
+				case 4:		animationName = "fighter.png";			frameWidth = 48;	frameHeight = 33;		break;
 				case 8:		animationName = "unclassed.png";		frameWidth = 15;	frameHeight = 25;		break;
 			}
 			
@@ -72,39 +74,32 @@ package ifrit
 			{
 				case 0:
 					this.rangedType = Fireball;
-					graphic.add("stand", [1], 0, true);
-					graphic.add("ladder", [11], 0, true);
-					graphic.add("climb", [10, 11, 12, 13], 6, true);
-					graphic.add("attack", [6, 7, 8, 9], 12, false);
-					graphic.add("casting", [6, 6, 6, 6], 12, false, true);
+					graphic.add("casting", [4, 4, 4, 4], 12, false, true);
 					break;
 				case 2:
 					this.rangedType = Shuriken;
-					graphic.add("stand", [1], 0, true);
-					graphic.add("attack", [6, 7, 8, 9], 12, false);
 					break;
 				case 4:
 					this.rangedType = Arrow;
-					graphic.add("stand", [1], 0, true);
-					graphic.add("ladder", [23], 0, true);
-					graphic.add("climb", [22, 23, 24, 25], 6, true);
-					graphic.add("attack", [4, 5, 6, 7], 12, false);
 					graphic.add("shield", [8, 9, 10, 11], 20, false, true);
 					graphic.add("pull", [12, 13, 14, 15], 12, false, true);
-					graphic.add("release90", [18, 19, 20, 21], 18, false);
+					graphic.add("release90", [16, 17, 18, 19], 18, false);
 					break;
 				case 8:
-					graphic.add("stand", [4], 0, true);
+					graphic.add("standNoClass", [4], 0, true);
 				default:	
 			}
 			
 			this.classType = type;
 			
 			graphic.add("walk", [0, 1, 2, 3], 6, true);
-			graphic.add("shoot", [6, 7, 8, 9], 12, false);
-			graphic.add("climbUp", [22, 23, 24, 25], 8, true);
-			graphic.add("climbDown", [25, 24, 23, 22], 8, true);
-			graphic.add("climbIdle", [23], 0, true);
+			graphic.add("stand", [1], 0, true);
+			graphic.add("attack", [4, 5, 6, 7], 12, false);
+			graphic.add("climbUp", [20, 21, 22, 23], 8, true);
+			graphic.add("climbDown", [23, 22, 21, 20], 8, true);
+			graphic.add("climbIdle", [21], 0, true);
+			graphic.add("death", [24, 25, 26, 27], 6, false);
+			
 			graphic.play("stand");
 			
 			this.friendly = true;

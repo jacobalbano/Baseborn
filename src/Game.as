@@ -102,7 +102,7 @@
 					{
 						stopBolt();
 						
-						if (man.graphic.playing != "attack" && man.graphic.playing != "shoot" && !man.shielding)
+						if (man.graphic.playing != "attack" && !man.shielding)
 							man.graphic.play("walk");
 							
 						if (man.shielding)	man.x -= 2;
@@ -146,7 +146,7 @@
 					{
 						stopBolt();
 						
-						if (man.graphic.playing != "attack" &&	man.graphic.playing != "shoot" 	&& !man.shielding)
+						if (man.graphic.playing != "attack"	&& !man.shielding)
 								man.graphic.play("walk");
 							
 						if (man.shielding)	man.x += 2;

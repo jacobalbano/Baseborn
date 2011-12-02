@@ -51,8 +51,6 @@ package ifrit
 			this.fleeMode = false;
 			this.heading = Boolean(Math.round(Math.random()));
 			this.speed = Math.random();
-			this.hitpoints = 15;
-			this.maxHealth = 15;
 			this.confusionTimer = new Timer(1000, 0);
 			this.fleeCooldown = new Timer(1000, 0);
 			this.homeRect = new Rectangle;

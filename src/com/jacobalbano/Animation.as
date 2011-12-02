@@ -168,7 +168,11 @@ package com.jacobalbano
 		 */
 		private function setRect():void 
 		{
-			this.buffer.copyPixels(storage, new Rectangle(this.animation.frames[this.frame] * this.frameWidth, 0, this.frameWidth, this.frameHeight), new Point);
+			var rx:uint = this.animation.frames[this.frame] * this.frameWidth;			
+			var ry:uint = uint(rx / this.storage.width) * this.frameHeight;
+			rx %= this.storage.width;
+			
+			this.buffer.copyPixels(storage, new Rectangle(rx, ry, this.frameWidth, this.frameHeight), new Point);
 			this.graphics.clear();
 			
 			this.graphics.beginBitmapFill(buffer, null, false, false);

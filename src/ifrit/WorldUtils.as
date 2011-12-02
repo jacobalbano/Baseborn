@@ -13,10 +13,7 @@ package ifrit
 	 * @author Jake Albano
 	 */
 	public class WorldUtils 
-	{
-		
-		public function WorldUtils() { }
-		
+	{		
 		/**
 		 * Add the player to the world
 		 * @param	x		Position on x
@@ -35,6 +32,11 @@ package ifrit
 				Game.man = null;
 				World.Mobs.push(Game.stage.addChild(Game.man = new Player(x, y, type)) as Mob);
 			}
+		}
+		
+		public static function addTrigger(x:int, y:int, callback:Function, width:int = 50, height:int = 50):void
+		{
+			addDecal(new Bitmap(new BitmapData(width, height, true, 0)), x, y, callback);
 		}
 		
 		

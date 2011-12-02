@@ -73,7 +73,7 @@ package ifrit
 			
 			WorldUtils.addMan(500, 490, Player.NONE);
 			
-			WorldUtils.addDecal(new Bitmap(new BitmapData(50, 50, true, 0)), 1023, 375, WorldUtils.advance);
+			WorldUtils.addTrigger(1023, 375, WorldUtils.advance);
 			
 			WorldUtils.addDecal(Library.IMG("beach.lightningBolt.png"), 100, 170, null, null, [0, 1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11, 12], 10, 66, 45, false);
 			WorldUtils.addDecal(Library.IMG("beach.towerLightning.png"), 835, 30, null, null, [0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0 , 0 , 0, 0, 0, 0, 0, 0, 0, 0 ,1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11, 12, 13, 14, 15, 16, 17], 340, 72,  30, true);
@@ -86,15 +86,13 @@ package ifrit
 		{
 			WorldUtils.makeBounds();
 			
-			WorldUtils.addDecal(Library.IMG("beach.bg.png"), 500, 250);
+			WorldUtils.addDecal(Library.IMG("beach.bg2.png"), 500, 250);
 			
 			WorldUtils.addMan( 0, 500, Player.NONE);
 			
-			WorldUtils.addDecal(new Bitmap(new BitmapData(50, 50, true, 0)), 1023, 375, WorldUtils.advance);
+			WorldUtils.addTrigger(1023, 375, WorldUtils.advance);
 			
-			WorldUtils.addDecal(Library.IMG("beach.lightningBolt.png"), 100, 170, null, null, [0, 1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11, 12], 10, 66, 45, false);
 			WorldUtils.addDecal(Library.IMG("beach.towerLightning.png"), 835, 30, null, null, [0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0 , 0 , 0, 0, 0, 0, 0, 0, 0, 0 ,1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11, 12, 13, 14, 15, 16, 17], 340, 72,  30, true);
-			WorldUtils.addDecal(Library.IMG("beach.shipAnimation.png"), 400, 175, null, null, [0, 1, 2, 3], 270, 193, 5);
 			
 			nextLevel = "forest_01";
 		}
@@ -133,7 +131,7 @@ package ifrit
 			Game.stage.addChild(new RopeBridge(845, 265, 200));
 			WorldUtils.addWall(845, 275, false, Library.IMG("misc.clipPlatform.png"), 200);
 			
-			WorldUtils.addDecal(new Bitmap(new BitmapData(50, 50, true, 0)), 1023, 250, WorldUtils.advance);
+			WorldUtils.addTrigger(1023, 250, WorldUtils.advance);
 			
 			Game.stage.addChild(new HUD);
 			
@@ -151,7 +149,7 @@ package ifrit
 			
 			WorldUtils.addMan(50, 375, Game.playerClass);
 			
-			WorldUtils.addDecal(new Bitmap(new BitmapData(50, 50, true, 0)), 1023, 375, WorldUtils.advance);
+			WorldUtils.addTrigger(1023, 375, WorldUtils.advance);
 			
 			Game.stage.addChild(new HUD);
 			
@@ -166,7 +164,7 @@ package ifrit
 
 			WorldUtils.addMan(50, 375, Game.playerClass);
 			
-			WorldUtils.addDecal(new Bitmap(new BitmapData(50, 50, true, 0)), 500, 375, WorldUtils.advance);
+			WorldUtils.addTrigger( 500, 375, WorldUtils.advance);
 			
 			Game.stage.addChild(new HUD);
 			

@@ -86,14 +86,14 @@ package ifrit
 					graphic.add("release90", [16, 17, 18, 19], 18, false);
 					break;
 				case 8:
-					graphic.add("standNoClass", [4], 0, true);
+					//graphic.add("standNoClass", [4], 0, true);
 				default:	
 			}
 			
 			this.classType = type;
 			
 			graphic.add("walk", [0, 1, 2, 3], 6, true);
-			graphic.add("stand", [1], 0, true);
+			graphic.add("stand", [4], 0, true);
 			graphic.add("attack", [4, 5, 6, 7], 12, false);
 			graphic.add("climbUp", [20, 21, 22, 23], 8, true);
 			graphic.add("climbDown", [23, 22, 21, 20], 8, true);

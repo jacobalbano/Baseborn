@@ -18,6 +18,9 @@ package ifrit
 			this.graphic.add("die", [6, 7, 8, 9], 3, false);
 			this.graphic.add("shocked", [0, 1, 2, 3], 6, false);
 			this.graphic.play("walk");
+			
+			this.hitpoints = 15;
+			this.maxHealth = 15;
 		}
 		
 	}

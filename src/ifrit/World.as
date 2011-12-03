@@ -378,6 +378,7 @@ package ifrit
 				
 				if (Input.isKeyDown(Input.UP))
 				{
+					SaveState.playerClass = Player.MAGE;
 					Game.playerClass = Player.MAGE;
 					WorldUtils.loadLevel("beach_03");
 				}
@@ -396,6 +397,7 @@ package ifrit
 				
 				if (Input.isKeyDown(Input.UP))
 				{
+					SaveState.playerClass = Player.FIGHTER;
 					Game.playerClass = Player.FIGHTER;
 					WorldUtils.loadLevel("beach_03");
 				}
@@ -414,6 +416,7 @@ package ifrit
 				
 				if (Input.isKeyDown(Input.UP))
 				{
+					SaveState.playerClass = Player.ROGUE;
 					Game.playerClass = Player.ROGUE;
 					WorldUtils.loadLevel("beach_03");
 				}

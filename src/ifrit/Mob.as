@@ -211,9 +211,9 @@ package ifrit
 			if (!attackTimer.running)
 			{
 				if (this.rotationY == 180)
-					stage.addChild(new MeleeSwing(-10, this.x - 15, this.y, this.friendly));
+					stage.addChild(new MeleeSwing(-10, this.x - this.collisionHull.width / 2, this.y, this.friendly));
 				else
-					stage.addChild(new MeleeSwing(10, this.x + 15, this.y, this.friendly));
+					stage.addChild(new MeleeSwing(10, this.x + this.collisionHull.width / 2, this.y, this.friendly));
 				
 				World.Projectiles.push(stage.getChildAt(stage.numChildren - 1));
 			}

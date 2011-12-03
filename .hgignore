@@ -1,3 +1,23 @@
 syntax: glob
 obj/IfritConfig.old
 bin/FLAKit.swf
+tools/LibraryBuilder/LibraryBuilder/obj/x86/Debug/LibraryBuilder.pdb
+tools/LibraryBuilder/LibraryBuilder/obj/x86/Debug/LibraryBuilder.exe
+tools/LibraryBuilder/LibraryBuilder/obj/x86/Debug/LibraryBuilder.csproj.FileListAbsolute.txt
+tools/LibraryBuilder/LibraryBuilder/bin/Debug/LibraryBuilder.pdb
+tools/LibraryBuilder/LibraryBuilder/bin/Debug/LibraryBuilder.exe
+tools/LibraryBuilder/LibraryBuilder/bin/Debug/Library.xml
+tools/LibraryBuilder/LibraryBuilder/Main.cs
+tools/LibraryBuilder/LibraryBuilder/LibraryBuilder.sln
+tools/LibraryBuilder/LibraryBuilder/LibraryBuilder.csproj
+tools/LibraryBuilder/LibraryBuilder/AssemblyInfo.cs
+tools/LibraryBuilder/LibraryBuilder.sln
+Raw assets/upArrow.pdn
+Raw assets/skeletonMage.pdn
+Raw assets/crate.pdn
+Raw assets/clouds.png
+Raw assets/beach_new_bg.pdn
+Raw assets/beach_bg.pdn
+Raw assets/Rogue.pdn
+Raw assets/Mage.pdn
+Raw assets/Fighter.pdn

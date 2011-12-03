@@ -70,7 +70,7 @@ package ifrit
 		{
 			WorldUtils.makeBounds();
 			
-			WorldUtils.addDecal(Library.IMG("beach.bg(1).png"), 500, 250);
+			WorldUtils.addDecal(Library.IMG("beach.bg.png"), 500, 250);
 			
 			WorldUtils.addMan(500, 490, Player.NONE);
 			
@@ -87,13 +87,13 @@ package ifrit
 		{
 			WorldUtils.makeBounds();
 			
-			WorldUtils.addDecal(Library.IMG("beach.bg(1).png"), 500, 250);
+			WorldUtils.addDecal(Library.IMG("beach.bg2.png"), 500, 250);
 			
 			WorldUtils.addMan( 0, 500, Player.NONE);
 			
 			WorldUtils.addTrigger(1023, 375, WorldUtils.advance);
 			
-			WorldUtils.addDecal(Library.IMG("beach.towerLightning.png"), 835, 30, null, null, [0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0 , 0 , 0, 0, 0, 0, 0, 0, 0, 0 ,1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11, 12, 13, 14, 15, 16, 17], 340, 72,  30, true);
+			WorldUtils.addDecal(Library.IMG("beach.towerLightning.png"), 625, 30, null, null, [0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0 , 0 , 0, 0, 0, 0, 0, 0, 0, 0 ,1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11, 12, 13, 14, 15, 16, 17], 340, 72,  30, true);
 			
 			nextLevel = "forest_01";
 		}

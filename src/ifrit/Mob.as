@@ -112,7 +112,6 @@ package ifrit
 			
 			if (this.collisionHull.hitTestObject(obj.collisionHull))
 			{
-				
 				if (obj.x < this.x)
 				{
 					this.x += ox; // left

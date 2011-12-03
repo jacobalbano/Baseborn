@@ -57,6 +57,14 @@ package ifrit
 		//	Worlds begin
 		//{
 		
+		/**
+		 * Debugging:
+		 * 		Trace statement declared in Game class line ~403.
+		 * 		Collide man w/ platform to debug.
+		 * 		NOTE: First non-bounds platform is #16
+		 *//////////////////////////////////////////////////////
+		
+		
 		private static function mainMenu():void
 		{			
 			WorldUtils.addButton(600, 200, Library.IMG("menu.rogue_button.png"), 	function ():void { Game.playerClass = Player.ROGUE; 	SaveState.playerClass = Game.playerClass;	WorldUtils.next();} );
@@ -81,6 +89,7 @@ package ifrit
 			WorldUtils.addDecal(Library.IMG("beach.shipAnimation.png"), 400, 175, null, null, [0, 1, 2, 3], 270, 193, 5);
 			
 			nextLevel = "beach_02";
+			//nextLevel = "hellther_01";
 		}
 		
 		private static function loadBeach_02():void
@@ -178,6 +187,9 @@ package ifrit
 			WorldUtils.makeBounds();
 			
 			WorldUtils.addDecal(Library.IMG("tower.bg.png"), 500, 200);
+			
+			WorldUtils.addDecal(Library.IMG("tower.decals.chandelier.png"), 150, 50.5, null, null , [0, 1, 2, 3], 46, 101);
+			WorldUtils.addDecal(Library.IMG("tower.decals.chandelier.png"), 850, 50.5, null, null , [0, 1, 2, 3], 46, 101);
 
 			WorldUtils.addMan(50, 375, Game.playerClass);
 			
@@ -246,52 +258,79 @@ package ifrit
 			
 			WorldUtils.addDecal(Library.IMG("hellther.bg.png"), 500, 200);
 			
+			// Top row (#16-18)
 			WorldUtils.addWall(228, 24, false, Library.IMG("forest.platform.png"), 446);
 			WorldUtils.addWall(505, 10, false, Library.IMG("forest.platform.png"), 96);
 			WorldUtils.addWall(745, 10, false, Library.IMG("forest.platform.png"), 294);
+			
+			// Far right edge (#19-20)
 			WorldUtils.addWall(986, 48, true, Library.IMG("forest.platform.png"), 53);
+			WorldUtils.addWall(999, 152, true, Library.IMG("forest.platform.png"), 126);
+			
+			// Far left edge (#21-22)
+			WorldUtils.addWall(0, 120, true, Library.IMG("forest.platform.png"), 181);
+			WorldUtils.addWall(-1, 302, true, Library.IMG("forest.platform.png"), 81);
+			
+			//Second row (#23-25)
 			WorldUtils.addWall(810, 80, false, Library.IMG("forest.platform.png"), 340);
 			WorldUtils.addWall(574, 54, false, Library.IMG("forest.platform.png"), 161);
 			WorldUtils.addWall(329, 79, false, Library.IMG("forest.platform.png"), 359);
-			WorldUtils.addWall(155, 112, true, Library.IMG("forest.platform.png"), 55);
+			
+			// Hole (#26-27)
+			WorldUtils.addWall(406, 132, false, Library.IMG("forest.platform.png"), 270);
+			WorldUtils.addWall(747, 131, false, Library.IMG("forest.platform.png"), 270);
+			
+			// Pit (#28-29)
+			WorldUtils.addWall(611, 313, true, Library.IMG("forest.platform.png"), 173);
+			WorldUtils.addWall(530, 309, true, Library.IMG("forest.platform.png"), 183);
+			
+			// Entrance ladder (#30-31)
+			WorldUtils.addWall(418, 375, true, Library.IMG("forest.platform.png"), 52);
+			WorldUtils.addWall(477, 350, true, Library.IMG("forest.platform.png"), 93);
+			
+			// Top left smalls (column L to R) (#32-33)
+			WorldUtils.addWall(20, 125, false, Library.IMG("forest.platform.png"), 31);
+			WorldUtils.addWall(16, 179, false, Library.IMG("forest.platform.png"), 22);
+			/**/// (#34-36)
 			WorldUtils.addWall(126, 111, false, Library.IMG("forest.platform.png"), 45);
 			WorldUtils.addWall(105, 151, false, Library.IMG("forest.platform.png"), 86);
 			WorldUtils.addWall(142, 163, false, Library.IMG("forest.platform.png"), 161);
-			WorldUtils.addWall(217, 140, true, Library.IMG("forest.platform.png"), 39);
+			/**/// (#37-39)
+			WorldUtils.addWall(155, 112, true, Library.IMG("forest.platform.png"), 55);
 			WorldUtils.addWall(187, 126, false, Library.IMG("forest.platform.png"), 46);
-			WorldUtils.addWall(999, 152, true, Library.IMG("forest.platform.png"), 126);
-			WorldUtils.addWall(974, 186, false, Library.IMG("forest.platform.png"), 40);
-			WorldUtils.addWall(801, 223, false, Library.IMG("forest.platform.png"), 390);
-			WorldUtils.addWall(611, 313, true, Library.IMG("forest.platform.png"), 173);
-			WorldUtils.addWall(530, 309, true, Library.IMG("forest.platform.png"), 183);
-			WorldUtils.addWall(510, 223, false, Library.IMG("forest.platform.png"), 32);
-			WorldUtils.addWall(499, 243, true, Library.IMG("forest.platform.png"), 30);
-			WorldUtils.addWall(487, 263, false, Library.IMG("forest.platform.png"), 14);
-			WorldUtils.addWall(471, 280, false, Library.IMG("forest.platform.png"), 20);
-			WorldUtils.addWall(327, 296, false, Library.IMG("forest.platform.png"), 270);
-			WorldUtils.addWall(162, 309, false, Library.IMG("forest.platform.png"), 62);
-			WorldUtils.addWall(149, 320, false, Library.IMG("forest.platform.png"), 105);
-			WorldUtils.addWall(477, 350, true, Library.IMG("forest.platform.png"), 93);
-			WorldUtils.addWall(418, 375, true, Library.IMG("forest.platform.png"), 52);
-			WorldUtils.addWall(365, 354, false, Library.IMG("forest.platform.png"), 95);
-			WorldUtils.addWall(205, 377, false, Library.IMG("forest.platform.png"), 233);
-			WorldUtils.addWall(75, 367, false, Library.IMG("forest.platform.png"), 25);
-			WorldUtils.addWall(50, 357, false, Library.IMG("forest.platform.png"), 25);
-			WorldUtils.addWall(20, 347, false, Library.IMG("forest.platform.png"), 38);
-			WorldUtils.addWall(-1, 302, true, Library.IMG("forest.platform.png"), 81);
-			WorldUtils.addWall(220, 255, false, Library.IMG("forest.platform.png"), 427);
-			WorldUtils.addWall(372, 233, false, Library.IMG("forest.platform.png"), 161);
-			WorldUtils.addWall(288, 185, true, Library.IMG("forest.platform.png"), 86);
-			WorldUtils.addWall(406, 132, false, Library.IMG("forest.platform.png"), 270);
-			WorldUtils.addWall(276, 174, true, Library.IMG("forest.platform.png"), 75);
-			WorldUtils.addWall(140, 216, false, Library.IMG("forest.platform.png"), 276);
-			WorldUtils.addWall(0, 120, true, Library.IMG("forest.platform.png"), 181);
-			WorldUtils.addWall(16, 179, false, Library.IMG("forest.platform.png"), 22);
-			WorldUtils.addWall(20, 125, false, Library.IMG("forest.platform.png"), 31);
+			WorldUtils.addWall(217, 140, true, Library.IMG("forest.platform.png"), 39);
 			
-			WorldUtils.addWall(747, 131, false, Library.IMG("forest.platform.png"), 270);
+			// Bottom right smalls (L to R) (#40-44)
+			WorldUtils.addWall(20, 347, false, Library.IMG("forest.platform.png"), 38);
+			WorldUtils.addWall(50, 357, false, Library.IMG("forest.platform.png"), 25);
+			WorldUtils.addWall(75, 367, false, Library.IMG("forest.platform.png"), 25);
+			WorldUtils.addWall(149, 320, false, Library.IMG("forest.platform.png"), 105);
+			WorldUtils.addWall(162, 309, false, Library.IMG("forest.platform.png"), 62);
+			
+			// Middle smalls (bottom to top) (#45-48)
+			WorldUtils.addWall(471, 280, false, Library.IMG("forest.platform.png"), 20);
+			WorldUtils.addWall(487, 263, false, Library.IMG("forest.platform.png"), 14);
+			WorldUtils.addWall(499, 243, true, Library.IMG("forest.platform.png"), 30);
+			WorldUtils.addWall(510, 223, false, Library.IMG("forest.platform.png"), 32);
+			
+			// Right smalls (L to R) (#49-51)
 			WorldUtils.addWall(887, 155, true, Library.IMG("forest.platform.png"), 58);
 			WorldUtils.addWall(905, 152, false, Library.IMG("forest.platform.png"), 25);
+			WorldUtils.addWall(974, 186, false, Library.IMG("forest.platform.png"), 40);
+			
+			// Other horizontals (top to bottom) (#52-59)
+			WorldUtils.addWall(140, 216, false, Library.IMG("forest.platform.png"), 276);
+			WorldUtils.addWall(801, 223, false, Library.IMG("forest.platform.png"), 390);
+			WorldUtils.addWall(372, 233, false, Library.IMG("forest.platform.png"), 161);
+			WorldUtils.addWall(220, 255, false, Library.IMG("forest.platform.png"), 427);
+			WorldUtils.addWall(327, 296, false, Library.IMG("forest.platform.png"), 270);
+			WorldUtils.addWall(365, 354, false, Library.IMG("forest.platform.png"), 95);
+			WorldUtils.addWall(205, 377, false, Library.IMG("forest.platform.png"), 233);
+			
+			// Other verticals (L to R) (#60-61)
+			WorldUtils.addWall(276, 174, true, Library.IMG("forest.platform.png"), 75);
+			WorldUtils.addWall(288, 185, true, Library.IMG("forest.platform.png"), 86);
+			
 			
 			WorldUtils.addLadder(447, 345, 55, "hellther.ladder.png");
 			WorldUtils.addLadder(576, 0, 49, "hellther.ladder.png");

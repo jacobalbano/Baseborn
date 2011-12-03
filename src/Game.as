@@ -394,6 +394,15 @@
 						for (var jj:int = World.Mobs.length - 1; jj >= 0; jj--) 
 						{
 							World.Platforms[ii].collide(World.Mobs[jj] );
+							
+							// Platform debugging information
+							if (World.Mobs[jj].friendly)
+							{
+								if (World.Platforms[ii].collide(World.Mobs[jj] ))
+								{
+									trace(ii);
+								}
+							}
 						}
 					}
 				}

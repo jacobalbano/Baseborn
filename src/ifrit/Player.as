@@ -111,6 +111,7 @@ package ifrit
 					break;
 				case 8:
 					graphic.add("stand", [4], 0, true);
+					graphic.add("walk", [0, 1, 2, 3], 6, true);
 				default:	
 			}
 			

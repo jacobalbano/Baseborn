@@ -59,7 +59,6 @@ package ifrit
 		 */
 		public static function next():void
 		{
-			trace(World.nextLevel);
 			loadLevel(World.nextLevel);
 		}
 		

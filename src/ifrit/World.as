@@ -89,7 +89,6 @@ package ifrit
 			WorldUtils.addDecal(Library.IMG("beach.shipAnimation.png"), 400, 175, null, null, [0, 1, 2, 3], 270, 193, 5);
 			
 			nextLevel = "beach_02";
-			//nextLevel = "hellther_01";
 		}
 		
 		private static function loadBeach_02():void
@@ -118,7 +117,6 @@ package ifrit
 			WorldUtils.addDecal(Library.IMG("forest.house.png"), 566, 317, null, function (d:Decal):*	{	d.rotationY = 180;	});
 			WorldUtils.addDecal(Library.IMG("forest.house.png"), 1024, 250, null, function (d:Decal):*	{	d.rotationY = 180;	});
 			
-			WorldUtils.addWall(0, 0, true, Library.IMG("forest.platform.png"));
 			WorldUtils.addWall(158, 285, false, Library.IMG("forest.platform.png"), 125);
 			WorldUtils.addWall(390, 285, false, Library.IMG("forest.platform.png"), 125);
 			WorldUtils.addWall(585, 350, false, Library.IMG("forest.platform.png"), 125);

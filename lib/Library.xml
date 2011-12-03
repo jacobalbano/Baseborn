@@ -19,6 +19,7 @@
         <image>unclassed.png</image>
         <image>vortex.png</image>
         <image>wisp.png</image>
+        <image>tower/bg.png</image>
         <image>tower/platform.png</image>
         <image>tower/decals/cellDoor.png</image>
         <image>tower/decals/chandelier.png</image>
@@ -53,6 +54,7 @@
         <image>enemies/elfMage.png</image>
         <image>enemies/skeleton.png</image>
         <image>enemies/skeletonMage.png</image>
+        <image>dungeon/bg.png</image>
         <image>dungeon/platform.png</image>
         <image>dungeon/decals/cellDoor.png</image>
         <image>dungeon/decals/chandelier.png</image>
@@ -69,6 +71,7 @@
     </images>
     <sounds>
         <sound>audio/sfx/Wisp.mp3</sound>
+        <sound>audio/sfx/bolt.wav</sound>
         <sound>audio/music/beach.mp3</sound>
     </sounds>
 </library>

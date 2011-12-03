@@ -7,6 +7,9 @@
 	import com.thaumaturgistgames.flakit.Library;
 	import ifrit.IfritObject;
 	
+	import flash.display.Bitmap
+	import flash.display.BitmapData;
+	
 	import flash.display.Stage;
 	import flash.events.Event;
 	import flash.geom.Point;
@@ -48,6 +51,32 @@
 		
 		private function enterFrame(e:Event):void
 		{
+			/**
+			* Debugging shortcuts
+			*/
+			
+			// Next level
+			if (Input.isKeyDown(Input.DIGIT_1))
+				WorldUtils.addDecal(new Bitmap(new BitmapData(50, 50, true, 0)), man.x, man.y, WorldUtils.advance);
+				
+			// Change class to FIGHTER on next scene
+			if (Input.isKeyDown(Input.DIGIT_2) && man.type != Player.FIGHTER)
+				Game.playerClass = Player.FIGHTER
+				
+			// Change class to ROGUE on next scene
+			if (Input.isKeyDown(Input.DIGIT_3) && man.type != Player.ROGUE)
+				Game.playerClass = Player.ROGUE	
+					
+			// Change class to MAGE on next scene
+			if (Input.isKeyDown(Input.DIGIT_4) && man.type != Player.MAGE)
+				Game.playerClass = Player.MAGE
+				
+			/**
+			 * End debugging shortcuts
+			 */
+			
+			 
+			 
 			var enemiesKilled:int = 0;
 			
 			for (var w:int = 0; w < World.Mobs.length; w++)
@@ -396,13 +425,13 @@
 							World.Platforms[ii].collide(World.Mobs[jj] );
 							
 							// Platform debugging information
-							if (World.Mobs[jj].friendly)
-							{
-								if (World.Platforms[ii].collide(World.Mobs[jj] ))
-								{
-									trace(ii);
-								}
-							}
+							//if (World.Mobs[jj].friendly)
+							//{
+								//if (World.Platforms[ii].collide(World.Mobs[jj] ))
+								//{
+									//trace(ii);
+								//}
+							//}
 						}
 					}
 				}

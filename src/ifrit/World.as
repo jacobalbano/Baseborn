@@ -86,8 +86,7 @@ package ifrit
 			
 			WorldUtils.addTrigger(1023, 375, WorldUtils.advance);
 			
-			WorldUtils.addDecal(Library.IMG("beach.lightningBolt.png"), 100, 170, null, null, [0, 1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11, 12], 10, 66, 45, false);
-			WorldUtils.addDecal(Library.IMG("beach.towerLightning.png"), 835, 30, null, null, [0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0 , 0 , 0, 0, 0, 0, 0, 0, 0, 0 ,1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11, 12, 13, 14, 15, 16, 17], 340, 72,  30, true);
+			WorldUtils.addDecal(Library.IMG("beach.towerLightning.png"), 835, 10, null, null, [0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0 , 0 , 0, 0, 0, 0, 0, 0, 0, 0 ,1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11, 12, 13, 14, 15, 16, 17], 340, 72,  30, true);
 			WorldUtils.addDecal(Library.IMG("beach.shipAnimation.png"), 400, 175, null, null, [0, 1, 2, 3], 270, 193, 5);
 			
 			nextLevel = "beach_02";
@@ -98,15 +97,16 @@ package ifrit
 			WorldUtils.makeBounds();
 			
 			WorldUtils.addDecal(Library.IMG("beach.bg2.png"), 500, 250);
-			WorldUtils.addDecal(Library.IMG("beach.crate.png"), 236, 390);
 			
-			WorldUtils.addDecal(Library.IMG("misc.upArrow.png"), 165, 370, chooseClass_Mage, function (d:Decal):* { d.alpha = 0;} );
-			WorldUtils.addDecal(Library.IMG("misc.upArrow.png"), 240, 370, chooseClass_Fighter, function (d:Decal):* { d.alpha = 0; } );
-			WorldUtils.addDecal(Library.IMG("misc.upArrow.png"), 285, 370, chooseClass_Rogue, function (d:Decal):* { d.alpha = 0; } );
+			WorldUtils.addDecal(Library.IMG("beach.crate.png"), 236, 370);
 			
-			WorldUtils.addMan( 0, 500, Player.NONE);
+			WorldUtils.addDecal(Library.IMG("misc.upArrow.png"), 165, 350, chooseClass_Mage, function (d:Decal):* { d.alpha = 0;} );
+			WorldUtils.addDecal(Library.IMG("misc.upArrow.png"), 240, 350, chooseClass_Fighter, function (d:Decal):* { d.alpha = 0; } );
+			WorldUtils.addDecal(Library.IMG("misc.upArrow.png"), 285, 350, chooseClass_Rogue, function (d:Decal):* { d.alpha = 0; } );
 			
-			WorldUtils.addDecal(Library.IMG("beach.towerLightning.png"), 625, 30, null, null, [0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0 , 0 , 0, 0, 0, 0, 0, 0, 0, 0 , 1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11, 12, 13, 14, 15, 16, 17], 340, 72,  30, true);
+			WorldUtils.addMan( 100, 200, Player.NONE);
+			
+			WorldUtils.addDecal(Library.IMG("beach.towerLightning.png"), 625, 10, null, null, [0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0 , 0 , 0, 0, 0, 0, 0, 0, 0, 0 , 1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11, 12, 13, 14, 15, 16, 17], 340, 72,  30, true);
 			
 			nextLevel = "beach_03";
 		}
@@ -116,11 +116,11 @@ package ifrit
 			WorldUtils.makeBounds();
 			
 			WorldUtils.addDecal(Library.IMG("beach.bg2.png"), 500, 250);
-			WorldUtils.addDecal(Library.IMG("beach.crate.png"), 236, 390);
+			WorldUtils.addDecal(Library.IMG("beach.crate.png"), 236, 370);
 			
-			WorldUtils.addDecal(Library.IMG("misc.upArrow.png"), 165, 370, chooseClass_Mage, function (d:Decal):* { d.alpha = 0;} );
-			WorldUtils.addDecal(Library.IMG("misc.upArrow.png"), 240, 370, chooseClass_Fighter, function (d:Decal):* { d.alpha = 0; } );
-			WorldUtils.addDecal(Library.IMG("misc.upArrow.png"), 285, 370, chooseClass_Rogue, function (d:Decal):* { d.alpha = 0; } );
+			WorldUtils.addDecal(Library.IMG("misc.upArrow.png"), 165, 350, chooseClass_Mage, function (d:Decal):* { d.alpha = 0;} );
+			WorldUtils.addDecal(Library.IMG("misc.upArrow.png"), 240, 350, chooseClass_Fighter, function (d:Decal):* { d.alpha = 0; } );
+			WorldUtils.addDecal(Library.IMG("misc.upArrow.png"), 285, 350, chooseClass_Rogue, function (d:Decal):* { d.alpha = 0; } );
 			
 			if (Game.playerClass == Player.MAGE)
 			{
@@ -137,7 +137,9 @@ package ifrit
 			
 			WorldUtils.addTrigger(1023, 375, WorldUtils.advance);
 			
-			WorldUtils.addDecal(Library.IMG("beach.towerLightning.png"), 625, 30, null, null, [0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0 , 0 , 0, 0, 0, 0, 0, 0, 0, 0 , 1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11, 12, 13, 14, 15, 16, 17], 340, 72,  30, true);
+			WorldUtils.addDecal(Library.IMG("beach.towerLightning.png"), 625, 10, null, null, [0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0 , 0 , 0, 0, 0, 0, 0, 0, 0, 0 , 1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11, 12, 13, 14, 15, 16, 17], 340, 72,  30, true);
+			
+			Game.stage.addChild(new HUD);
 			
 			nextLevel = "forest_01";
 		}

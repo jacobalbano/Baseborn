@@ -182,7 +182,7 @@ package ifrit
 				healthScale = 2;
 				
 				icon1 = Library.IMG("icons.shurikenIcon.png");
-				icon2 = Library.IMG("icons.caltropIcon.png");
+				icon2 = Library.IMG("icons.blinkIcon.png");
 				
 				addChild(shuriken);
 				addChild(shurikenTxt);

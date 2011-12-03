@@ -35,9 +35,16 @@
         <image>menu/mage_button.png</image>
         <image>menu/rogue_button.png</image>
         <image>icons/arrowIcon.png</image>
+        <image>icons/blinkIcon.png</image>
         <image>icons/caltropIcon.png</image>
         <image>icons/energyIcon.png</image>
         <image>icons/healthIcon.png</image>
+        <image>icons/keyA.png</image>
+        <image>icons/keyD.png</image>
+        <image>icons/keyLR.png</image>
+        <image>icons/keyS.png</image>
+        <image>icons/keySpace.png</image>
+        <image>icons/keyUD.png</image>
         <image>icons/manaIcon.png</image>
         <image>icons/shieldIcon.png</image>
         <image>icons/shurikenIcon.png</image>
@@ -70,8 +77,8 @@
         <image>beach/towerLightning.png</image>
     </images>
     <sounds>
+        <sound>audio/sfx/bolt.mp3</sound>
         <sound>audio/sfx/Wisp.mp3</sound>
-        <sound>audio/sfx/bolt.wav</sound>
         <sound>audio/music/beach.mp3</sound>
     </sounds>
 </library>

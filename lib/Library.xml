@@ -19,6 +19,21 @@
         <image>unclassed.png</image>
         <image>vortex.png</image>
         <image>wisp.png</image>
+        <image>player/rogue/attack.png</image>
+        <image>player/rogue/climb.png</image>
+        <image>player/rogue/death.png</image>
+        <image>player/rogue/walk.png</image>
+        <image>player/mage/attack.png</image>
+        <image>player/mage/climb.png</image>
+        <image>player/mage/death.png</image>
+        <image>player/mage/walk.png</image>
+        <image>player/fighter/attack.png</image>
+        <image>player/fighter/climb.png</image>
+        <image>player/fighter/death.png</image>
+        <image>player/fighter/pull.png</image>
+        <image>player/fighter/release.png</image>
+        <image>player/fighter/shield.png</image>
+        <image>player/fighter/walk.png</image>
         <image>misc/clipPlatform.png</image>
         <image>misc/ladder.png</image>
         <image>misc/ropeLadder.png</image>
@@ -32,6 +47,8 @@
         <image>icons/manaIcon.png</image>
         <image>icons/shieldIcon.png</image>
         <image>icons/shurikenIcon.png</image>
+        <image>hellther/bg.png</image>
+        <image>hellther/ladder.png</image>
         <image>forest/forestBG.png</image>
         <image>forest/house.png</image>
         <image>forest/house2.png</image>
@@ -54,10 +71,13 @@
         <image>castle/decals/window.png</image>
         <image>beach/bg(1).png</image>
         <image>beach/bg.png</image>
-        <image>beach/bg2.png</image>
         <image>beach/lightningBolt.png</image>
         <image>beach/shipAnimation.png</image>
         <image>beach/towerLightning.png</image>
     </images>
-    <sounds />
+    <sounds>
+        <sound>audio/sfx/Wisp.mp3</sound>
+        <sound>audio/sfx/bolt.wav</sound>
+        <sound>audio/music/beach.mp3</sound>
+    </sounds>
 </library>

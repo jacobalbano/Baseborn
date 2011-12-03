@@ -437,7 +437,7 @@
 			{
 				if (man.friendly)
 				{
-					man.graphic.play("release90");
+					man.graphic.play("release");
 					man.shoot();
 				}
 			}

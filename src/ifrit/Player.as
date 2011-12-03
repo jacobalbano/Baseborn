@@ -58,13 +58,11 @@ package ifrit
 			var frameWidth:int = 18;
 			var frameHeight:int = 25;
 			
-			//TODO: Adjust frame width so that there is as much space behind as there is in front
-			/* The problem is obvious when the image is rotated for heading in various directions. */
 			switch (type)
 			{
-				case 0:		animationName = "mage.png";		        frameWidth = 41;	frameHeight = 25;		break;
-				case 2:		animationName = "rogue.png";		    frameWidth = 38;	frameHeight = 25;		break;
-				case 4:		animationName = "fighter.png";			frameWidth = 48;	frameHeight = 33;		break;
+				case 0:		animationName = "mage.png";		        frameWidth = 65;	frameHeight = 25;		break;
+				case 2:		animationName = "rogue.png";		    frameWidth = 36;	frameHeight = 25;		break;
+				case 4:		animationName = "fighter.png";			frameWidth = 64;	frameHeight = 33;		break;
 				case 8:		animationName = "unclassed.png";		frameWidth = 15;	frameHeight = 25;		break;
 			}
 			
@@ -74,31 +72,52 @@ package ifrit
 			{
 				case 0:
 					this.rangedType = Fireball;
+					
+					graphic.add("walk", [0, 1, 2, 3], 6, true);
+					graphic.add("stand", [3], 0, true);
+					graphic.add("attack", [4, 5, 6, 7], 12, false);
 					graphic.add("casting", [4, 4, 4, 4], 12, false, true);
+					graphic.add("climbUp", [8, 9, 10, 11], 8, true);
+					graphic.add("climbDown", [11, 10, 9, 8], 8, true);
+					graphic.add("climbIdle", [9], 0, true);
+					graphic.add("death", [12, 13, 14, 15], 6, false, true);
+					
 					break;
 				case 2:
 					this.rangedType = Shuriken;
+					
+					graphic.add("walk", [0, 1, 2, 3], 6, true);
+					graphic.add("stand", [3], 0, true);
+					graphic.add("attack", [4, 5, 6, 7], 12, false);
+					graphic.add("climbUp", [8, 9, 10, 11], 8, true);
+					graphic.add("climbDown", [11, 10, 9, 8], 8, true);
+					graphic.add("climbIdle", [9], 0, true);
+					graphic.add("death", [12, 13, 14, 15], 6, false, true);
+					
 					break;
 				case 4:
 					this.rangedType = Arrow;
+					
+					graphic.add("walk", [0, 1, 2, 3], 6, true);
+					graphic.add("stand", [3], 0, true);
+					graphic.add("attack", [4, 5, 6, 7], 12, false);
 					graphic.add("shield", [8, 9, 10, 11], 20, false, true);
 					graphic.add("pull", [12, 13, 14, 15], 12, false, true);
-					graphic.add("release90", [16, 17, 18, 19], 18, false);
+					graphic.add("release", [16, 17, 18, 19], 18, false);
+					graphic.add("climbUp", [20, 21, 22, 23], 8, true);
+					graphic.add("climbDown", [23, 22, 21, 20], 8, true);
+					graphic.add("climbIdle", [21], 0, true);
+					graphic.add("death", [25, 26, 27, 28], 6, false, true);
 					break;
 				case 8:
-					//graphic.add("standNoClass", [4], 0, true);
+					graphic.add("stand", [4], 0, true);
 				default:	
 			}
 			
 			this.classType = type;
 			
-			graphic.add("walk", [0, 1, 2, 3], 6, true);
-			graphic.add("stand", [4], 0, true);
-			graphic.add("attack", [4, 5, 6, 7], 12, false);
-			graphic.add("climbUp", [20, 21, 22, 23], 8, true);
-			graphic.add("climbDown", [23, 22, 21, 20], 8, true);
-			graphic.add("climbIdle", [21], 0, true);
-			graphic.add("death", [24, 25, 26, 27], 6, false);
+			
+			
 			
 			graphic.play("stand");
 			
@@ -141,7 +160,7 @@ package ifrit
 			this.graphic.playing != "pull"			&&
 			this.graphic.playing != "aimUp"			&&
 			this.graphic.playing != "aimDown"		&&
-			this.graphic.playing != "release90"		&&
+			this.graphic.playing != "release"		&&
 			this.graphic.playing != "release45"		&&
 			this.graphic.playing != "release135"
 			) this.idle = true;

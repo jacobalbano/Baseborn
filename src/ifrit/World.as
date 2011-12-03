@@ -155,11 +155,7 @@ package ifrit
 			WorldUtils.addLadder(80, 275, 115, "misc.ropeLadder.png");
 			WorldUtils.addLadder(635, 270, 75, "misc.ropeLadder.png");
 			
-			WorldUtils.addEnemy(100, 250, Skeleton);
-			WorldUtils.addEnemy(400, 250, Skeleton);
-			WorldUtils.addEnemy(400, 350, Skeleton);
-			WorldUtils.addEnemy(200, 250, Skeleton);
-			WorldUtils.addEnemy(400, 350, SkeletonMage);
+			WorldUtils.addEnemy(340, 450, Bear);
 			
 			WorldUtils.addMan(50, 375, Game.playerClass);
 			

@@ -3,6 +3,7 @@ package ifrit
 	
 	import com.jacobalbano.Animation;
 	import com.jacobalbano.Map;
+	import com.jacobalbano.Input;
 	import com.thaumaturgistgames.flakit.Library;
 	import flash.display.Bitmap;
 	import flash.display.BitmapData;
@@ -46,6 +47,7 @@ package ifrit
 			Worlds.add("mainMenu", 	mainMenu);
 			Worlds.add("beach_01", loadBeach_01);
 			Worlds.add("beach_02", loadBeach_02);
+			Worlds.add("beach_03", loadBeach_03);
 			Worlds.add("forest_01", loadForest_01);
 			Worlds.add("forest_02", loadForest_02);
 			Worlds.add("forest_03", loadForest_03);
@@ -96,12 +98,46 @@ package ifrit
 			WorldUtils.makeBounds();
 			
 			WorldUtils.addDecal(Library.IMG("beach.bg2.png"), 500, 250);
+			WorldUtils.addDecal(Library.IMG("beach.crate.png"), 236, 390);
+			
+			WorldUtils.addDecal(Library.IMG("misc.upArrow.png"), 165, 370, chooseClass_Mage, function (d:Decal):* { d.alpha = 0;} );
+			WorldUtils.addDecal(Library.IMG("misc.upArrow.png"), 240, 370, chooseClass_Fighter, function (d:Decal):* { d.alpha = 0; } );
+			WorldUtils.addDecal(Library.IMG("misc.upArrow.png"), 285, 370, chooseClass_Rogue, function (d:Decal):* { d.alpha = 0; } );
 			
 			WorldUtils.addMan( 0, 500, Player.NONE);
 			
+			WorldUtils.addDecal(Library.IMG("beach.towerLightning.png"), 625, 30, null, null, [0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0 , 0 , 0, 0, 0, 0, 0, 0, 0, 0 , 1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11, 12, 13, 14, 15, 16, 17], 340, 72,  30, true);
+			
+			nextLevel = "beach_03";
+		}
+		
+		private static function loadBeach_03():void
+		{
+			WorldUtils.makeBounds();
+			
+			WorldUtils.addDecal(Library.IMG("beach.bg2.png"), 500, 250);
+			WorldUtils.addDecal(Library.IMG("beach.crate.png"), 236, 390);
+			
+			WorldUtils.addDecal(Library.IMG("misc.upArrow.png"), 165, 370, chooseClass_Mage, function (d:Decal):* { d.alpha = 0;} );
+			WorldUtils.addDecal(Library.IMG("misc.upArrow.png"), 240, 370, chooseClass_Fighter, function (d:Decal):* { d.alpha = 0; } );
+			WorldUtils.addDecal(Library.IMG("misc.upArrow.png"), 285, 370, chooseClass_Rogue, function (d:Decal):* { d.alpha = 0; } );
+			
+			if (Game.playerClass == Player.MAGE)
+			{
+				WorldUtils.addMan( 165, 400, Game.playerClass);
+			}
+			else if (Game.playerClass == Player.FIGHTER)
+			{
+				WorldUtils.addMan( 240, 400, Game.playerClass);
+			}
+			else if (Game.playerClass == Player.ROGUE)
+			{
+				WorldUtils.addMan( 280, 400, Game.playerClass);
+			}
+			
 			WorldUtils.addTrigger(1023, 375, WorldUtils.advance);
 			
-			WorldUtils.addDecal(Library.IMG("beach.towerLightning.png"), 625, 30, null, null, [0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0 , 0 , 0, 0, 0, 0, 0, 0, 0, 0 ,1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11, 12, 13, 14, 15, 16, 17], 340, 72,  30, true);
+			WorldUtils.addDecal(Library.IMG("beach.towerLightning.png"), 625, 30, null, null, [0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0 , 0 , 0, 0, 0, 0, 0, 0, 0, 0 , 1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11, 12, 13, 14, 15, 16, 17], 340, 72,  30, true);
 			
 			nextLevel = "forest_01";
 		}
@@ -345,7 +381,59 @@ package ifrit
 		//}
 		//	Worlds end
 		
+		static private function chooseClass_Mage(d:Decal):void 
+		{
+			if (d.hitTestObject(Game.man.collisionHull))
+			{
+				if (d.alpha <= 1) d.alpha += 0.05;
+				
+				if (Input.isKeyDown(Input.UP))
+				{
+					Game.playerClass = Player.MAGE;
+					WorldUtils.loadLevel("beach_03");
+				}
+			}
+			else
+			{
+				if (d.alpha >= 0) d.alpha -= 0.05;
+			}
+		}
 		
+		private static function chooseClass_Fighter(d:Decal):void 
+		{
+			if (d.hitTestObject(Game.man.collisionHull))
+			{
+				if (d.alpha <= 1) d.alpha += 0.05;
+				
+				if (Input.isKeyDown(Input.UP))
+				{
+					Game.playerClass = Player.FIGHTER;
+					WorldUtils.loadLevel("beach_03");
+				}
+			}
+			else
+			{
+				if (d.alpha >= 0) d.alpha -= 0.05;
+			}
+		}
+		
+		private static function chooseClass_Rogue(d:Decal):void 
+		{
+			if (d.hitTestObject(Game.man.collisionHull))
+			{
+				if (d.alpha <= 1) d.alpha += 0.05;
+				
+				if (Input.isKeyDown(Input.UP))
+				{
+					Game.playerClass = Player.ROGUE;
+					WorldUtils.loadLevel("beach_03");
+				}
+			}
+			else
+			{
+				if (d.alpha >= 0) d.alpha -= 0.05;
+			}
+		}
 		
 		
 	}

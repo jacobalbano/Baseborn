@@ -171,6 +171,14 @@ package ifrit
 			addWall(900, -5, false, Library.IMG("misc.clipPlatform.png"));
 		}
 		
+		static public function followMouse(d:Decal):void 
+		{
+			d.x = Game.stage.mouseX;
+			d.y = Game.stage.mouseY;
+			
+			trace("x:", Game.stage.mouseX, "y:", Game.stage.mouseY);
+		}
+		
 		/**
 		 * Remove all objects from the world
 		 */

@@ -367,7 +367,7 @@ package ifrit
 		
 		private function attack():void
 		{
-			if (Point.distance(new Point(this.x, this.y), new Point(Game.man.x, Game.man.y)) > this.collisionHull.width )
+			if (Point.distance(new Point(this.x, this.y), new Point(Game.man.x, Game.man.y)) > this.width )
 			{
 				if (! (behaviorFlags & NO_RANGED) > 0 )	
 				{
@@ -376,7 +376,6 @@ package ifrit
 			}
 			else
 			{
-				this.graphic.play("attack");
 				if (! (behaviorFlags & NO_MELEE) > 0 )
 				{
 					this.graphic.play("attack");

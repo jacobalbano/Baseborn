@@ -44,7 +44,6 @@ package ifrit
 			//	It works the same way as a C++ map, storing objects with keys
 			Worlds = new Map(String, Function);
 			
-			Worlds.add("mainMenu", 	mainMenu);
 			Worlds.add("beach_01", loadBeach_01);
 			Worlds.add("beach_02", loadBeach_02);
 			Worlds.add("beach_03", loadBeach_03);
@@ -65,16 +64,6 @@ package ifrit
 		 * 		Collide man w/ platform to debug.
 		 * 		NOTE: First non-bounds platform is #16
 		 *//////////////////////////////////////////////////////
-		
-		
-		private static function mainMenu():void
-		{			
-			WorldUtils.addButton(600, 200, Library.IMG("menu.rogue_button.png"), 	function ():void { Game.playerClass = Player.ROGUE; 	SaveState.playerClass = Game.playerClass;	WorldUtils.next();} );
-			WorldUtils.addButton(600, 250, Library.IMG("menu.fighter_button.png"), function ():void { Game.playerClass = Player.FIGHTER; 	SaveState.playerClass = Game.playerClass;	WorldUtils.next();} );
-			WorldUtils.addButton(600, 300, Library.IMG("menu.mage_button.png"), 	function ():void { Game.playerClass = Player.MAGE; 		SaveState.playerClass = Game.playerClass;	WorldUtils.next(); } );
-			
-			nextLevel = "beach_01";
-		}
 		
 		private static function loadBeach_01():void
 		{

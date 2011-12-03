@@ -46,7 +46,7 @@
 			
 			Game.playerClass = SaveState.playerClass;
 			
-			WorldUtils.loadLevel( "beach_01");
+			WorldUtils.loadLevel( SaveState.level || "beach_01");
 		}
 		
 		private function enterFrame(e:Event):void

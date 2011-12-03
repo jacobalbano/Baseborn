@@ -47,7 +47,7 @@ package ifrit
 		public static function loadLevel(name:String):void
 		{
 			unloadLevel();
-			(World.Worlds.retrive(name) || World.Worlds.retrive("mainMenu"))();
+			(World.Worlds.retrive(name) || World.Worlds.retrive("beach_01"))();
 			
 			SaveState.level = name;
 			

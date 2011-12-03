@@ -62,7 +62,7 @@
 			{
 				if (enemiesKilled == World.Mobs.length && World.Platforms.length > 0)
 				{
-					World.Platforms[World.Platforms.length - 1].x++;
+					//World.Platforms[World.Platforms.length - 1].x++;
 				}
 				
 				if (checkLadder())

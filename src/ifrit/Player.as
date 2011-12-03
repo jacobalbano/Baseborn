@@ -58,8 +58,6 @@ package ifrit
 			var frameWidth:int = 18;
 			var frameHeight:int = 25;
 			
-			//TODO: Adjust frame width so that there is as much space behind as there is in front
-			/* The problem is obvious when the image is rotated for heading in various directions. */
 			switch (type)
 			{
 				case 0:		animationName = "mage.png";		        frameWidth = 41;	frameHeight = 25;		break;

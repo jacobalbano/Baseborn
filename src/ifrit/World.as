@@ -154,6 +154,7 @@ package ifrit
 			WorldUtils.addLadder(635, 270, 75, "misc.ropeLadder.png");
 			
 			WorldUtils.addEnemy(340, 450, Bear);
+			WorldUtils.addEnemy(340, 700, Wolf);
 			
 			WorldUtils.addMan(50, 375, Game.playerClass);
 			

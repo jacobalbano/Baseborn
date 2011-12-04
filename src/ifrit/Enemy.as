@@ -75,16 +75,16 @@ package ifrit
 		}
 		
 		override public function think():void 
-		{
+		{			
 			super.think();
 			
 			if (this.brainDead)	return;
 			
-			if (this.pickup)	this.checkPickup();
+			this.testHealth();
+			
+			this.checkPickup();
 			
 			if (isDestroyed) 	return;
-			
-			this.testHealth();
 			
 			this.findPlatform();
 			
@@ -129,6 +129,8 @@ package ifrit
 		 */
 		private function checkPickup():void
 		{
+			if (!this.pickup)	return;
+			
 			if (this.pickup.alpha < 1)	this.pickup.alpha -= 0.1;
 			
 			if (this.pickup.alpha <= 0)
@@ -335,7 +337,7 @@ package ifrit
 		 */
 		private function move():void
 		{
-			if (this.graphic.playing != "shocked" && this.graphic.playing != "die")	this.graphic.play("walk");
+			if (this.graphic.playing != "shocked" && this.graphic.playing != "die" && this.graphic.playing != "attack")	this.graphic.play("walk");
 			
 			this.lastPosition.x = this.x;
 			this.lastPosition.y = this.y;
@@ -365,13 +367,20 @@ package ifrit
 		
 		private function attack():void
 		{
-			if (Point.distance(new Point(this.x, this.y), new Point(Game.man.x, Game.man.y)) > 25)
+			if (Point.distance(new Point(this.x, this.y), new Point(Game.man.x, Game.man.y)) > this.width )
 			{
-				if (! (behaviorFlags & NO_RANGED) > 0 )	shoot();
+				if (! (behaviorFlags & NO_RANGED) > 0 )	
+				{
+					shoot();
+				}
 			}
 			else
 			{
-				if (! (behaviorFlags & NO_MELEE) > 0 )	stab();
+				if (! (behaviorFlags & NO_MELEE) > 0 )
+				{
+					this.graphic.play("attack");
+					stab();
+				}
 			}
 		}		
 		

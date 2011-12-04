@@ -86,6 +86,7 @@ package ifrit
 			WorldUtils.makeBounds();
 			
 			WorldUtils.addDecal(Library.IMG("beach.bg2.png"), 500, 250);
+			WorldUtils.addDecal(Library.IMG("beach.shipAnimation.png"), 100, 175, null, null, [0, 1, 2, 3], 270, 193, 5);
 			
 			WorldUtils.addDecal(Library.IMG("beach.crate.png"), 236, 370);
 			
@@ -93,7 +94,7 @@ package ifrit
 			WorldUtils.addDecal(Library.IMG("misc.upArrow.png"), 240, 350, chooseClass_Fighter, function (d:Decal):* { d.alpha = 0; } );
 			WorldUtils.addDecal(Library.IMG("misc.upArrow.png"), 285, 350, chooseClass_Rogue, function (d:Decal):* { d.alpha = 0; } );
 			
-			WorldUtils.addMan( 100, 200, Player.NONE);
+			WorldUtils.addMan( 0, 500, Player.NONE);
 			
 			WorldUtils.addDecal(Library.IMG("beach.towerLightning.png"), 625, 10, null, null, [0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0 , 0 , 0, 0, 0, 0, 0, 0, 0, 0 , 1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11, 12, 13, 14, 15, 16, 17], 340, 72,  30, true);
 			
@@ -105,6 +106,7 @@ package ifrit
 			WorldUtils.makeBounds();
 			
 			WorldUtils.addDecal(Library.IMG("beach.bg2.png"), 500, 250);
+			WorldUtils.addDecal(Library.IMG("beach.shipAnimation.png"), 100, 175, null, null, [0, 1, 2, 3], 270, 193, 5);
 			WorldUtils.addDecal(Library.IMG("beach.crate.png"), 236, 370);
 			
 			WorldUtils.addDecal(Library.IMG("misc.upArrow.png"), 165, 350, chooseClass_Mage, function (d:Decal):* { d.alpha = 0;} );
@@ -241,8 +243,6 @@ package ifrit
 			WorldUtils.addDecal(Library.IMG("dungeon.decals.shield.png"), 750, 80);
 			WorldUtils.addDecal(Library.IMG("dungeon.decals.torch.png"), 700, 80, null, null, [0, 1, 2, 3, 4, 5], 40, 40);
 			
-			WorldUtils.addDecal(Library.IMG("dungeon.decals.door.png"), 855, 363.5, WorldUtils.advance);
-			
 			WorldUtils.addLadder(112, 100, 260);
 			WorldUtils.addLadder(855, 200, 115);
 			
@@ -270,6 +270,8 @@ package ifrit
 			WorldUtils.addMan(50, 375, Game.playerClass);
 			
 			Game.stage.addChild(new HUD);
+			
+			WorldUtils.addDecal(Library.IMG("dungeon.decals.door.png"), 855, 363.5, WorldUtils.advance);
 			
 			nextLevel = "hellther_01";
 		}
@@ -359,9 +361,9 @@ package ifrit
 
 			WorldUtils.addMan(435, 300, Game.playerClass);
 			
-			WorldUtils.addDecal(new Bitmap(new BitmapData(50, 50, true, 0)), 500, 375, WorldUtils.advance);
-			
 			Game.stage.addChild(new HUD);
+			
+			WorldUtils.addDecal(new Bitmap(new BitmapData(50, 50, true, 0)), 500, 375, WorldUtils.advance);
 			
 			nextLevel = "mainMenu";
 		}
@@ -377,6 +379,7 @@ package ifrit
 				
 				if (Input.isKeyDown(Input.UP))
 				{
+					SaveState.playerClass = Player.MAGE;
 					Game.playerClass = Player.MAGE;
 					WorldUtils.loadLevel("beach_03");
 				}
@@ -395,6 +398,7 @@ package ifrit
 				
 				if (Input.isKeyDown(Input.UP))
 				{
+					SaveState.playerClass = Player.FIGHTER;
 					Game.playerClass = Player.FIGHTER;
 					WorldUtils.loadLevel("beach_03");
 				}
@@ -413,6 +417,7 @@ package ifrit
 				
 				if (Input.isKeyDown(Input.UP))
 				{
+					SaveState.playerClass = Player.ROGUE;
 					Game.playerClass = Player.ROGUE;
 					WorldUtils.loadLevel("beach_03");
 				}

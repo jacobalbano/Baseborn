@@ -200,7 +200,8 @@ package ifrit
 		{
 			WorldUtils.makeBounds();
 			
-			WorldUtils.addDecal(Library.IMG("forest.towerEntranceBG.png"), 500, 200);
+			WorldUtils.addDecal(Library.IMG("forest.towerDoor.png"), 500, 200);
+			WorldUtils.addDecal(Library.IMG("forest.lavaAnimation.png"), 94, 235, null, null, [0, 1, 2, 3], 110, 220, 4);
 
 			WorldUtils.addMan(50, 375, Game.playerClass);
 			

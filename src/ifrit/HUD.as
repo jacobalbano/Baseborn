@@ -21,6 +21,7 @@ package ifrit
 		private var area:Bitmap;
 		private var icon1:Bitmap;
 		private var icon2:Bitmap;
+		private var skills:Bitmap;
 		
 		private static var health:Sprite;
 		private var healthIcon:Bitmap;
@@ -135,6 +136,7 @@ package ifrit
 				
 				icon1 = Library.IMG("icons.manaIcon.png");
 				icon2 = Library.IMG("icons.energyIcon.png");
+				skills = Library.IMG("mageSkills.png");
 				
 				addChild(mana);
 				addChild(manaTxt);
@@ -183,6 +185,7 @@ package ifrit
 				
 				icon1 = Library.IMG("icons.shurikenIcon.png");
 				icon2 = Library.IMG("icons.blinkIcon.png");
+				skills = Library.IMG("rogueSkills.png");
 				
 				addChild(shuriken);
 				addChild(shurikenTxt);
@@ -232,6 +235,7 @@ package ifrit
 				
 				icon1 = Library.IMG("icons.arrowIcon.png");
 				icon2 = Library.IMG("icons.shieldIcon.png");
+				skills = Library.IMG("fighterSkills.png");
 				
 			}
 				
@@ -243,6 +247,10 @@ package ifrit
 			icon2.x = 842;
 			icon2.y = 472;
 			addChild(icon2);
+			
+			skills.x = 420;
+			skills.y = 432;
+			addChild(skills);
 			
 			totalHealth = (200 * healthScale);
 			totalMana = 200;

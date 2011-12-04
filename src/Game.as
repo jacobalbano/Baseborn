@@ -515,6 +515,8 @@
 				{					
 					if (HUD.testCost(95, 25))
 					{
+						//Library.SND("audio.sfx.wisp.mp3").play(0);
+						
 						man.graphic.play("casting");
 						
 						if (!man.lightningAttack)
@@ -558,6 +560,7 @@
 			{
 				if (man.lightningAttack)
 				{
+					//Library.SND("audio.sfx.bolt.mp3").play(0);
 					man.boltTime.start();
 					man.lightningAttack.sendBolt();
 				}

@@ -63,7 +63,7 @@ package ifrit
 				case 0:		animationName = "mage.png";		        frameWidth = 65;	frameHeight = 25;		break;
 				case 2:		animationName = "rogue.png";		    frameWidth = 36;	frameHeight = 25;		break;
 				case 4:		animationName = "fighter.png";			frameWidth = 64;	frameHeight = 33;		break;
-				case 8:		animationName = "unclassed.png";		frameWidth = 15;	frameHeight = 25;		break;
+				case 8:		animationName = "unclassed.png";		frameWidth = 57;	frameHeight = 25;		break;
 			}
 			
 			super( x, y, Library.IMG(animationName), frameWidth, frameHeight, 18, 25);
@@ -112,6 +112,7 @@ package ifrit
 				case 8:
 					graphic.add("stand", [4], 0, true);
 					graphic.add("walk", [0, 1, 2, 3], 6, true);
+					graphic.add("getUp", [8, 9, 10, 11], 3, false);
 				default:	
 			}
 			

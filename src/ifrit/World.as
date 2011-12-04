@@ -10,6 +10,9 @@ package ifrit
 	import flash.display.Sprite;
 	import flash.events.Event;
 	import ifrit.*;
+	import com.thaumaturgistgames.flakit.SoundLoader;
+	import com.thaumaturgistgames.flakit.soundResource;
+	import flash.media.Sound;
 	
 	/**
 	 * @author Jake Albano
@@ -67,6 +70,8 @@ package ifrit
 		
 		private static function loadBeach_01():void
 		{
+			Library.SND("audio.music.beach.mp3").play(0, 5);
+			
 			WorldUtils.makeBounds();
 			
 			WorldUtils.addDecal(Library.IMG("beach.bg.png"), 500, 250);

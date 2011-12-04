@@ -54,6 +54,7 @@ package ifrit
 			Worlds.add("forest_02", loadForest_02);
 			Worlds.add("forest_03", loadForest_03);
 			Worlds.add("tower_01", loadTower_01);
+			Worlds.add("tower_02", loadTower_02);
 			Worlds.add("dungeon_01", loadDungeon_01);
 			Worlds.add("hellther_01", loadHellther_01);
 		}
@@ -226,6 +227,58 @@ package ifrit
 			
 			Game.stage.addChild(new HUD);
 			
+			nextLevel = "tower_02";
+		}
+		
+		private static function loadTower_02():void
+		{
+			WorldUtils.makeBounds();
+			
+			Game.stage.addChild(Library.IMG("tower.bg.png"));
+			
+			WorldUtils.addDecal(Library.IMG("tower.decals.stainedGlass.png"), 546, 218);
+			
+			WorldUtils.addDecal(Library.IMG("tower.decals.chandelier.png"), 923, 165.5, null, null , [0, 1, 2, 3], 46, 101);
+			WorldUtils.addDecal(Library.IMG("tower.decals.chandelier.png"), 73, 165.5, null, null, [0, 1, 2, 3], 46, 101);
+			
+			WorldUtils.addDecal(Library.IMG("tower.decals.shield.png"), 180, 80);
+			WorldUtils.addDecal(Library.IMG("tower.decals.shield.png"), 280, 80);
+			WorldUtils.addDecal(Library.IMG("tower.decals.torch.png"), 230, 80, null, null, [0, 1, 2, 3, 4, 5], 40, 40);
+			
+			WorldUtils.addDecal(Library.IMG("tower.decals.shield.png"), 650, 80);
+			WorldUtils.addDecal(Library.IMG("tower.decals.shield.png"), 750, 80);
+			WorldUtils.addDecal(Library.IMG("tower.decals.torch.png"), 700, 80, null, null, [0, 1, 2, 3, 4, 5], 40, 40);
+			
+			WorldUtils.addLadder(112, 100, 260);
+			WorldUtils.addLadder(855, 200, 115);
+			
+			WorldUtils.addEnemy(724, 75, ElfMage);
+			WorldUtils.addEnemy(924, 75, ElfMage);
+			WorldUtils.addEnemy(600, 336, ElfMage);
+			WorldUtils.addEnemy(495, 130, ElfMage);
+			WorldUtils.addEnemy(170, 180, ElfMage);
+			
+			WorldUtils.addWall( 0, 110, false, Library.IMG("tower.platform.png"));
+			WorldUtils.addWall(150, 250, true, Library.IMG("tower.platform.png"));
+			WorldUtils.addWall(255, 186, false, Library.IMG("tower.platform.png"));
+			WorldUtils.addWall(495, 229, false, Library.IMG("tower.platform.png"));
+			WorldUtils.addWall(495, 144, false, Library.IMG("tower.platform.png"));
+			WorldUtils.addWall(800, 110, false, Library.IMG("tower.platform.png"), 400);
+			WorldUtils.addWall(772, 414, true, Library.IMG("tower.platform.png"));
+			WorldUtils.addWall(600, 346, false, Library.IMG("tower.platform.png"));
+			WorldUtils.addWall(375, 371, false, Library.IMG("tower.platform.png"));
+			WorldUtils.addWall(829, 315, false, Library.IMG("tower.platform.png"));
+			WorldUtils.addWall(700, 272, false, Library.IMG("tower.platform.png"));
+			WorldUtils.addWall(227, 109, false, Library.IMG("tower.platform.png"));
+			WorldUtils.addWall(745, 210, false, Library.IMG("tower.platform.png"));
+			//WorldUtils.addWall(1024, 315, false, Library.IMG("tower.platform.png"));
+			
+			WorldUtils.addMan(50, 375, Game.playerClass);
+			
+			Game.stage.addChild(new HUD);
+			
+			WorldUtils.addDecal(Library.IMG("tower.decals.door.png"), 855, 363.5, WorldUtils.advance);
+			
 			nextLevel = "dungeon_01";
 		}
 		
@@ -235,18 +288,10 @@ package ifrit
 			
 			Game.stage.addChild(Library.IMG("dungeon.bg.png"));
 			
-			WorldUtils.addDecal(Library.IMG("dungeon.decals.stainedGlass.png"), 515.5, 218);
-			
-			WorldUtils.addDecal(Library.IMG("dungeon.decals.chandelier.png"), 923, 165.5, null, null , [0, 1, 2, 3], 46, 101);
-			WorldUtils.addDecal(Library.IMG("dungeon.decals.chandelier.png"), 73, 165.5, null, null, [0, 1, 2, 3], 46, 101);
-			
-			WorldUtils.addDecal(Library.IMG("dungeon.decals.shield.png"), 180, 80);
-			WorldUtils.addDecal(Library.IMG("dungeon.decals.shield.png"), 280, 80);
 			WorldUtils.addDecal(Library.IMG("dungeon.decals.torch.png"), 230, 80, null, null, [0, 1, 2, 3, 4, 5], 40, 40);
-			
-			WorldUtils.addDecal(Library.IMG("dungeon.decals.shield.png"), 650, 80);
-			WorldUtils.addDecal(Library.IMG("dungeon.decals.shield.png"), 750, 80);
 			WorldUtils.addDecal(Library.IMG("dungeon.decals.torch.png"), 700, 80, null, null, [0, 1, 2, 3, 4, 5], 40, 40);
+			
+			WorldUtils.addDecal(Library.IMG("dungeon.decals.cellDoor.png"), 200, 369.5);
 			
 			WorldUtils.addLadder(112, 100, 260);
 			WorldUtils.addLadder(855, 200, 115);
@@ -277,6 +322,8 @@ package ifrit
 			Game.stage.addChild(new HUD);
 			
 			WorldUtils.addDecal(Library.IMG("dungeon.decals.door.png"), 855, 363.5, WorldUtils.advance);
+			
+			WorldUtils.addDecal(Library.IMG("dungeon.decals.darkness.png"), 500, 200);
 			
 			nextLevel = "hellther_01";
 		}
@@ -360,6 +407,25 @@ package ifrit
 			WorldUtils.addWall(276, 174, true, Library.IMG("forest.platform.png"), 75);
 			WorldUtils.addWall(288, 185, true, Library.IMG("forest.platform.png"), 86);
 			
+			// Blocks off bottom right chunk
+			//WorldUtils.addWall(801, 233, false, Library.IMG("forest.platform.png"), 390);
+			//WorldUtils.addWall(801, 243, false, Library.IMG("forest.platform.png"), 390);
+			//WorldUtils.addWall(801, 253, false, Library.IMG("forest.platform.png"), 390);
+			//WorldUtils.addWall(801, 263, false, Library.IMG("forest.platform.png"), 390);
+			//WorldUtils.addWall(801, 273, false, Library.IMG("forest.platform.png"), 390);
+			//WorldUtils.addWall(801, 283, false, Library.IMG("forest.platform.png"), 390);
+			//WorldUtils.addWall(801, 293, false, Library.IMG("forest.platform.png"), 390);
+			//WorldUtils.addWall(801, 303, false, Library.IMG("forest.platform.png"), 390);
+			//WorldUtils.addWall(801, 313, false, Library.IMG("forest.platform.png"), 390);
+			//WorldUtils.addWall(801, 323, false, Library.IMG("forest.platform.png"), 390);
+			//WorldUtils.addWall(801, 333, false, Library.IMG("forest.platform.png"), 390);
+			//WorldUtils.addWall(801, 343, false, Library.IMG("forest.platform.png"), 390);
+			//WorldUtils.addWall(801, 353, false, Library.IMG("forest.platform.png"), 390);
+			//WorldUtils.addWall(801, 363, false, Library.IMG("forest.platform.png"), 390);
+			//WorldUtils.addWall(801, 373, false, Library.IMG("forest.platform.png"), 390);
+			//WorldUtils.addWall(801, 383, false, Library.IMG("forest.platform.png"), 390);
+			//WorldUtils.addWall(801, 393, false, Library.IMG("forest.platform.png"), 390);
+			
 			
 			WorldUtils.addLadder(447, 345, 55, "hellther.ladder.png");
 			WorldUtils.addLadder(576, 0, 49, "hellther.ladder.png");
@@ -368,7 +434,7 @@ package ifrit
 			
 			Game.stage.addChild(new HUD);
 			
-			WorldUtils.addDecal(new Bitmap(new BitmapData(50, 50, true, 0)), 500, 375, WorldUtils.advance);
+			WorldUtils.addDecal(new Bitmap(new BitmapData(50, 50, true, 0)), 550, 0, WorldUtils.advance);
 			
 			nextLevel = "mainMenu";
 		}

@@ -170,8 +170,7 @@ package ifrit
 			this.graphic.playing != "aimUp"			&&
 			this.graphic.playing != "aimDown"		&&
 			this.graphic.playing != "release"		&&
-			this.graphic.playing != "release45"		&&
-			this.graphic.playing != "release135"
+			this.graphic.playing != "getUp"
 			) this.idle = true;
 			
 			else this.idle = false;

@@ -414,13 +414,13 @@
 							World.Platforms[ii].collide(World.Mobs[jj] );
 							
 							 //Platform debugging information
-							if (World.Mobs[jj].friendly)
-							{
-								if (World.Platforms[ii].collide(World.Mobs[jj] ))
-								{
-									trace(ii);
-								}
-							}
+							//if (World.Mobs[jj].friendly)
+							//{
+								//if (World.Platforms[ii].collide(World.Mobs[jj] ))
+								//{
+									//trace(ii);
+								//}
+							//}
 						}
 					}
 				}

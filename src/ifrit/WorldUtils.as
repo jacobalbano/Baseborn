@@ -227,6 +227,16 @@ package ifrit
 			{
 				HUD.damagePlayer(100, true);
 			}
+			else
+			{
+				for (var i:int = World.Mobs.length; i --> 0; )
+				{
+					if (d.hitTestObject(World.Mobs[i].collisionHull))
+					{
+						World.Mobs[i].destroy();
+					}
+				}
+			}
 		}
 		
 		/**

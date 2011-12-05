@@ -337,7 +337,7 @@ package ifrit
 			
 			WorldUtils.addDecal(Library.IMG("hellther.bg.png"), 500, 200);
 			
-			WorldUtils.addMan(435, 300, Game.playerClass);
+			WorldUtils.addEnemy(730, 185, Serpent);
 			
 			// Top row (#16-18)
 			WorldUtils.addWall(228, 24, false, Library.IMG("forest.platform.png"), 446);
@@ -434,8 +434,8 @@ package ifrit
 			
 			WorldUtils.addLadder(447, 345, 55, "hellther.ladder.png");
 			WorldUtils.addLadder(576, 0, 49, "hellther.ladder.png");
-
 			
+			WorldUtils.addMan(435, 300, Game.playerClass);
 			
 			Game.stage.addChild(new HUD);
 			

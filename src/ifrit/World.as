@@ -221,7 +221,10 @@ package ifrit
 			
 			WorldUtils.addDecal(Library.IMG("tower.decals.chandelier.png"), 150, 50.5, null, null , [0, 1, 2, 3], 46, 101);
 			WorldUtils.addDecal(Library.IMG("tower.decals.chandelier.png"), 850, 50.5, null, null , [0, 1, 2, 3], 46, 101);
-
+			
+			WorldUtils.addEnemy(700, 350, Guard);
+			WorldUtils.addEnemy(400, 350, ElfMage);
+			
 			WorldUtils.addMan(50, 375, Game.playerClass);
 			
 			WorldUtils.addTrigger(1023, 375, WorldUtils.advance);

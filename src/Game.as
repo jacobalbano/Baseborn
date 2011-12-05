@@ -46,7 +46,7 @@
 			
 			Game.playerClass = SaveState.playerClass;
 			
-			WorldUtils.loadLevel( SaveState.level || "beach_01");
+			WorldUtils.loadLevel( SaveState.level );
 		}
 		
 		private function enterFrame(e:Event):void
@@ -73,7 +73,12 @@
 				
 			/**
 			 * End debugging shortcuts
-			 */			
+			 */
+			
+			 if (Input.isKeyDown(Input.ENTER) || Input.isKeyDown(Input.NUMPAD_ENTER))
+			 {
+				 WorldUtils.loadLevel( World.currentLevel);
+			 }
 			
 			if (man && !man.isDestroyed)
 			{
@@ -408,14 +413,14 @@
 						{
 							World.Platforms[ii].collide(World.Mobs[jj] );
 							
-							// Platform debugging information
-							//if (World.Mobs[jj].friendly)
-							//{
-								//if (World.Platforms[ii].collide(World.Mobs[jj] ))
-								//{
-									//trace(ii);
-								//}
-							//}
+							 //Platform debugging information
+							if (World.Mobs[jj].friendly)
+							{
+								if (World.Platforms[ii].collide(World.Mobs[jj] ))
+								{
+									trace(ii);
+								}
+							}
 						}
 					}
 				}

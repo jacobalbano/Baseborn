@@ -134,7 +134,7 @@ package ifrit
 		}
 		
 		override public function think():void 
-		{
+		{			
 			if (HUD.healthAmount <= 0)
 			{
 				this.destroy();

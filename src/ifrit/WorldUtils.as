@@ -50,8 +50,10 @@ package ifrit
 		public static function loadLevel(name:String):void
 		{
 			unloadLevel();
+			
 			(World.Worlds.retrive(name) || World.Worlds.retrive("beach_01"))();
 			
+			World.currentLevel = name;
 			SaveState.level = name;
 			
 			addDecal(new Bitmap(new BitmapData(1000, 500, true, 0xff000000)), 500, 250, fade );
@@ -89,14 +91,30 @@ package ifrit
 		{
 			if (Game.man.hitTestObject(d))
 			{
-				if (d.alpha <= 1) d.alpha += 0.05;
-				
-				if (Input.isKeyDown(Input.UP) && !Input.isKeyDown(Input.RIGHT) && !Input.isKeyDown(Input.LEFT))
+				if (World.hasKey && Game.man.hasKey)
 				{
-					if (World.hasKey && Game.man.hasKey)
+					if (d.alpha <= 1) d.alpha += 0.05;
+					
+					if (Input.isKeyDown(Input.UP) && !Input.isKeyDown(Input.RIGHT) && !Input.isKeyDown(Input.LEFT))
 					{
 						WorldUtils.addTrigger( Game.man.x, Game.man.y, WorldUtils.advance);
 					}
+				}
+				
+			}
+			else
+			{
+				if (d.alpha >= 0) d.alpha -= 0.05;
+			}
+		}
+		
+		public static function doorLocked(d:Decal):void 
+		{
+			if (Game.man.hitTestObject(d))
+			{
+				if (World.hasKey && !Game.man.hasKey)
+				{
+					if (d.alpha <= 1) d.alpha += 0.05;
 				}
 				
 			}
@@ -203,6 +221,14 @@ package ifrit
 			trace("x:", Game.stage.mouseX, "y:", Game.stage.mouseY);
 		}
 		
+		public static function hurt(d:Decal):void 
+		{
+			if (d.hitTestObject(Game.man.collisionHull))
+			{
+				HUD.damagePlayer(100, true);
+			}
+		}
+		
 		/**
 		 * Remove all objects from the world
 		 */
@@ -216,6 +242,8 @@ package ifrit
 			
 			World.hasKey = false;
 		}
+		
+		
 		
 	}
 

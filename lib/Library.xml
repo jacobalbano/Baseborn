@@ -63,6 +63,7 @@
         <image>forest/decals/stump.png</image>
         <image>enemies/bear.png</image>
         <image>enemies/elfMage.png</image>
+        <image>enemies/giant.png</image>
         <image>enemies/guard.png</image>
         <image>enemies/serpent.png</image>
         <image>enemies/skeleton.png</image>
@@ -88,7 +89,7 @@
     </images>
     <sounds>
         <sound>audio/sfx/bolt.mp3</sound>
-        <sound>audio/sfx/Wisp.mp3</sound>
+        <sound>audio/sfx/wisp.mp3</sound>
         <sound>audio/music/beach.mp3</sound>
     </sounds>
 </library>

@@ -191,6 +191,8 @@ package ifrit
 			
 			WorldUtils.addMan(50, 375, Game.playerClass);
 			
+			WorldUtils.addEnemy(300, 200, Giant);
+			
 			WorldUtils.addTrigger(1023, 375, WorldUtils.advance);
 			
 			nextLevel = "forest_03";

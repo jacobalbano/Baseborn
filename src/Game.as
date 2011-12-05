@@ -96,14 +96,14 @@
 				
 				if (checkLadder())
 				{
-					if (Input.isKeyDown(Input.LEFT) && !World.transitioning)
+					if (Input.isKeyDown(Input.LEFT) )
 					{
 						man.x -= 7;
 						
 						man.rotationY = 180;
 					}
 					
-					if (Input.isKeyDown(Input.RIGHT) && !World.transitioning)
+					if (Input.isKeyDown(Input.RIGHT) )
 					{
 						man.x += 7;
 						
@@ -127,7 +127,7 @@
 				}
 				else
 				{
-					if (Input.isKeyDown(Input.LEFT) && !World.transitioning)
+					if (Input.isKeyDown(Input.LEFT))
 					{
 						stopBolt();
 						
@@ -171,7 +171,7 @@
 						
 
 					}
-					else if (Input.isKeyDown(Input.RIGHT) && !World.transitioning)
+					else if (Input.isKeyDown(Input.RIGHT))
 					{
 						stopBolt();
 						

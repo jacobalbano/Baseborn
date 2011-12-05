@@ -26,7 +26,6 @@ package ifrit
 		
 		public static var Worlds:Map;
 		public static var nextLevel:String;
-		public static var transitioning:Boolean;
 		
 		
 		public function World() { }
@@ -276,11 +275,12 @@ package ifrit
 			WorldUtils.addWall(745, 210, false, Library.IMG("tower.platform.png"));
 			//WorldUtils.addWall(1024, 315, false, Library.IMG("tower.platform.png"));
 			
+			WorldUtils.addDecal(Library.IMG("tower.decals.door.png"), 855, 363.5);
+			WorldUtils.addDecal(Library.IMG("misc.upArrow.png"), 855, 363.5, WorldUtils.chooseAdvance, function (d:Decal):* { d.alpha = 0;	} );
+			
 			WorldUtils.addMan(50, 375, Game.playerClass);
 			
 			Game.stage.addChild(new HUD);
-			
-			WorldUtils.addDecal(Library.IMG("tower.decals.door.png"), 855, 363.5, WorldUtils.advance);
 			
 			nextLevel = "dungeon_01";
 		}
@@ -296,7 +296,7 @@ package ifrit
 			WorldUtils.addDecal(Library.IMG("dungeon.decals.cellDoor.png"), 200, 369.5);
 			WorldUtils.addDecal(Library.IMG("dungeon.decals.crevice.png"), 920, 80, null, null, [0, 1, 2, 3], 149, 44, 2);
 			
-			WorldUtils.addDecal(Library.IMG("misc.upArrow.png"), 920, 80, chooseAdvance, function (d:Decal):* { d.alpha = 0;} );
+			WorldUtils.addDecal(Library.IMG("misc.upArrow.png"), 920, 80, WorldUtils.chooseAdvance, function (d:Decal):* { d.alpha = 0;} );
 			
 			WorldUtils.addLadder(112, 100, 260);
 			WorldUtils.addLadder(855, 200, 115);
@@ -336,6 +336,8 @@ package ifrit
 			WorldUtils.makeBounds();
 			
 			WorldUtils.addDecal(Library.IMG("hellther.bg.png"), 500, 200);
+			
+			WorldUtils.addMan(435, 300, Game.playerClass);
 			
 			// Top row (#16-18)
 			WorldUtils.addWall(228, 24, false, Library.IMG("forest.platform.png"), 446);
@@ -433,11 +435,9 @@ package ifrit
 			WorldUtils.addLadder(447, 345, 55, "hellther.ladder.png");
 			WorldUtils.addLadder(576, 0, 49, "hellther.ladder.png");
 
-			WorldUtils.addMan(435, 300, Game.playerClass);
+			
 			
 			Game.stage.addChild(new HUD);
-			
-			World.transitioning = false;
 			
 			WorldUtils.addDecal(new Bitmap(new BitmapData(50, 50, true, 0)), 550, 0, WorldUtils.advance);
 			
@@ -504,30 +504,7 @@ package ifrit
 			}
 		}
 		
-		private static function chooseAdvance(d:Decal):void 
-		{
-			if (Game.man.hitTestObject(d))
-			{
-				transitioning = true;
-				
-				if (d.alpha <= 1) d.alpha += 0.05;
-				
-				if (Input.isKeyDown(Input.UP))
-				{
-					WorldUtils.addDecal(new Bitmap(new BitmapData(50, 50, true, 0)), Game.man.x, Game.man.y, WorldUtils.advance);
-				}
-				
-				if (Input.isKeyDown(Input.DOWN))
-				{
-					transitioning = false;
-				}
-				
-			}
-			else
-			{
-				if (d.alpha >= 0) d.alpha -= 0.05;
-			}
-		}
+		
 		
 		
 	}

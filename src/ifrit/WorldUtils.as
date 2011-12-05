@@ -2,6 +2,7 @@ package ifrit
 {
 	import com.jacobalbano.Animation;
 	import com.jacobalbano.Map;
+	import com.jacobalbano.Input;
 	import com.thaumaturgistgames.flakit.Library;
 	import flash.display.Bitmap;
 	import flash.display.BitmapData;
@@ -79,9 +80,27 @@ package ifrit
 		 * Check if player has reached the exit and load the next level
 		 * @param	i			Standard reference parameter
 		 */
-		static public function advance(d:Decal):void 
+		public static function advance(d:Decal):void 
 		{
 			if (Game.man.collisionHull.hitTestObject(d))	next();
+		}
+		
+		public static function chooseAdvance(d:Decal):void 
+		{
+			if (Game.man.hitTestObject(d))
+			{
+				if (d.alpha <= 1) d.alpha += 0.05;
+				
+				if (Input.isKeyDown(Input.UP) && !Input.isKeyDown(Input.RIGHT) && !Input.isKeyDown(Input.LEFT))
+				{
+					WorldUtils.addDecal(new Bitmap(new BitmapData(50, 50, true, 0)), Game.man.x, Game.man.y, WorldUtils.advance);
+				}
+				
+			}
+			else
+			{
+				if (d.alpha >= 0) d.alpha -= 0.05;
+			}
 		}
 		
 		

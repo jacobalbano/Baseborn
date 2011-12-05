@@ -312,7 +312,7 @@
 										if (!World.Projectiles[k].friendly)
 										{
 											if (man.shielding && (World.Projectiles[k].rotationY != World.Mobs[l].rotationY)) HUD.damagePlayer(0);
-											else	HUD.damagePlayer(15, true);
+											else	HUD.damagePlayer(World.Projectiles[k].damage);
 										}
 										
 										World.Mobs[l].hitpoints -= World.Projectiles[k].damage;

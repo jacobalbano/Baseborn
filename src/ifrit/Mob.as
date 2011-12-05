@@ -46,6 +46,7 @@ package ifrit
 		public var maxHealth:uint;		
 		public var hasGravity:Boolean;
 		public var rangedType:Class;
+		public var meleeDamage:int;
 		
 		public function Mob(x:Number, y:Number, bitmap:Bitmap, frameWidth:Number, frameHeight:Number, collisionWidth:Number, collisionHeight:Number)
 		{
@@ -60,7 +61,7 @@ package ifrit
 			attackTimer = new Timer(0, 20);
 			jumpTimer = new Timer(0, 2);
 			freezeTimer = new Timer(60 * 2, 0);
-			
+			this.meleeDamage = 5;
 			velocity = new Point;
 			
 			this.x = x;
@@ -211,9 +212,9 @@ package ifrit
 			if (!attackTimer.running)
 			{
 				if (this.rotationY == 180)
-					stage.addChild(new MeleeSwing(-10, this.x - this.collisionHull.width / 2, this.y, this.friendly));
+					stage.addChild(new MeleeSwing(-10, this.x - this.collisionHull.width / 2, this.y, this.meleeDamage, this.friendly));
 				else
-					stage.addChild(new MeleeSwing(10, this.x + this.collisionHull.width / 2, this.y, this.friendly));
+					stage.addChild(new MeleeSwing(10, this.x + this.collisionHull.width / 2, this.y, this.meleeDamage, this.friendly));
 				
 				World.Projectiles.push(stage.getChildAt(stage.numChildren - 1));
 			}

@@ -319,7 +319,7 @@ package ifrit
 			else			damageAmount /= healthScale;
 			
 			if (damageAmount > remainingHealth)		health.width -= health.width;
-			else 									health.width -= damageAmount / healthScale;
+			else 									health.width -= Math.ceil(damageAmount / healthScale);
 		}
 		
 		

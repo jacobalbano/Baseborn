@@ -19,7 +19,6 @@ package ifrit
 	 */
 	public class World
 	{
-		
 		public static var Projectiles:Vector.<Projectile>;
 		public static var Mobs:Vector.<Mob>;
 		public static var Platforms:Vector.<Platform>;
@@ -27,7 +26,7 @@ package ifrit
 		
 		public static var Worlds:Map;
 		public static var nextLevel:String;
-		
+		public static var transitioning:Boolean;
 		
 		
 		public function World() { }
@@ -294,8 +293,10 @@ package ifrit
 			
 			WorldUtils.addDecal(Library.IMG("dungeon.decals.torch.png"), 230, 80, null, null, [0, 1, 2, 3, 4, 5], 40, 40);
 			WorldUtils.addDecal(Library.IMG("dungeon.decals.torch.png"), 700, 80, null, null, [0, 1, 2, 3, 4, 5], 40, 40);
-			
 			WorldUtils.addDecal(Library.IMG("dungeon.decals.cellDoor.png"), 200, 369.5);
+			WorldUtils.addDecal(Library.IMG("dungeon.decals.crevice.png"), 920, 80, null, null, [0, 1, 2, 3], 149, 44, 2);
+			
+			WorldUtils.addDecal(Library.IMG("misc.upArrow.png"), 920, 80, chooseAdvance, function (d:Decal):* { d.alpha = 0;} );
 			
 			WorldUtils.addLadder(112, 100, 260);
 			WorldUtils.addLadder(855, 200, 115);
@@ -325,9 +326,7 @@ package ifrit
 			
 			Game.stage.addChild(new HUD);
 			
-			WorldUtils.addDecal(Library.IMG("dungeon.decals.door.png"), 855, 363.5, WorldUtils.advance);
-			
-			WorldUtils.addDecal(Library.IMG("dungeon.decals.darkness.png"), 500, 200);
+			//WorldUtils.addDecal(Library.IMG("dungeon.decals.darkness.png"), 500, 200);
 			
 			nextLevel = "hellther_01";
 		}
@@ -438,6 +437,8 @@ package ifrit
 			
 			Game.stage.addChild(new HUD);
 			
+			World.transitioning = false;
+			
 			WorldUtils.addDecal(new Bitmap(new BitmapData(50, 50, true, 0)), 550, 0, WorldUtils.advance);
 			
 			nextLevel = "mainMenu";
@@ -496,6 +497,31 @@ package ifrit
 					Game.playerClass = Player.ROGUE;
 					WorldUtils.loadLevel("beach_03");
 				}
+			}
+			else
+			{
+				if (d.alpha >= 0) d.alpha -= 0.05;
+			}
+		}
+		
+		private static function chooseAdvance(d:Decal):void 
+		{
+			if (Game.man.hitTestObject(d))
+			{
+				transitioning = true;
+				
+				if (d.alpha <= 1) d.alpha += 0.05;
+				
+				if (Input.isKeyDown(Input.UP))
+				{
+					WorldUtils.addDecal(new Bitmap(new BitmapData(50, 50, true, 0)), Game.man.x, Game.man.y, WorldUtils.advance);
+				}
+				
+				if (Input.isKeyDown(Input.DOWN))
+				{
+					transitioning = false;
+				}
+				
 			}
 			else
 			{

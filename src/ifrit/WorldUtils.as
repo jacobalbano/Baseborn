@@ -32,6 +32,8 @@ package ifrit
 				Game.man = null;
 				World.Mobs.push(Game.stage.addChild(Game.man = new Player(x, y, type)) as Mob);
 			}
+			
+			//World.transitioning = false;
 		}
 		
 		public static function addTrigger(x:int, y:int, callback:Function, width:int = 50, height:int = 50):void

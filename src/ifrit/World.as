@@ -26,6 +26,7 @@ package ifrit
 		
 		public static var Worlds:Map;
 		public static var nextLevel:String;
+		public static var hasKey:Boolean;
 		
 		
 		public function World() { }
@@ -42,19 +43,19 @@ package ifrit
 			World.Ladders 		= new Vector.<Ladder>;
 			
 			//	Using my custom map class to store levels
-			//	It works the same way as a C++ map, storing objects with keys
+			//	It works the same way as a C++ (STL) map, storing objects with keys
 			Worlds = new Map(String, Function);
 			
-			Worlds.add("beach_01", loadBeach_01);
-			Worlds.add("beach_02", loadBeach_02);
-			Worlds.add("beach_03", loadBeach_03);
-			Worlds.add("forest_01", loadForest_01);
-			Worlds.add("forest_02", loadForest_02);
-			Worlds.add("forest_03", loadForest_03);
-			Worlds.add("tower_01", loadTower_01);
-			Worlds.add("tower_02", loadTower_02);
-			Worlds.add("dungeon_01", loadDungeon_01);
-			Worlds.add("hellther_01", loadHellther_01);
+			Worlds.add("beach_01", 		loadBeach_01);
+			Worlds.add("beach_02", 		loadBeach_02);
+			Worlds.add("beach_03", 		loadBeach_03);
+			Worlds.add("forest_01", 	loadForest_01);
+			Worlds.add("forest_02", 	loadForest_02);
+			Worlds.add("forest_03", 	loadForest_03);
+			Worlds.add("tower_01", 		loadTower_01);
+			Worlds.add("tower_02", 		loadTower_02);
+			Worlds.add("dungeon_01", 	loadDungeon_01);
+			Worlds.add("hellther_01", 	loadHellther_01);
 		}
 		
 		//	Worlds begin
@@ -186,11 +187,11 @@ package ifrit
 			//	Manipulation function to flip the backround horizontally when we load it
 			WorldUtils.addDecal(Library.IMG("forest.forestBG.png"), 500, 200, null, function (d:Decal):* {	d.rotationY = 180;	} );
 			
+			Game.stage.addChild(new HUD);
+			
 			WorldUtils.addMan(50, 375, Game.playerClass);
 			
 			WorldUtils.addTrigger(1023, 375, WorldUtils.advance);
-			
-			Game.stage.addChild(new HUD);
 			
 			nextLevel = "forest_03";
 		}
@@ -202,11 +203,11 @@ package ifrit
 			WorldUtils.addDecal(Library.IMG("forest.towerDoor.png"), 500, 200);
 			WorldUtils.addDecal(Library.IMG("forest.lavaAnimation.png"), 94, 235, null, null, [0, 1, 2, 3], 110, 220, 4);
 
+			Game.stage.addChild(new HUD);
+			
 			WorldUtils.addMan(50, 375, Game.playerClass);
 			
 			WorldUtils.addTrigger(500, 375, WorldUtils.advance);
-			
-			Game.stage.addChild(new HUD);
 			
 			nextLevel = "tower_01";
 		}
@@ -223,11 +224,11 @@ package ifrit
 			WorldUtils.addEnemy(700, 350, Guard);
 			WorldUtils.addEnemy(400, 350, ElfMage);
 			
+			Game.stage.addChild(new HUD);
+			
 			WorldUtils.addMan(50, 375, Game.playerClass);
 			
 			WorldUtils.addTrigger(1023, 375, WorldUtils.advance);
-			
-			Game.stage.addChild(new HUD);
 			
 			nextLevel = "tower_02";
 		}
@@ -235,6 +236,8 @@ package ifrit
 		private static function loadTower_02():void
 		{
 			WorldUtils.makeBounds();
+			
+			hasKey = true;
 			
 			Game.stage.addChild(Library.IMG("tower.bg.png"));
 			
@@ -322,9 +325,9 @@ package ifrit
 			WorldUtils.addWall(745, 210, false, Library.IMG("dungeon.platform.png"));
 			//WorldUtils.addWall(1024, 315, false, Library.IMG("dungeon.platform.png"));
 			
-			WorldUtils.addMan(50, 375, Game.playerClass);
-			
 			Game.stage.addChild(new HUD);
+			
+			WorldUtils.addMan(50, 375, Game.playerClass);
 			
 			//WorldUtils.addDecal(Library.IMG("dungeon.decals.darkness.png"), 500, 200);
 			
@@ -435,9 +438,9 @@ package ifrit
 			WorldUtils.addLadder(447, 345, 55, "hellther.ladder.png");
 			WorldUtils.addLadder(576, 0, 49, "hellther.ladder.png");
 			
-			WorldUtils.addMan(435, 300, Game.playerClass);
-			
 			Game.stage.addChild(new HUD);
+			
+			WorldUtils.addMan(435, 300, Game.playerClass);
 			
 			WorldUtils.addDecal(new Bitmap(new BitmapData(50, 50, true, 0)), 550, 0, WorldUtils.advance);
 			
@@ -453,7 +456,7 @@ package ifrit
 			{
 				if (d.alpha <= 1) d.alpha += 0.05;
 				
-				if (Input.isKeyDown(Input.UP))
+				if (Input.isKeyDown(Input.UP)  && !Input.isKeyDown(Input.RIGHT) && !Input.isKeyDown(Input.LEFT))
 				{
 					SaveState.playerClass = Player.MAGE;
 					Game.playerClass = Player.MAGE;
@@ -472,7 +475,7 @@ package ifrit
 			{
 				if (d.alpha <= 1) d.alpha += 0.05;
 				
-				if (Input.isKeyDown(Input.UP))
+				if (Input.isKeyDown(Input.UP) && !Input.isKeyDown(Input.RIGHT) && !Input.isKeyDown(Input.LEFT))
 				{
 					SaveState.playerClass = Player.FIGHTER;
 					Game.playerClass = Player.FIGHTER;
@@ -491,7 +494,7 @@ package ifrit
 			{
 				if (d.alpha <= 1) d.alpha += 0.05;
 				
-				if (Input.isKeyDown(Input.UP))
+				if (Input.isKeyDown(Input.UP) && !Input.isKeyDown(Input.RIGHT) && !Input.isKeyDown(Input.LEFT))
 				{
 					SaveState.playerClass = Player.ROGUE;
 					Game.playerClass = Player.ROGUE;

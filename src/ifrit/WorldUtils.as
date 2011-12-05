@@ -93,7 +93,10 @@ package ifrit
 				
 				if (Input.isKeyDown(Input.UP) && !Input.isKeyDown(Input.RIGHT) && !Input.isKeyDown(Input.LEFT))
 				{
-					WorldUtils.addDecal(new Bitmap(new BitmapData(50, 50, true, 0)), Game.man.x, Game.man.y, WorldUtils.advance);
+					if (World.hasKey && Game.man.hasKey)
+					{
+						WorldUtils.addTrigger( Game.man.x, Game.man.y, WorldUtils.advance);
+					}
 				}
 				
 			}
@@ -211,6 +214,7 @@ package ifrit
 			for 	(var m:int 	= World.Mobs.length; 			m	--> 0; )	Game.stage.removeChild(World.Mobs.pop());
 			while 	(Game.stage.numChildren > 1) 								Game.stage.removeChildAt(1);
 			
+			World.hasKey = false;
 		}
 		
 	}

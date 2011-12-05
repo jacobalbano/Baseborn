@@ -116,7 +116,7 @@ package ifrit
 					}
 				}
 				
-				if (enemiesKilled == World.Mobs.length)
+				if (World.hasKey && enemiesKilled == World.Mobs.length)
 				{
 					addChild(this.pickup = new Pickup(this.x, this.y, Pickup.KEY));
 				}

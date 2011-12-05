@@ -322,6 +322,11 @@ package ifrit
 			else 									health.width -= Math.ceil(damageAmount / healthScale);
 		}
 		
+		public static function get healthAmount():int
+		{
+			return remainingHealth;
+		}
+		
 		
 		/**
 		 * Heal the player by a literal amount, or by a percentage of total maximum health.

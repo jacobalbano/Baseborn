@@ -8,13 +8,11 @@
         <image>fighter.png</image>
         <image>fighterSkills.png</image>
         <image>fireballShot.png</image>
-        <image>healthDrop.png</image>
         <image>HUD.png</image>
         <image>iceBlast.png</image>
         <image>lightningBolt.png</image>
         <image>mage.png</image>
         <image>mageSkills.png</image>
-        <image>manaDrop.png</image>
         <image>rogue.png</image>
         <image>rogueSkills.png</image>
         <image>shuriken.png</image>
@@ -32,7 +30,10 @@
         <image>tower/decals/torch.png</image>
         <image>tower/decals/window.png</image>
         <image>misc/clipPlatform.png</image>
+        <image>misc/healthDrop.png</image>
+        <image>misc/keyDrop.png</image>
         <image>misc/ladder.png</image>
+        <image>misc/manaDrop.png</image>
         <image>misc/ropeLadder.png</image>
         <image>misc/upArrow.png</image>
         <image>icons/arrowIcon.png</image>
@@ -87,7 +88,7 @@
     </images>
     <sounds>
         <sound>audio/sfx/bolt.mp3</sound>
-        <sound>audio/sfx/wisp.mp3</sound>
+        <sound>audio/sfx/Wisp.mp3</sound>
         <sound>audio/music/beach.mp3</sound>
     </sounds>
 </library>

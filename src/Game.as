@@ -73,26 +73,10 @@
 				
 			/**
 			 * End debugging shortcuts
-			 */
+			 */			
 			
-			 
-			 
-			var enemiesKilled:int = 0;
-			
-			for (var w:int = 0; w < World.Mobs.length; w++)
+			if (man && !man.isDestroyed)
 			{
-				if (World.Mobs[w].hitpoints <= 0)
-				{
-					enemiesKilled++;
-				}
-			}
-			
-			if (man)
-			{
-				if (enemiesKilled == World.Mobs.length && World.Platforms.length > 0)
-				{
-					//World.Platforms[World.Platforms.length - 1].x++;
-				}
 				
 				if (checkLadder())
 				{

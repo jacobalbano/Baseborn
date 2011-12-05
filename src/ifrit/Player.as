@@ -40,6 +40,8 @@ package ifrit
 		public var canMelee:Boolean;
 		public var canShoot:Boolean;
 		
+		public var hasKey:Boolean;
+		
 		public var hasCaltrop:Boolean;
 		public var activeCaltrop:Caltrop;
 		public var canDropCaltrop:Boolean;	
@@ -48,7 +50,6 @@ package ifrit
 		public static const ROGUE:uint = 2;
 		public static const FIGHTER:uint = 4;
 		public static const NONE:uint = 8;
-
 		
 		private	var idle:Boolean;
 		
@@ -134,6 +135,12 @@ package ifrit
 		
 		override public function think():void 
 		{
+			if (HUD.healthAmount <= 0)
+			{
+				this.destroy();
+				this.graphic.play("death");
+			}
+			
 			super.think();
 			if (!Input.isKeyDown(Input.SPACE))
 			{

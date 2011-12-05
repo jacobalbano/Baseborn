@@ -117,6 +117,8 @@ package ifrit
 			WorldUtils.addDecal(Library.IMG("misc.upArrow.png"), 240, 350, chooseClass_Fighter, function (d:Decal):* { d.alpha = 0; } );
 			WorldUtils.addDecal(Library.IMG("misc.upArrow.png"), 285, 350, chooseClass_Rogue, function (d:Decal):* { d.alpha = 0; } );
 			
+			Game.stage.addChild(new HUD);
+			
 			if (Game.playerClass == Player.MAGE)
 			{
 				WorldUtils.addMan( 165, 400, Game.playerClass);
@@ -133,8 +135,6 @@ package ifrit
 			WorldUtils.addTrigger(1023, 375, WorldUtils.advance);
 			
 			WorldUtils.addDecal(Library.IMG("beach.towerLightning.png"), 625, 10, null, null, [0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0 , 0 , 0, 0, 0, 0, 0, 0, 0, 0 , 1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11, 12, 13, 14, 15, 16, 17], 340, 72,  30, true);
-			
-			Game.stage.addChild(new HUD);
 			
 			nextLevel = "forest_01";
 		}
@@ -162,6 +162,8 @@ package ifrit
 			WorldUtils.addEnemy(340, 450, Bear);
 			WorldUtils.addEnemy(340, 700, Wolf);
 			
+			Game.stage.addChild(new HUD);
+			
 			WorldUtils.addMan(50, 375, Game.playerClass);
 			
 			Game.stage.addChild(new RopeBridge(280, 275, 125));
@@ -171,8 +173,6 @@ package ifrit
 			WorldUtils.addWall(845, 275, false, Library.IMG("misc.clipPlatform.png"), 200);
 			
 			WorldUtils.addTrigger(1023, 250, WorldUtils.advance);
-			
-			Game.stage.addChild(new HUD);
 			
 			WorldUtils.addWall(1000, 1000, false, Library.IMG("misc.clipPlatform.png"));
 			
@@ -278,9 +278,9 @@ package ifrit
 			WorldUtils.addDecal(Library.IMG("tower.decals.door.png"), 855, 363.5);
 			WorldUtils.addDecal(Library.IMG("misc.upArrow.png"), 855, 363.5, WorldUtils.chooseAdvance, function (d:Decal):* { d.alpha = 0;	} );
 			
-			WorldUtils.addMan(50, 375, Game.playerClass);
-			
 			Game.stage.addChild(new HUD);
+			
+			WorldUtils.addMan(50, 375, Game.playerClass);
 			
 			nextLevel = "dungeon_01";
 		}

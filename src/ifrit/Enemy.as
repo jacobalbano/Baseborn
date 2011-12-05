@@ -106,17 +106,34 @@ package ifrit
 			
 			if ( ! (this.behaviorFlags & PASSIVE) > 0)
 			{
-			
-				//	Only drop pickups some of the time
-				if (new Boolean(Math.round(Math.random() + 0.3)))
+				var enemiesKilled:int = 0;
+				
+				for (var w:int = 0; w < World.Mobs.length; w++)
 				{
-					if (Game.man.type == Player.MAGE)
+					if (World.Mobs[w].hitpoints <= 0)
 					{
-						addChild(this.pickup = new Pickup(this.x, this.y, new Boolean(Math.round(Math.random()))));
+						enemiesKilled++;
 					}
-					else
+				}
+				
+				if (enemiesKilled == World.Mobs.length)
+				{
+					addChild(this.pickup = new Pickup(this.x, this.y, Pickup.KEY));
+				}
+				else
+				{
+					//Only drop pickups some of the time
+					if (new Boolean(Math.round(Math.random() + 0.3)))
 					{
-						addChild(this.pickup = new Pickup(this.x, this.y, true));
+						if (Game.man.type == Player.MAGE)
+						{
+							var type:uint = new Boolean(Math.round(Math.random())) ? Pickup.HEALTH : Pickup.MANA;
+							addChild(this.pickup = new Pickup(this.x, this.y, type));
+						}
+						else
+						{
+							addChild(this.pickup = new Pickup(this.x, this.y, Pickup.HEALTH));
+						}
 					}
 				}
 			}
@@ -138,10 +155,11 @@ package ifrit
 				this.pickup.parent.removeChild(this.pickup);
 				this.pickup = null;
 			}
-			else if (this.pickup.hitTestObject(Game.man.collisionHull))
+			else if (!Game.man.isDestroyed && this.pickup.hitTestObject(Game.man.collisionHull))
 			{
-				if (this.pickup.type) 	HUD.healPlayer(10, true);
-				else 					HUD.restoreMana(25);
+				if 		(this.pickup.type == Pickup.HEALTH) 	HUD.healPlayer(10, true);
+				else if (this.pickup.type == Pickup.MANA)		HUD.restoreMana(25);
+				else if (this.pickup.type == Pickup.KEY)		Game.man.hasKey = true;
 				
 				this.pickup.parent.removeChild(this.pickup);
 				this.pickup = null;
@@ -170,7 +188,7 @@ package ifrit
 		 */
 		private function findPlatform():void
 		{
-			if (this.lastHeading != this.heading || homeRect.contains(Game.man.x, Game.man.y) || !homeRect.contains(this.x + homeRect.width / 3, this.y) || !homeRect.contains(this.x - homeRect.width / 3, this.y))
+			if (this.lastHeading != this.heading || (!Game.man.isDestroyed && homeRect.contains(Game.man.x, Game.man.y)) || !homeRect.contains(this.x + homeRect.width / 3, this.y) || !homeRect.contains(this.x - homeRect.width / 3, this.y))
 			{			
 				var found:Boolean = false;
 				var collision:Boolean = false;
@@ -277,7 +295,7 @@ package ifrit
 			if (!fleeMode)
 			{
 				
-				if (this.homeRect.contains(Game.man.x, Game.man.y) && Game.man.y <= this.y + this.height / 2)
+				if (this.homeRect.contains(Game.man.x, Game.man.y) && !Game.man.isDestroyed && Game.man.y <= this.y + this.height / 2)
 				{
 					if ( ! (this.behaviorFlags & PASSIVE) > 0)
 					{
@@ -349,12 +367,12 @@ package ifrit
 				
 				if (heading)
 				{
-					if (Game.man.x > this.x && this.homeRect.contains(Game.man.x, Game.man.y)) this.shoot();
+					if (Game.man.x > this.x && !Game.man.isDestroyed && this.homeRect.contains(Game.man.x, Game.man.y) && (this.behaviorFlags & NO_RANGED) <= 0) this.shoot();
 					this.x += 5;
 				}
 				else
 				{
-					if (Game.man.x < this.x && this.homeRect.contains(Game.man.x, Game.man.y)) this.shoot();
+					if (Game.man.x < this.x && !Game.man.isDestroyed && this.homeRect.contains(Game.man.x, Game.man.y) && (this.behaviorFlags & NO_RANGED) <= 0) this.shoot();
 					x -= 5;
 				}
 				
@@ -367,19 +385,22 @@ package ifrit
 		
 		private function attack():void
 		{
-			if (Point.distance(new Point(this.x, this.y), new Point(Game.man.x, Game.man.y)) > this.width )
+			if ( !Game.man.isDestroyed)
 			{
-				if (! (behaviorFlags & NO_RANGED) > 0 )	
+				if (Point.distance(new Point(this.x, this.y), new Point(Game.man.x, Game.man.y)) > this.width )
 				{
-					shoot();
+					if (! (behaviorFlags & NO_RANGED) > 0 )	
+					{
+						shoot();
+					}
 				}
-			}
-			else
-			{
-				if (! (behaviorFlags & NO_MELEE) > 0 )
+				else
 				{
-					this.graphic.play("attack");
-					stab();
+					if (! (behaviorFlags & NO_MELEE) > 0 )
+					{
+						this.graphic.play("attack");
+						stab();
+					}
 				}
 			}
 		}		

@@ -197,7 +197,7 @@ package ifrit
 			
 			WorldUtils.addMan(50, 375, Game.playerClass);
 			
-			WorldUtils.addEnemy(300, 200, Giant);
+			WorldUtils.addEnemy(300, 310, Giant);
 			
 			WorldUtils.addTrigger(1023, 375, WorldUtils.advance);
 			

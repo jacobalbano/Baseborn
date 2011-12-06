@@ -14,10 +14,10 @@ package ifrit
 		
 		public function Giant(x:Number, y:Number) 
 		{
-			super(x, y, Library.IMG("enemies.giant.png"), 219, 399, 63, 399, Enemy.BRAIN_DEAD | Enemy.PASSIVE);
+			super(x, y, Library.IMG("enemies.giant.png"), 119, 185, 32, 185, Enemy.BRAIN_DEAD | Enemy.PASSIVE);
 			
 			this.fixedPosition = new Point(x, y);
-			this.graphic.add("sleep", [0, 1, 2, 3], 6, true);
+			this.graphic.add("sleep", [0, 1, 2, 3], 3, true);
 			this.graphic.play("sleep");
 			
 			//	IT'S OVER 9000! :D

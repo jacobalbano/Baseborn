@@ -31,6 +31,7 @@
         <image>tower/decals/window.png</image>
         <image>misc/clipPlatform.png</image>
         <image>misc/healthDrop.png</image>
+        <image>misc/keyD.png</image>
         <image>misc/keyDrop.png</image>
         <image>misc/ladder.png</image>
         <image>misc/manaDrop.png</image>
@@ -85,9 +86,12 @@
         <image>beach/bg.png</image>
         <image>beach/bg2.png</image>
         <image>beach/crate.png</image>
+        <image>beach/dynamicDebris.png</image>
         <image>beach/lightningBolt.png</image>
         <image>beach/shipAnimation.png</image>
         <image>beach/towerLightning.png</image>
+        <image>beach/waterDebris.png</image>
+        <image>beach/waterDebris2.png</image>
     </images>
     <sounds>
         <sound>audio/sfx/bolt.mp3</sound>

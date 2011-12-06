@@ -86,6 +86,7 @@ package ifrit
 			
 			WorldUtils.addDecal(Library.IMG("beach.towerLightning.png"), 835, 10, null, null, [0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0 , 0 , 0, 0, 0, 0, 0, 0, 0, 0 ,1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11, 12, 13, 14, 15, 16, 17], 340, 72,  30, true);
 			WorldUtils.addDecal(Library.IMG("beach.shipAnimation.png"), 400, 175, null, null, [0, 1, 2, 3], 270, 193, 5);
+			WorldUtils.addDecal(Library.IMG("beach.waterDebris2.png"), 500, 250);
 			
 			nextLevel = "beach_02";
 		}
@@ -96,6 +97,7 @@ package ifrit
 			
 			WorldUtils.addDecal(Library.IMG("beach.bg2.png"), 500, 250);
 			WorldUtils.addDecal(Library.IMG("beach.shipAnimation.png"), 100, 175, null, null, [0, 1, 2, 3], 270, 193, 5);
+			WorldUtils.addDecal(Library.IMG("beach.waterDebris.png"), 500, 250);
 			
 			WorldUtils.addDecal(Library.IMG("beach.crate.png"), 236, 370);
 			
@@ -103,7 +105,9 @@ package ifrit
 			WorldUtils.addDecal(Library.IMG("misc.upArrow.png"), 240, 350, chooseClass_Fighter, function (d:Decal):* { d.alpha = 0; } );
 			WorldUtils.addDecal(Library.IMG("misc.upArrow.png"), 285, 350, chooseClass_Rogue, function (d:Decal):* { d.alpha = 0; } );
 			
-			Game.stage.addChild(new HUD);
+			//Game.stage.addChild(new HUD);
+			
+			WorldUtils.addEnemy(975, 385, Debris);
 			
 			WorldUtils.addMan( 0, 500, Player.NONE);
 			
@@ -119,12 +123,16 @@ package ifrit
 			WorldUtils.addDecal(Library.IMG("beach.bg2.png"), 500, 250);
 			WorldUtils.addDecal(Library.IMG("beach.shipAnimation.png"), 100, 175, null, null, [0, 1, 2, 3], 270, 193, 5);
 			WorldUtils.addDecal(Library.IMG("beach.crate.png"), 236, 370);
+			WorldUtils.addDecal(Library.IMG("beach.waterDebris.png"), 500, 250);
 			
 			WorldUtils.addDecal(Library.IMG("misc.upArrow.png"), 165, 350, chooseClass_Mage, function (d:Decal):* { d.alpha = 0;} );
 			WorldUtils.addDecal(Library.IMG("misc.upArrow.png"), 240, 350, chooseClass_Fighter, function (d:Decal):* { d.alpha = 0; } );
 			WorldUtils.addDecal(Library.IMG("misc.upArrow.png"), 285, 350, chooseClass_Rogue, function (d:Decal):* { d.alpha = 0; } );
+			WorldUtils.addDecal(Library.IMG("misc.keyD.png"), 930, 350, destroyDebris, function (d:Decal):* { d.alpha = 0; } );
 			
 			Game.stage.addChild(new HUD);
+			
+			WorldUtils.addEnemy(975, 385, Debris);
 			
 			if (Game.playerClass == Player.MAGE)
 			{
@@ -197,7 +205,7 @@ package ifrit
 			
 			WorldUtils.addMan(50, 375, Game.playerClass);
 			
-			WorldUtils.addEnemy(300, 310, Giant);
+			if (Game.man.type == Player.ROGUE)	WorldUtils.addEnemy(300, 310, Giant);
 			
 			WorldUtils.addTrigger(1023, 375, WorldUtils.advance);
 			
@@ -505,6 +513,24 @@ package ifrit
 			}
 		}
 		
+		private static function destroyDebris(d:Decal):void
+		{
+			if (d.hitTestObject(Game.man.collisionHull))
+			{
+				if (!Input.isKeyDown(Input.D))
+				{
+					if (d.alpha <= 1) d.alpha += 0.05;
+				}
+				else
+				{
+					if (d.alpha >= 0) d.alpha -= 0.05;
+				}
+			}
+			else
+			{
+				if (d.alpha >= 0) d.alpha -= 0.05;
+			}
+		}
 		
 		
 		

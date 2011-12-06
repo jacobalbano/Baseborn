@@ -237,8 +237,11 @@
 				
 				if (Input.isKeyDown(Input.D))
 				{
-					if (man.type != Player.MAGE)	man.graphic.play("attack");
-					beginMeleeAttack();
+					if (man.type != Player.NONE)
+					{
+						if (man.type != Player.MAGE)	man.graphic.play("attack");
+						beginMeleeAttack();
+					}
 				}
 				else
 				{

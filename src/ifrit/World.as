@@ -217,11 +217,13 @@ package ifrit
 			WorldUtils.makeBounds();
 			
 			WorldUtils.addDecal(Library.IMG("forest.towerDoor.png"), 500, 200);
-			WorldUtils.addDecal(Library.IMG("forest.lavaAnimation.png"), 94, 235, null, null, [0, 1, 2, 3], 110, 220, 4);
+			WorldUtils.addDecal(Library.IMG("forest.lavaAnimation.png"), 94, 235, null, null, [0, 1, 2, 3], 110, 220, 5);
 
 			Game.stage.addChild(new HUD);
 			
 			WorldUtils.addMan(50, 375, Game.playerClass);
+			
+			WorldUtils.addWall(234, 74, false, Library.IMG("tower.platform.png"), 170);
 			
 			WorldUtils.addTrigger(500, 375, WorldUtils.advance);
 			

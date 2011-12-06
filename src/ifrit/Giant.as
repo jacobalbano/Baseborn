@@ -23,9 +23,6 @@ package ifrit
 			//	IT'S OVER 9000! :D
 			this.hitpoints = 9001;
 			this.maxHealth = 9001;
-			
-			this.collisionHull.visible = true;
-			this.collisionHull.alpha = 0.5;
 		}
 		
 		override public function preThink():void 

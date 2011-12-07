@@ -1,8 +1,10 @@
 package ifrit 
 {
 	import com.jacobalbano.Animation;
+	import com.jacobalbano.Iterator;
 	import com.jacobalbano.Map;
 	import com.jacobalbano.Input;
+	import com.jacobalbano.MapIterator;
 	import com.thaumaturgistgames.flakit.Library;
 	import flash.display.Bitmap;
 	import flash.display.BitmapData;
@@ -205,12 +207,6 @@ package ifrit
 			addWall(1005, 100, true, Library.IMG("misc.clipPlatform.png"));
 			addWall(1005, 300, true, Library.IMG("misc.clipPlatform.png"));
 			addWall( 1005, 500, true, Library.IMG("misc.clipPlatform.png"));
-			
-			addWall(100, -5, false, Library.IMG("misc.clipPlatform.png"));
-			addWall(300, -5, false, Library.IMG("misc.clipPlatform.png"));
-			addWall(500, -5, false, Library.IMG("misc.clipPlatform.png"));
-			addWall(700, -5, false, Library.IMG("misc.clipPlatform.png"));
-			addWall(900, -5, false, Library.IMG("misc.clipPlatform.png"));
 		}
 		
 		static public function followMouse(d:Decal):void 
@@ -249,6 +245,11 @@ package ifrit
 			for 	(var l:int 	= World.Ladders.length; 		l 	--> 0; )	Game.stage.removeChild(World.Ladders.pop());
 			for 	(var m:int 	= World.Mobs.length; 			m	--> 0; )	Game.stage.removeChild(World.Mobs.pop());
 			while 	(Game.stage.numChildren > 1) 								Game.stage.removeChildAt(1);
+			
+			for (var itr:Iterator = new MapIterator(World.Variables); itr.node ; itr.next())
+			{
+				World.Variables.remove(itr.node.first);
+			}
 			
 			World.hasKey = false;
 		}

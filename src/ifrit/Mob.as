@@ -306,13 +306,6 @@ package ifrit
 				jumpTimer.reset(); // Reset when on floor, to avoid constant jumping in air
 			}
 			
-			if (this.y - this.halfSize.y < 0)
-			{
-				velocity.x = 0;
-				velocity.y = 0;
-				this.y = 0 + this.halfSize.y;
-			}
-			
 			this.collisionHull.rotationY = 0;
 		}
 		

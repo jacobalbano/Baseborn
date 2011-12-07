@@ -416,7 +416,9 @@
 						{
 							World.Platforms[ii].collide(World.Mobs[jj] );
 							
-							 //Platform debugging information
+							/**
+							 * Platform debugging information
+							 */
 							//if (World.Mobs[jj].friendly)
 							//{
 								//if (World.Platforms[ii].collide(World.Mobs[jj] ))

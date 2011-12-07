@@ -236,17 +236,60 @@ package ifrit
 			
 			WorldUtils.addDecal(Library.IMG("tower.bg.png"), 500, 200);
 			
-			WorldUtils.addDecal(Library.IMG("tower.decals.chandelier.png"), 150, 50.5, null, null , [0, 1, 2, 3], 46, 101);
-			WorldUtils.addDecal(Library.IMG("tower.decals.chandelier.png"), 850, 50.5, null, null , [0, 1, 2, 3], 46, 101);
+			WorldUtils.addDecal(Library.IMG("tower.decals.stainedGlass.png"), 546, 210);
+			
+			WorldUtils.addDecal(Library.IMG("tower.layouts.layout1.png"), 500, 200);
 			
 			WorldUtils.addEnemy(700, 350, Guard);
 			WorldUtils.addEnemy(400, 350, ElfMage);
 			
 			Game.stage.addChild(new HUD);
 			
+			WorldUtils.addLadder(50, 42, 245);
+			WorldUtils.addLadder(790, 93, 178);
+			WorldUtils.addLadder(976, 336, 64);
+			
 			WorldUtils.addMan(50, 375, Game.playerClass);
 			
-			WorldUtils.addTrigger(1023, 375, WorldUtils.advance);
+			WorldUtils.addWall(243, 294, false, Library.IMG("misc.clipPlatform.png"), 488);
+			WorldUtils.addWall(483, 317, true, Library.IMG("misc.clipPlatform.png"), 37);
+			WorldUtils.addWall(519, 330, false, Library.IMG("misc.clipPlatform.png"), 65);
+			WorldUtils.addWall(684, 365, false, Library.IMG("misc.clipPlatform.png"), 128);
+			WorldUtils.addWall(597, 254, false, Library.IMG("misc.clipPlatform.png"), 101);
+			WorldUtils.addWall(642, 237, true, Library.IMG("misc.clipPlatform.png"), 25);
+			WorldUtils.addWall(702, 220, false, Library.IMG("misc.clipPlatform.png"), 108);
+			WorldUtils.addWall(542, 178, false, Library.IMG("misc.clipPlatform.png"), 136);
+			WorldUtils.addWall(752, 227, true, Library.IMG("misc.clipPlatform.png"), 349);
+			WorldUtils.addWall(396, 249, true, Library.IMG("misc.clipPlatform.png"), 83);
+			WorldUtils.addWall(360, 203, false, Library.IMG("misc.clipPlatform.png"), 83);
+			WorldUtils.addWall(324, 230, true, Library.IMG("misc.clipPlatform.png"), 44);
+			WorldUtils.addWall(345, 246, false, Library.IMG("misc.clipPlatform.png"), 33);
+			WorldUtils.addWall(367, 270, true, Library.IMG("misc.clipPlatform.png"), 39);
+			WorldUtils.addWall(267, 145, true, Library.IMG("misc.clipPlatform.png"), 196);
+			WorldUtils.addWall(184, 237, false, Library.IMG("misc.clipPlatform.png"), 159);
+			WorldUtils.addWall(108, 142, true, Library.IMG("misc.clipPlatform.png"), 181);
+			WorldUtils.addWall(187, 47, false, Library.IMG("misc.clipPlatform.png"), 168);
+			WorldUtils.addWall(405, 47, false, Library.IMG("misc.clipPlatform.png"), 127);
+			WorldUtils.addWall(616, 47, false, Library.IMG("misc.clipPlatform.png"), 135);
+			WorldUtils.addWall(839, 47, false, Library.IMG("misc.clipPlatform.png"), 184);
+			WorldUtils.addWall(911, 98, false, Library.IMG("misc.clipPlatform.png"), 177);
+			WorldUtils.addWall(828, 161, true, Library.IMG("misc.clipPlatform.png"), 117);
+			WorldUtils.addWall(916, 215, false, Library.IMG("misc.clipPlatform.png"), 167);
+			WorldUtils.addWall(821, 276, false, Library.IMG("misc.clipPlatform.png"), 130);
+			WorldUtils.addWall(883, 291, true, Library.IMG("misc.clipPlatform.png"), 21);
+			WorldUtils.addWall(902, 307, false, Library.IMG("misc.clipPlatform.png"), 32);
+			WorldUtils.addWall(914, 323, true, Library.IMG("misc.clipPlatform.png"), 23);
+			WorldUtils.addWall(933, 340, false, Library.IMG("misc.clipPlatform.png"), 36);
+			WorldUtils.addWall(947, 373, true, Library.IMG("misc.clipPlatform.png"), 57);
+			
+			if (Game.playerClass == Player.MAGE)
+			{
+				WorldUtils.addDecal(Library.IMG("misc.keyS.png"), 240, 350, openGate, function (d:Decal):* { d.alpha = 0; } );
+				WorldUtils.addDecal(Library.IMG("tower.decals.gateWall.png"), 275, 350);
+				WorldUtils.addWall(265, 350, true, Library.IMG("misc.clipPlatform.png"), 105);
+			}
+			
+			WorldUtils.addTrigger(980, 425, WorldUtils.advance);
 			
 			nextLevel = "tower_02";
 		}
@@ -259,8 +302,6 @@ package ifrit
 			
 			Game.stage.addChild(Library.IMG("tower.bg.png"));
 			
-			WorldUtils.addDecal(Library.IMG("tower.decals.stainedGlass.png"), 546, 218);
-			
 			WorldUtils.addDecal(Library.IMG("tower.decals.chandelier.png"), 923, 165.5, null, null , [0, 1, 2, 3], 46, 101);
 			WorldUtils.addDecal(Library.IMG("tower.decals.chandelier.png"), 73, 165.5, null, null, [0, 1, 2, 3], 46, 101);
 			
@@ -272,6 +313,7 @@ package ifrit
 			WorldUtils.addDecal(Library.IMG("tower.decals.shield.png"), 750, 80);
 			WorldUtils.addDecal(Library.IMG("tower.decals.torch.png"), 700, 80, null, null, [0, 1, 2, 3, 4, 5], 40, 40);
 			
+			WorldUtils.addLadder(30, 0, 110);
 			WorldUtils.addLadder(112, 100, 260);
 			WorldUtils.addLadder(855, 200, 115);
 			
@@ -304,7 +346,7 @@ package ifrit
 			
 			Game.stage.addChild(new HUD);
 			
-			WorldUtils.addMan(50, 375, Game.playerClass);
+			WorldUtils.addMan(20, 15, Game.playerClass);
 			
 			nextLevel = "dungeon_01";
 		}
@@ -526,6 +568,31 @@ package ifrit
 				else
 				{
 					if (d.alpha >= 0) d.alpha -= 0.05;
+				}
+			}
+			else
+			{
+				if (d.alpha >= 0) d.alpha -= 0.05;
+			}
+		}
+		
+		private static function openGate(d:Decal):void
+		{
+			if (d.hitTestObject(Game.man.collisionHull))
+			{
+				if (!Input.isKeyDown(Input.S))
+				{
+					if (d.alpha <= 1) d.alpha += 0.05;
+				}
+				else
+				{
+					if (d.alpha >= 0) d.alpha -= 0.05;
+				}
+				
+				if (Mobs[0].hitpoints <= 0 && Mobs.length >= 3)
+				{
+					Platforms = Platforms.splice(16, 0);
+					WorldUtils.addDecal(Library.IMG("tower.decals.gate.png"), 327, 355, null, null, [0, 1, 2, 3, 4], 135, 105, 5, false);
 				}
 			}
 			else

@@ -241,8 +241,9 @@ package ifrit
 			
 			WorldUtils.addDecal(Library.IMG("tower.layouts.layout1.png"), 500, 200);
 			
-			WorldUtils.addEnemy(700, 350, Guard);
+			WorldUtils.addEnemy(500, 350, Guard);
 			WorldUtils.addEnemy(400, 350, ElfMage);
+			WorldUtils.addEnemy(700, 350, Archer);
 			
 			Game.stage.addChild(new HUD);
 			
@@ -317,6 +318,13 @@ package ifrit
 			WorldUtils.addLadder(30, 0, 110);
 			WorldUtils.addLadder(112, 100, 260);
 			WorldUtils.addLadder(855, 200, 115);
+			WorldUtils.addLadder(940, 300, 200);
+			
+			WorldUtils.addEnemy(724, 75, ElfMage);
+			WorldUtils.addEnemy(924, 75, ElfMage);
+			WorldUtils.addEnemy(600, 336, ElfMage);
+			WorldUtils.addEnemy(495, 130, ElfMage);
+			WorldUtils.addEnemy(170, 180, ElfMage);
 			
 			WorldUtils.addWall( 0, 110, false, Library.IMG("tower.platform.png"));
 			WorldUtils.addWall(150, 250, true, Library.IMG("tower.platform.png"));
@@ -336,14 +344,6 @@ package ifrit
 			WorldUtils.addDecal(Library.IMG("tower.decals.door.png"), 855, 363.5);
 			WorldUtils.addDecal(Library.IMG("misc.upArrow.png"), 855, 363.5, WorldUtils.chooseAdvance, function (d:Decal):* { d.alpha = 0;	} );
 			WorldUtils.addDecal(Library.IMG("misc.padlock.png"), 855, 363.5, WorldUtils.doorLocked, function (d:Decal):* { d.alpha = 0;	} );
-			
-			WorldUtils.addLadder(940, 300, 200);
-			
-			WorldUtils.addEnemy(724, 75, ElfMage);
-			WorldUtils.addEnemy(924, 75, ElfMage);
-			WorldUtils.addEnemy(600, 336, ElfMage);
-			WorldUtils.addEnemy(495, 130, ElfMage);
-			WorldUtils.addEnemy(170, 180, ElfMage);
 			
 			Game.stage.addChild(new HUD);
 			

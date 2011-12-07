@@ -322,7 +322,7 @@
 								}
 								else
 								{
-									if (World.Projectiles[k].friendly == World.Mobs[l].friendly && !World.Projectiles[k].isStatic)
+									if (World.Mobs[l].friendly && !World.Projectiles[k].isStatic)
 									{
 										HUD.restoreAmmo(1);
 										stage.removeChild(World.Projectiles[k]);

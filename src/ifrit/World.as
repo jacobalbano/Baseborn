@@ -506,6 +506,8 @@ package ifrit
 
 			Game.stage.addChild(new HUD);
 			
+			WorldUtils.addEnemy(320, 260, Doppleganger);
+			
 			WorldUtils.addMan(570, 45, Game.playerClass);
 			
 			// Visible
@@ -518,6 +520,8 @@ package ifrit
 			
 			// Floor
 			WorldUtils.addWall(626, 295, false, Library.IMG("misc.clipPlatform.png"), 748);
+			WorldUtils.addWall(630, 305, false, Library.IMG("misc.clipPlatform.png"), 748);
+			WorldUtils.addWall(635, 315, false, Library.IMG("misc.clipPlatform.png"), 748);
 			
 			WorldUtils.addTrigger(500, 375, WorldUtils.hurt, 1000, 50)
 			

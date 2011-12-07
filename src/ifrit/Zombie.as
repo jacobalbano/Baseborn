@@ -1,17 +1,17 @@
 package ifrit 
 {
-	import com.thaumaturgistgames.flakit.Library
+	import com.thaumaturgistgames.flakit.Library;
 	
 	/**
 	 * ...
 	 * @author Chris Logsdon
 	 */
-	public class Guard extends Enemy
+	public class Zombie extends Enemy
 	{
 		
-		public function Guard(x:Number, y:Number) 
+		public function Zombie(x:Number, y:Number) 
 		{
-			super(x, y, Library.IMG("enemies.guard.png"), 60, 23, 13, 23, NO_RANGED);
+			super(x, y, Library.IMG("enemies.zombie.png"), 36, 25, 15, 25, Enemy.NO_FEAR | Enemy.NO_RANGED);
 			
 			this.graphic.add("stand", [1], 6, true);
 			this.graphic.add("walk", [0, 1, 2, 3], 6, true);

@@ -57,6 +57,7 @@ package ifrit
 			Worlds.add("tower_02", 		loadTower_02);
 			Worlds.add("dungeon_01", 	loadDungeon_01);
 			Worlds.add("hellther_01", 	loadHellther_01);
+			Worlds.add("balcony_01", 	loadBalcony_01);
 		}
 		
 		//	Worlds begin
@@ -494,7 +495,33 @@ package ifrit
 			WorldUtils.addTrigger( 550, -15, WorldUtils.advance);
 			WorldUtils.addTrigger( 570, 385, WorldUtils.hurt);
 			
-			nextLevel = "mainMenu";
+			nextLevel = "balcony_01";
+		}
+		
+		private static function loadBalcony_01():void
+		{
+			WorldUtils.makeBounds();
+			
+			WorldUtils.addDecal(Library.IMG("balcony.bg.png"), 500, 200);
+
+			Game.stage.addChild(new HUD);
+			
+			WorldUtils.addMan(570, 45, Game.playerClass);
+			
+			// Visible
+			WorldUtils.addWall(960, 259, false, Library.IMG("balcony.platform.png"), 79);
+			WorldUtils.addWall(846, 231, false, Library.IMG("balcony.platform.png"), 48);
+			WorldUtils.addWall(724, 205, false, Library.IMG("balcony.platform.png"), 88);
+			WorldUtils.addWall(852, 182, false, Library.IMG("balcony.platform.png"), 62);
+			WorldUtils.addWall(960, 159, false, Library.IMG("balcony.platform.png"), 80);
+			WorldUtils.addWall(835, 125, false, Library.IMG("balcony.platform.png"), 80);
+			
+			// Floor
+			WorldUtils.addWall(626, 295, false, Library.IMG("misc.clipPlatform.png"), 748);
+			
+			WorldUtils.addTrigger(500, 375, WorldUtils.hurt, 1000, 50)
+			
+			nextLevel = "main_menu";
 		}
 		
 		//}

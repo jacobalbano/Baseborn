@@ -246,9 +246,9 @@ package ifrit
 			for 	(var m:int 	= World.Mobs.length; 			m	--> 0; )	Game.stage.removeChild(World.Mobs.pop());
 			while 	(Game.stage.numChildren > 1) 								Game.stage.removeChildAt(1);
 			
-			for (var itr:Iterator = new MapIterator(World.Variables); itr.node ; itr.next())
+			for (var itr:Iterator = new MapIterator(World.Variables); itr.value ; itr.next())
 			{
-				World.Variables.remove(itr.node.first);
+				World.Variables.remove(itr.value.first);
 			}
 			
 			World.hasKey = false;

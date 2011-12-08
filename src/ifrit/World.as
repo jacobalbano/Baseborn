@@ -235,11 +235,10 @@ package ifrit
 			WorldUtils.addDecal(Library.IMG("tower.bg.png"), 500, 200);
 			
 			WorldUtils.addDecal(Library.IMG("tower.decals.stainedGlass.png"), 546, 210);
-			
+			WorldUtils.addDecal(Library.IMG("tower.decals.chandelier.png"), 850, 50.5, null, null , [0, 1, 2, 3], 46, 101);
 			WorldUtils.addDecal(Library.IMG("tower.layouts.layout1.png"), 500, 200);
 			
-			
-			WorldUtils.addEnemy(500, 350, Guard)
+			WorldUtils.addEnemy(700, 350, Guard);
 			WorldUtils.addEnemy(400, 350, ElfMage);
 			WorldUtils.addEnemy(700, 350, Archer);
 			
@@ -282,11 +281,12 @@ package ifrit
 			WorldUtils.addWall(933, 340, false, Library.IMG("misc.clipPlatform.png"), 36);
 			WorldUtils.addWall(947, 373, true, Library.IMG("misc.clipPlatform.png"), 57);
 			
-			//if (Game.playerClass == Player.MAGE)
-			//{
-			//	WorldUtils.addDecal(Library.IMG("tower.decals.gateWall.png"), 275, 350);
-			//	WorldUtils.addWall(265, 350, true, Library.IMG("misc.clipPlatform.png"), 105);
-			//}
+			if (Game.playerClass == Player.MAGE)
+			{
+				WorldUtils.addDecal(Library.IMG("misc.keyS.png"), 240, 350, openGate, function (d:Decal):* { d.alpha = 0; } );
+				WorldUtils.addDecal(Library.IMG("tower.decals.gateWall.png"), 275, 350);
+				WorldUtils.addWall(265, 350, true, Library.IMG("misc.clipPlatform.png"), 105);
+			}
 			
 			WorldUtils.addTrigger(980, 425, WorldUtils.advance);
 			
@@ -343,6 +343,8 @@ package ifrit
 			WorldUtils.addDecal(Library.IMG("tower.decals.door.png"), 855, 363.5);
 			WorldUtils.addDecal(Library.IMG("misc.upArrow.png"), 855, 363.5, WorldUtils.chooseAdvance, function (d:Decal):* { d.alpha = 0;	} );
 			WorldUtils.addDecal(Library.IMG("misc.padlock.png"), 855, 363.5, WorldUtils.doorLocked, function (d:Decal):* { d.alpha = 0;	} );
+			
+			WorldUtils.addLadder(940, 300, 200);
 			
 			WorldUtils.addEnemy(724, 75, ElfMage);
 			WorldUtils.addEnemy(924, 75, ElfMage);
@@ -510,6 +512,33 @@ package ifrit
 			WorldUtils.makeBounds();
 			
 			WorldUtils.addDecal(Library.IMG("balcony.bg.png"), 500, 200);
+
+			Game.stage.addChild(new HUD);
+			
+			WorldUtils.addMan(570, 45, Game.playerClass);
+			WorldUtils.addEnemy(570, 200, Doppleganger);
+			
+			// Visible
+			WorldUtils.addWall(960, 259, false, Library.IMG("balcony.platform.png"), 79);
+			WorldUtils.addWall(846, 231, false, Library.IMG("balcony.platform.png"), 48);
+			WorldUtils.addWall(724, 205, false, Library.IMG("balcony.platform.png"), 88);
+			WorldUtils.addWall(852, 182, false, Library.IMG("balcony.platform.png"), 62);
+			WorldUtils.addWall(960, 159, false, Library.IMG("balcony.platform.png"), 80);
+			WorldUtils.addWall(835, 125, false, Library.IMG("balcony.platform.png"), 80);
+			
+			// Floor
+			WorldUtils.addWall(626, 295, false, Library.IMG("misc.clipPlatform.png"), 748);
+			
+			WorldUtils.addTrigger(500, 375, WorldUtils.hurt, 1000, 50)
+			
+			nextLevel = "main_menu";
+		}
+
+		private static function loadBalcony_01():void
+		{
+			WorldUtils.makeBounds();
+			
+			WorldUtils.addDecal(Library.IMG("balcony.bg.png"), 500, 200);
 			
 			Game.stage.addChild(new HUD);
 			
@@ -536,6 +565,31 @@ package ifrit
 		}
 		//}
 		//	Worlds end
+		
+		private static function openGate(d:Decal):void
+		{
+			if (d.hitTestObject(Game.man.collisionHull))
+			{
+				if (!Input.isKeyDown(Input.S))
+				{
+					if (d.alpha <= 1) d.alpha += 0.05;
+				}
+				else
+				{
+					if (d.alpha >= 0) d.alpha -= 0.05;
+				}
+				
+				if (Mobs[0].hitpoints <= 0 && Mobs.length >= 3)
+				{
+					Platforms = Platforms.splice(16, 0);
+					WorldUtils.addDecal(Library.IMG("tower.decals.gate.png"), 327, 355, null, null, [0, 1, 2, 3, 4], 135, 105, 5, false);
+				}
+			}
+			else
+			{
+				if (d.alpha >= 0) d.alpha -= 0.05;
+			}
+		}
 		
 		static private function chooseClass_Mage(d:Decal):void 
 		{

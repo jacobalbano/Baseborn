@@ -11,21 +11,32 @@ package ifrit
 		
 		public function Doppleganger(x:Number, y:Number) 
 		{
-			//TODO: Jake, how would I get the commented code below to happen?
-			//I'm just not very comfortable or familiar with super()
+			//TODO: This needs to work with rogue doppelgangers
 			
-			//if (Game.playerClass == Player.FIGHTER)
-			//{
-				super(x, y, Library.IMG("enemies.mageDop.png"), 65, 25, 18, 25, BRAIN_DEAD | NO_RANGED);
-			//}
-			//if (Game.playerClass == Player.ROGUE)
-			//{
-				//super(x, y, Library.IMG("enemies.fighterDop.png"), 64, 33, 18, 25, BRAIN_DEAD | NO_RANGED);
-			//}
-			//if (Game.playerClass == Player.MAGE)
-			//{
-				//super(x, y, Library.IMG("enemies.mageDop.png"), 65, 25, 18, 25, BRAIN_DEAD | NO_RANGED);
-			//}
+			var imageString:String;
+			var animWidth:int;
+			var animHeight:int;
+			
+			if (Game.playerClass == Player.FIGHTER)
+			{
+				imageString = "enemies.mageDop.png";
+				animHeight = 33;
+				animWidth = 64;
+			}
+			if (Game.playerClass == Player.ROGUE)
+			{
+				imageString = "enemies.fighterDop.png";
+				animHeight = 33;
+				animWidth = 64;
+			}
+			if (Game.playerClass == Player.MAGE)
+			{
+				imageString = "enemies.mageDop.png";
+				animHeight = 25;
+				animWidth = 65;
+			}
+			
+			super(x, y, Library.IMG(imageString), animWidth, animHeight, 18, 25, BRAIN_DEAD | NO_RANGED);
 			
 			
 			this.graphic.add("stand", [1], 6, true);

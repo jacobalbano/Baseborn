@@ -488,6 +488,7 @@ package ifrit
 			WorldUtils.addDecal(Library.IMG("hellther.bg.png"), 500, 200);
 			
 			WorldUtils.addEnemy(730, 185, Serpent);
+			WorldUtils.addEnemy(300, 200, Demon);
 			
 			WorldUtils.addLadder(447, 345, 55, "hellther.ladder.png");
 			WorldUtils.addLadder(576, 0, 49, "hellther.ladder.png");

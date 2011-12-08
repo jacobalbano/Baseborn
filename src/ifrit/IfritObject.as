@@ -30,6 +30,7 @@ package ifrit
 		
 		public function destroy():void
 		{
+			if (this.isDestroyed) return;
 			this.destroyed = true;
 		}
 		

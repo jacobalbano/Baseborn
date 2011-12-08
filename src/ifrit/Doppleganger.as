@@ -48,6 +48,7 @@ package ifrit
 			
 			this.hitpoints = 300;
 			this.maxHealth = 300;
+			this.tipsOverWhenDead = false;
 		}
 		
 		override public function postThink():void

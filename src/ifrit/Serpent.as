@@ -22,6 +22,7 @@ package ifrit
 			
 			this.hitpoints = 15;
 			this.maxHealth = 15;
+			this.tipsOverWhenDead = false;
 		}
 		
 	}

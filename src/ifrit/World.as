@@ -487,10 +487,14 @@ package ifrit
 			WorldUtils.addWall(651, 68, true, Library.IMG("forest.platform.png"), 20);
 			WorldUtils.addWall(315, 370, true, Library.IMG("forest.platform.png"), 25);
 			
-			WorldUtils.addDecal(Library.IMG("hellther.bg.png"), 500, 200);
+			//WorldUtils.addDecal(Library.IMG("hellther.bg.png"), 500, 200);
 			
-			WorldUtils.addEnemy(730, 185, Serpent);
-			WorldUtils.addEnemy(300, 200, Demon);
+			WorldUtils.addEnemy(300, 185, Serpent);
+			WorldUtils.addEnemy(730, 200, Demon);
+			WorldUtils.addEnemy(730, 200, Demon);
+			WorldUtils.addEnemy(730, 200, Demon);
+			WorldUtils.addEnemy(730, 200, Demon);
+			WorldUtils.addEnemy(730, 200, Demon);
 			
 			WorldUtils.addLadder(447, 345, 55, "hellther.ladder.png");
 			WorldUtils.addLadder(576, 0, 49, "hellther.ladder.png");
@@ -499,7 +503,7 @@ package ifrit
 			
 			WorldUtils.addMan(435, 300, Game.playerClass);
 			
-			WorldUtils.addDecal(Library.IMG("hellther.lavaTrap.png"), 571, 391);
+			//WorldUtils.addDecal(Library.IMG("hellther.lavaTrap.png"), 571, 391);
 			
 			WorldUtils.addTrigger( 550, -15, WorldUtils.advance);
 			WorldUtils.addTrigger( 570, 385, WorldUtils.hurt);

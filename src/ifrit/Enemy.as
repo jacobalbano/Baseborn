@@ -26,6 +26,7 @@ package ifrit
 		public var fleeMode:Boolean;
 		
 		protected var behaviorFlags:uint;
+		protected var tipsOverWhenDead:Boolean;	//	Ultra stupid variable name
 		protected var rightBound:Number;
 		protected var leftBound:Number;
 		protected var lastPosition:Point;
@@ -54,6 +55,7 @@ package ifrit
 			this.confusionTimer = new Timer(1000, 0);
 			this.fleeCooldown = new Timer(1000, 0);
 			this.homeRect = new Rectangle;
+			this.tipsOverWhenDead = true;
 		}
 		
 		override public function preThink():void 
@@ -101,7 +103,9 @@ package ifrit
 		
 		override public function destroy():void 
 		{
+			if (this.isDestroyed) return;
 			super.destroy();
+			
 			this.graphic.play("die");
 			
 			if ( ! (this.behaviorFlags & PASSIVE) > 0)
@@ -138,7 +142,7 @@ package ifrit
 				}
 			}
 			
-			this.collisionHull.x += this.collisionHull.width * 1.5;
+			if (this.tipsOverWhenDead)	this.collisionHull.x += this.collisionHull.width * 1.5;
 		}
 		
 		/**

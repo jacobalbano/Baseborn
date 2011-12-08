@@ -54,7 +54,7 @@ package ifrit
 		
 		public function HUD() 
 		{
-			area = Library.IMG("HUD.png");
+			area = Library.IMG("HUD.bg.png");
 			area.x = 0;
 			area.y = 400.
 			addChild(area);
@@ -136,7 +136,7 @@ package ifrit
 				
 				icon1 = Library.IMG("icons.manaIcon.png");
 				icon2 = Library.IMG("icons.energyIcon.png");
-				skills = Library.IMG("mageSkills.png");
+				//skills = Library.IMG("HUD.mageSkills.png");
 				
 				addChild(mana);
 				addChild(manaTxt);
@@ -185,7 +185,7 @@ package ifrit
 				
 				icon1 = Library.IMG("icons.shurikenIcon.png");
 				icon2 = Library.IMG("icons.blinkIcon.png");
-				skills = Library.IMG("rogueSkills.png");
+				//skills = Library.IMG("HUD.rogueSkills.png");
 				
 				addChild(shuriken);
 				addChild(shurikenTxt);
@@ -214,16 +214,13 @@ package ifrit
 			arrowTxtFormat.align = "center";
 			arrowTxt.defaultTextFormat = arrowTxtFormat;
 			
-			
-			
-			
 			shield = new Sprite();
 			shield.graphics.beginFill(0xA5B5C7);
 			shield.graphics.drawRect(0, 0, 200, 9);
 			shield.graphics.endFill();
 			shield.x = 750;
 			shield.y = 454;
-
+			
 			if (Game.playerClass == Player.FIGHTER)
 			{
 				healthScale = 3;
@@ -235,10 +232,9 @@ package ifrit
 				
 				icon1 = Library.IMG("icons.arrowIcon.png");
 				icon2 = Library.IMG("icons.shieldIcon.png");
-				skills = Library.IMG("fighterSkills.png");
-				
+				//skills = Library.IMG("HUD.fighterSkills.png");
 			}
-				
+			
 			
 			icon1.x = 842;
 			icon1.y = 419;
@@ -248,9 +244,9 @@ package ifrit
 			icon2.y = 472;
 			addChild(icon2);
 			
-			skills.x = 420;
-			skills.y = 432;
-			addChild(skills);
+			//skills.x = 420;
+			//skills.y = 432;
+			//addChild(skills);
 			
 			totalHealth = (200 * healthScale);
 			totalMana = 200;
@@ -258,13 +254,27 @@ package ifrit
 		
 		override protected function update():void 
 		{
-			
 			if (health.width > 200) health.width = 200;
 			
 			remainingHealth = (health.width * healthScale);
 			
 			healthTxt.text = String(remainingHealth) + "/" + String(totalHealth);
 			
+			checkHealth();
+			
+			if (mana)  manaTxt.text = String(Math.round(mana.width)) + "/" + String(totalMana);
+			if (energy) {   if (energy.width < 200)   energy.width += 1.5;   }
+			
+			if (shuriken)  shurikenTxt.text = String(Math.round(shuriken.width / 20)) + "/" + String(200 / 20)
+			//if (caltrops)  caltropTxt.text = String(Math.round(caltrops.width / 13.33)) + "/" + String(Math.round(200 / 13.33));
+			if (blink)	{	if (blink.width < 200)	blink.width += .75;	}
+			
+			if (arrows)  arrowTxt.text = String(Math.round(arrows.width / 10)) + "/" + String(200 / 10);
+			if (shield) {   if (shield.width < 200)   shield.width += 1.0;   }
+		}
+		
+		private function checkHealth():void 
+		{
 			if (health.width <= 50)
 			{
 				lowHealth.start();
@@ -294,16 +304,6 @@ package ifrit
 				health.graphics.drawRect(0, 0, 200, 21);
 				health.graphics.endFill();
 			}
-			
-			if (mana)  manaTxt.text = String(Math.round(mana.width)) + "/" + String(totalMana);
-			if (energy) {   if (energy.width < 200)   energy.width += 1.5;   }
-			
-			if (shuriken)  shurikenTxt.text = String(Math.round(shuriken.width / 20)) + "/" + String(200 / 20)
-			//if (caltrops)  caltropTxt.text = String(Math.round(caltrops.width / 13.33)) + "/" + String(Math.round(200 / 13.33));
-			if (blink)	{	if (blink.width < 200)	blink.width += .75;	}
-			
-			if (arrows)  arrowTxt.text = String(Math.round(arrows.width / 10)) + "/" + String(200 / 10);
-			if (shield) {   if (shield.width < 200)   shield.width += 1.0;   }
 		}
 		
 		/**

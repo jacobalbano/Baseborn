@@ -6,15 +6,11 @@
         <image>arrow.png</image>
         <image>caltrop.png</image>
         <image>fighter.png</image>
-        <image>fighterSkills.png</image>
         <image>fireballShot.png</image>
-        <image>HUD.png</image>
         <image>iceBlast.png</image>
         <image>lightningBolt.png</image>
         <image>mage.png</image>
-        <image>mageSkills.png</image>
         <image>rogue.png</image>
-        <image>rogueSkills.png</image>
         <image>shuriken.png</image>
         <image>smoke.png</image>
         <image>unclassed.png</image>
@@ -57,6 +53,19 @@
         <image>icons/manaIcon.png</image>
         <image>icons/shieldIcon.png</image>
         <image>icons/shurikenIcon.png</image>
+        <image>HUD/bg.png</image>
+        <image>HUD/bolt.png</image>
+        <image>HUD/bow.png</image>
+        <image>HUD/caltrop.png</image>
+        <image>HUD/daggers.png</image>
+        <image>HUD/emptyA.png</image>
+        <image>HUD/emptyD.png</image>
+        <image>HUD/emptyS.png</image>
+        <image>HUD/fire.png</image>
+        <image>HUD/ice.png</image>
+        <image>HUD/shield.png</image>
+        <image>HUD/shuriken.png</image>
+        <image>HUD/sword.png</image>
         <image>hellther/bg.png</image>
         <image>hellther/ladder.png</image>
         <image>hellther/lavaTrap.png</image>
@@ -71,6 +80,7 @@
         <image>forest/decals/stump.png</image>
         <image>enemies/archer.png</image>
         <image>enemies/bear.png</image>
+        <image>enemies/demon.png</image>
         <image>enemies/elfMage.png</image>
         <image>enemies/fighterDop.png</image>
         <image>enemies/giant.png</image>
@@ -108,7 +118,7 @@
     </images>
     <sounds>
         <sound>audio/sfx/bolt.mp3</sound>
-        <sound>audio/sfx/Wisp.mp3</sound>
+        <sound>audio/sfx/wisp.mp3</sound>
         <sound>audio/music/beach.mp3</sound>
     </sounds>
 </library>

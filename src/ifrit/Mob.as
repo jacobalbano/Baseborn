@@ -236,7 +236,7 @@ package ifrit
 		public function webbed(d:Decal):void
 		{
 			this.x = d.x
-			this.y = d.y
+			d.y = this.y
 			
 			if (this.freezeTimer.currentCount >= 20)
 			{

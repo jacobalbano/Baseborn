@@ -389,11 +389,11 @@ package ifrit
 			WorldUtils.addLadder(112, 100, 260);
 			WorldUtils.addLadder(855, 200, 115);
 			
-			WorldUtils.addEnemy(724, 75, ElfMage);
-			WorldUtils.addEnemy(924, 75, ElfMage);
-			WorldUtils.addEnemy(600, 336, ElfMage);
-			WorldUtils.addEnemy(495, 130, ElfMage);
-			WorldUtils.addEnemy(170, 180, ElfMage);
+			WorldUtils.addEnemy(724, 75, Skeleton);
+			WorldUtils.addEnemy(924, 75, Skeleton);
+			WorldUtils.addEnemy(600, 336, SkeletonMage);
+			WorldUtils.addEnemy(495, 130, Zombie);
+			WorldUtils.addEnemy(170, 180, Spider);
 			WorldUtils.addEnemy(200, 360, Zombie);
 			WorldUtils.addEnemy(600, 360, Spider);
 			

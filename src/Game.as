@@ -228,7 +228,7 @@
 				}
 				if (man.blinkTimer.currentCount == man.blinkTimer.repeatCount)	man.blinkTimer.stop();
 				
-				if (man.canJump)
+				if (man.canJump && !man.isFrozen)
 				{
 					if (Input.isKeyDown(Input.SPACE))
 					{

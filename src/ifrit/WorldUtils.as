@@ -59,6 +59,7 @@ package ifrit
 			SaveState.level = name;
 			
 			addDecal(new Bitmap(new BitmapData(1000, 500, true, 0xff000000)), 500, 250, fade );
+			
 		}
 		
 		/**
@@ -102,7 +103,7 @@ package ifrit
 						WorldUtils.addTrigger( Game.man.x, Game.man.y, WorldUtils.advance);
 					}
 				}
-				else
+				else if(!World.hasKey)
 				{
 					if (d.alpha <= 1) d.alpha += 0.05;
 					

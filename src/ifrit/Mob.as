@@ -114,24 +114,24 @@ package ifrit
 			
 			if (this.collisionHull.hitTestObject(obj.collisionHull))
 			{
-				if (obj.x < this.x)
+				if (obj.x <= this.x)
 				{
 					this.x += ox; // left
 					obj.x -= ox;
 				}
-				else if (obj.x > this.x)
+				else if (obj.x >= this.x)
 				{
 					this.x -= ox; // right
 					obj.x += ox; // right
 				}
-				else if (obj.y < this.y) // top
+				else if (obj.y <= this.y) // top
 				{
 					this.hitpoints -= 5;
 					obj.y -= oy;
 					obj.gravUp = false;
 					obj.jumpTimer.reset();
 				}
-				else if (obj.y > this.y) // bottom
+				else if (obj.y >= this.y) // bottom
 				{
 					obj.y += oy;
 					obj.jumpReset();

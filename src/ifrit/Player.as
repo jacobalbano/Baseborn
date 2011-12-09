@@ -177,5 +177,15 @@ package ifrit
 			
 			return this.idle;
 		}
+		
+		override public function destroy():void 
+		{
+			if (this.isDestroyed)	return;
+			
+			var x:int = this.x <= Game.dimensions.x / 2 ? this.x - 50 : this.x + 50;
+			WorldUtils.addDecal(Library.IMG("misc.enter.png"), x, this.y, function (d:Decal):*	{	d.alpha += 0.01;	}, function (d:Decal):*	{	d.alpha = 0;	} );
+			
+			super.destroy();
+		}
 	}
 }

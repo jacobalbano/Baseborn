@@ -45,7 +45,7 @@ package ifrit
 		public var hitpoints:int;
 		public var maxHealth:uint;		
 		public var hasGravity:Boolean;
-		public var rangedType:Class;
+		public var rangedType:Class;		
 		public var meleeDamage:int;
 		
 		public function Mob(x:Number, y:Number, bitmap:Bitmap, frameWidth:Number, frameHeight:Number, collisionWidth:Number, collisionHeight:Number)

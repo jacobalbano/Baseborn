@@ -214,7 +214,16 @@ package ifrit
 		{
 			WorldUtils.makeBounds();
 			
+			World.hasKey = true;
+			
+			Variables.add("door tick left", new Variable(0));
+			Variables.add("door tick right", new Variable(0));
+			Variables.add("opening", new Variable);
+			
 			WorldUtils.addDecal(Library.IMG("forest.towerDoor.png"), 500, 200);
+			WorldUtils.addDecal(Library.IMG("forest.archway.png"), 501, 210);
+			WorldUtils.addDecal(Library.IMG("forest.leftDoor.png"), 401, 218, function (d:Decal):*	{ 	if (d.rotationY <= 45 && Variables.retrive("opening").bool)	trace(Variables.retrive("door tick left").number = d.rotationY += 1);	} );
+			WorldUtils.addDecal(Library.IMG("forest.rightDoor.png"), 601, 218, function (d:Decal):*	{	if (Math.abs(d.rotationY) <= 22 && Variables.retrive("opening").bool)  trace(Variables.retrive("door tick right").number = d.rotationY -= 0.50)} );
 			WorldUtils.addDecal(Library.IMG("forest.lavaAnimation.png"), 94, 235, null, null, [0, 1, 2, 3], 110, 220, 5);
 
 			Game.stage.addChild(new HUD);
@@ -223,9 +232,14 @@ package ifrit
 			
 			WorldUtils.addWall(234, 74, false, Library.IMG("tower.platform.png"), 170);
 			
-			WorldUtils.addTrigger(500, 375, WorldUtils.advance);
+			WorldUtils.addDecal(Library.IMG("misc.upArrow.png"), 500, 375, towerDoorAdvance, function (d:Decal):* { d.alpha = 0;} );
 			
 			nextLevel = "tower_01";
+		}
+		
+		private static function towerDoorAdvance(d:Decal):void 
+		{
+			if (Math.abs(Variables.retrive("door tick right").number) >= 22 && Variables.retrive("door tick left").number >= 45)	WorldUtils.chooseAdvance(d);
 		}
 		
 		private static function loadTower_01():void

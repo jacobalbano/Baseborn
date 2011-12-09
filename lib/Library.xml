@@ -69,11 +69,14 @@
         <image>hellther/bg.png</image>
         <image>hellther/ladder.png</image>
         <image>hellther/lavaTrap.png</image>
+        <image>forest/archway.png</image>
         <image>forest/forestBG.png</image>
         <image>forest/house.png</image>
         <image>forest/house2.png</image>
         <image>forest/lavaAnimation.png</image>
+        <image>forest/leftDoor.png</image>
         <image>forest/platform.png</image>
+        <image>forest/rightDoor.png</image>
         <image>forest/ropeBridge.png</image>
         <image>forest/towerDoor.png</image>
         <image>forest/decals/pineTree.png</image>
@@ -120,7 +123,7 @@
     </images>
     <sounds>
         <sound>audio/sfx/bolt.mp3</sound>
-        <sound>audio/sfx/wisp.mp3</sound>
+        <sound>audio/sfx/Wisp.mp3</sound>
         <sound>audio/music/beach.mp3</sound>
         <sound>audio/music/forest.mp3</sound>
         <sound>audio/music/tower.mp3</sound>

@@ -219,11 +219,24 @@
 				{
 					if (Input.isKeyDown(Input.SPACE))
 					{
+						for (var p:int = World.Mobs.length; p --> 0; )
+						{
+							if (World.Mobs[f] is Doppleganger) World.Mobs[p].jumping = true;
+						}
+						
 						man.jumping = true;
 						man.canJump = false;
 					}
 				}
-				else man.jumping = false;
+				else
+				{
+						man.jumping = false;
+						for (var f:int = World.Mobs.length; f --> 0; )
+						{
+							if (World.Mobs[f] is Doppleganger)	World.Mobs[f].jumping = false;
+						}
+				}
+
 				
 				if (Input.isKeyDown(Input.A) )
 				{
@@ -324,7 +337,9 @@
 								{
 									if (World.Mobs[l].friendly && !World.Projectiles[k].isStatic)
 									{
-										HUD.restoreAmmo(1);
+										
+										if (World.Projectiles[k] is World.Mobs[l].rangedType)	HUD.restoreAmmo(1);
+										
 										stage.removeChild(World.Projectiles[k]);
 										World.Projectiles[k].destroy();
 										World.Projectiles.splice(k, 1);

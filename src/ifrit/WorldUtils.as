@@ -102,6 +102,15 @@ package ifrit
 						WorldUtils.addTrigger( Game.man.x, Game.man.y, WorldUtils.advance);
 					}
 				}
+				else
+				{
+					if (d.alpha <= 1) d.alpha += 0.05;
+					
+					if (Input.isKeyDown(Input.UP) && !Input.isKeyDown(Input.RIGHT) && !Input.isKeyDown(Input.LEFT))
+					{
+						WorldUtils.addTrigger( Game.man.x, Game.man.y, WorldUtils.advance);
+					}
+				}
 				
 			}
 			else

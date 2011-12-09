@@ -187,5 +187,12 @@ package ifrit
 			
 			super.destroy();
 		}
+		
+		override public function preThink():void 
+		{
+			super.preThink();
+			
+			if (this.classType == Player.MAGE)	HUD.restoreMana(0.05);
+		}
 	}
 }

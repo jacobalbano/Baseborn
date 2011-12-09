@@ -121,6 +121,7 @@
 							{
 								World.Mobs[d].x -= 7;
 								World.Mobs[d].rotationY = 180;
+								World.Mobs[dd].graphic.play("walk");
 							}
 						}
 						
@@ -174,6 +175,7 @@
 							{
 								World.Mobs[dd].x += 7;
 								World.Mobs[dd].rotationY = 0;
+								World.Mobs[dd].graphic.play("walk");
 							}
 						}
 						
@@ -217,7 +219,18 @@
 					}
 					else
 					{
-						if (man.isIdle) 	man.graphic.play("stand", true);
+						if (man.isIdle)
+						{
+							for (var dddd:int = World.Mobs.length; dddd --> 0; )
+							{
+								if (World.Mobs[dddd] is Doppleganger && !World.Mobs[dddd].isDestroyed)
+								{
+									World.Mobs[dddd].graphic.play("stand");
+								}
+							}
+							
+							man.graphic.play("stand", true);
+						}
 						
 						if (man.blinkTimer.running && HUD.testCost(0, 0, 0, 200))	man.canBlink = true;
 						else man.canBlink = false;

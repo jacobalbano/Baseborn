@@ -80,7 +80,7 @@ package ifrit
 		}
 		
 		override public function think():void 
-		{			
+		{
 			super.think();
 			
 			this.checkPickup();

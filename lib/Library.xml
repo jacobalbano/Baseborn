@@ -128,11 +128,14 @@
     <sounds>
         <sound>audio/sfx/bigDoorOpen.mp3</sound>
         <sound>audio/sfx/bolt.mp3</sound>
+        <sound>audio/sfx/demon.mp3</sound>
         <sound>audio/sfx/frostAttack.mp3</sound>
+        <sound>audio/sfx/seashore.mp3</sound>
         <sound>audio/sfx/smallDoorOpen.mp3</sound>
         <sound>audio/sfx/wisp.mp3</sound>
         <sound>audio/music/beach.mp3</sound>
         <sound>audio/music/forest.mp3</sound>
+        <sound>audio/music/hellther.mp3</sound>
         <sound>audio/music/tower.mp3</sound>
     </sounds>
 </library>

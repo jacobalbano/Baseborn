@@ -83,11 +83,11 @@ package ifrit
 		{			
 			super.think();
 			
+			this.checkPickup();
+			
 			if (this.brainDead)	return;
 			
 			this.testHealth();
-			
-			this.checkPickup();
 			
 			if (isDestroyed) 	return;
 			

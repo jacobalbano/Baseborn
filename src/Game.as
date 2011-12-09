@@ -1,21 +1,17 @@
 ﻿package
 {
-	import com.jacobalbano.Animation;
 	import com.jacobalbano.Input;
 	import com.thaumaturgistgames.flakit.Engine;
-	import flash.net.SharedObject;
 	import com.thaumaturgistgames.flakit.Library;
-	import ifrit.IfritObject;
-	
-	import flash.display.Bitmap
+	import flash.display.Bitmap;
 	import flash.display.BitmapData;
-	
 	import flash.display.Stage;
 	import flash.events.Event;
 	import flash.geom.Point;
-	import flash.utils.Timer;
-	
 	import ifrit.*;
+	
+	
+	
 	
 	
 	[SWF(width = "1000", height = "500", backgroundColor = "0x000000", frameRate = "30")]
@@ -120,6 +116,15 @@
 					{
 						stopBolt();
 						
+						for (var d:int = World.Mobs.length; d --> 0; )
+						{
+							if (World.Mobs[d] is Doppleganger && !World.Mobs[d].isDestroyed)
+							{
+								World.Mobs[d].x -= 7;
+								World.Mobs[d].rotationY = 180;
+							}
+						}
+						
 						if (man.graphic.playing != "attack" && !man.shielding)
 							man.graphic.play("walk");
 							
@@ -163,6 +168,15 @@
 					else if (Input.isKeyDown(Input.RIGHT))
 					{
 						stopBolt();
+						
+						for (var dd:int = World.Mobs.length; dd --> 0; )
+						{
+							if (World.Mobs[dd] is Doppleganger && !World.Mobs[d].isDestroyed)
+							{
+								World.Mobs[dd].x += 7;
+								World.Mobs[dd].rotationY = 0;
+							}
+						}
 						
 						if (man.graphic.playing != "attack"	&& !man.shielding)
 								man.graphic.play("walk");
@@ -221,7 +235,7 @@
 					{
 						for (var p:int = World.Mobs.length; p --> 0; )
 						{
-							if (World.Mobs[f] is Doppleganger) World.Mobs[p].jumping = true;
+							if (World.Mobs[p] is Doppleganger && !World.Mobs[p].isDestroyed) World.Mobs[p].jumping = true;
 						}
 						
 						man.jumping = true;

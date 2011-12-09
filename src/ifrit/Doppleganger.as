@@ -19,15 +19,15 @@ package ifrit
 			
 			if (Game.playerClass == Player.FIGHTER)
 			{
-				imageString = "enemies.mageDop.png";
+				imageString = "enemies.fighterDop.png";
 				animHeight = 33;
 				animWidth = 64;
 			}
 			if (Game.playerClass == Player.ROGUE)
 			{
-				imageString = "enemies.fighterDop.png";
-				animHeight = 33;
-				animWidth = 64;
+				imageString = "enemies.rogueDop.png";
+				animHeight = 25;
+				animWidth = 36;
 			}
 			if (Game.playerClass == Player.MAGE)
 			{
@@ -44,7 +44,7 @@ package ifrit
 			this.graphic.add("attack", [8, 9, 10, 11], 6, false);
 			this.graphic.add("die", [4, 5, 6, 7], 6, false);
 			this.graphic.add("shocked", [12, 13, 14, 15], 6, false);
-			this.graphic.play("walk");
+			this.graphic.play("stand");
 			
 			this.hitpoints = 300;
 			this.maxHealth = 300;

@@ -156,17 +156,17 @@ package ifrit
 			WorldUtils.addDecal(Library.IMG("forest.decals.stump.png"), 450, 375);
 			WorldUtils.addDecal(Library.IMG("forest.house.png"), 150, 253);
 			WorldUtils.addDecal(Library.IMG("forest.house2.png"), 400, 253, null, function (d:Decal):*	{	d.rotationY = 180;	} );
-			WorldUtils.addDecal(Library.IMG("forest.house.png"), 566, 317, null, function (d:Decal):*	{	d.rotationY = 180;	});
-			WorldUtils.addDecal(Library.IMG("forest.house.png"), 1024, 250, null, function (d:Decal):*	{	d.rotationY = 180;	});
+			WorldUtils.addDecal(Library.IMG("forest.house.png"), 566, 307, null, function (d:Decal):*	{	d.rotationY = 180;	});
+			WorldUtils.addDecal(Library.IMG("forest.house.png"), 1024, 240, null, function (d:Decal):*	{	d.rotationY = 180;	});
 			
 			WorldUtils.addWall(158, 285, false, Library.IMG("forest.platform.png"), 125);
 			WorldUtils.addWall(390, 285, false, Library.IMG("forest.platform.png"), 125);
-			WorldUtils.addWall(585, 350, false, Library.IMG("forest.platform.png"), 125);
-			WorldUtils.addWall(700, 275, false, Library.IMG("forest.platform.png"), 100);
-			WorldUtils.addWall(975, 275, false, Library.IMG("forest.platform.png"), 50);
+			WorldUtils.addWall(585, 340, false, Library.IMG("forest.platform.png"), 125);
+			WorldUtils.addWall(700, 265, false, Library.IMG("forest.platform.png"), 100);
+			WorldUtils.addWall(975, 265, false, Library.IMG("forest.platform.png"), 50);
 			
 			WorldUtils.addLadder(80, 275, 115, "misc.ropeLadder.png");
-			WorldUtils.addLadder(635, 270, 75, "misc.ropeLadder.png");
+			WorldUtils.addLadder(635, 260, 75, "misc.ropeLadder.png");
 			
 			WorldUtils.addEnemy(340, 450, Bear);
 			WorldUtils.addEnemy(340, 700, Wolf);
@@ -175,13 +175,10 @@ package ifrit
 			
 			WorldUtils.addMan(50, 375, Game.playerClass);
 			
-			Game.stage.addChild(new RopeBridge(280, 275, 125));
-			WorldUtils.addWall(280, 285, false, Library.IMG("misc.clipPlatform.png"), 125);
+			Game.stage.addChild(new RopeBridge(845, 255, 200));
+			WorldUtils.addWall(845, 265, false, Library.IMG("misc.clipPlatform.png"), 200);
 			
-			Game.stage.addChild(new RopeBridge(845, 265, 200));
-			WorldUtils.addWall(845, 275, false, Library.IMG("misc.clipPlatform.png"), 200);
-			
-			WorldUtils.addTrigger(1023, 250, WorldUtils.advance);
+			WorldUtils.addTrigger(1023, 240, WorldUtils.advance);
 			
 			nextLevel = "forest_02";
 		}
@@ -190,14 +187,15 @@ package ifrit
 		{
 			WorldUtils.makeBounds();
 			
-			//	Manipulation function to flip the backround horizontally when we load it
 			WorldUtils.addDecal(Library.IMG("forest.forestBG.png"), 500, 200, null, function (d:Decal):* {	d.rotationY = 180;	} );
+			
+			WorldUtils.addDecal(Library.IMG("forest.house.png"), -24, 240, null, function (d:Decal):*	{	d.rotationY = 180;	});
 			
 			Game.stage.addChild(new HUD);
 			
-			WorldUtils.addMan(15, 350, Game.playerClass);
+			WorldUtils.addMan(0, 240, Game.playerClass);
 			
-			WorldUtils.addWall(0, 275, false, Library.IMG("forest.platform.png"), 200);
+			WorldUtils.addWall(0, 265, false, Library.IMG("forest.platform.png"), 200);
 			
 			if (Game.man.type == Player.ROGUE)
 			{
@@ -351,7 +349,6 @@ package ifrit
 			WorldUtils.addWall(700, 272, false, Library.IMG("tower.platform.png"));
 			WorldUtils.addWall(227, 109, false, Library.IMG("tower.platform.png"));
 			WorldUtils.addWall(745, 210, false, Library.IMG("tower.platform.png"));
-			//WorldUtils.addWall(1024, 315, false, Library.IMG("tower.platform.png"));
 			
 			WorldUtils.addDecal(Library.IMG("tower.decals.door.png"), 855, 363.5);
 			WorldUtils.addDecal(Library.IMG("misc.upArrow.png"), 855, 363.5, WorldUtils.chooseAdvance, function (d:Decal):* { d.alpha = 0;	} );
@@ -409,13 +406,10 @@ package ifrit
 			WorldUtils.addWall(700, 272, false, Library.IMG("dungeon.platform.png"));
 			WorldUtils.addWall(227, 109, false, Library.IMG("dungeon.platform.png"));
 			WorldUtils.addWall(745, 210, false, Library.IMG("dungeon.platform.png"));
-			//WorldUtils.addWall(1024, 315, false, Library.IMG("dungeon.platform.png"));
 			
 			Game.stage.addChild(new HUD);
 			
 			WorldUtils.addMan(50, 375, Game.playerClass);
-			
-			//WorldUtils.addDecal(Library.IMG("dungeon.decals.darkness.png"), 500, 200);
 			
 			nextLevel = "hellther_01";
 		}

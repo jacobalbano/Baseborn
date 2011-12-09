@@ -41,8 +41,8 @@ package ifrit
 			
 			this.graphic.add("stand", [1], 6, true);
 			this.graphic.add("walk", [0, 1, 2, 3], 6, true);
-			this.graphic.add("attack", [8, 9, 10, 11], 6, false);
 			this.graphic.add("die", [4, 5, 6, 7], 6, false);
+			this.graphic.add("attack", [8, 9, 10, 11], 6, false);
 			this.graphic.add("shocked", [12, 13, 14, 15], 6, false);
 			this.graphic.play("stand");
 			

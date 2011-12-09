@@ -381,6 +381,7 @@ package ifrit
 			WorldUtils.addEnemy(495, 130, ElfMage);
 			WorldUtils.addEnemy(170, 180, ElfMage);
 			WorldUtils.addEnemy(200, 360, Zombie);
+			WorldUtils.addEnemy(600, 360, Spider);
 			
 			WorldUtils.addWall( 0, 110, false, Library.IMG("dungeon.platform.png"));
 			WorldUtils.addWall(150, 250, true, Library.IMG("dungeon.platform.png"));

@@ -15,6 +15,8 @@
         <image>smoke.png</image>
         <image>unclassed.png</image>
         <image>vortex.png</image>
+        <image>webShot.png</image>
+        <image>webTrap.png</image>
         <image>wisp.png</image>
         <image>tower/bg.png</image>
         <image>tower/platform.png</image>
@@ -124,7 +126,7 @@
     </images>
     <sounds>
         <sound>audio/sfx/bolt.mp3</sound>
-        <sound>audio/sfx/Wisp.mp3</sound>
+        <sound>audio/sfx/wisp.mp3</sound>
         <sound>audio/music/beach.mp3</sound>
         <sound>audio/music/forest.mp3</sound>
         <sound>audio/music/tower.mp3</sound>

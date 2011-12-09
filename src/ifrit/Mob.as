@@ -233,6 +233,20 @@ package ifrit
 			this.frozen = true;
 		}
 		
+		public function webbed(d:Decal):void
+		{
+			this.x = d.x
+			this.y = d.y
+			
+			if (this.freezeTimer.currentCount >= 20)
+			{
+				stage.removeChild(d);
+				this.freezeTimer.stop();
+				this.frozen = false;
+				this.struck = false;
+			}
+		}
+		
 		public function comeToRest():void
 		{
 			stopUpdating();

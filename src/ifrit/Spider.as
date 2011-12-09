@@ -11,7 +11,8 @@ package ifrit
 		
 		public function Spider(x:Number, y:Number) 
 		{
-			super(x, y, Library.IMG("enemies.spider.png"), 61, 22, 58, 22, Enemy.NO_MELEE);
+			super(x, y, Library.IMG("enemies.spider.png"), 61, 22, 58, 22, Enemy.NO_MELEE | Enemy.AFRAID);
+			this.rangedType = Web;
 			
 			this.graphic.add("stand", [1], 6, true);
 			this.graphic.add("walk", [0, 1, 2, 3], 6, true);

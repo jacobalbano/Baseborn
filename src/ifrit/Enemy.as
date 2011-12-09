@@ -62,17 +62,20 @@ package ifrit
 		{
 			super.preThink();
 			
-			if (this.freezeTimer.currentCount >= 3)
+			if (freezeTimer)
 			{
-				this.freezeTimer.stop();
-				this.frozen = false;
-				this.struck = false;
-			}
-			
-			if (this.freezeTimer.running)
-			{
-				this.graphic.play("stand");
-				skipThink = true;
+				if (this.freezeTimer.currentCount >= 3)
+				{
+					this.freezeTimer.stop();
+					this.frozen = false;
+					this.struck = false;
+				}
+				
+				if (this.freezeTimer.running)
+				{
+					this.graphic.play("stand");
+					skipThink = true;
+				}
 			}
 		}
 		

@@ -66,19 +66,18 @@
 			// Change class to MAGE on next scene
 			if (Input.isKeyDown(Input.DIGIT_4) && man.type != Player.MAGE)
 				Game.playerClass = Player.MAGE
-				
-			/**
-			 * End debugging shortcuts
-			 */
 			
 			 if (Input.isKeyDown(Input.ENTER) || Input.isKeyDown(Input.NUMPAD_ENTER))
 			 {
 				 WorldUtils.loadLevel( World.currentLevel);
 			 }
+				
+			/**
+			 * End debugging shortcuts
+			 */
 			
 			if (man && !man.isDestroyed)
-			{
-				
+			{	
 				if (checkLadder())
 				{
 					if (Input.isKeyDown(Input.LEFT) )
@@ -112,7 +111,7 @@
 				}
 				else
 				{
-					if (Input.isKeyDown(Input.LEFT))
+					if (Input.isKeyDown(Input.LEFT) && !man.isFrozen)
 					{
 						stopBolt();
 						
@@ -165,7 +164,7 @@
 						
 
 					}
-					else if (Input.isKeyDown(Input.RIGHT))
+					else if (Input.isKeyDown(Input.RIGHT) && !man.isFrozen)
 					{
 						stopBolt();
 						
@@ -332,6 +331,12 @@
 										{
 											if (man.shielding && (World.Projectiles[k].rotationY != World.Mobs[l].rotationY)) HUD.damagePlayer(0);
 											else	HUD.damagePlayer(World.Projectiles[k].damage, true);
+											
+											if (World.Projectiles[k] is Web && World.Mobs[l].friendly && !World.Mobs[l].isFrozen)
+											{
+												WorldUtils.addDecal(Library.IMG("webTrap.png"), man.x, man.y, man.webbed);
+												World.Mobs[l].freeze();
+											}
 										}
 										
 										World.Mobs[l].hitpoints -= World.Projectiles[k].damage;

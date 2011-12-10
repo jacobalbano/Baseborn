@@ -329,14 +329,16 @@ package ifrit
 			}
 		}
 		
-		private static function hitLever(dd:Decal):void
+		private static function hitLever(d:Decal):void
 		{
+			if (Variables.retrive("lever").string == "open") return;
+			
 			if (Game.man.lightningAttack && Game.man.boltPlaying && !Variables.retrive("lever").bool)
 			{
-				if (Game.man.lightningAttack.hitTestObject(dd))
+				if (Game.man.lightningAttack.hitTestObject(d))
 				{
-					if (dd.rotationY == 0) 			dd.rotationY = 180;
-					else if (dd.rotationY == 180)	dd.rotationY = 0;
+					if (d.rotationY == 0) 			d.rotationY = 180;
+					else if (d.rotationY == 180)	d.rotationY = 0;
 					
 					Variables.retrive("lever").bool = true;
 				}
@@ -344,7 +346,7 @@ package ifrit
 			
 			if (!Game.man.boltPlaying)	Variables.retrive("lever").bool = false;
 			
-			if (dd.rotationY == 180 && Variables.retrive("lever").string != "open")
+			if (d.rotationY == 180 && Variables.retrive("lever").string != "open")
 			{
 				WorldUtils.addDecal(Library.IMG("tower.decals.gate.png"), 330, 350, null, null, [0, 1, 2, 3, 4], 135, 95, 5, false);
 				Variables.retrive("lever").string = "open"

@@ -159,6 +159,9 @@ package ifrit
 			WorldUtils.addDecal(Library.IMG("forest.house.png"), 566, 307, null, function (d:Decal):*	{	d.rotationY = 180;	});
 			WorldUtils.addDecal(Library.IMG("forest.house.png"), 1024, 240, null, function (d:Decal):*	{	d.rotationY = 180;	});
 			
+			WorldUtils.addDecal(Library.IMG("misc.upArrow.png"), 55, 355, trainClimb, function (d:Decal):* { d.alpha = 0;} );
+			WorldUtils.addDecal(Library.IMG("misc.keySpace.png"), 165, 285, trainJump, function (d:Decal):* { d.alpha = 0;} );
+			
 			WorldUtils.addWall(158, 285, false, Library.IMG("forest.platform.png"), 125);
 			WorldUtils.addWall(390, 285, false, Library.IMG("forest.platform.png"), 125);
 			WorldUtils.addWall(585, 340, false, Library.IMG("forest.platform.png"), 125);
@@ -193,13 +196,14 @@ package ifrit
 			
 			Game.stage.addChild(new HUD);
 			
-			WorldUtils.addMan(0, 240, Game.playerClass);
-			
 			WorldUtils.addWall(0, 265, false, Library.IMG("forest.platform.png"), 200);
+			
+			WorldUtils.addMan(0, 240, Game.playerClass);
 			
 			if (Game.man.type == Player.ROGUE)
 			{
 				WorldUtils.addEnemy(300, 310, Giant);
+				WorldUtils.addDecal(Library.IMG("misc.doubleRight.png"), 225, 395, trainBlink, function (d:Decal):* { d.alpha = 0;} );
 			}
 			
 			WorldUtils.addTrigger(1023, 375, WorldUtils.advance);
@@ -294,14 +298,60 @@ package ifrit
 			
 			if (Game.playerClass == Player.MAGE)
 			{
+				Variables.add("lever", new Variable(0, false, ""));
 				WorldUtils.addDecal(Library.IMG("misc.keyS.png"), 240, 350, openGate, function (d:Decal):* { d.alpha = 0; } );
+				WorldUtils.addDecal(Library.IMG("misc.leverL.png"), 690, 382, hitLever);
+				
 				WorldUtils.addDecal(Library.IMG("tower.decals.gateWall.png"), 275, 350);
 				WorldUtils.addWall(265, 350, true, Library.IMG("misc.clipPlatform.png"), 105);
+				WorldUtils.addWall(295, 350, true, Library.IMG("misc.clipPlatform.png"), 105);
 			}
 			
 			WorldUtils.addTrigger(980, 425, WorldUtils.advance);
 			
 			nextLevel = "tower_02";
+		}
+		
+		private static function openGate(d:Decal):void
+		{
+			if (d.hitTestObject(Game.man.collisionHull))
+			{
+				if (!Input.isKeyDown(Input.S))
+				{
+					if (d.alpha <= 1) d.alpha += 0.05;
+				}
+				else
+				{
+					if (d.alpha >= 0) d.alpha -= 0.05;
+				}
+			}
+			else
+			{
+				if (d.alpha >= 0) d.alpha -= 0.05;
+			}
+		}
+		
+		private static function hitLever(dd:Decal):void
+		{
+			if (Game.man.lightningAttack && Game.man.boltPlaying && !Variables.retrive("lever").bool)
+			{
+				if (Game.man.lightningAttack.hitTestObject(dd))
+				{
+					if (dd.rotationY == 0) 			dd.rotationY = 180;
+					else if (dd.rotationY == 180)	dd.rotationY = 0;
+					
+					Variables.retrive("lever").bool = true;
+				}
+			}
+			
+			if (!Game.man.boltPlaying)	Variables.retrive("lever").bool = false;
+			
+			if (dd.rotationY == 180 && Variables.retrive("lever").string != "open")
+			{
+				WorldUtils.addDecal(Library.IMG("tower.decals.gate.png"), 330, 350, null, null, [0, 1, 2, 3, 4], 135, 95, 5, false);
+				Variables.retrive("lever").string = "open"
+				Platforms.splice(41, 2);
+			}
 		}
 		
 		private static function loadTower_02():void
@@ -551,30 +601,6 @@ package ifrit
 		//}
 		//	Worlds end
 		
-		private static function openGate(d:Decal):void
-		{
-			if (d.hitTestObject(Game.man.collisionHull))
-			{
-				if (!Input.isKeyDown(Input.S))
-				{
-					if (d.alpha <= 1) d.alpha += 0.05;
-				}
-				else
-				{
-					if (d.alpha >= 0) d.alpha -= 0.05;
-				}
-				
-				if (Mobs[0].hitpoints <= 0 && Mobs.length >= 3)
-				{
-					Platforms = Platforms.splice(16, 0);
-					WorldUtils.addDecal(Library.IMG("tower.decals.gate.png"), 327, 355, null, null, [0, 1, 2, 3, 4], 135, 105, 5, false);
-				}
-			}
-			else
-			{
-				if (d.alpha >= 0) d.alpha -= 0.05;
-			}
-		}
 		
 		static private function chooseClass_Mage(d:Decal):void 
 		{
@@ -652,7 +678,55 @@ package ifrit
 			}
 		}
 		
+		private static function trainClimb(d:Decal):void
+		{
+			if (Game.man.collisionHull.hitTestPoint(80, 390))
+			{
+				if (!Input.isKeyDown(Input.UP))
+				{
+					if (d.alpha <= 1) d.alpha += 0.05;
+				}
+				else
+				{
+					if (d.alpha >= 0) d.alpha -= 0.05;
+				}
+			}
+			else
+			{
+				if (d.alpha >= 0) d.alpha -= 0.05;
+			}
+		}
 		
+		private static function trainJump(d:Decal):void
+		{
+			if (d.hitTestObject(Game.man.collisionHull))
+			{
+				if (!Input.isKeyDown(Input.SPACE))
+				{
+					if (d.alpha <= 1) d.alpha += 0.05;
+				}
+				else
+				{
+					if (d.alpha >= 0) d.alpha -= 0.05;
+				}
+			}
+			else
+			{
+				if (d.alpha >= 0) d.alpha -= 0.05;
+			}
+		}
+		
+		private static function trainBlink(d:Decal):void
+		{
+			if (Game.man.collisionHull.hitTestPoint(270, 390))
+			{
+				if (d.alpha <= 1) d.alpha += 0.05;
+			}
+			else
+			{
+				if (d.alpha >= 0) d.alpha -= 0.05;
+			}
+		}
 		
 	}
 

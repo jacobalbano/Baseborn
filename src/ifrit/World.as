@@ -227,8 +227,6 @@ package ifrit
 			
 			WorldUtils.addMan(50, 375, Game.playerClass);
 			
-			WorldUtils.addWall(234, 74, false, Library.IMG("tower.platform.png"), 170);
-			
 			WorldUtils.addDecal(Library.IMG("misc.upArrow.png"), 500, 375, towerDoorAdvance, function (d:Decal):* { d.alpha = 0;} );
 			
 			nextLevel = "tower_01";
@@ -527,7 +525,7 @@ package ifrit
 			
 			Game.stage.addChild(new HUD);
 			
-			WorldUtils.addEnemy(320, 260, Doppleganger);
+			WorldUtils.addEnemy(720, 260, Doppleganger);
 			
 			WorldUtils.addMan(570, 45, Game.playerClass);
 			

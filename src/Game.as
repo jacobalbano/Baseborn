@@ -119,8 +119,8 @@
 						{
 							if (World.Mobs[d] is Doppleganger && !World.Mobs[d].isDestroyed)
 							{
-								World.Mobs[d].x -= 7;
-								World.Mobs[d].rotationY = 180;
+								World.Mobs[d].x += 7;
+								World.Mobs[d].rotationY = 0;
 								World.Mobs[dd].graphic.play("walk");
 							}
 						}
@@ -173,8 +173,8 @@
 						{
 							if (World.Mobs[dd] is Doppleganger && !World.Mobs[d].isDestroyed)
 							{
-								World.Mobs[dd].x += 7;
-								World.Mobs[dd].rotationY = 0;
+								World.Mobs[dd].x -= 7;
+								World.Mobs[dd].rotationY = 180;
 								World.Mobs[dd].graphic.play("walk");
 							}
 						}

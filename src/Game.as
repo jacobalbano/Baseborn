@@ -125,7 +125,7 @@
 							}
 						}
 						
-						if (man.graphic.playing != "attack" && !man.shielding)
+						if (man.graphic.playing != "attack" && !man.shielding && !Input.isKeyDown(Input.A))
 							man.graphic.play("walk");
 							
 						if (man.shielding)	man.x -= 2;
@@ -179,7 +179,7 @@
 							}
 						}
 						
-						if (man.graphic.playing != "attack"	&& !man.shielding)
+						if (man.graphic.playing != "attack"	&& !man.shielding && !Input.isKeyDown(Input.A))
 								man.graphic.play("walk");
 							
 						if (man.shielding)	man.x += 2;
@@ -264,9 +264,10 @@
 				}
 
 				
-				if (Input.isKeyDown(Input.A) )
+				if (Input.isKeyDown(Input.A))
 				{
-					beginRangedAttack();
+					if (!Input.isKeyDown(Input.S) && !Input.isKeyDown(Input.D))
+						beginRangedAttack();
 				}
 				else
 				{
@@ -276,10 +277,13 @@
 				
 				if (Input.isKeyDown(Input.D))
 				{
-					if (man.type != Player.NONE)
+					if (!Input.isKeyDown(Input.S) && !Input.isKeyDown(Input.A))
 					{
-						if (man.type != Player.MAGE)	man.graphic.play("attack");
-						beginMeleeAttack();
+						if (man.type != Player.NONE)
+						{
+							if (man.type != Player.MAGE)	man.graphic.play("attack");
+								beginMeleeAttack();
+						}
 					}
 				}
 				else
@@ -290,7 +294,8 @@
 				
 				if (Input.isKeyDown(Input.S))
 				{
-					beginSpecialAttack();
+					if (!Input.isKeyDown(Input.A) && !Input.isKeyDown(Input.D))
+						beginSpecialAttack();
 				}
 				else
 				{

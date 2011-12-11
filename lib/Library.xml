@@ -77,6 +77,9 @@
         <image>hellther/bg.png</image>
         <image>hellther/ladder.png</image>
         <image>hellther/lavaTrap.png</image>
+        <image>hellther/portal.png</image>
+        <image>hellther/portalFrame.png</image>
+        <image>hellther/portalSparks.png</image>
         <image>forest/archway.png</image>
         <image>forest/forestBG.png</image>
         <image>forest/house.png</image>
@@ -138,7 +141,7 @@
         <sound>audio/sfx/frostAttack.mp3</sound>
         <sound>audio/sfx/seashore.mp3</sound>
         <sound>audio/sfx/smallDoorOpen.mp3</sound>
-        <sound>audio/sfx/wisp.mp3</sound>
+        <sound>audio/sfx/Wisp.mp3</sound>
         <sound>audio/music/beach.mp3</sound>
         <sound>audio/music/dungeon.mp3</sound>
         <sound>audio/music/forest.mp3</sound>

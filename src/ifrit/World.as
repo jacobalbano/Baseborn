@@ -4,6 +4,7 @@ package ifrit
 	import com.jacobalbano.Input;
 	import com.jacobalbano.Map;
 	import com.thaumaturgistgames.flakit.Library;
+	import flash.geom.Point;
 	import ifrit.*;
 	
 	/**
@@ -83,6 +84,7 @@ package ifrit
 			WorldUtils.addDecal(Library.IMG("beach.towerLightning.png"), 835, 10, null, null, [0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0 , 0 , 0, 0, 0, 0, 0, 0, 0, 0 ,1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11, 12, 13, 14, 15, 16, 17], 340, 72,  30, true);
 			WorldUtils.addDecal(Library.IMG("beach.shipAnimation.png"), 400, 175, null, null, [0, 1, 2, 3], 270, 193, 5);
 			WorldUtils.addDecal(Library.IMG("beach.waterDebris2.png"), 500, 250);
+	
 			
 			nextLevel = "beach_02";
 		}
@@ -546,6 +548,12 @@ package ifrit
 			WorldUtils.addWall(315, 370, true, Library.IMG("forest.platform.png"), 25);
 			
 			WorldUtils.addDecal(Library.IMG("hellther.bg.png"), 500, 200);
+			
+			const portal:Point = new Point(950, 45);
+			
+			WorldUtils.addDecal(Library.IMG("hellther.portalFrame.png"), portal.x, portal.y);
+			WorldUtils.addDecal(Library.IMG("hellther.portalSparks.png"), portal.x, portal.y, null, null, [0, 1, 0, 2], 40, 40, 3, true );
+			WorldUtils.addDecal(Library.IMG("hellther.portal.png"), portal.x, portal.y, function (d:Decal):*	{	d.rotation += 5; d.alpha = Math.abs(d.rotation) / 180;	} );
 			
 			WorldUtils.addEnemy(300, 185, Serpent);
 			WorldUtils.addEnemy(730, 200, Demon);

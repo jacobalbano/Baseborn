@@ -9,7 +9,7 @@ package ifrit
 	 */
 	public class IfritObject extends Sprite 
 	{
-		protected var destroyed:Boolean;	
+		protected var destroyed:Boolean;
 		public function IfritObject() 
 		{
 			addEventListener(Event.ENTER_FRAME, enterFrame);

@@ -11,7 +11,6 @@ package ifrit
 		
 		public function Doppleganger(x:Number, y:Number) 
 		{
-			//TODO: This needs to work with rogue doppelgangers
 			
 			var imageString:String;
 			var animWidth:int;

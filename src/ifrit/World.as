@@ -4,6 +4,8 @@ package ifrit
 	import com.jacobalbano.Input;
 	import com.jacobalbano.Map;
 	import com.thaumaturgistgames.flakit.Library;
+	import flash.display.Bitmap;
+	import flash.display.BitmapData;
 	import flash.geom.Point;
 	import ifrit.*;
 	
@@ -22,8 +24,6 @@ package ifrit
 		public static var nextLevel:String;
 		public static var currentLevel:String;
 		public static var hasKey:Boolean;
-		
-		public function World() { }
 		
 		/**
 		 * Initialize the world manager
@@ -588,6 +588,41 @@ package ifrit
 			WorldUtils.addEnemy(720, 260, Doppleganger);
 			
 			WorldUtils.addMan(570, 45, Game.playerClass);
+			
+			Variables.add("scythe", new Variable(20, true));
+			
+			WorldUtils.addDecal(Library.IMG("enemies.scythe.png"), 100, 275, function (d:Decal):*
+			{
+				d.rotationX = 65; 
+				d.rotationY -= 40;
+				
+				d.x += Variables.retrive("scythe").number;
+				
+				if (d.x > Game.dimensions.x / 2)
+				{
+					Variables.retrive("scythe").number -= 1.5;
+				}
+				else
+				{
+					Variables.retrive("scythe").number += 1.5;
+				}
+				
+				
+				//WorldUtils.followMouse(d);
+				if (d.inMotion)
+				{
+					var decal:Decal = new Decal(new Bitmap(new BitmapData(30, 30, true, 0x33666666)), 0, 0, function (dd:Decal):*
+						{
+							dd.alpha -= 0.0575;
+							dd.rotation += 30;
+							if (dd.alpha <= 0)	Game.stage.removeChild(dd);
+						});
+					decal.x = this.x;
+					decal.y = this.y;
+					decal.rotation = 45;
+					Game.stage.addChildAt(decal, Game.stage.getChildIndex(d) - 1);
+				}
+			});
 			
 			// Visible
 			WorldUtils.addWall(960, 259, false, Library.IMG("balcony.platform.png"), 79);

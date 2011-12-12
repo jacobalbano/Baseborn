@@ -4,13 +4,16 @@ package ifrit
 	import flash.display.Bitmap;
 	import com.jacobalbano.Animation;
 	import flash.display.Sprite;
+	import flash.geom.Point;
 	
 	/**
 	 * @author Jake Albano
 	 */
 	public class Decal extends IfritObject 
 	{
+		public var lastPosition:Point;
 		public var animation:Animation;
+		public var inMotion:Boolean;
 		
 		private var callback:Function;
 		/**
@@ -51,7 +54,9 @@ package ifrit
 			
 				this.x = x;
 				this.y = y;
-			}			
+			}
+			
+			this.lastPosition = new Point(this.x, this.y);
 			
 			if (callback != null)
 			{
@@ -62,6 +67,14 @@ package ifrit
 		override protected function update():void 
 		{
 			super.update();
+			
+			if (this.x == this.lastPosition.x && this.y == this.lastPosition.y)
+				this.inMotion = false;
+			else
+				this.inMotion = true;
+			
+			this.lastPosition.x = this.x;
+			this.lastPosition.y = this.y;
 			
 			if (this.callback != null)	this.callback(this);
 		}

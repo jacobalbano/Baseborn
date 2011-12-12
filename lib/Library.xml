@@ -17,6 +17,7 @@
         <image>vortex.png</image>
         <image>webShot.png</image>
         <image>webTrap.png</image>
+        <image>webTrapFighter.png</image>
         <image>wisp.png</image>
         <image>tower/bg.png</image>
         <image>tower/platform.png</image>
@@ -77,6 +78,8 @@
         <image>hellther/bg.png</image>
         <image>hellther/ladder.png</image>
         <image>hellther/lavaTrap.png</image>
+        <image>hellther/layout1.png</image>
+        <image>hellther/platform.png</image>
         <image>hellther/portal.png</image>
         <image>hellther/portalFrame.png</image>
         <image>hellther/portalSparks.png</image>
@@ -142,7 +145,7 @@
         <sound>audio/sfx/frostAttack.mp3</sound>
         <sound>audio/sfx/seashore.mp3</sound>
         <sound>audio/sfx/smallDoorOpen.mp3</sound>
-        <sound>audio/sfx/Wisp.mp3</sound>
+        <sound>audio/sfx/wisp.mp3</sound>
         <sound>audio/music/beach.mp3</sound>
         <sound>audio/music/dungeon.mp3</sound>
         <sound>audio/music/forest.mp3</sound>

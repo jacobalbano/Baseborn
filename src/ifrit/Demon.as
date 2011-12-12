@@ -8,7 +8,6 @@ package ifrit
 	 */
 	public class Demon extends Enemy
 	{
-		
 		public function Demon(x:Number, y:Number) 
 		{
 			super(x, y, Library.IMG("enemies.demon.png"), 16, 23, 14, 23, Enemy.NO_RANGED | Enemy.NO_FEAR);
@@ -19,6 +18,8 @@ package ifrit
 			this.graphic.add("attack", [9, 10, 11, 12], 6, false);
 			this.graphic.add("shocked", [14, 15, 16, 17], 6, false);
 			this.graphic.play("walk");
+			
+			this.sound.addSFX("attack", Library.SND("audio.sfx.demon.mp3"));
 			
 			this.hitpoints = 15;
 			this.maxHealth = 15;

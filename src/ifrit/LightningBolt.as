@@ -27,8 +27,15 @@ package ifrit
 		private var acceleration:Number;
 		private var struckEnemies:Vector.<int>;
 		
+		private var sound:Audio;
+		
 		public function LightningBolt(direction:Boolean, x:Number, y:Number) 
 		{
+			sound = new Audio;
+			sound.addSFX("wisp", Library.SND("audio.sfx.wisp.mp3"));
+			sound.addSFX("bolt", Library.SND("audio.sfx.bolt.mp3"));
+			sound.playSFX("wisp");
+			
 			addChild(wispC);
 			wisp = new Animation(Library.IMG("wisp.png"), 15, 15);
 			wispC.x = -20 / 2;
@@ -72,6 +79,8 @@ package ifrit
 		
 		public function sendBolt():void
 		{
+			sound.stopSFX("wisp");
+			
 			if (this.contains(wispC)) this.removeChild(wispC);
 			
 			if (wisp.x > 0 && wisp.x < 1000)
@@ -88,6 +97,7 @@ package ifrit
 				
 				if (bolt.playing != "strike" && vortex.playing != "vortex")
 				{
+					sound.playSFX("bolt");
 					HUD.buyAction(95, HUD.ENERGY);
 					HUD.buyAction(25, HUD.MANA);
 				}

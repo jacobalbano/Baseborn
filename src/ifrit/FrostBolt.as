@@ -14,9 +14,14 @@ package ifrit
 		public var freeze:Animation;
 		public var finished:Boolean;
 		protected var container:Sprite;
+		private var sound:Audio;
 		
 		public function FrostBolt(direction:Boolean, x:Number, y:Number) 
 		{
+			sound = new Audio;
+			sound.addSFX("frost", Library.SND("audio.sfx.frostAttack.mp3"));
+			sound.playSFX("frost");
+			
 			container = new Sprite();
 			addChild(container);
 			freeze = new Animation(Library.IMG("iceBlast.png"), 22, 23);

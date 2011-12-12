@@ -617,36 +617,62 @@ package ifrit
 			
 			WorldUtils.addMan(570, 45, Game.playerClass);
 			
-			Variables.add("scythe", new Variable(20, true));
+			Variables.add("scytheX", new Variable(20));
+			Variables.add("scytheY", new Variable(10));
+			Variables.add("scytheHeading", new Variable(0, true));
 			
-			WorldUtils.addDecal(Library.IMG("enemies.scythe.png"), 100, 275, function (d:Decal):*
+			WorldUtils.addDecal(Library.IMG("enemies.scythe.png"), 100, 50, function (d:Decal):*
 			{
-				d.rotationX = 65; 
-				d.rotationY -= 40;
+				d.rotation += Variables.retrive("scytheX").number;
 				
-				d.x += Variables.retrive("scythe").number;
+				d.x += Variables.retrive("scytheX").number;
 				
 				if (d.x > Game.dimensions.x / 2)
 				{
-					Variables.retrive("scythe").number -= 1.5;
+					Variables.retrive("scytheX").number -= 1.5;
 				}
 				else
 				{
-					Variables.retrive("scythe").number += 1.5;
+					Variables.retrive("scytheX").number += 1.5;
 				}
 				
-				
-				//WorldUtils.followMouse(d);
-				if (d.inMotion)
+				if (Variables.retrive("scytheHeading").bool && d.x >= 900)
 				{
-					var decal:Decal = new Decal(new Bitmap(new BitmapData(30, 30, true, 0x33666666)), 0, 0, function (dd:Decal):*
+					Variables.retrive("scytheHeading").bool = false;
+				}
+				
+				if (!Variables.retrive("scytheHeading").bool && d.rotationY < 180)
+				{
+					d.rotationY += 5;
+				}
+				
+				if (d.y <= 275 && Variables.retrive("scytheHeading").bool)
+				{
+					d.y += 20;
+				}
+				else if (d.y >= 50 && d.x < Game.dimensions.x / 2 && !Variables.retrive("scytheHeading").bool)
+				{
+					d.y -= 20;
+				}
+				
+				if (this.x < 100 && this.y < 50)
+				{
+					Game.stage.removeChild(d);
+					d.destroy();
+				}
+				
+				if (Math.abs(Variables.retrive("scytheX").number) > 15 && !d.isDestroyed)
+				{
+					var decal:Decal = new Decal(new Bitmap(new BitmapData(d.width / 2, d.height / 2, true, 0x11666666)), 0, 0, function (dd:Decal):*
 						{
 							dd.alpha -= 0.0575;
 							dd.rotation += 30;
 							if (dd.alpha <= 0)	Game.stage.removeChild(dd);
 						});
-					decal.x = this.x;
-					decal.y = this.y;
+					
+					decal.x = d.x;
+					decal.y = d.y;
+					
 					decal.rotation = 45;
 					Game.stage.addChildAt(decal, Game.stage.getChildIndex(d) - 1);
 				}

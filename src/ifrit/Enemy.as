@@ -304,6 +304,11 @@ package ifrit
 				
 				if (this.homeRect.contains(Game.man.x, Game.man.y) && !Game.man.isDestroyed && Game.man.y <= this.y + this.height / 2)
 				{
+					if (this.sound && !this.sound.sfxIsPlaying("attack"))
+					{
+						this.sound.playSFX("attack");
+					}
+					
 					if ( ! (this.behaviorFlags & PASSIVE) > 0)
 					{
 						if (this.x >= Game.man.x) heading = false;	else heading = true;

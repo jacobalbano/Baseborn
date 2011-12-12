@@ -20,6 +20,8 @@ package ifrit
 		public var graphic:Animation;
 		protected var container:Sprite;
 		
+		public var sound:Audio;
+		
 		protected var attackTimer:Timer;
 		protected var freezeTimer:Timer;
 		protected var frozen:Boolean;
@@ -54,6 +56,8 @@ package ifrit
 			this.container = new Sprite;
 			addChild(container);
 			graphic = new Animation(bitmap, frameWidth, frameHeight);
+			
+			sound = new Audio;
 			
 			container.x = -frameWidth / 2; // Set registration point to center
 			container.y = -frameHeight / 2;

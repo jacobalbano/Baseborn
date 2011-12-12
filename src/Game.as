@@ -352,7 +352,11 @@
 											
 											if (World.Projectiles[k] is Web && World.Mobs[l].friendly && !World.Mobs[l].isFrozen)
 											{
-												WorldUtils.addDecal(Library.IMG("webTrap.png"), man.x, man.y, man.webbed);
+												if (playerClass == Player.FIGHTER)
+													WorldUtils.addDecal(Library.IMG("webTrapFighter.png"), man.x, man.y, man.webbed);
+												else
+													WorldUtils.addDecal(Library.IMG("webTrap.png"), man.x, man.y, man.webbed);
+													
 												World.Mobs[l].freeze();
 											}
 										}

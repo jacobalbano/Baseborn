@@ -22,6 +22,8 @@ package ifrit
 		public static var nextLevel:String;
 		public static var currentLevel:String;
 		public static var hasKey:Boolean;
+		public static var Songs:Audio;
+		public static var Sounds:Audio;
 		
 		public function World() { }
 		
@@ -53,6 +55,17 @@ package ifrit
 			Worlds.add("balcony_01", 	loadBalcony_01);
 			
 			Variables = new Map(String, Variable);
+			
+			Songs = new Audio;
+			Sounds = new Audio;
+			
+			Songs.addMusic("beach", Library.SND("audio.music.beach.mp3"));
+			Songs.addMusic("forest", Library.SND("audio.music.forest.mp3"));
+			Songs.addMusic("tower", Library.SND("audio.music.tower.mp3"));
+			Songs.addMusic("dungeon", Library.SND("audio.music.dungeon.mp3"));
+			Songs.addMusic("hellther", Library.SND("audio.music.hellther.mp3"));
+			
+			Sounds.addSFX("smallDoor", Library.SND("audio.sfx.smallDoorOpen.mp3"));
 		}
 		
 		//	Worlds begin
@@ -67,8 +80,7 @@ package ifrit
 		
 		private static function loadBeach_01():void
 		{
-			
-			Library.SND("audio.music.beach.mp3").play(0, 5);
+			Songs.playMusic("beach", 3);
 			
 			WorldUtils.makeBounds();
 			
@@ -152,6 +164,9 @@ package ifrit
 		
 		private static function loadForest_01():void
 		{
+			Songs.stopMusic("beach");
+			Songs.playMusic("forest", 3);
+			
 			WorldUtils.makeBounds();
 			
 			WorldUtils.addDecal(Library.IMG("forest.forestBG.png"), 500, 200 );
@@ -245,6 +260,9 @@ package ifrit
 		
 		private static function loadTower_01():void
 		{
+			Songs.stopMusic("forest");
+			Songs.playMusic("tower", 3);
+			
 			WorldUtils.makeBounds();
 			
 			WorldUtils.addDecal(Library.IMG("tower.bg.png"), 500, 200);
@@ -423,6 +441,9 @@ package ifrit
 		
 		private static function loadDungeon_01():void 
 		{
+			Songs.stopMusic("tower");
+			Songs.playMusic("dungeon", 3);
+			
 			WorldUtils.makeBounds();
 			
 			Game.stage.addChild(Library.IMG("dungeon.bg.png"));
@@ -468,6 +489,9 @@ package ifrit
 		
 		private static function loadHellther_01():void
 		{
+			Songs.stopMusic("dungeon");
+			Songs.playMusic("hellther", 3);
+			
 			WorldUtils.makeBounds();
 			
 			// Top row (#16-18)
@@ -548,6 +572,7 @@ package ifrit
 			WorldUtils.addWall(315, 370, true, Library.IMG("forest.platform.png"), 25);
 			
 			WorldUtils.addDecal(Library.IMG("hellther.bg.png"), 500, 200);
+			WorldUtils.addDecal(Library.IMG("hellther.layout1.png"), 500, 200);
 			
 			const portal:Point = new Point(950, 45);
 			
@@ -579,6 +604,9 @@ package ifrit
 
 		private static function loadBalcony_01():void
 		{
+			Songs.stopMusic("hellther");
+			//Songs.playMusic("boss", 5);
+			
 			WorldUtils.makeBounds();
 			
 			WorldUtils.addDecal(Library.IMG("balcony.bg.png"), 500, 200);

@@ -101,6 +101,7 @@ package ifrit
 					if (Input.isKeyDown(Input.UP) && !Input.isKeyDown(Input.RIGHT) && !Input.isKeyDown(Input.LEFT))
 					{
 						WorldUtils.addTrigger( Game.man.x, Game.man.y, WorldUtils.advance);
+						World.Sounds.playSFX("smallDoor");
 					}
 				}
 				else if(!World.hasKey)

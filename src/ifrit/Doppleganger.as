@@ -49,12 +49,29 @@ package ifrit
 			this.hitpoints = 300;
 			this.maxHealth = 300;
 			this.tipsOverWhenDead = false;
+			this.friendly = true;
 		}
 		
 		override public function postThink():void
 		{
-			this.hitpoints += 0.05;
 			if (this.hitpoints <= 0)	this.destroy();
+			
+			if (this.isDestroyed)	return;
+			
+			if (this.collisionHull.hitTestObject(Game.man.collisionHull))
+			{
+				Game.man.alpha -= 0.025;
+				this.alpha -= 0.0125;
+				
+				this.gravUp = false;
+				Game.man.gravUp = false;
+				
+				this.graphic.play("stand");
+				Game.man.graphic.play("stand");
+				Game.man.destroy();
+			}
+			
+			this.hitpoints = this.maxHealth;
 		}
 		
 	}

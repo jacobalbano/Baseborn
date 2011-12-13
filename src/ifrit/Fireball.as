@@ -8,6 +8,8 @@ package ifrit
 	 */
 	public class Fireball extends Projectile 
 	{
+		public static var manaCost:Number = 15;
+		public static var energyCost:Number = 75;
 		
 		public function Fireball(direction:int, x:Number, y:Number, friendly:Boolean = true)
 		{
@@ -17,8 +19,8 @@ package ifrit
 			
 			if (this.friendly)
 			{
-				HUD.buyAction(15, HUD.MANA);
-				HUD.buyAction(75, HUD.ENERGY);
+				HUD.buyAction(manaCost, HUD.MANA);
+				HUD.buyAction(energyCost, HUD.ENERGY);
 			}
 			
 			this.damage = 5;

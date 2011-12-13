@@ -53,6 +53,10 @@ package ifrit
 		
 		private	var idle:Boolean;
 		
+		public static var knowsA:Boolean;
+		public static var knowsS:Boolean;
+		public static var knowsD:Boolean;
+		
 		public function Player(x:Number, y:Number, type:uint) 
 		{
 			var animationName:String;
@@ -131,6 +135,11 @@ package ifrit
 			this.blinkTimer = new Timer(0, 7);
 			this.lightningAttack = null;
 			this.boltPlaying = false;
+			
+			//TODO: Jake, could you make this be saved in SaveState, please?
+			knowsA = knowsA;
+			knowsS = knowsS;
+			knowsD = knowsD;
 		}
 		
 		override public function think():void 

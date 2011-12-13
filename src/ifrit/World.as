@@ -360,6 +360,8 @@ package ifrit
 		{
 			if (d.hitTestObject(Game.man.collisionHull))
 			{
+				if (!Player.knowsS)	Player.knowsS = true;
+				
 				if (!Input.isKeyDown(Input.S))
 				{
 					if (d.alpha <= 1) d.alpha += 0.05;
@@ -786,6 +788,8 @@ package ifrit
 		{
 			if (d.hitTestObject(Game.man.collisionHull))
 			{
+				if (!Player.knowsD)	Player.knowsD = true;
+				
 				if (!Input.isKeyDown(Input.D))
 				{
 					if (d.alpha <= 1) d.alpha += 0.05;
@@ -805,6 +809,8 @@ package ifrit
 		{
 			if (d.hitTestObject(Game.man.collisionHull))
 			{
+				if (!Player.knowsA)	Player.knowsA = true;
+				
 				if (!Input.isKeyDown(Input.A))
 				{
 					if (d.alpha <= 1) d.alpha += 0.05;

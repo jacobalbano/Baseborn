@@ -27,6 +27,9 @@ package ifrit
 		private var acceleration:Number;
 		private var struckEnemies:Vector.<int>;
 		
+		public static var manaCost:Number = 25;
+		public static var energyCost:Number = 95;
+		
 		private var sound:Audio;
 		
 		public function LightningBolt(direction:Boolean, x:Number, y:Number) 
@@ -98,8 +101,8 @@ package ifrit
 				if (bolt.playing != "strike" && vortex.playing != "vortex")
 				{
 					sound.playSFX("bolt");
-					HUD.buyAction(95, HUD.ENERGY);
-					HUD.buyAction(25, HUD.MANA);
+					HUD.buyAction(energyCost, HUD.ENERGY);
+					HUD.buyAction(manaCost, HUD.MANA);
 				}
 				
 				

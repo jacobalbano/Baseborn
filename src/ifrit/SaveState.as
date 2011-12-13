@@ -29,6 +29,16 @@ package ifrit
 			return so.data.playerClass || 0;
 		}
 		
+		//public static function set knownSkills():void
+		//{
+			//if (so)	so.data.
+		//}
+		//
+		//public static function get knownSkills():
+		//{
+			//return so.data.
+		//}
+		
 	}
 
 }

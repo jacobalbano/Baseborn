@@ -16,6 +16,8 @@ package ifrit
 		protected var container:Sprite;
 		private var sound:Audio;
 		
+		public static var energyCost:Number = 50;
+		
 		public function FrostBolt(direction:Boolean, x:Number, y:Number) 
 		{
 			sound = new Audio;
@@ -40,7 +42,7 @@ package ifrit
 			if (direction)	this.rotationY = 180;
 			else 			this.rotationY = 0;
 			
-			HUD.buyAction(50, HUD.ENERGY);
+			HUD.buyAction(energyCost, HUD.ENERGY);
 		}
 		
 		override protected function update():void 

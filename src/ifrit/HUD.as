@@ -21,7 +21,13 @@ package ifrit
 		private var area:Bitmap;
 		private var icon1:Bitmap;
 		private var icon2:Bitmap;
-		private var skills:Bitmap;
+		
+		private static var boxA:Bitmap;
+		private static var skillA:Bitmap;
+		private static var boxS:Bitmap;
+		private static var skillS:Bitmap;
+		private static var boxD:Bitmap;
+		private static var skillD:Bitmap;
 		
 		private static var health:Sprite;
 		private var healthIcon:Bitmap;
@@ -89,6 +95,11 @@ package ifrit
 			addChild(healthIcon);
 			
 			
+			boxA = Library.IMG("HUD.emptyA.png");
+			boxS = Library.IMG("HUD.emptyS.png");
+			boxD = Library.IMG("HUD.emptyD.png");
+			
+			
 			mana = new Sprite();
 			mana.graphics.beginFill(0x006BD7);
 			mana.graphics.drawRect(0, 0, 200, 9);
@@ -136,7 +147,10 @@ package ifrit
 				
 				icon1 = Library.IMG("icons.manaIcon.png");
 				icon2 = Library.IMG("icons.energyIcon.png");
-				//skills = Library.IMG("HUD.mageSkills.png");
+				
+				skillA = Library.IMG("HUD.fire.png");
+				skillS = Library.IMG("HUD.bolt.png");
+				skillD = Library.IMG("HUD.ice.png");
 				
 				addChild(mana);
 				addChild(manaTxt);
@@ -185,7 +199,10 @@ package ifrit
 				
 				icon1 = Library.IMG("icons.shurikenIcon.png");
 				icon2 = Library.IMG("icons.blinkIcon.png");
-				//skills = Library.IMG("HUD.rogueSkills.png");
+				
+				skillA = Library.IMG("HUD.shuriken.png");
+				skillS = Library.IMG("HUD.caltrop.png");
+				skillD = Library.IMG("HUD.daggers.png");
 				
 				addChild(shuriken);
 				addChild(shurikenTxt);
@@ -232,7 +249,10 @@ package ifrit
 				
 				icon1 = Library.IMG("icons.arrowIcon.png");
 				icon2 = Library.IMG("icons.shieldIcon.png");
-				//skills = Library.IMG("HUD.fighterSkills.png");
+				
+				skillA = Library.IMG("HUD.bow.png");
+				skillS = Library.IMG("HUD.shield.png");
+				skillD = Library.IMG("HUD.sword.png");
 			}
 			
 			
@@ -244,16 +264,45 @@ package ifrit
 			icon2.y = 472;
 			addChild(icon2);
 			
-			//skills.x = 420;
-			//skills.y = 432;
-			//addChild(skills);
+			boxA.x = 430;
+			boxA.y = 432;
+			skillA.x = 430;
+			skillA.y = 432;
+			
+			boxA.alpha = 0;
+			skillA.alpha = 0;
+			
+			addChild(skillA);
+			addChild(boxA);
+			
+			boxS.x = 480;
+			boxS.y = 432;
+			skillS.x = 480;
+			skillS.y = 432;
+			
+			boxS.alpha = 0;
+			skillS.alpha = 0;
+			
+			addChild(skillS);
+			addChild(boxS);
+			
+			boxD.x = 530;
+			boxD.y = 432;
+			skillD.x = 530;
+			skillD.y = 432;
+			
+			boxD.alpha = 0;
+			skillD.alpha = 0;
+			
+			addChild(skillD);
+			addChild(boxD);
 			
 			totalHealth = (200 * healthScale);
 			totalMana = 200;
 		}
 		
 		override protected function update():void 
-		{
+		{	
 			if (health.width > 200) health.width = 200;
 			
 			remainingHealth = (health.width * healthScale);
@@ -270,6 +319,57 @@ package ifrit
 			
 			if (arrows)  arrowTxt.text = String(Math.round(arrows.width / 10)) + "/" + String(200 / 10);
 			if (shield) {   if (shield.width < 200)   shield.width += 1.0;   }
+			
+			
+			if (Player.knowsA)
+			{
+				boxA.alpha = 1;
+				
+				if (Game.man.type == Player.FIGHTER || Game.man.type == Player.ROGUE)
+				{
+					if (ammoCount <= 0) skillA.alpha = 0.5;
+					else skillA.alpha = 1;
+				}
+				if (Game.man.type == Player.MAGE)
+				{
+					if (!testCost(Fireball.energyCost, Fireball.manaCost)) skillA.alpha = 0.5;
+					else skillA.alpha = 1;
+				}
+			}
+			if (Player.knowsS)
+			{
+				boxS.alpha = 1;
+				
+				if (Game.man.type == Player.FIGHTER)
+				{
+					if (shield.width <= 0) skillS.alpha = 0.5;
+					else skillS.alpha = 1;
+				}
+				if (Game.man.type == Player.ROGUE)
+				{
+					if (!Game.man.hasCaltrop <= 0) skillS.alpha = 0.5;
+					else skillS.alpha = 1;
+				}
+				if (Game.man.type == Player.MAGE)
+				{
+					if (!testCost(LightningBolt.energyCost, LightningBolt.manaCost)) skillS.alpha = 0.5;
+					else skillS.alpha = 1;
+				}
+			}
+			if (Player.knowsD)
+			{
+				boxD.alpha = 1;
+				
+				if (Game.man.type == Player.FIGHTER || Game.man.type == Player.ROGUE)
+				{
+					skillD.alpha = 1;
+				}
+				if (Game.man.type == Player.MAGE)
+				{
+					if (!testCost(FrostBolt.energyCost)) skillD.alpha = 0.5;
+					else skillD.alpha = 1;
+				}
+			}
 		}
 		
 		private function checkHealth():void 
@@ -445,7 +545,6 @@ package ifrit
 				
 				if (type == SPECIAL)
 				{
-					//var remainingCaltrops:Number = caltrops.width;
 					var remainingBlink:Number = blink.width;
 					
 					if (cost <= remainingBlink)
@@ -486,8 +585,8 @@ package ifrit
 		public static function get ammoCount():Number
 		{
 			var count:Number = 0;
-			if (Game.man.type == Player.FIGHTER)	count = (Math.round( (arrows.width/10) / 10) );
-			else if (Game.man.type == Player.ROGUE)	count = (Math.round( (shuriken.width/20) / 20) );
+			if 		(Game.man.type == Player.FIGHTER)	count = (arrows.width/10) / 20 ;
+			else if (Game.man.type == Player.ROGUE)		count = (shuriken.width/20) / 10 ;
 			
 			return count;
 		}

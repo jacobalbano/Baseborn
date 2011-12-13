@@ -66,16 +66,29 @@
 			// Change class to MAGE on next scene
 			if (Input.isKeyDown(Input.DIGIT_4) && man.type != Player.MAGE)
 				Game.playerClass = Player.MAGE
+				
+			// Force learn A skill
+			if (Input.isKeyDown(Input.DIGIT_5) && !Player.knowsA)
+				Player.knowsA = true;	
+					
+			// Force learn S skill
+			if (Input.isKeyDown(Input.DIGIT_6) && !Player.knowsS)
+				Player.knowsS = true;	
+					
+			// Force learn D skill
+			if (Input.isKeyDown(Input.DIGIT_7) && !Player.knowsD)
+				Player.knowsD = true;
 			
-			 if (Input.isKeyDown(Input.ENTER) || Input.isKeyDown(Input.NUMPAD_ENTER))
-			 {
-				 WorldUtils.loadLevel( World.currentLevel);
-			 }
+			
 				
 			/**
 			 * End debugging shortcuts
 			 */
-			
+			if (Input.isKeyDown(Input.ENTER) || Input.isKeyDown(Input.NUMPAD_ENTER))
+			{
+				WorldUtils.loadLevel( World.currentLevel);
+			}
+			 
 			if (man && !man.isDestroyed)
 			{	
 				if (checkLadder())
@@ -264,7 +277,7 @@
 				}
 
 				
-				if (Input.isKeyDown(Input.A))
+				if (Input.isKeyDown(Input.A) && Player.knowsA)
 				{
 					if (!Input.isKeyDown(Input.S) && !Input.isKeyDown(Input.D))
 						beginRangedAttack();
@@ -275,7 +288,7 @@
 						finalizeRangedAttack();
 				}
 				
-				if (Input.isKeyDown(Input.D))
+				if (Input.isKeyDown(Input.D) && Player.knowsD)
 				{
 					if (!Input.isKeyDown(Input.S) && !Input.isKeyDown(Input.A))
 					{
@@ -292,7 +305,7 @@
 						finalizeMeleeAttack();
 				}
 				
-				if (Input.isKeyDown(Input.S))
+				if (Input.isKeyDown(Input.S) && Player.knowsS)
 				{
 					if (!Input.isKeyDown(Input.A) && !Input.isKeyDown(Input.D))
 						beginSpecialAttack();
@@ -498,7 +511,7 @@
 		{			
 			if (man.type == Player.MAGE)
 			{
-				if (HUD.testCost(75, 15))
+				if (HUD.testCost(Fireball.energyCost, Fireball.manaCost))
 				{
 					man.graphic.play("attack");
 					man.shoot();
@@ -547,7 +560,7 @@
 		{
 			if (man.type == Player.MAGE)
 			{
-				if (!man.frostAttack && HUD.testCost(50))
+				if (!man.frostAttack && HUD.testCost(FrostBolt.energyCost))
 				{
 					stopFrost();
 					man.graphic.play("attack");
@@ -563,10 +576,8 @@
 			{
 				if ( !(Input.isKeyDown(Input.LEFT) || Input.isKeyDown(Input.RIGHT) ) )
 				{					
-					if (HUD.testCost(95, 25))
+					if (HUD.testCost(LightningBolt.energyCost, LightningBolt.manaCost))
 					{
-						//Library.SND("audio.sfx.wisp.mp3").play(0);
-						
 						man.graphic.play("casting");
 						
 						if (!man.lightningAttack)

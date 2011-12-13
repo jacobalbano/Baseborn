@@ -64,6 +64,7 @@ package ifrit
 			Songs.addMusic("tower", Library.SND("audio.music.tower.mp3"));
 			Songs.addMusic("dungeon", Library.SND("audio.music.dungeon.mp3"));
 			Songs.addMusic("hellther", Library.SND("audio.music.hellther.mp3"));
+			Songs.addMusic("boss", Library.SND("audio.music.boss.mp3"));
 			
 			Sounds.addSFX("smallDoor", Library.SND("audio.sfx.smallDoorOpen.mp3"));
 		}
@@ -605,7 +606,7 @@ package ifrit
 		private static function loadBalcony_01():void
 		{
 			Songs.stopMusic("hellther");
-			//Songs.playMusic("boss", 5);
+			Songs.playMusic("boss", 5);
 			
 			WorldUtils.makeBounds();
 			

@@ -16,7 +16,7 @@ package com.thaumaturgistgames.flakit
         public function XMLLoader()
         {
 			//	If the error stack is empty, we're in release mode and should search in this directory for the library path
-			if (new Error().getStackTrace().search(/:[0-9]+]$/m) > -1 || Capabilities.isDebugger)
+			if (new Error().getStackTrace().search(/:[0-9]+]$/m) > -1)
 				this.loader = new URLLoader(new URLRequest("../lib/library.xml"));
 			else
 				this.loader = new URLLoader(new URLRequest("./lib/library.xml"));

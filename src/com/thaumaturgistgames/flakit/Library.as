@@ -1,6 +1,7 @@
 ﻿package com.thaumaturgistgames.flakit
 {
 	import flash.display.Bitmap;
+	import flash.display.BitmapData;
 	import flash.display.Stage;
 	import flash.events.Event;
 	import flash.media.Sound;
@@ -126,7 +127,7 @@
 		{
 			checkInit();
 			
-			var result:Number = loadedImages + loadedSounds / totalImages + totalSounds * 100;
+			var result:Number = (loadedImages + loadedSounds) / (totalImages + totalSounds) * 100;
 			return isNaN(result) ? 0 : result;
 		}
 		

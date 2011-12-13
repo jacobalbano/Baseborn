@@ -40,7 +40,10 @@ package ifrit
 							this.playing = true;
 							this.position = this.channel.position;
 						}
-						else	this.playing = false;
+						else
+						{
+							this.playing = false;
+						}
 					}
 				}
 				count++;

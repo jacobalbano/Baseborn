@@ -422,7 +422,7 @@
 								World.Mobs[l].freeze();
 								if (!World.Mobs[l].struck)
 								{
-									World.Mobs[l].hitpoints -= 3;
+									World.Mobs[l].hitpoints -= 5;
 									World.Mobs[l].struck = true;
 								}
 							}

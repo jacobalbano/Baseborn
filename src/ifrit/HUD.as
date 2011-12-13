@@ -22,6 +22,8 @@ package ifrit
 		private var icon1:Bitmap;
 		private var icon2:Bitmap;
 		
+		private static var inv:Bitmap;
+		
 		private static var boxA:Bitmap;
 		private static var skillA:Bitmap;
 		private static var boxS:Bitmap;
@@ -255,6 +257,10 @@ package ifrit
 				skillD = Library.IMG("HUD.sword.png");
 			}
 			
+			inv = Library.IMG("HUD.keyDrop.png");
+			inv.x = 484;
+			inv.y = 410;
+			addChild(inv);
 			
 			icon1.x = 842;
 			icon1.y = 419;
@@ -370,6 +376,9 @@ package ifrit
 					else skillD.alpha = 1;
 				}
 			}
+			
+			if (Game.man.hasKey)	inv.alpha = 1.0;
+			else					inv.alpha = 0.1;
 		}
 		
 		private function checkHealth():void 

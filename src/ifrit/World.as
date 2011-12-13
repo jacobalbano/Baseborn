@@ -244,19 +244,38 @@ package ifrit
 			WorldUtils.addDecal(Library.IMG("forest.leftDoor.png"), 401, 218, function (d:Decal):*	{ 	if (d.rotationY <= 45 && Variables.retrive("opening").bool)	trace(Variables.retrive("door tick left").number = d.rotationY += 1);	} );
 			WorldUtils.addDecal(Library.IMG("forest.rightDoor.png"), 601, 218, function (d:Decal):*	{	if (Math.abs(d.rotationY) <= 22 && Variables.retrive("opening").bool)  trace(Variables.retrive("door tick right").number = d.rotationY -= 0.50)} );
 			WorldUtils.addDecal(Library.IMG("forest.lavaAnimation.png"), 94, 235, null, null, [0, 1, 2, 3], 110, 220, 5);
-
+			
+			WorldUtils.addLadder(290, 350, 50);
+			WorldUtils.addWall(350, 350, false, Library.IMG("tower.platform.png"), 100);
+			
+			WorldUtils.addEnemy(650, 330, Guard);
+			WorldUtils.addWall(650, 350, false, Library.IMG("tower.platform.png"), 100);
+			
 			Game.stage.addChild(new HUD);
 			
-			WorldUtils.addMan(50, 375, Game.playerClass);
+			WorldUtils.addDecal(Library.IMG("misc.keyA.png"), 380, 320, trainRanged, function (d:Decal):* 	{ d.alpha = 0;	} );
+			WorldUtils.addDecal(Library.IMG("misc.padlock.png"), 500, 375, WorldUtils.doorLocked, function (d:Decal):* { d.alpha = 0;	} );
+			WorldUtils.addDecal(Library.IMG("misc.upArrow.png"), 500, 375, towerDoorAdvance, function (d:Decal):* { d.alpha = 0; } );
 			
-			WorldUtils.addDecal(Library.IMG("misc.upArrow.png"), 500, 375, towerDoorAdvance, function (d:Decal):* { d.alpha = 0;} );
+			WorldUtils.addMan(50, 375, Game.playerClass);
 			
 			nextLevel = "tower_01";
 		}
 		
 		private static function towerDoorAdvance(d:Decal):void 
 		{
+			if (Game.man.collisionHull.hitTestObject(d)	&& Game.man.hasKey)
+			{
+				if (Input.isKeyDown(Input.UP) && !Input.isKeyDown(Input.LEFT) && !Input.isKeyDown(Input.RIGHT))	Variables.retrive("opening").bool = true;
+				if (d.alpha < 1 && !Variables.retrive("opening").bool)	d.alpha += 0.1;
+			}
+			else 
+			{
+				if (d.alpha > 0)	d.alpha -= 0.1;
+			}
+			
 			if (Math.abs(Variables.retrive("door tick right").number) >= 22 && Variables.retrive("door tick left").number >= 45)	WorldUtils.chooseAdvance(d);
+			
 		}
 		
 		private static function loadTower_01():void
@@ -421,10 +440,6 @@ package ifrit
 			WorldUtils.addWall(227, 109, false, Library.IMG("tower.platform.png"));
 			WorldUtils.addWall(745, 210, false, Library.IMG("tower.platform.png"));
 			
-			WorldUtils.addDecal(Library.IMG("tower.decals.door.png"), 855, 363.5);
-			WorldUtils.addDecal(Library.IMG("misc.upArrow.png"), 855, 363.5, WorldUtils.chooseAdvance, function (d:Decal):* { d.alpha = 0;	} );
-			WorldUtils.addDecal(Library.IMG("misc.padlock.png"), 855, 363.5, WorldUtils.doorLocked, function (d:Decal):* { d.alpha = 0;	} );
-			
 			WorldUtils.addLadder(940, 300, 200);
 			
 			WorldUtils.addEnemy(724, 75, ElfMage);
@@ -432,6 +447,11 @@ package ifrit
 			WorldUtils.addEnemy(600, 336, ElfMage);
 			WorldUtils.addEnemy(495, 130, ElfMage);
 			WorldUtils.addEnemy(170, 180, ElfMage);
+			
+			WorldUtils.addDecal(Library.IMG("tower.decals.door.png"), 855, 363.5);
+			WorldUtils.addDecal(Library.IMG("misc.upArrow.png"), 855, 363.5, WorldUtils.chooseAdvance, function (d:Decal):* { d.alpha = 0;	} );
+			WorldUtils.addDecal(Library.IMG("misc.padlock.png"), 855, 363.5, WorldUtils.doorLocked, function (d:Decal):* { d.alpha = 0;	} );
+			
 			
 			Game.stage.addChild(new HUD);
 			
@@ -665,11 +685,11 @@ package ifrit
 				if (Math.abs(Variables.retrive("scytheX").number) > 15 && !d.isDestroyed)
 				{
 					var decal:Decal = new Decal(new Bitmap(new BitmapData(d.width / 2, d.height / 2, true, 0x11666666)), 0, 0, function (dd:Decal):*
-						{
-							dd.alpha -= 0.0575;
-							dd.rotation += 30;
-							if (dd.alpha <= 0)	Game.stage.removeChild(dd);
-						});
+					{
+						dd.alpha -= 0.0575;
+						dd.rotation += 30;
+						if (dd.alpha <= 0)	Game.stage.removeChild(dd);
+					});
 					
 					decal.x = d.x;
 					decal.y = d.y;
@@ -762,6 +782,25 @@ package ifrit
 			if (d.hitTestObject(Game.man.collisionHull))
 			{
 				if (!Input.isKeyDown(Input.D))
+				{
+					if (d.alpha <= 1) d.alpha += 0.05;
+				}
+				else
+				{
+					if (d.alpha >= 0) d.alpha -= 0.05;
+				}
+			}
+			else
+			{
+				if (d.alpha >= 0) d.alpha -= 0.05;
+			}
+		}
+		
+		private static function trainRanged(d:Decal):void
+		{
+			if (d.hitTestObject(Game.man.collisionHull))
+			{
+				if (!Input.isKeyDown(Input.A))
 				{
 					if (d.alpha <= 1) d.alpha += 0.05;
 				}

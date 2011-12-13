@@ -35,6 +35,7 @@
         <image>misc/doubleRight.png</image>
         <image>misc/enter.png</image>
         <image>misc/healthDrop.png</image>
+        <image>misc/keyA.png</image>
         <image>misc/keyD.png</image>
         <image>misc/keyDrop.png</image>
         <image>misc/keyS.png</image>
@@ -145,7 +146,7 @@
         <sound>audio/sfx/frostAttack.mp3</sound>
         <sound>audio/sfx/seashore.mp3</sound>
         <sound>audio/sfx/smallDoorOpen.mp3</sound>
-        <sound>audio/sfx/wisp.mp3</sound>
+        <sound>audio/sfx/Wisp.mp3</sound>
         <sound>audio/music/beach.mp3</sound>
         <sound>audio/music/boss.mp3</sound>
         <sound>audio/music/dungeon.mp3</sound>

@@ -134,12 +134,26 @@ package ifrit
 					{
 						if (Game.man.type == Player.MAGE)
 						{
-							var type:uint = new Boolean(Math.round(Math.random())) ? Pickup.HEALTH : Pickup.MANA;
-							addChild(this.pickup = new Pickup(this.x, this.y, type));
+							var typeM:uint = new Boolean(Math.round(Math.random())) ? Pickup.HEALTH : Pickup.MANA;
+							addChild(this.pickup = new Pickup(this.x, this.y, typeM));
 						}
-						else
+						else if (Game.man.type == Player.FIGHTER)
 						{
-							addChild(this.pickup = new Pickup(this.x, this.y, Pickup.HEALTH));
+							if (HUD.ammoCount <= 0.5)
+							{
+								var typeF:uint = new Boolean(Math.round(Math.random())) ? Pickup.HEALTH : Pickup.ARROW;
+								addChild(this.pickup = new Pickup(this.x, this.y, typeF));
+							}
+							else	addChild(this.pickup = new Pickup(this.x, this.y, Pickup.HEALTH));
+						}
+						else if (Game.man.type == Player.ROGUE)
+						{
+							if (HUD.ammoCount <= 0.5)
+							{
+								var typeR:uint = new Boolean(Math.round(Math.random())) ? Pickup.HEALTH : Pickup.SHURIKEN;
+								addChild(this.pickup = new Pickup(this.x, this.y, typeR));
+							}
+							else	addChild(this.pickup = new Pickup(this.x, this.y, Pickup.HEALTH));
 						}
 					}
 				}
@@ -167,6 +181,8 @@ package ifrit
 				if 		(this.pickup.type == Pickup.HEALTH) 	HUD.healPlayer(10, true);
 				else if (this.pickup.type == Pickup.MANA)		HUD.restoreMana(25);
 				else if (this.pickup.type == Pickup.KEY)		Game.man.hasKey = true;
+				else if (this.pickup.type == Pickup.ARROW)		HUD.restoreAmmo(1);
+				else if (this.pickup.type == Pickup.SHURIKEN)	HUD.restoreAmmo(1);
 				
 				this.pickup.parent.removeChild(this.pickup);
 				this.pickup = null;

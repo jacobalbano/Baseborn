@@ -266,7 +266,6 @@ package ifrit
 			if (energy) {   if (energy.width < 200)   energy.width += 1.5;   }
 			
 			if (shuriken)  shurikenTxt.text = String(Math.round(shuriken.width / 20)) + "/" + String(200 / 20)
-			//if (caltrops)  caltropTxt.text = String(Math.round(caltrops.width / 13.33)) + "/" + String(Math.round(200 / 13.33));
 			if (blink)	{	if (blink.width < 200)	blink.width += .75;	}
 			
 			if (arrows)  arrowTxt.text = String(Math.round(arrows.width / 10)) + "/" + String(200 / 10);
@@ -479,6 +478,18 @@ package ifrit
 					}
 				}
 			}
+		}
+		
+		/**
+		 * Returns a decimal amount between 0 and 1, indicating the percentage of ammo remaining
+		 */
+		public static function get ammoCount():Number
+		{
+			var count:Number = 0;
+			if (Game.man.type == Player.FIGHTER)	count = (Math.round( (arrows.width/10) / 10) );
+			else if (Game.man.type == Player.ROGUE)	count = (Math.round( (shuriken.width/20) / 20) );
+			
+			return count;
 		}
 		
 	}

@@ -36,6 +36,7 @@ package ifrit
 		protected var pickup:Pickup;
 		
 		private var homeRect:Rectangle;
+		private var alertedThisFrame:Boolean;
 		
 		public function Enemy(x:Number, y:Number, bitmap:Bitmap, frameWidth:int, frameHeight:int, collisionWidth:int, collisionHeight:int, behaviorFlags:uint = 0) 
 		{
@@ -200,6 +201,11 @@ package ifrit
 				var found:Boolean = false;
 				var collision:Boolean = false;
 				
+				if (!Game.man.isDestroyed && !homeRect.contains(Game.man.x, Game.man.y))
+				{
+					this.alertedThisFrame = false;
+				}
+				
 				if ( ! ( this.behaviorFlags & FLYING) > 0)
 				{
 					for (var i:int = 0; i < World.Platforms.length; i++) 
@@ -304,7 +310,11 @@ package ifrit
 				
 				if (this.homeRect.contains(Game.man.x, Game.man.y) && !Game.man.isDestroyed && Game.man.y <= this.y + this.height / 2)
 				{
-					this.sound.playSFX("attack");
+					if (!this.alertedThisFrame)
+					{
+						this.sound.playSFX("attack");
+						this.alertedThisFrame = true;
+					}
 					
 					if ( ! (this.behaviorFlags & PASSIVE) > 0)
 					{

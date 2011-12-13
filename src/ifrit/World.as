@@ -599,7 +599,6 @@ package ifrit
 			WorldUtils.addWall(315, 370, true, Library.IMG("forest.platform.png"), 25);
 			
 			WorldUtils.addDecal(Library.IMG("hellther.bg.png"), 500, 200);
-			WorldUtils.addDecal(Library.IMG("hellther.layout1.png"), 500, 200);
 			
 			const portal:Point = new Point(950, 45);
 			
@@ -620,6 +619,7 @@ package ifrit
 			Game.stage.addChild(new HUD);
 			
 			WorldUtils.addMan(435, 300, Game.playerClass);
+			WorldUtils.addDecal(Library.IMG("hellther.layout1.png"), 500, 200);
 			
 			WorldUtils.addDecal(Library.IMG("hellther.lavaTrap.png"), 571, 391);
 			

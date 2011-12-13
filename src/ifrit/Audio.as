@@ -56,7 +56,12 @@ package ifrit
 				}
 			}
 			
-			this.Sfx.push(new SoundEffect(name, data) );
+			var newSfx:SoundEffect = new SoundEffect(name, data);
+			
+			if (newSfx)
+			{
+				this.Sfx.push(newSfx);
+			}
 		}
 		
 		public function playSFX(name:String, loops:Number = 0, startTime:Number = 0):void
@@ -86,7 +91,12 @@ package ifrit
 				}
 			}
 			
-			this.Songs.push(new Music(name, data) );
+			var newMusic:Music = new Music(name, data);
+			
+			if (newMusic)
+			{
+				this.Songs.push(newMusic);
+			}
 		}
 		
 		public function playMusic(name:String, loops:Number = 0, startTime:Number = 0):void
@@ -120,7 +130,11 @@ package ifrit
 			{
 				if (item.name == name)
 				{
-					if (item.channel && item.playing)	item.channel.stop();
+					if (item.channel && item.playing)
+					{
+						item.playing = false;
+						item.channel.stop();
+					}
 					return;
 				}
 			}

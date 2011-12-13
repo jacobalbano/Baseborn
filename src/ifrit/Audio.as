@@ -1,5 +1,6 @@
 package ifrit 
 {
+	import flash.events.Event;
 	import flash.media.Sound;
 	import flash.media.SoundChannel;
 	import flash.media.SoundTransform;
@@ -15,12 +16,12 @@ package ifrit
 		public var Sfx:Vector.<SoundEffect> = new Vector.<SoundEffect>;
 		public var Songs:Vector.<Music> = new Vector.<Music>;
 		
-		public function Audio()	{ }
-	
-		//TODO: Create an update function
-		//public static function update():void
-		//{
-		//}
+		public function Audio()
+		{
+			Game.stage.addEventListener(Event.ENTER_FRAME, enterFrame);
+		}
+		
+		protected function update():void	{ }
 		
 		public function stopSFX(name:String):void
 		{
@@ -41,7 +42,7 @@ package ifrit
 			{
 				if (item.name == name)	return item.playing;
 			}
-			return true;
+			return false;
 		}
 		
 		public function addSFX(name:String, data:Sound):void
@@ -64,9 +65,12 @@ package ifrit
 			{
 				if (item.name == name)
 				{
-					item.channel = item.sound.play(startTime, loops);
-					item.playing = true;
-					return;
+					if (!item.playing)
+					{
+						item.channel = item.sound.play(startTime, loops);
+						item.playing = true;
+						return;
+					}
 				}
 			}
 		}
@@ -91,8 +95,21 @@ package ifrit
 			{
 				if (item.name == name)
 				{
-					item.channel = item.sound.play(startTime, loops);
-					return;
+					if (!item.playing)
+					{
+						trace("play ", item.name);
+						item.channel = item.sound.play(startTime, loops);
+						item.playing = true;
+					}
+				}
+				
+				if (item.name != name)
+				{
+					if (item.playing)
+					{
+						trace("stop ", item.name);
+						stopMusic(item.name);
+					}
 				}
 			}
 		}
@@ -103,10 +120,24 @@ package ifrit
 			{
 				if (item.name == name)
 				{
-					if (item.channel)	item.channel.stop();
+					if (item.channel && item.playing)	item.channel.stop();
 					return;
 				}
 			}
+		}
+		
+		public function musicIsPlaying(name:String):Boolean
+		{
+			for each (var item:Music in Songs)
+			{
+				if (item.name == name)	return item.playing;
+			}
+			return false;
+		}
+		
+		private function enterFrame(e:Event):void 
+		{
+			update();
 		}
 	}
 

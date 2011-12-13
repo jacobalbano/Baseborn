@@ -12,11 +12,39 @@ package ifrit
 		public var sound:Sound
 		public var channel:SoundChannel;
 		public var name:String;
+		public var playing:Boolean;
+		
+		private var position:Number;
+		private var count:uint;
 		
 		public function Music(name:String, sound:Sound) 
 		{
 			this.sound = sound;
 			this.name = name;
+			this.position = -1;
+			this.count = 0;
+		}
+		
+		override protected function update():void
+		{
+			super.update();
+			
+			if (this.channel)
+			{
+				if (this.count % 2 == 0)
+				{
+					if (this.channel.position > 0)
+					{
+						if (this.position < this.channel.position)
+						{
+							this.playing = true;
+							this.position = this.channel.position;
+						}
+						else	this.playing = false;
+					}
+				}
+				count++;
+			}
 		}
 		
 	}

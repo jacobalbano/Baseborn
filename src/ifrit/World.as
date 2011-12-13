@@ -104,6 +104,8 @@ package ifrit
 		
 		private static function loadBeach_02():void
 		{
+			Songs.playMusic("beach", 3);
+			
 			WorldUtils.makeBounds();
 			
 			WorldUtils.addDecal(Library.IMG("beach.bg2.png"), 500, 250);
@@ -127,6 +129,8 @@ package ifrit
 		
 		private static function loadBeach_03():void
 		{
+			Songs.playMusic("beach", 3);
+			
 			WorldUtils.makeBounds();
 			
 			WorldUtils.addDecal(Library.IMG("beach.bg2.png"), 500, 250);
@@ -165,7 +169,6 @@ package ifrit
 		
 		private static function loadForest_01():void
 		{
-			Songs.stopMusic("beach");
 			Songs.playMusic("forest", 3);
 			
 			WorldUtils.makeBounds();
@@ -206,6 +209,8 @@ package ifrit
 		
 		private static function loadForest_02():void
 		{
+			Songs.playMusic("forest", 3);
+			
 			WorldUtils.makeBounds();
 			
 			WorldUtils.addDecal(Library.IMG("forest.forestBG.png"), 500, 200, null, function (d:Decal):* {	d.rotationY = 180;	} );
@@ -231,6 +236,8 @@ package ifrit
 		
 		private static function loadForest_03():void
 		{
+			Songs.playMusic("forest", 3);
+			
 			WorldUtils.makeBounds();
 			
 			World.hasKey = true;
@@ -280,7 +287,6 @@ package ifrit
 		
 		private static function loadTower_01():void
 		{
-			Songs.stopMusic("forest");
 			Songs.playMusic("tower", 3);
 			
 			WorldUtils.makeBounds();
@@ -396,6 +402,8 @@ package ifrit
 		
 		private static function loadTower_02():void
 		{
+			Songs.playMusic("tower", 3);
+			
 			WorldUtils.makeBounds();
 			
 			hasKey = true;
@@ -462,7 +470,6 @@ package ifrit
 		
 		private static function loadDungeon_01():void 
 		{
-			Songs.stopMusic("tower");
 			Songs.playMusic("dungeon", 3);
 			
 			WorldUtils.makeBounds();
@@ -510,7 +517,6 @@ package ifrit
 		
 		private static function loadHellther_01():void
 		{
-			Songs.stopMusic("dungeon");
 			Songs.playMusic("hellther", 3);
 			
 			WorldUtils.makeBounds();
@@ -625,7 +631,6 @@ package ifrit
 
 		private static function loadBalcony_01():void
 		{
-			Songs.stopMusic("hellther");
 			Songs.playMusic("boss", 5);
 			
 			WorldUtils.makeBounds();

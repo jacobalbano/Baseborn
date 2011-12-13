@@ -13,6 +13,7 @@
         <image>rogue.png</image>
         <image>shuriken.png</image>
         <image>smoke.png</image>
+        <image>titleScreen.png</image>
         <image>unclassed.png</image>
         <image>vortex.png</image>
         <image>webShot.png</image>
@@ -146,8 +147,9 @@
         <sound>audio/sfx/frostAttack.mp3</sound>
         <sound>audio/sfx/seashore.mp3</sound>
         <sound>audio/sfx/smallDoorOpen.mp3</sound>
-        <sound>audio/sfx/Wisp.mp3</sound>
+        <sound>audio/sfx/wisp.mp3</sound>
         <sound>audio/music/beach.mp3</sound>
+        <sound>audio/music/boss.mp3</sound>
         <sound>audio/music/dungeon.mp3</sound>
         <sound>audio/music/forest.mp3</sound>
         <sound>audio/music/hellther.mp3</sound>

@@ -340,7 +340,18 @@ package ifrit
 				if ( this.hitpoints <= this.maxHealth / 2 && !fleeMode)
 				{
 					fleeMode = true;
-					if (this.x <= Game.man.x) heading = false;	else heading = true;
+					
+					fleeMode = true;
+
+					if (this.homeRect.contains(Game.man.x, Game.man.y))
+					{
+						if (this.x <= Game.man.x) heading = false;	else heading = true;
+					}
+					else
+					{
+						this.heading = !this.heading;
+					}
+					
 					this.fleeCooldown.start();
 				}
 			}

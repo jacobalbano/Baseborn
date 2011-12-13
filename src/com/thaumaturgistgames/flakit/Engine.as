@@ -12,8 +12,7 @@ package com.thaumaturgistgames.flakit
 	{
 		public function Engine():void 
 		{
-			if (stage) load();
-			else addEventListener(Event.ADDED_TO_STAGE, load);
+			addEventListener(Event.ADDED_TO_STAGE, load);
 		}
 		
 		private function load(e:Event = null):void 
@@ -22,11 +21,12 @@ package com.thaumaturgistgames.flakit
 			addEventListener(Event.ENTER_FRAME, loadLibrary);
 			
 			Library.init(stage, Library.IMAGE | Library.AUDIO);
+			beginLoadingScreen();
 		}
 		
 		private function loadLibrary(e:Event):void 
 		{
-			beginLoadingScreen();
+			runLoadingScreen();
 			
 			if (Library.loaded)
 			{
@@ -47,6 +47,10 @@ package com.thaumaturgistgames.flakit
 			//	Override this
 		}
 		
+		public function runLoadingScreen():void
+		{
+			//	Override this
+		}
 		
 		public function endLoadingScreen():void 
 		{

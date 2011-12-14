@@ -353,7 +353,7 @@ package ifrit
 				}
 				if (Game.man.type == Player.ROGUE)
 				{
-					if (!Game.man.hasCaltrop <= 0) skillS.alpha = 0.5;
+					if (!Game.man.hasCaltrop) skillS.alpha = 0.25;
 					else skillS.alpha = 1;
 				}
 				if (Game.man.type == Player.MAGE)

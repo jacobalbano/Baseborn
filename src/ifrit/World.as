@@ -192,8 +192,10 @@ package ifrit
 			WorldUtils.addLadder(80, 275, 115, "misc.ropeLadder.png");
 			WorldUtils.addLadder(635, 260, 75, "misc.ropeLadder.png");
 			
-			WorldUtils.addEnemy(340, 450, Bear);
-			WorldUtils.addEnemy(340, 700, Wolf);
+			WorldUtils.addEnemy(750, 450, Bear);
+			WorldUtils.addEnemy(500, 450, Wolf);
+			WorldUtils.addEnemy(510, 450, Wolf);
+			WorldUtils.addEnemy(520, 450, Wolf);
 			
 			Game.stage.addChild(new HUD);
 			
@@ -220,6 +222,11 @@ package ifrit
 			Game.stage.addChild(new HUD);
 			
 			WorldUtils.addWall(0, 265, false, Library.IMG("forest.platform.png"), 200);
+			
+			WorldUtils.addEnemy(700, 450, Bear);
+			WorldUtils.addEnemy(500, 450, Wolf);
+			WorldUtils.addEnemy(510, 450, Wolf);
+			WorldUtils.addEnemy(495, 450, Wolf);
 			
 			WorldUtils.addMan(0, 240, Game.playerClass);
 			
@@ -309,6 +316,22 @@ package ifrit
 			
 			WorldUtils.addMan(50, 375, Game.playerClass);
 			
+			if (Game.man.type == Player.ROGUE)
+			{
+				WorldUtils.addEnemy(290, 270, Guard);
+				WorldUtils.addEnemy(300, 270, Guard);
+				WorldUtils.addEnemy(280, 270, Guard);
+				WorldUtils.addEnemy(270, 270, ElfMage);
+				WorldUtils.addEnemy(260, 270, ElfMage);
+				WorldUtils.addEnemy(250, 270, ElfMage);
+				WorldUtils.addEnemy(240, 270, ElfMage);
+				WorldUtils.addEnemy(230, 270, Archer);
+				WorldUtils.addEnemy(220, 270, Archer);
+				WorldUtils.addEnemy(210, 270, Archer);
+				
+				WorldUtils.addDecal(Library.IMG("misc.keyS.png"), 327, 186, trainCaltrop, function (d:Decal):* { d.alpha = 0; } );
+			}
+			
 			WorldUtils.addWall(243, 294, false, Library.IMG("misc.clipPlatform.png"), 488);
 			WorldUtils.addWall(483, 317, true, Library.IMG("misc.clipPlatform.png"), 37);
 			WorldUtils.addWall(519, 330, false, Library.IMG("misc.clipPlatform.png"), 65);
@@ -354,6 +377,37 @@ package ifrit
 			WorldUtils.addTrigger(980, 425, WorldUtils.advance);
 			
 			nextLevel = "tower_02";
+		}
+		
+		private static function trainCaltrop(d:Decal):void
+		{
+			if (d.hitTestObject(Game.man.collisionHull))
+			{
+				if (Player.knowsS)
+				{
+					if (Game.man.activeCaltrop)
+					{
+						d.x = Game.man.activeCaltrop.x;
+						d.y = Game.man.activeCaltrop.y - 12;
+						
+						if (Game.man.hasCaltrop)	d.alpha -= 0.05;
+					}
+				}
+				if (!Player.knowsS)	Player.knowsS = true;
+				
+				if (Game.man.hasCaltrop || Player.knowsS)
+				{
+					if (d.alpha <= 1) d.alpha += 0.05;
+				}
+				else
+				{
+					if (d.alpha >= 0) d.alpha -= 0.05;
+				}
+			}
+			else
+			{
+				if (d.alpha >= 0) d.alpha -= 0.05;
+			}
 		}
 		
 		private static function openGate(d:Decal):void

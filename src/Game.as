@@ -332,6 +332,7 @@
 				{
 					if (World.Projectiles[t].isDestroyed)
 					{
+						World.Projectiles[t].sound.stopSFX("fly");
 						Game.stage.removeChild(World.Projectiles[t]);
 						World.Projectiles.splice(t, 1);
 					}

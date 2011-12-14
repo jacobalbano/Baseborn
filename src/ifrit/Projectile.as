@@ -30,8 +30,11 @@ package ifrit
 		protected var ttl:uint;
 		protected var timeLimited:Boolean;
 		
+		public var sound:Audio = new Audio;
+		
 		public function Projectile(bitmap:Bitmap, frameWidth:int, frameHeight:int, direction:int, x:Number, y:Number, friendly:Boolean = true, ttl:uint = 0, isBallistic:Boolean = false) 
 		{
+			
 			this.container = new Sprite;
 			addChild(container);
 			
@@ -79,6 +82,8 @@ package ifrit
 			
 			if (!this.stopped)
 			{
+				this.sound.playSFX("fly");
+				
 				if (this.hasPhysics)
 				{
 					if (this.dx > 0)   	this.vx -= 0.05;

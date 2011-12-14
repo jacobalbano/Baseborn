@@ -25,13 +25,17 @@ package ifrit
 		
 		public function stopSFX(name:String):void
 		{
+			trace("s");
 			for each (var item:SoundEffect in Sfx) 
 			{
 				if (item.name == name)
 				{
-					item.channel.stop();
-					item.playing = false;
-					return;
+					if (item.playing)
+					{
+						item.channel.stop();
+						item.playing = false;
+						return;
+					}
 				}
 			}
 		}
@@ -99,6 +103,12 @@ package ifrit
 			}
 		}
 		
+		/**
+		 * Call a Music Sound by name to be played
+		 * @param	name		Name of the Sound to be played
+		 * @param	loops		Number of times to loop the Sound
+		 * @param	startTime	Millisecond position to begin playback of the Sound
+		 */
 		public function playMusic(name:String, loops:Number = 0, startTime:Number = 0):void
 		{
 			for each (var item:Music in Songs) 

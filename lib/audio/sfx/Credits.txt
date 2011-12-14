@@ -1,0 +1,27 @@
+"bearAttack"
+http://www.freesound.org/people/aesqe/sounds/49127/
+	
+"blink"
+http://www.freesound.org/people/Wolfsinger/sounds/25714/
+http://www.freesound.org/people/smidoid/sounds/49146/
+	
+"bow"
+http://www.freesound.org/people/Erdie/sounds/65733/
+	
+"daggerStab"
+http://www.freesound.org/people/iwilldstroyu/sounds/63985/
+	
+"swordSlash"
+http://www.freesound.org/people/hello_flowers/sounds/37596/
+	
+"throw"
+http://www.freesound.org/people/Pogotron/sounds/60835/
+	
+"wolfAttack"
+http://www.freesound.org/people/tomc1985/sounds/84665/
+	
+"zombieAttack"
+http://www.freesfx.co.uk/sfx/zombie		(by roncorbin)
+	
+"zombieDie"
+http://www.freesound.org/people/RhapsodyGuru/sounds/69196/

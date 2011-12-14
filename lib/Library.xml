@@ -145,13 +145,31 @@
         <image>balcony/platform.png</image>
     </images>
     <sounds>
+        <sound>audio/sfx/beachAmbiance.mp3</sound>
+        <sound>audio/sfx/bearAttack.mp3</sound>
         <sound>audio/sfx/bigDoorOpen.mp3</sound>
+        <sound>audio/sfx/blink.mp3</sound>
         <sound>audio/sfx/bolt.mp3</sound>
+        <sound>audio/sfx/bow.mp3</sound>
+        <sound>audio/sfx/daggerStab.mp3</sound>
         <sound>audio/sfx/demon.mp3</sound>
+        <sound>audio/sfx/demonDie.mp3</sound>
+        <sound>audio/sfx/fireball.mp3</sound>
         <sound>audio/sfx/frostAttack.mp3</sound>
+        <sound>audio/sfx/keys.mp3</sound>
         <sound>audio/sfx/seashore.mp3</sound>
+        <sound>audio/sfx/serpentHiss.mp3</sound>
         <sound>audio/sfx/smallDoorOpen.mp3</sound>
+        <sound>audio/sfx/spiderHiss.mp3</sound>
+        <sound>audio/sfx/startToBeach.mp3</sound>
+        <sound>audio/sfx/swordSlash.mp3</sound>
+        <sound>audio/sfx/throw.mp3</sound>
+        <sound>audio/sfx/titleScreenAmbiance.mp3</sound>
+        <sound>audio/sfx/unlock.mp3</sound>
         <sound>audio/sfx/wisp.mp3</sound>
+        <sound>audio/sfx/wolfAttack.mp3</sound>
+        <sound>audio/sfx/zombieAttack.mp3</sound>
+        <sound>audio/sfx/zombieDie.mp3</sound>
         <sound>audio/music/beach.mp3</sound>
         <sound>audio/music/boss.mp3</sound>
         <sound>audio/music/dungeon.mp3</sound>

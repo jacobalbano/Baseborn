@@ -66,7 +66,9 @@ package ifrit
 			Songs.addMusic("hellther", Library.SND("audio.music.hellther.mp3"));
 			Songs.addMusic("boss", Library.SND("audio.music.boss.mp3"));
 			
-			Sounds.addSFX("smallDoor", Library.SND("audio.sfx.smallDoorOpen.mp3"));
+			Sounds.addSFX("beachAmb", Library.SND("audio.sfx.startToBeach.mp3"));
+			Sounds.addSFX("keys", Library.SND("audio.sfx.keys.mp3"));
+			Sounds.addSFX("unlock", Library.SND("audio.sfx.unlock.mp3"));
 		}
 		
 		//	Worlds begin
@@ -82,6 +84,7 @@ package ifrit
 		private static function loadBeach_01():void
 		{
 			Songs.playMusic("beach", 3);
+			Sounds.playSFX("beachAmb", 3);
 			
 			WorldUtils.makeBounds();
 			
@@ -105,6 +108,7 @@ package ifrit
 		private static function loadBeach_02():void
 		{
 			Songs.playMusic("beach", 3);
+			Sounds.playSFX("beachAmb", 3);
 			
 			WorldUtils.makeBounds();
 			
@@ -130,6 +134,7 @@ package ifrit
 		private static function loadBeach_03():void
 		{
 			Songs.playMusic("beach", 3);
+			Sounds.playSFX("beachAmb", 3);
 			
 			WorldUtils.makeBounds();
 			
@@ -170,6 +175,7 @@ package ifrit
 		private static function loadForest_01():void
 		{
 			Songs.playMusic("forest", 3);
+			Sounds.stopSFX("beachAmb");
 			
 			WorldUtils.makeBounds();
 			

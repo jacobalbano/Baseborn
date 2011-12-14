@@ -20,6 +20,7 @@ package ifrit
 			this.graphic.play("walk");
 			
 			this.sound.addSFX("attack", Library.SND("audio.sfx.demon.mp3"));
+			this.sound.addSFX("die", Library.SND("audio.sfx.demonDie.mp3"));
 			
 			this.hitpoints = 15;
 			this.maxHealth = 15;

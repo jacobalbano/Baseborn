@@ -302,7 +302,6 @@ package ifrit
 			
 			WorldUtils.addDecal(Library.IMG("tower.decals.stainedGlass.png"), 546, 210);
 			WorldUtils.addDecal(Library.IMG("tower.decals.chandelier.png"), 850, 50.5, null, null , [0, 1, 2, 3], 46, 101);
-			WorldUtils.addDecal(Library.IMG("tower.layouts.layout1.png"), 500, 200);
 			
 			WorldUtils.addEnemy(700, 350, Guard);
 			WorldUtils.addEnemy(400, 350, ElfMage);
@@ -315,6 +314,17 @@ package ifrit
 			WorldUtils.addLadder(976, 336, 64);
 			
 			WorldUtils.addMan(50, 375, Game.playerClass);
+			
+			if (Game.man.type == Player.FIGHTER)
+			{
+				WorldUtils.addWall(263, 294, false, Library.IMG("misc.clipPlatform.png"), 448);
+				WorldUtils.addDecal(Library.IMG("tower.layouts.layout2.png"), 500, 200);
+			}
+			else
+			{
+				WorldUtils.addWall(243, 294, false, Library.IMG("misc.clipPlatform.png"), 488);
+				WorldUtils.addDecal(Library.IMG("tower.layouts.layout1.png"), 500, 200);
+			}
 			
 			if (Game.man.type == Player.ROGUE)
 			{
@@ -331,8 +341,18 @@ package ifrit
 				
 				WorldUtils.addDecal(Library.IMG("misc.keyS.png"), 327, 186, trainCaltrop, function (d:Decal):* { d.alpha = 0; } );
 			}
+			else if	(Game.man.type == Player.FIGHTER)
+			{
+				WorldUtils.addEnemy(50, 270, PansyArcher).heading = true;
+				WorldUtils.addEnemy(80, 270, PansyArcher).heading = true;
+				WorldUtils.addEnemy(110, 270, PansyArcher).heading = true;
+				WorldUtils.addEnemy(140, 270, PansyArcher).heading = true;
+				WorldUtils.addEnemy(170, 270, PansyArcher).heading = true;
+				WorldUtils.addEnemy(200, 270, PansyArcher).heading = true;
+				WorldUtils.addDecal(Library.IMG("misc.keyS.png"), 327, 186, trainShield, function (d:Decal):* { d.alpha = 0; } );
+			}
 			
-			WorldUtils.addWall(243, 294, false, Library.IMG("misc.clipPlatform.png"), 488);
+			
 			WorldUtils.addWall(483, 317, true, Library.IMG("misc.clipPlatform.png"), 37);
 			WorldUtils.addWall(519, 330, false, Library.IMG("misc.clipPlatform.png"), 65);
 			WorldUtils.addWall(684, 365, false, Library.IMG("misc.clipPlatform.png"), 128);
@@ -396,6 +416,27 @@ package ifrit
 				if (!Player.knowsS)	Player.knowsS = true;
 				
 				if (Game.man.hasCaltrop || Player.knowsS)
+				{
+					if (d.alpha <= 1) d.alpha += 0.05;
+				}
+				else
+				{
+					if (d.alpha >= 0) d.alpha -= 0.05;
+				}
+			}
+			else
+			{
+				if (d.alpha >= 0) d.alpha -= 0.05;
+			}
+		}
+		
+		private static function trainShield(d:Decal):void
+		{
+			if (d.hitTestObject(Game.man.collisionHull))
+			{
+				if (!Player.knowsS)	Player.knowsS = true;
+				
+				if (Player.knowsS)
 				{
 					if (d.alpha <= 1) d.alpha += 0.05;
 				}

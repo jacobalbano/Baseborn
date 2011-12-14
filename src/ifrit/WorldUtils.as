@@ -155,9 +155,11 @@ package ifrit
 		 * @param	y			Position on y
 		 * @param	type		The class of enemy to add	
 		 */
-		public static function addEnemy(x:Number, y:Number, type:Class):void
+		public static function addEnemy(x:Number, y:Number, type:Class):Enemy
 		{
-			World.Mobs.push(Game.stage.addChild(new type(x, y) ) as Mob);		
+			var m:Mob = new type(x, y);
+			World.Mobs.push(Game.stage.addChild(m) as Mob);
+			return m as Enemy;
 		}
 		
 		/**

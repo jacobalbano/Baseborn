@@ -15,7 +15,7 @@ package ifrit
 		public static var NO_FEAR:uint = 1;
 		public static var NO_MELEE:uint = 2;
 		public static var NO_RANGED:uint = 4;
-		public static var FLYING:uint = 8;
+		public static var STAND_GROUND:uint = 8;
 		public static var PASSIVE:uint = 16;
 		public static var AFRAID:uint = 32;
 		public static var BRAIN_DEAD:uint = 64;
@@ -46,7 +46,6 @@ package ifrit
 			
 			this.behaviorFlags = behaviorFlags;
 			
-			if ( (this.behaviorFlags & FLYING) > 0)		this.hasGravity = false;
 			if ( (this.behaviorFlags & BRAIN_DEAD) > 0)	this.brainDead = true;
 			
 			this.heading = true;
@@ -222,55 +221,52 @@ package ifrit
 					this.alertedThisFrame = false;
 				}
 				
-				if ( ! ( this.behaviorFlags & FLYING) > 0)
+				for (var i:int = 0; i < World.Platforms.length; i++) 
 				{
-					for (var i:int = 0; i < World.Platforms.length; i++) 
+					if (World.Platforms[i].collide(this) && World.Platforms[i].rotation == 0 && World.Platforms[i].y > this.y)
 					{
-						if (World.Platforms[i].collide(this) && World.Platforms[i].rotation == 0 && World.Platforms[i].y > this.y)
-						{
-							collision = true;
-							leftBound = World.Platforms[i].x - World.Platforms[i].width / 2;
-							rightBound = World.Platforms[i].x + World.Platforms[i].width / 2;
-							found = true;
-							
-							var li:int = -1;
-							var ri:int = -1;
+						collision = true;
+						leftBound = World.Platforms[i].x - World.Platforms[i].width / 2;
+						rightBound = World.Platforms[i].x + World.Platforms[i].width / 2;
+						found = true;
+						
+						var li:int = -1;
+						var ri:int = -1;
 
+						
+						for (var ii:int = 0; ii < World.Platforms.length; ii++)
+						{
+							if (li == ii || ri == ii || i == ii)		continue;
 							
-							for (var ii:int = 0; ii < World.Platforms.length; ii++)
-							{
-								if (li == ii || ri == ii || i == ii)		continue;
-								
-								if (World.Platforms[ii].y != World.Platforms[i].y) continue;
-								
-								var distance:int = Math.abs(World.Platforms[ii].x - World.Platforms[i].x) ;
-								
-								if (World.Platforms[ii].x < World.Platforms[i].x)	//	Platform is to the left
-								{								
-									if (distance <= 210)	//	Enemies can pass over a 10 pixel gap without turning
-									{
-										li = ii;
-										leftBound = World.Platforms[ii].x - World.Platforms[ii].width / 2;
-									}
-									continue;
-								}
-								else if (World.Platforms[ii].x > World.Platforms[i].x)	//	Platform is to the right
+							if (World.Platforms[ii].y != World.Platforms[i].y) continue;
+							
+							var distance:int = Math.abs(World.Platforms[ii].x - World.Platforms[i].x) ;
+							
+							if (World.Platforms[ii].x < World.Platforms[i].x)	//	Platform is to the left
+							{								
+								if (distance <= 210)	//	Enemies can pass over a 10 pixel gap without turning
 								{
-									if (distance <= 215)	//	Enemies can pass over a 15 pixel gap without turning
-									{
-										ri = ii;
-										rightBound = World.Platforms[ii].x + World.Platforms[ii].width / 2;
-									}
-									continue;
+									li = ii;
+									leftBound = World.Platforms[ii].x - World.Platforms[ii].width / 2;
 								}
+								continue;
 							}
-							
-							break;
+							else if (World.Platforms[ii].x > World.Platforms[i].x)	//	Platform is to the right
+							{
+								if (distance <= 215)	//	Enemies can pass over a 15 pixel gap without turning
+								{
+									ri = ii;
+									rightBound = World.Platforms[ii].x + World.Platforms[ii].width / 2;
+								}
+								continue;
+							}
 						}
+						
+						break;
 					}
 				}
 				
-				if (!found || (this.behaviorFlags & FLYING) > 0 )
+				if (!found)
 				{
 					this.leftBound = 0;
 					this.rightBound = Game.dimensions.x;
@@ -304,8 +300,11 @@ package ifrit
 		{
 			this.lastHeading = heading;
 			
-			if (heading)	{	if (this.x <= this.lastPosition.x) heading = !heading;	}
-			else			{ 	if (this.x >= this.lastPosition.x) heading = !heading;	}
+			if (!(this.behaviorFlags & STAND_GROUND) > 0 || this.fleeMode)
+			{
+				if (heading)	{	if (this.x <= this.lastPosition.x) heading = !heading;	}
+				else			{ 	if (this.x >= this.lastPosition.x) heading = !heading;	}
+			}
 			
 			if (!fleeMode)
 			{
@@ -341,12 +340,15 @@ package ifrit
 					
 					if ( (this.behaviorFlags & AFRAID) > 0)
 					{
-						fleeMode = true;
-						if (this.x <= Game.man.x) heading = false;	else heading = true;
-						
-						this.fleeCooldown.stop();
-						this.fleeCooldown.reset();
-						this.fleeCooldown.start();
+						if (Point.distance(new Point(Game.man.x, Game.man.y), new Point(this.x, this.y)) < this.homeRect.width / 4)
+						{
+							fleeMode = true;
+							if (this.x <= Game.man.x) heading = false;	else heading = true;
+							
+							this.fleeCooldown.stop();
+							this.fleeCooldown.reset();
+							this.fleeCooldown.start();
+						}
 					}
 				}
 			}
@@ -425,7 +427,10 @@ package ifrit
 			}
 			else
 			{
-				if (heading) this.x += 1 + this.speed;  else x -= 1 + speed;
+				if (!(this.behaviorFlags & STAND_GROUND) > 0)
+				{
+					if (heading) this.x += 1 + this.speed;  else x -= 1 + speed;
+				}
 			}
 		}
 		

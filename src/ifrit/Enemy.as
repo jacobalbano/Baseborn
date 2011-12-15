@@ -185,8 +185,8 @@ package ifrit
 					World.Sounds.playSFX("keys");
 					Game.man.hasKey = true;
 				}
-				else if (this.pickup.type == Pickup.ARROW)		HUD.restoreAmmo(1);
-				else if (this.pickup.type == Pickup.SHURIKEN)	HUD.restoreAmmo(1);
+				else if (this.pickup.type == Pickup.ARROW)		HUD.restoreAmmo(5);
+				else if (this.pickup.type == Pickup.SHURIKEN)	HUD.restoreAmmo(5);
 				
 				this.pickup.parent.removeChild(this.pickup);
 				this.pickup = null;

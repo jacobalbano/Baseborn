@@ -745,7 +745,12 @@ package ifrit
 			//WorldUtils.addEnemy(720, 260, Doppleganger);
 			Game.boss = WorldUtils.addEnemy(50, 50, Boss) as Boss;
 			
-			WorldUtils.addMan(950, 250, Game.playerClass);
+			const portal:Point = new Point(970, 260);
+			WorldUtils.addDecal(Library.IMG("hellther.portalFrame.png"), portal.x, portal.y);
+			WorldUtils.addDecal(Library.IMG("hellther.portalSparks.png"), portal.x, portal.y, null, null, [0, 1, 0, 2], 40, 40, 3, true );
+			WorldUtils.addDecal(Library.IMG("hellther.portal.png"), portal.x, portal.y, function (d:Decal):*	{	d.rotation += 5; d.alpha = Math.abs(d.rotation) / 180;	} );
+			
+			WorldUtils.addMan(950, 265, Game.playerClass);
 			
 			// Visible
 			WorldUtils.addWall(760, 259, false, Library.IMG("balcony.platform.png"), 79);

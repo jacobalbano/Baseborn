@@ -44,19 +44,165 @@ package ifrit
 			this.target = new Point;
 			
 			this.state = 0;
+			
+			WorldUtils.addDecal(new Bitmap(new BitmapData(1, 1, true, 0)), 0, 0, WorldUtils.followMouse);
 		}
 		
 		override public function preThink():void 
 		{
 			super.preThink();
 			
-			if (this.state == 0 && Game.man.x < 500)	runState1();
+			if (this.state == 0)						runState1();
+			if (this.state == 1)						runState2();
+			if (this.state == 2 && Game.man.x < 500)	runState3();
+			if (this.state == 3 && this.canShoot)		runState4();
+			if (this.state == 4)						runState5();
+			if (this.state == 5)						runState6();
+			if (this.state == 6)						runState7();
+			if (this.state == 7)						runState8();
+			if (this.state == 8)						runState9();
+			if (this.state == 9)						runState10();
 		}
 		
-		private function runState1():void 
+		private function runState1():void
 		{
+			this.y = this.x = 0;
 			this.state = 1;
+		}
+		
+		private function runState2():void 
+		{
+			y++;
+			
+			if (this.y > this.lastPosition.y + 25)	this.state = 2;
+		}
+		
+		private function runState3():void 
+		{
+			this.lastPosition.y = this.y;
+			
+			this.state = 3;
 			this.throwScythe();
+		}
+		
+		private function runState4():void
+		{
+			var positions:Array =
+			[
+				[725, 185],
+				[850, 165],
+				[890, 270],
+				[700, 270],
+				[400, 270],
+				[960, 145]
+			];
+			
+			for (var i:uint = 0; i < positions.length; i++)
+			{
+				WorldUtils.addDecal(Library.IMG("hellther.portal.png"), positions[i][0], positions[i][1], function (d:Decal):*
+				{
+					d.rotation += 5;
+					d.alpha = Math.abs(d.rotation) / 180;
+					if (d.alpha >= 1)
+					{
+						WorldUtils.addEnemy(d.x, d.y, Demon);
+					}
+					
+					if (d.alpha <= 0)	Game.stage.removeChild(d);
+					
+				} );
+			}
+			
+			Game.boss.state = 4;
+		}
+		
+		private function runState5():void
+		{
+			var numAlive:uint;
+			
+			for (var i:uint = 0; i < World.Mobs.length; i++)
+			{
+				if (!World.Mobs[i].isDestroyed)	numAlive++;
+			}
+			
+			if (numAlive == 2 &&  World.Mobs.length > 2 && !Game.man.isDestroyed && !Game.boss.isDestroyed)	this.state = 5;
+		}
+		
+		private function runState6():void
+		{
+			y++;
+			
+			if (this.y > 200)	this.state = 6;
+		}
+		
+		private function runState7():void 
+		{
+			var positions:Array =
+			[
+				[525, 185],
+				[300, 270],
+				[700, 270],
+				[400, 270],
+				[460, 145]
+			];
+			
+			for (var i:uint = 0; i < positions.length; i++)
+			{
+				WorldUtils.addDecal(Library.IMG("hellther.portal.png"), positions[i][0], positions[i][1], function (d:Decal):*
+				{
+					d.rotation += 5;
+					d.alpha = Math.abs(d.rotation) / 180;
+					if (d.alpha >= 1)
+					{
+						WorldUtils.addEnemy(d.x, d.y, (new Boolean(Math.round(Math.random()))) ? Skeleton : Zombie );
+					}
+					
+					if (d.alpha <= 0)	Game.stage.removeChild(d);
+					
+				} );
+			}
+			
+			Game.boss.state = 7;
+		}
+		
+		private function runState8():void
+		{
+			var numAlive:uint;
+			
+			for (var i:uint = 0; i < World.Mobs.length; i++)
+			{
+				if (!World.Mobs[i].isDestroyed)	numAlive++;
+			}
+			
+			if (numAlive == 2 &&  World.Mobs.length > 8 && !Game.man.isDestroyed && !Game.boss.isDestroyed)	this.state = 8;
+		}
+		
+		private function runState9():void
+		{
+			throwScythe();
+			this.state = 9;
+		}
+		
+		private function runState10():void
+		{
+			y++;
+			
+			if (this.y > 200)	this.state = 9;
+		}
+		
+		private function runState11():void
+		{
+			x++;
+			
+			if (this.x > 200)	this.state = 11;
+		}
+		
+		private function runStateEnd():void 
+		{
+			if (this.y <= this.lastPosition.y + 25)	y++;
+			if (this.x <= 280)	x++;
+			
+			if (this.y >= this.lastPosition.y + 25 && this.x >= 280)	this.state = 2;
 		}
 		
 		override public function postThink():void 
@@ -65,13 +211,6 @@ package ifrit
 			
 			if (!this.isDestroyed)
 			{
-				if (this.x > 500)
-				{
-					this.x -= 2;
-					trace("turn");
-					this.heading = true;
-				}
-				
 				if (this.y < this.target.y)	y++;
 				if (this.x < this.target.y)	x++;
 				
@@ -88,6 +227,10 @@ package ifrit
 			this.scytheOffScreenYet = false;
 			this.scythePoint = new Point(this.x, this.y);
 			
+			/**
+			 * World's longest anonymous function
+			 * All the behaviour code for the scythe is in here
+			 */
 			WorldUtils.addDecal(Library.IMG("enemies.scythe.png"), Game.boss.x, Game.boss.y, function (d:Decal):*
 			{
 				d.rotation += scythePoint.x;
@@ -113,16 +256,11 @@ package ifrit
 					scytheOffScreenYet = true;
 				}
 				
-				if (!scytheHeading && d.rotationY < 180)
-				{
-					d.rotationY += 5;
-				}
-				
-				if (d.y <= 250 && !scytheOffScreenYet)
+				if (d.y <= Game.man.y && !scytheOffScreenYet)
 				{
 					d.y += 20;
 				}
-				else if (d.y >= 50 && d.x < Game.dimensions.x / 2 && !scytheHeading)
+				else if (d.y >= Game.boss.y && d.x < Game.man.x && !scytheHeading)
 				{
 					d.y -= 20;
 				}

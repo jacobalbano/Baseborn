@@ -25,7 +25,6 @@ package ifrit
 		
 		public function stopSFX(name:String):void
 		{
-			trace("s");
 			for each (var item:SoundEffect in Sfx) 
 			{
 				if (item.name == name)

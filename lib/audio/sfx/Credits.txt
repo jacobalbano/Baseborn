@@ -10,6 +10,15 @@ http://www.freesound.org/people/Erdie/sounds/65733/
 	
 "daggerStab"
 http://www.freesound.org/people/iwilldstroyu/sounds/63985/
+
+"demonDie"
+http://www.freesound.org/people/klankbeeld/sounds/123355/
+	
+"fireball"
+http://www.freesound.org/people/JoelAudio/sounds/77691/
+	
+"skeletonDie"
+http://www.freesound.org/people/Two13/sounds/73034/
 	
 "swordSlash"
 http://www.freesound.org/people/hello_flowers/sounds/37596/

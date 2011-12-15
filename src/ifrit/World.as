@@ -68,6 +68,7 @@ package ifrit
 			
 			Sounds.addSFX("beachAmb", Library.SND("audio.sfx.startToBeach.mp3"));
 			Sounds.addSFX("keys", Library.SND("audio.sfx.keys.mp3"));
+			Sounds.addSFX("pickup", Library.SND("audio.sfx.pickup.mp3"));
 			Sounds.addSFX("unlock", Library.SND("audio.sfx.unlock.mp3"));
 		}
 		
@@ -532,11 +533,20 @@ package ifrit
 			WorldUtils.addDecal(Library.IMG("tower.decals.shield.png"), 750, 80);
 			WorldUtils.addDecal(Library.IMG("tower.decals.torch.png"), 700, 80, null, null, [0, 1, 2, 3, 4, 5], 40, 40);
 			
+			WorldUtils.addDecal(Library.IMG("tower.decals.door.png"), 855, 363.5);
+			WorldUtils.addDecal(Library.IMG("misc.upArrow.png"), 855, 363.5, WorldUtils.chooseAdvance, function (d:Decal):* { d.alpha = 0;	} );
+			WorldUtils.addDecal(Library.IMG("misc.padlock.png"), 855, 363.5, WorldUtils.doorLocked, function (d:Decal):* { d.alpha = 0;	} );
+			
 			WorldUtils.addLadder(30, 0, 110);
 			WorldUtils.addLadder(112, 100, 260);
 			WorldUtils.addLadder(855, 200, 115);
 			WorldUtils.addLadder(940, 300, 200);
 			
+			WorldUtils.addEnemy(724, 75, ElfMage);
+			WorldUtils.addEnemy(924, 75, ElfMage);
+			WorldUtils.addEnemy(600, 336, ElfMage);
+			WorldUtils.addEnemy(495, 130, ElfMage);
+			WorldUtils.addEnemy(170, 180, ElfMage);
 			WorldUtils.addEnemy(724, 75, ElfMage);
 			WorldUtils.addEnemy(924, 75, ElfMage);
 			WorldUtils.addEnemy(600, 336, ElfMage);
@@ -556,18 +566,6 @@ package ifrit
 			WorldUtils.addWall(700, 272, false, Library.IMG("tower.platform.png"));
 			WorldUtils.addWall(227, 109, false, Library.IMG("tower.platform.png"));
 			WorldUtils.addWall(745, 210, false, Library.IMG("tower.platform.png"));
-			
-			WorldUtils.addLadder(940, 300, 200);
-			
-			WorldUtils.addEnemy(724, 75, ElfMage);
-			WorldUtils.addEnemy(924, 75, ElfMage);
-			WorldUtils.addEnemy(600, 336, ElfMage);
-			WorldUtils.addEnemy(495, 130, ElfMage);
-			WorldUtils.addEnemy(170, 180, ElfMage);
-			
-			WorldUtils.addDecal(Library.IMG("tower.decals.door.png"), 855, 363.5);
-			WorldUtils.addDecal(Library.IMG("misc.upArrow.png"), 855, 363.5, WorldUtils.chooseAdvance, function (d:Decal):* { d.alpha = 0;	} );
-			WorldUtils.addDecal(Library.IMG("misc.padlock.png"), 855, 363.5, WorldUtils.doorLocked, function (d:Decal):* { d.alpha = 0;	} );
 			
 			
 			Game.stage.addChild(new HUD);

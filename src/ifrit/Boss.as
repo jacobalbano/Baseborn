@@ -25,7 +25,7 @@ package ifrit
 		
 		public function Boss(x:int, y:int) 
 		{
-			super(x, y, Library.IMG("enemies.boss.png"), 60, 111, 60, 111, Enemy.BRAIN_DEAD);
+			super(x, y, Library.IMG("enemies.boss.png"), 150, 111, 60, 111, Enemy.BRAIN_DEAD);
 			
 			this.lastPosition = new Point(x, y);
 			

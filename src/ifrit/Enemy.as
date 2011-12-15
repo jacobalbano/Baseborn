@@ -189,6 +189,9 @@ package ifrit
 				else if (this.pickup.type == Pickup.ARROW)		HUD.restoreAmmo(5);
 				else if (this.pickup.type == Pickup.SHURIKEN)	HUD.restoreAmmo(5);
 				
+				if (this.pickup.type == Pickup.KEY)	World.Sounds.playSFX("keys");
+				else	World.Sounds.playSFX("pickup");
+				
 				this.pickup.parent.removeChild(this.pickup);
 				this.pickup = null;
 			}

@@ -158,7 +158,9 @@
         <sound>audio/sfx/fireball.mp3</sound>
         <sound>audio/sfx/frostAttack.mp3</sound>
         <sound>audio/sfx/keys.mp3</sound>
+        <sound>audio/sfx/pickup.mp3</sound>
         <sound>audio/sfx/serpentHiss.mp3</sound>
+        <sound>audio/sfx/skeletonDie.mp3</sound>
         <sound>audio/sfx/smallDoorOpen.mp3</sound>
         <sound>audio/sfx/spiderHiss.mp3</sound>
         <sound>audio/sfx/startToBeach.mp3</sound>

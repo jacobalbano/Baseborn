@@ -17,7 +17,6 @@ package ifrit
 		private var scythePoint:Point;
 		private var scytheHeading:Boolean;
 		private var canShoot:Boolean;
-		private var target:Point;
 		private var scytheOffScreenYet:Boolean;
 		private var stopped:Boolean;
 		private var stateFunctions:Array;
@@ -28,22 +27,21 @@ package ifrit
 			super(x, y, Library.IMG("enemies.boss.png"), 150, 111, 60, 111, Enemy.BRAIN_DEAD);
 			
 			this.lastPosition = new Point(x, y);
-			
 			this.sineTicks = 0;
-			
 			this.hitpoints = 100;
-			
 			this.hasGravity = false;
-			
 			this.heading = false;
-			
 			this.scythePoint = new Point(this.x, this.y);
-			
 			this.scytheHeading = true;
-			
 			this.canShoot = true;
 			
-			this.target = new Point;
+			this.graphic.add("casting_no_scythe", [0, 1, 2, 3], 6, false);
+			this.graphic.add("casting_with_scythe", [5, 6, 7, 8], 6, false);
+			this.graphic.add("warding", [10, 11, 12, 13], 6, false);
+			this.graphic.add("hover_with_scythe", [15, 16, 17, 18], 6, true);
+			this.graphic.add("hover_no_scythe", [20, 21, 22, 23], 6, true);
+			this.graphic.add("collapse", [35, 36, 37, 38, 39], 6, true);
+			this.graphic.play("hover_with_scythe");
 			
 			this.state = 0;
 			
@@ -62,10 +60,9 @@ package ifrit
 				runState12,
 				runState13,
 				runState14,
-				runState15
+				runState15,
+				runState16
 			];
-			
-			WorldUtils.addDecal(new Bitmap(new BitmapData(1, 1, true, 0)), 0, 0, WorldUtils.followMouse);
 		}
 		
 		override public function preThink():void 
@@ -112,6 +109,8 @@ package ifrit
 				[960, 145]
 			];
 			
+			this.graphic.play("casting_with_scythe");
+			
 			for (var i:uint = 0; i < positions.length; i++)
 			{
 				WorldUtils.addDecal(Library.IMG("hellther.portal.png"), positions[i][0], positions[i][1], function (d:Decal):*
@@ -123,7 +122,11 @@ package ifrit
 						WorldUtils.addEnemy(d.x, d.y, Demon);
 					}
 					
-					if (d.alpha <= 0)	Game.stage.removeChild(d);
+					if (d.alpha <= 0)
+					{
+						Game.boss.graphic.play("hover_with_scythe");
+						Game.stage.removeChild(d);
+					}
 					
 				} );
 			}
@@ -132,7 +135,7 @@ package ifrit
 		}
 		
 		private function runState5():void
-		{
+		{			
 			var numAlive:uint;
 			
 			for (var i:uint = 0; i < World.Mobs.length; i++)
@@ -161,6 +164,8 @@ package ifrit
 				[460, 145]
 			];
 			
+			this.graphic.play("casting_with_scythe");
+			
 			for (var i:uint = 0; i < positions.length; i++)
 			{
 				WorldUtils.addDecal(Library.IMG("hellther.portal.png"), positions[i][0], positions[i][1], function (d:Decal):*
@@ -172,7 +177,11 @@ package ifrit
 						WorldUtils.addEnemy(d.x, d.y, (new Boolean(Math.round(Math.random()))) ? Skeleton : Zombie );
 					}
 					
-					if (d.alpha <= 0)	Game.stage.removeChild(d);
+					if (d.alpha <= 0)
+					{
+						Game.boss.graphic.play("hover_with_scythe");
+						Game.stage.removeChild(d);
+					}
 					
 				} );
 			}
@@ -181,7 +190,7 @@ package ifrit
 		}
 		
 		private function runState8():void
-		{
+		{			
 			var numAlive:uint;
 			
 			for (var i:uint = 0; i < World.Mobs.length; i++)
@@ -216,6 +225,8 @@ package ifrit
 				[960, 145]
 			];
 			
+			this.graphic.play("casting_with_scythe");
+			
 			for (var i:uint = 0; i < positions.length; i++)
 			{
 				WorldUtils.addDecal(Library.IMG("hellther.portal.png"), positions[i][0], positions[i][1], function (d:Decal):*
@@ -227,7 +238,11 @@ package ifrit
 						WorldUtils.addEnemy(d.x, d.y, SkeletonMage);
 					}
 					
-					if (d.alpha <= 0)	Game.stage.removeChild(d);
+					if (d.alpha <= 0)
+					{
+						Game.boss.graphic.play("hover_with_scythe");
+						Game.stage.removeChild(d);
+					}
 					
 				} );
 			}
@@ -243,7 +258,7 @@ package ifrit
 		}
 		
 		private function runState13():void
-		{
+		{			
 			var numAlive:uint;
 			
 			for (var i:uint = 0; i < World.Mobs.length; i++)
@@ -283,6 +298,7 @@ package ifrit
 		
 		private function runState16():void
 		{
+			this.graphic.play("collapse");
 			this.x = this.lastPosition.x;
 			this.y = this.lastPosition.y;
 		}
@@ -301,6 +317,8 @@ package ifrit
 		{
 			if (!canShoot)	return;
 			this.canShoot = false;
+			
+			this.graphic.play("hover_no_scythe");
 			
 			this.scytheHeading = true;
 			this.scytheOffScreenYet = false;
@@ -351,6 +369,7 @@ package ifrit
 					Game.stage.removeChild(d);
 					d.destroy();
 					Game.boss.canShoot = true;
+					Game.boss.graphic.play("hover_with_scythe");
 				}
 				
 				if (Math.abs(scythePoint.x) > 15 && !d.isDestroyed)

@@ -84,6 +84,8 @@ package ifrit
 		
 		private static function loadBeach_01():void
 		{
+			Songs.stopMusic("boss");
+			
 			Songs.playMusic("beach", 3);
 			Sounds.playSFX("beachAmb", 3);
 			
@@ -95,6 +97,10 @@ package ifrit
 			
 			WorldUtils.addMan(500, 490, Player.NONE);
 			Game.man.graphic.play("getUp");
+			
+			Game.man.knowsA = false;
+			Game.man.knowsS = false;
+			Game.man.knowsD = false;
 			
 			WorldUtils.addTrigger(1023, 375, WorldUtils.advance);
 			
@@ -410,7 +416,7 @@ package ifrit
 		{
 			if (d.hitTestObject(Game.man.collisionHull))
 			{
-				if (Player.knowsS)
+				if (Game.man.knowsS)
 				{
 					if (Game.man.activeCaltrop)
 					{
@@ -420,9 +426,9 @@ package ifrit
 						if (Game.man.hasCaltrop)	d.alpha -= 0.05;
 					}
 				}
-				if (!Player.knowsS)	Player.knowsS = true;
+				if (!Game.man.knowsS)	Game.man.knowsS = true;
 				
-				if (Game.man.hasCaltrop || Player.knowsS)
+				if (Game.man.hasCaltrop || Game.man.knowsS)
 				{
 					if (d.alpha <= 1) d.alpha += 0.05;
 				}
@@ -441,9 +447,9 @@ package ifrit
 		{
 			if (d.hitTestObject(Game.man.collisionHull))
 			{
-				if (!Player.knowsS)	Player.knowsS = true;
+				if (!Game.man.knowsS)	Game.man.knowsS = true;
 				
-				if (Player.knowsS)
+				if (Game.man.knowsS)
 				{
 					if (d.alpha <= 1) d.alpha += 0.05;
 				}
@@ -462,7 +468,7 @@ package ifrit
 		{
 			if (d.hitTestObject(Game.man.collisionHull))
 			{
-				if (!Player.knowsS)	Player.knowsS = true;
+				if (!Game.man.knowsS)	Game.man.knowsS = true;
 				
 				if (!Input.isKeyDown(Input.S))
 				{
@@ -832,7 +838,7 @@ package ifrit
 		{
 			if (d.hitTestObject(Game.man.collisionHull))
 			{
-				if (!Player.knowsD)	Player.knowsD = true;
+				if (!Game.man.knowsD)	Game.man.knowsD = true;
 				
 				if (!Input.isKeyDown(Input.D))
 				{
@@ -853,7 +859,7 @@ package ifrit
 		{
 			if (d.hitTestObject(Game.man.collisionHull))
 			{
-				if (!Player.knowsA)	Player.knowsA = true;
+				if (!Game.man.knowsA)	Game.man.knowsA = true;
 				
 				if (!Input.isKeyDown(Input.A))
 				{

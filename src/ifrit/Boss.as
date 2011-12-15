@@ -300,7 +300,6 @@ package ifrit
 		{
 			this.graphic.play("collapse");
 			this.x = this.lastPosition.x;
-			this.y = this.lastPosition.y;
 		}
 		
 		override public function postThink():void 

@@ -87,6 +87,8 @@ package ifrit
 					graphic.add("climbIdle", [9], 0, true);
 					graphic.add("death", [12, 13, 14, 15], 6, false, true);
 					
+					sound.addSFX("shoot", Library.SND("audio.sfx.fireball.mp3"));
+					
 					break;
 				case 2:
 					this.rangedType = Shuriken;
@@ -98,6 +100,10 @@ package ifrit
 					graphic.add("climbDown", [11, 10, 9, 8], 8, true);
 					graphic.add("climbIdle", [9], 0, true);
 					graphic.add("death", [12, 13, 14, 15], 6, false, true);
+					
+					this.sound.addSFX("shoot", Library.SND("audio.sfx.throw.mp3"));
+					this.sound.addSFX("stab", Library.SND("audio.sfx.daggerStab.mp3"));
+					this.sound.addSFX("blink", Library.SND("audio.sfx.blink.mp3"));
 					
 					break;
 				case 4:
@@ -113,6 +119,10 @@ package ifrit
 					graphic.add("climbDown", [23, 22, 21, 20], 8, true);
 					graphic.add("climbIdle", [21], 0, true);
 					graphic.add("death", [25, 26, 27, 28], 6, false, true);
+					
+					this.sound.addSFX("shoot", Library.SND("audio.sfx.bow.mp3"));
+					this.sound.addSFX("stab", Library.SND("audio.sfx.swordSlash.mp3"));
+					
 					break;
 				case 8:
 					graphic.add("stand", [4], 0, true);

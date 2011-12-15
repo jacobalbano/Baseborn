@@ -183,6 +183,8 @@ package ifrit
 			
 			if (!attackTimer.running)
 			{
+				this.sound.playSFX("shoot");
+				
 				attackTimer.start();
 				
 				if (this.rotationY == 180)
@@ -216,6 +218,8 @@ package ifrit
 			
 			if (!attackTimer.running)
 			{
+				this.sound.playSFX("stab");
+				
 				if (this.rotationY == 180)
 					stage.addChild(new MeleeSwing(-10, this.x - this.collisionHull.width / 2, this.y, this.meleeDamage, this.friendly));
 				else

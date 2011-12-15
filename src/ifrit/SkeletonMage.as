@@ -20,6 +20,8 @@ package ifrit
 			this.graphic.add("shocked", [0, 1, 2, 3], 6, false);
 			this.graphic.play("walk");
 			
+			this.sound.addSFX("shoot", Library.SND("audio.sfx.fireball.mp3"));
+			
 			this.hitpoints = 15;
 			this.maxHealth = 15;
 			this.tipsOverWhenDead = false;

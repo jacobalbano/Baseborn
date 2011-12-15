@@ -166,6 +166,7 @@
 									 }
 								}
 								
+								man.sound.playSFX("blink");
 								WorldUtils.addDecal(Library.IMG("smoke.png"), man.x, man.y, removeSmoke, null, [0, 1, 2, 3, 4, 5], 40, 40, 10, false);
 								man.x = man.blinkTo.x;
 								man.canBlink = false;
@@ -220,6 +221,7 @@
 									 }
 								}
 								
+								man.sound.playSFX("blink");
 								WorldUtils.addDecal(Library.IMG("smoke.png"), man.x, man.y, removeSmoke, null, [0, 1, 2, 3, 4, 5], 40, 40, 20, false);
 								man.x = man.blinkTo.x;
 								man.canBlink = false;

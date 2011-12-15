@@ -19,7 +19,7 @@ package ifrit
 			this.graphic.add("shocked", [14, 15, 16, 17], 6, false);
 			this.graphic.play("walk");
 			
-			this.sound.addSFX("attack", Library.SND("audio.sfx.demon.mp3"));
+			this.sound.addSFX("alerted", Library.SND("audio.sfx.demon.mp3"));
 			this.sound.addSFX("die", Library.SND("audio.sfx.demonDie.mp3"));
 			
 			this.hitpoints = 15;

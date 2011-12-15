@@ -109,6 +109,7 @@ package ifrit
 			if (this.isDestroyed) return;
 			super.destroy();
 			
+			this.sound.playSFX("die");
 			this.graphic.play("die");
 			
 			if ( ! (this.behaviorFlags & PASSIVE) > 0)
@@ -331,7 +332,7 @@ package ifrit
 				{
 					if (!this.alertedThisFrame)
 					{
-						this.sound.playSFX("attack");
+						this.sound.playSFX("alerted");
 						this.alertedThisFrame = true;
 					}
 					

@@ -20,6 +20,9 @@ package ifrit
 			this.graphic.add("shocked", [12, 13, 14, 15], 6, false);
 			this.graphic.play("walk");
 			
+			this.sound.addSFX("alerted", Library.SND("audio.sfx.zombieAttack.mp3"));
+			this.sound.addSFX("die", Library.SND("audio.sfx.zombieDie.mp3"));
+			
 			this.hitpoints = 15;
 			this.maxHealth = 15;
 		}

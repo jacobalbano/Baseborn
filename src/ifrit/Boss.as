@@ -19,6 +19,8 @@ package ifrit
 		private var canShoot:Boolean;
 		private var target:Point;
 		private var scytheOffScreenYet:Boolean;
+		private var stopped:Boolean;
+		private var stateFunctions:Array;
 		public var state:uint;
 		
 		public function Boss(x:int, y:int) 
@@ -45,6 +47,24 @@ package ifrit
 			
 			this.state = 0;
 			
+			this.stateFunctions = [
+				runState1,
+				runState2,
+				runState3,
+				runState4,
+				runState5,
+				runState6,
+				runState7,
+				runState8,
+				runState9,
+				runState10,
+				runState11,
+				runState12,
+				runState13,
+				runState14,
+				runState15
+			];
+			
 			WorldUtils.addDecal(new Bitmap(new BitmapData(1, 1, true, 0)), 0, 0, WorldUtils.followMouse);
 		}
 		
@@ -52,16 +72,7 @@ package ifrit
 		{
 			super.preThink();
 			
-			if (this.state == 0)						runState1();
-			if (this.state == 1)						runState2();
-			if (this.state == 2 && Game.man.x < 500)	runState3();
-			if (this.state == 3 && this.canShoot)		runState4();
-			if (this.state == 4)						runState5();
-			if (this.state == 5)						runState6();
-			if (this.state == 6)						runState7();
-			if (this.state == 7)						runState8();
-			if (this.state == 8)						runState9();
-			if (this.state == 9)						runState10();
+			this.stateFunctions[this.state]();
 		}
 		
 		private function runState1():void
@@ -79,6 +90,8 @@ package ifrit
 		
 		private function runState3():void 
 		{
+			if (Game.man.x >= 500)	return;
+			
 			this.lastPosition.y = this.y;
 			
 			this.state = 3;
@@ -87,6 +100,8 @@ package ifrit
 		
 		private function runState4():void
 		{
+			if (!this.canShoot)	return;
+			
 			var positions:Array =
 			[
 				[725, 185],
@@ -187,22 +202,89 @@ package ifrit
 		{
 			y++;
 			
-			if (this.y > 200)	this.state = 9;
+			if (this.y > 200)	this.state = 10;
 		}
 		
-		private function runState11():void
+		private function runState11():void 
+		{
+			var positions:Array =
+			[
+				[725, 185],
+				[850, 165],
+				[890, 270],
+				[700, 270],
+				[960, 145]
+			];
+			
+			for (var i:uint = 0; i < positions.length; i++)
+			{
+				WorldUtils.addDecal(Library.IMG("hellther.portal.png"), positions[i][0], positions[i][1], function (d:Decal):*
+				{
+					d.rotation += 5;
+					d.alpha = Math.abs(d.rotation) / 180;
+					if (d.alpha >= 1)
+					{
+						WorldUtils.addEnemy(d.x, d.y, SkeletonMage);
+					}
+					
+					if (d.alpha <= 0)	Game.stage.removeChild(d);
+					
+				} );
+			}
+			
+			Game.boss.state = 11;
+		}
+		
+		private function runState12():void
 		{
 			x++;
 			
-			if (this.x > 200)	this.state = 11;
+			if (this.x > 200)	this.state = 12;
 		}
 		
-		private function runStateEnd():void 
+		private function runState13():void
+		{
+			var numAlive:uint;
+			
+			for (var i:uint = 0; i < World.Mobs.length; i++)
+			{
+				if (!World.Mobs[i].isDestroyed)	numAlive++;
+			}
+			
+			if (numAlive == 2 &&  World.Mobs.length > 15 && !Game.man.isDestroyed && !Game.boss.isDestroyed)	this.state = 13;
+		}
+		
+		private function runState14():void 
 		{
 			if (this.y <= this.lastPosition.y + 25)	y++;
 			if (this.x <= 280)	x++;
 			
-			if (this.y >= this.lastPosition.y + 25 && this.x >= 280)	this.state = 2;
+			this.stopped = true;
+			
+			if (this.y >= this.lastPosition.y + 25 && this.x >= 280)	this.state = 14;
+		}
+		
+		private function runState15():void
+		{
+			if (this.x < 290 )
+			{
+				this.x++;
+			}
+			else
+			{
+				this.lastPosition.x = this.x;
+				this.lastPosition.y = this.y;
+				
+				this.state = 15;
+			}
+			
+			this.hasGravity = true;
+		}
+		
+		private function runState16():void
+		{
+			this.x = this.lastPosition.x;
+			this.y = this.lastPosition.y;
 		}
 		
 		override public function postThink():void 
@@ -210,11 +292,8 @@ package ifrit
 			super.postThink();
 			
 			if (!this.isDestroyed)
-			{
-				if (this.y < this.target.y)	y++;
-				if (this.x < this.target.y)	x++;
-				
-				this.y += Math.sin(sineTicks += 0.1);
+			{				
+				if (!this.stopped)	this.y += Math.sin(sineTicks += 0.1);
 			}
 		}
 		

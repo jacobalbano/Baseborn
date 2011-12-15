@@ -48,6 +48,7 @@
 			* Debugging shortcuts
 			*/
 			
+			/*
 			// Next level
 			if (Input.isKeyDown(Input.DIGIT_1))
 				WorldUtils.addDecal(new Bitmap(new BitmapData(50, 50, true, 0)), man.x, man.y, WorldUtils.advance);
@@ -76,8 +77,7 @@
 			if (Input.isKeyDown(Input.DIGIT_7) && !Game.man.knowsD)
 				Game.man.knowsD = true;
 			
-			
-				
+			*/
 			/**
 			 * End debugging shortcuts
 			 */

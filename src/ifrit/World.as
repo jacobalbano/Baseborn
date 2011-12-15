@@ -710,9 +710,9 @@ package ifrit
 			WorldUtils.addDecal(Library.IMG("hellther.portal.png"), portal.x, portal.y, function (d:Decal):*	{	d.rotation += 5; d.alpha = Math.abs(d.rotation) / 180;	} );
 			
 			WorldUtils.addEnemy(300, 185, Serpent);
+			WorldUtils.addEnemy(760, 200, Demon);
 			WorldUtils.addEnemy(730, 200, Demon);
-			WorldUtils.addEnemy(730, 200, Demon);
-			WorldUtils.addEnemy(730, 200, Demon);
+			WorldUtils.addEnemy(700, 200, Demon);
 			WorldUtils.addEnemy(730, 200, Demon);
 			WorldUtils.addEnemy(730, 200, Demon);
 			
@@ -738,77 +738,17 @@ package ifrit
 			
 			WorldUtils.makeBounds();
 			
-			WorldUtils.addDecal(Library.IMG("balcony.bg.png"), 500, 200);
+			WorldUtils.addDecal(Library.IMG("balcony.bg.png"), 500, 200, function (d:Decal):*	{	if (Input.isKeyDown(Input.P) && Game.boss)	{	Game.boss.throwScythe();	}} );
 			
 			Game.stage.addChild(new HUD);
 			
-			WorldUtils.addEnemy(720, 260, Doppleganger);
+			//WorldUtils.addEnemy(720, 260, Doppleganger);
+			Game.boss = WorldUtils.addEnemy(50, 50, Boss) as Boss;
 			
-			WorldUtils.addMan(570, 45, Game.playerClass);
-			
-			Variables.add("scytheX", new Variable(20));
-			Variables.add("scytheY", new Variable(10));
-			Variables.add("scytheHeading", new Variable(0, true));
-			
-			WorldUtils.addDecal(Library.IMG("enemies.scythe.png"), 100, 50, function (d:Decal):*
-			{
-				d.rotation += Variables.retrive("scytheX").number;
-				
-				d.x += Variables.retrive("scytheX").number;
-				
-				if (d.x > Game.dimensions.x / 2)
-				{
-					Variables.retrive("scytheX").number -= 1.5;
-				}
-				else
-				{
-					Variables.retrive("scytheX").number += 1.5;
-				}
-				
-				if (Variables.retrive("scytheHeading").bool && d.x >= 900)
-				{
-					Variables.retrive("scytheHeading").bool = false;
-				}
-				
-				if (!Variables.retrive("scytheHeading").bool && d.rotationY < 180)
-				{
-					d.rotationY += 5;
-				}
-				
-				if (d.y <= 275 && Variables.retrive("scytheHeading").bool)
-				{
-					d.y += 20;
-				}
-				else if (d.y >= 50 && d.x < Game.dimensions.x / 2 && !Variables.retrive("scytheHeading").bool)
-				{
-					d.y -= 20;
-				}
-				
-				if (this.x < 100 && this.y < 50)
-				{
-					Game.stage.removeChild(d);
-					d.destroy();
-				}
-				
-				if (Math.abs(Variables.retrive("scytheX").number) > 15 && !d.isDestroyed)
-				{
-					var decal:Decal = new Decal(new Bitmap(new BitmapData(d.width / 2, d.height / 2, true, 0x11666666)), 0, 0, function (dd:Decal):*
-					{
-						dd.alpha -= 0.0575;
-						dd.rotation += 30;
-						if (dd.alpha <= 0)	Game.stage.removeChild(dd);
-					});
-					
-					decal.x = d.x;
-					decal.y = d.y;
-					
-					decal.rotation = 45;
-					Game.stage.addChildAt(decal, Game.stage.getChildIndex(d) - 1);
-				}
-			});
+			WorldUtils.addMan(950, 250, Game.playerClass);
 			
 			// Visible
-			WorldUtils.addWall(960, 259, false, Library.IMG("balcony.platform.png"), 79);
+			WorldUtils.addWall(760, 259, false, Library.IMG("balcony.platform.png"), 79);
 			WorldUtils.addWall(846, 231, false, Library.IMG("balcony.platform.png"), 48);
 			WorldUtils.addWall(724, 205, false, Library.IMG("balcony.platform.png"), 88);
 			WorldUtils.addWall(852, 182, false, Library.IMG("balcony.platform.png"), 62);

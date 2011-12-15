@@ -10,10 +10,6 @@
 	import flash.geom.Point;
 	import ifrit.*;
 	
-	
-	
-	
-	
 	[SWF(width = "1000", height = "500", backgroundColor = "0x000000", frameRate = "30")]
 	public class Game extends Engine 
 	{
@@ -21,6 +17,7 @@
 		
 		public static var stage:Stage;
 		public static var man:Player;
+		public static var boss:Boss;
 		public static var playerClass:uint = Player.FIGHTER;
 		
 		public function Game()	{}

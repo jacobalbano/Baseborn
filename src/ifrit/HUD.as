@@ -327,7 +327,7 @@ package ifrit
 			if (shield) {   if (shield.width < 200)   shield.width += 1.0;   }
 			
 			
-			if (Player.knowsA)
+			if (Game.man.knowsA)
 			{
 				boxA.alpha = 1;
 				
@@ -342,7 +342,7 @@ package ifrit
 					else skillA.alpha = 1;
 				}
 			}
-			if (Player.knowsS)
+			if (Game.man.knowsS)
 			{
 				boxS.alpha = 1;
 				
@@ -362,7 +362,7 @@ package ifrit
 					else skillS.alpha = 1;
 				}
 			}
-			if (Player.knowsD)
+			if (Game.man.knowsD)
 			{
 				boxD.alpha = 1;
 				

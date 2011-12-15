@@ -51,11 +51,11 @@ package ifrit
 		public static const FIGHTER:uint = 4;
 		public static const NONE:uint = 8;
 		
-		private	var idle:Boolean;
+		public static const SKILL_A:uint = 0;
+		public static const SKILL_S:uint = 2;
+		public static const SKILL_D:uint = 4;
 		
-		public static var knowsA:Boolean;
-		public static var knowsS:Boolean;
-		public static var knowsD:Boolean;
+		private	var idle:Boolean;
 		
 		public function Player(x:Number, y:Number, type:uint) 
 		{
@@ -133,9 +133,6 @@ package ifrit
 			
 			this.classType = type;
 			
-			
-			
-			
 			graphic.play("stand");
 			
 			this.friendly = true;
@@ -147,9 +144,39 @@ package ifrit
 			this.boltPlaying = false;
 			
 			//TODO: Jake, could you make this be saved in SaveState, please?
-			knowsA = knowsA;
-			knowsS = knowsS;
-			knowsD = knowsD;
+			this.knowsA = SaveState.knowsA;
+			this.knowsS = SaveState.knowsS
+			this.knowsD = SaveState.knowsD;
+		}
+		
+		public function get knowsA():Boolean
+		{
+			return SaveState.knowsA;
+		}
+		
+		public function set knowsA(p:Boolean):void
+		{
+			SaveState.knowsA = p;
+		}
+		
+		public function get knowsS():Boolean
+		{
+			return SaveState.knowsS;
+		}
+		
+		public function set knowsS(p:Boolean):void
+		{
+			SaveState.knowsS = p;
+		}
+		
+		public function get knowsD():Boolean
+		{
+			return SaveState.knowsD;
+		}
+		
+		public function set knowsD(p:Boolean):void
+		{
+			SaveState.knowsD = p;
 		}
 		
 		override public function think():void 

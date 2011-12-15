@@ -65,16 +65,16 @@
 				Game.playerClass = Player.MAGE
 				
 			// Force learn A skill
-			if (Input.isKeyDown(Input.DIGIT_5) && !Player.knowsA)
-				Player.knowsA = true;	
+			if (Input.isKeyDown(Input.DIGIT_5) && !Game.man.knowsA)
+				Game.man.knowsA = true;	
 					
 			// Force learn S skill
-			if (Input.isKeyDown(Input.DIGIT_6) && !Player.knowsS)
-				Player.knowsS = true;	
+			if (Input.isKeyDown(Input.DIGIT_6) && !Game.man.knowsS)
+				Game.man.knowsS = true;	
 					
 			// Force learn D skill
-			if (Input.isKeyDown(Input.DIGIT_7) && !Player.knowsD)
-				Player.knowsD = true;
+			if (Input.isKeyDown(Input.DIGIT_7) && !Game.man.knowsD)
+				Game.man.knowsD = true;
 			
 			
 				
@@ -276,7 +276,7 @@
 				}
 
 				
-				if (Input.isKeyDown(Input.A) && Player.knowsA)
+				if (Input.isKeyDown(Input.A) && Game.man.knowsA)
 				{
 					if (!Input.isKeyDown(Input.S) && !Input.isKeyDown(Input.D))
 						beginRangedAttack();
@@ -287,7 +287,7 @@
 						finalizeRangedAttack();
 				}
 				
-				if (Input.isKeyDown(Input.D) && Player.knowsD)
+				if (Input.isKeyDown(Input.D) && Game.man.knowsD)
 				{
 					if (!Input.isKeyDown(Input.S) && !Input.isKeyDown(Input.A))
 					{
@@ -304,7 +304,7 @@
 						finalizeMeleeAttack();
 				}
 				
-				if (Input.isKeyDown(Input.S) && Player.knowsS)
+				if (Input.isKeyDown(Input.S) && Game.man.knowsS)
 				{
 					if (!Input.isKeyDown(Input.A) && !Input.isKeyDown(Input.D))
 						beginSpecialAttack();

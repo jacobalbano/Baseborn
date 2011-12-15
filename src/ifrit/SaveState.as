@@ -29,15 +29,35 @@ package ifrit
 			return so.data.playerClass || 0;
 		}
 		
-		//public static function set knownSkills():void
-		//{
-			//if (so)	so.data.
-		//}
-		//
-		//public static function get knownSkills():
-		//{
-			//return so.data.
-		//}
+		public static function get knowsA():Boolean
+		{
+			return so.data.knowsA || false;
+		}
+		
+		public static function set knowsA(p:Boolean):void
+		{
+			if (so)	so.data.knowsA = p;
+		}
+		
+		public static function get knowsS():Boolean
+		{
+			return so.data.knowsS || false;
+		}
+		
+		public static function set knowsS(p:Boolean):void
+		{
+			if (so)	so.data.knowsS = p;
+		}
+		
+		public static function get knowsD():Boolean
+		{
+			return so.data.knowsD || false;
+		}
+		
+		public static function set knowsD(p:Boolean):void
+		{
+			if (so)	so.data.knowsD = p;
+		}
 		
 	}
 

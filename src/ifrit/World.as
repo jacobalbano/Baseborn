@@ -267,8 +267,8 @@ package ifrit
 			
 			WorldUtils.addDecal(Library.IMG("forest.towerDoor.png"), 500, 200);
 			WorldUtils.addDecal(Library.IMG("forest.archway.png"), 501, 210);
-			WorldUtils.addDecal(Library.IMG("forest.leftDoor.png"), 401, 218, function (d:Decal):*	{ 	if (d.rotationY <= 45 && Variables.retrive("opening").bool)	trace(Variables.retrive("door tick left").number = d.rotationY += 1);	} );
-			WorldUtils.addDecal(Library.IMG("forest.rightDoor.png"), 601, 218, function (d:Decal):*	{	if (Math.abs(d.rotationY) <= 22 && Variables.retrive("opening").bool)  trace(Variables.retrive("door tick right").number = d.rotationY -= 0.50)} );
+			WorldUtils.addDecal(Library.IMG("forest.leftDoor.png"), 401, 218, function (d:Decal):*	{ 	if (d.rotationY <= 45 && Variables.retrive("opening").bool)	Variables.retrive("door tick left").number = d.rotationY += 1;	} );
+			WorldUtils.addDecal(Library.IMG("forest.rightDoor.png"), 601, 218, function (d:Decal):*	{	if (Math.abs(d.rotationY) <= 22 && Variables.retrive("opening").bool)  Variables.retrive("door tick right").number = d.rotationY -= 0.50} );
 			WorldUtils.addDecal(Library.IMG("forest.lavaAnimation.png"), 94, 235, null, null, [0, 1, 2, 3], 110, 220, 5);
 			
 			WorldUtils.addLadder(290, 350, 50);

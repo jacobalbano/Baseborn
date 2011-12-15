@@ -143,7 +143,6 @@ package ifrit
 			this.lightningAttack = null;
 			this.boltPlaying = false;
 			
-			//TODO: Jake, could you make this be saved in SaveState, please?
 			this.knowsA = SaveState.knowsA;
 			this.knowsS = SaveState.knowsS
 			this.knowsD = SaveState.knowsD;

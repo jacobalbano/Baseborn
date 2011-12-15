@@ -116,7 +116,6 @@ package ifrit
 				{
 					if (!item.playing)
 					{
-						//trace("play ", item.name);
 						item.channel = item.sound.play(startTime, loops);
 						item.playing = true;
 					}
@@ -126,7 +125,6 @@ package ifrit
 				{
 					if (item.playing)
 					{
-						//trace("stop ", item.name);
 						stopMusic(item.name);
 					}
 				}

@@ -112,7 +112,7 @@ package ifrit
 		{
 			for each (var item:Music in Songs) 
 			{
-				if (item.name == name)
+				if (item && item.name == name)
 				{
 					if (!item.playing)
 					{
@@ -121,7 +121,7 @@ package ifrit
 					}
 				}
 				
-				if (item.name != name)
+				if ( item && item.name != name)
 				{
 					if (item.playing)
 					{

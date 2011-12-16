@@ -6,6 +6,7 @@
         <image>arrow.png</image>
         <image>bossBolt.png</image>
         <image>caltrop.png</image>
+        <image>endingScreen.png</image>
         <image>fighter.png</image>
         <image>fireballShot.png</image>
         <image>iceBlast.png</image>
@@ -86,6 +87,7 @@
         <image>hellther/ladder.png</image>
         <image>hellther/lavaTrap.png</image>
         <image>hellther/layout1.png</image>
+        <image>hellther/layout2.png</image>
         <image>hellther/platform.png</image>
         <image>hellther/portal.png</image>
         <image>hellther/portalFrame.png</image>
@@ -119,6 +121,20 @@
         <image>enemies/spider.png</image>
         <image>enemies/wolf.png</image>
         <image>enemies/zombie.png</image>
+        <image>enemies/bossDeath/s1.png</image>
+        <image>enemies/bossDeath/s10.png</image>
+        <image>enemies/bossDeath/s11.png</image>
+        <image>enemies/bossDeath/s12.png</image>
+        <image>enemies/bossDeath/s13.png</image>
+        <image>enemies/bossDeath/s14.png</image>
+        <image>enemies/bossDeath/s2.png</image>
+        <image>enemies/bossDeath/s3.png</image>
+        <image>enemies/bossDeath/s4.png</image>
+        <image>enemies/bossDeath/s5.png</image>
+        <image>enemies/bossDeath/s6.png</image>
+        <image>enemies/bossDeath/s7.png</image>
+        <image>enemies/bossDeath/s8.png</image>
+        <image>enemies/bossDeath/s9.png</image>
         <image>dungeon/bg.png</image>
         <image>dungeon/platform.png</image>
         <image>dungeon/decals/cellDoor.png</image>
@@ -168,7 +184,7 @@
         <sound>audio/sfx/throw.mp3</sound>
         <sound>audio/sfx/titleScreenAmbiance.mp3</sound>
         <sound>audio/sfx/unlock.mp3</sound>
-        <sound>audio/sfx/wisp.mp3</sound>
+        <sound>audio/sfx/Wisp.mp3</sound>
         <sound>audio/sfx/wolfAttack.mp3</sound>
         <sound>audio/sfx/zombieAttack.mp3</sound>
         <sound>audio/sfx/zombieDie.mp3</sound>

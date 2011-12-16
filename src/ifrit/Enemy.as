@@ -181,16 +181,12 @@ package ifrit
 			{
 				if 		(this.pickup.type == Pickup.HEALTH) 	HUD.healPlayer(10, true);
 				else if (this.pickup.type == Pickup.MANA)		HUD.restoreMana(25);
-				else if (this.pickup.type == Pickup.KEY)
-				{
-					World.Sounds.playSFX("keys");
-					Game.man.hasKey = true;
-				}
+				else if (this.pickup.type == Pickup.KEY)		Game.man.hasKey = true;
 				else if (this.pickup.type == Pickup.ARROW)		HUD.restoreAmmo(5);
 				else if (this.pickup.type == Pickup.SHURIKEN)	HUD.restoreAmmo(5);
 				
 				if (this.pickup.type == Pickup.KEY)	World.Sounds.playSFX("keys");
-				else	World.Sounds.playSFX("pickup");
+				else	this.pickup.sound.playSFX("pickup");
 				
 				this.pickup.parent.removeChild(this.pickup);
 				this.pickup = null;

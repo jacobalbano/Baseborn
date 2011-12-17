@@ -35,7 +35,7 @@ package ifrit
 		public function LightningBolt(direction:Boolean, x:Number, y:Number) 
 		{
 			sound = new Audio;
-			sound.addSFX("wisp", Library.SND("audio.sfx.wisp.mp3"));
+			sound.addSFX("wisp", Library.SND("audio.sfx.Wisp.mp3"));
 			sound.addSFX("bolt", Library.SND("audio.sfx.bolt.mp3"));
 			sound.playSFX("wisp");
 			

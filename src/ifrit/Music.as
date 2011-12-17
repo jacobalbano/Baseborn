@@ -11,6 +11,8 @@ package ifrit
 	{
 		public var sound:Sound
 		public var channel:SoundChannel;
+		public var transform:SoundTransform = new SoundTransform;
+		
 		public var name:String;
 		public var playing:Boolean;
 		
@@ -31,6 +33,8 @@ package ifrit
 			
 			if (this.channel)
 			{
+				this.channel.soundTransform = this.transform;
+				
 				if (this.count % 2 == 0)
 				{
 					if (this.channel.position > 0)

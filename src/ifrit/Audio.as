@@ -6,6 +6,7 @@ package ifrit
 	import flash.media.SoundTransform;
 	import flash.net.URLRequest;
 	import com.thaumaturgistgames.flakit.Library;
+	import flash.utils.Timer;
 	
 	/**
 	 * ...
@@ -16,12 +17,65 @@ package ifrit
 		public var Sfx:Vector.<SoundEffect> = new Vector.<SoundEffect>;
 		public var Songs:Vector.<Music> = new Vector.<Music>;
 		
+		public static var isMuted:Boolean;
+		public static var canMute:Boolean;
+		private static var muteCooldown:Timer = new Timer(100, 10);
+		
 		public function Audio()
 		{
 			Game.stage.addEventListener(Event.ENTER_FRAME, enterFrame);
 		}
 		
 		protected function update():void	{ }
+		
+		public function mute():void
+		{
+			for each (var sfx:SoundEffect in this.Sfx)
+			{
+				if (sfx.channel)
+				{
+					sfx.transform.volume = 0;
+				}
+			}
+			
+			for each (var song:Music in this.Songs)
+			{
+				if (song.channel)
+				{
+					song.transform.volume = 0;
+				}
+			}
+			
+			Audio.isMuted = true;
+			Audio.muteCooldown.start();
+		}
+		
+		public function unmute():void
+		{
+			if (Audio.muteCooldown.currentCount >= 10)
+			{
+				//TODO: Doesn't work yet
+				for each (var sfx:SoundEffect in this.Sfx)
+				{
+					if (sfx.transform)
+					{
+						sfx.transform.volume = 1;
+					}
+				}
+				
+				for each (var song:Music in this.Songs)
+				{
+					if (song.transform)
+					{
+						song.transform.volume = 1;
+					}
+				}
+				
+				Audio.isMuted = false;
+				Audio.muteCooldown.stop();
+				Audio.muteCooldown.reset();
+			}
+		}
 		
 		public function stopSFX(name:String):void
 		{
@@ -73,7 +127,7 @@ package ifrit
 			{
 				if (item.name == name)
 				{
-					if (!item.playing)
+					if (!item.playing && !Audio.isMuted)
 					{
 						item.channel = item.sound.play(startTime, loops);
 						item.playing = true;
@@ -114,7 +168,7 @@ package ifrit
 			{
 				if (item && item.name == name)
 				{
-					if (!item.playing)
+					if (!item.playing && !Audio.isMuted)
 					{
 						item.channel = item.sound.play(startTime, loops);
 						item.playing = true;
@@ -159,6 +213,7 @@ package ifrit
 		private function enterFrame(e:Event):void 
 		{
 			update();
+			//if (muteCooldown)	trace(muteCooldown.currentCount);
 		}
 	}
 

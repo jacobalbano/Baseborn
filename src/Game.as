@@ -86,6 +86,20 @@
 				WorldUtils.loadLevel( World.currentLevel);
 			}
 			 
+			if (Input.isKeyDown(Input.M))
+			{
+				if (!Audio.isMuted)
+				{
+					World.Sounds.mute();
+					World.Songs.mute();
+				}
+				else
+				{
+					World.Sounds.unmute();
+					World.Songs.unmute();
+				}
+			}
+			
 			if (man && !man.isDestroyed)
 			{	
 				if (checkLadder())

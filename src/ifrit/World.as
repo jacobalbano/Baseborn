@@ -52,6 +52,7 @@ package ifrit
 			Worlds.add("tower_02", 		loadTower_02);
 			Worlds.add("dungeon_01", 	loadDungeon_01);
 			Worlds.add("hellther_01", 	loadHellther_01);
+			Worlds.add("hellther_02", 	loadHellther_02);
 			Worlds.add("balcony_01", 	loadBalcony_01);
 			
 			Variables = new Map(String, Variable);
@@ -635,6 +636,69 @@ package ifrit
 			
 			WorldUtils.makeBounds();
 			
+			WorldUtils.addWall(58, 357, false, Library.IMG("forest.platform.png"), 117);
+			WorldUtils.addWall(230, 357, false, Library.IMG("forest.platform.png"), 103);
+			WorldUtils.addWall(411, 357, false, Library.IMG("forest.platform.png"), 119);
+			
+			WorldUtils.addWall(554, 200, false, Library.IMG("forest.platform.png"), 185);
+			WorldUtils.addWall(641, 279, true, Library.IMG("forest.platform.png"), 150);
+			WorldUtils.addWall(715, 350, false, Library.IMG("forest.platform.png"), 139);
+			WorldUtils.addWall(790, 281, true, Library.IMG("forest.platform.png"), 148);
+			WorldUtils.addWall(809, 202, false, Library.IMG("forest.platform.png"), 50);
+			WorldUtils.addWall(829, 281, true, Library.IMG("forest.platform.png"), 148);
+			
+			WorldUtils.addWall(716, 200, false, Library.IMG("forest.platform.png"), 17);
+			WorldUtils.addWall(708, 254, true, Library.IMG("forest.platform.png"), 101);
+			WorldUtils.addWall(724, 254, true, Library.IMG("forest.platform.png"), 101);
+			WorldUtils.addWall(716, 300, false, Library.IMG("forest.platform.png"), 10);
+			
+			WorldUtils.addWall(242, 200, false, Library.IMG("forest.platform.png"), 240);
+			WorldUtils.addWall(270, 127, false, Library.IMG("forest.platform.png"), 124);
+			WorldUtils.addWall(955, 164, false, Library.IMG("forest.platform.png"), 89);
+			WorldUtils.addWall(977, 117, false, Library.IMG("forest.platform.png"), 46);
+			WorldUtils.addWall(787, 97, false, Library.IMG("forest.platform.png"), 216);
+			WorldUtils.addWall(114, 76, false, Library.IMG("forest.platform.png"), 229);
+			
+			WorldUtils.addWall(506, 97, false, Library.IMG("forest.platform.png"), 185);
+			WorldUtils.addWall(419, 46, true, Library.IMG("forest.platform.png"), 92);
+			WorldUtils.addWall(207, 27, false, Library.IMG("forest.platform.png"), 414);
+			WorldUtils.addWall(613, 27, false, Library.IMG("forest.platform.png"), 301);
+			WorldUtils.addWall(467, 10, true, Library.IMG("forest.platform.png"), 22);
+			WorldUtils.addWall(758, 11, true, Library.IMG("forest.platform.png"), 22);
+			
+			WorldUtils.addWall(907, 27, false, Library.IMG("forest.platform.png"), 185);
+			WorldUtils.addWall(995, 10, true, Library.IMG("forest.platform.png"), 22);
+			WorldUtils.addWall(819, 11, true, Library.IMG("forest.platform.png"), 22);
+			
+			WorldUtils.addDecal(Library.IMG("hellther.bg.png"), 500, 200);
+			WorldUtils.addDecal(Library.IMG("hellther.crevice.png"), 10, 219);
+			WorldUtils.addDecal(Library.IMG("hellther.layout2.png"), 500, 200);
+			
+			WorldUtils.addLadder(413, 198, 152, "hellther.ladder.png");
+			WorldUtils.addLadder(758, 198, 145, "hellther.ladder.png");
+			WorldUtils.addLadder(443, 0, 93, "hellther.ladder.png");
+			
+			WorldUtils.addEnemy(12, 46, Doppleganger);
+			WorldUtils.addEnemy(483, 69, Doppleganger);
+			
+			Game.stage.addChild(new HUD);
+			
+			WorldUtils.addMan(10, 219, Game.playerClass);
+			
+			WorldUtils.addDecal(Library.IMG("hellther.lavaTrap2.png"), 500, 391);
+			
+			WorldUtils.addTrigger( 443, -15, WorldUtils.advance);
+			WorldUtils.addTrigger( 500, 391, WorldUtils.hurt, 1000, 19);
+			
+			nextLevel = "hellther_02";
+		}
+		
+		private static function loadHellther_02():void
+		{
+			Songs.playMusic("hellther", 3);
+			
+			WorldUtils.makeBounds();
+			
 			// Top row (#16-18)
 			WorldUtils.addWall(228, 24, false, Library.IMG("forest.platform.png"), 446);
 			WorldUtils.addWall(505, 10, false, Library.IMG("forest.platform.png"), 96);
@@ -742,7 +806,7 @@ package ifrit
 			
 			nextLevel = "balcony_01";
 		}
-
+		
 		private static function loadBalcony_01():void
 		{
 			Songs.playMusic("boss", 5);

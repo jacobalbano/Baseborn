@@ -527,7 +527,8 @@
 			{
 				if (HUD.testCost(0, 0, 10))
 				{
-					man.graphic.play("pull");
+					if (!man.attackTimer.running)	man.graphic.play("pull");
+					
 					man.canShoot = true;
 				}
 			}
@@ -544,7 +545,8 @@
 			{
 				if (man.friendly)
 				{
-					man.graphic.play("release");
+					if (!man.attackTimer.running)	man.graphic.play("release");
+					
 					man.shoot();
 				}
 			}

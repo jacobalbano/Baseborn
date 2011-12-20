@@ -22,7 +22,7 @@ package ifrit
 		
 		public var sound:Audio;
 		
-		protected var attackTimer:Timer;
+		public var attackTimer:Timer;
 		protected var freezeTimer:Timer;
 		protected var frozen:Boolean;
 		public var struck:Boolean;
@@ -91,15 +91,6 @@ package ifrit
 			this.hasGravity = true;
 			
 			this.rangedType = MeleeSwing;
-			
-			//if (!this.friendly)
-			//{
-				//this.healthMeter = new Sprite();
-				//this.healthMeter.graphics.beginFill(0x18BF00, 0.75);
-				//this.healthMeter.graphics.drawRect(this.x, this.y - 20, this.hitpoints, 3);
-				//this.healthMeter.graphics.endFill();
-				//Game.stage.addChild(this.healthMeter);
-			//}
 		}
 		
 		public function collideWithMob(obj:Mob):Boolean

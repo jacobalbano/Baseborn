@@ -26,54 +26,39 @@ package ifrit
 			Game.stage.addEventListener(Event.ENTER_FRAME, enterFrame);
 		}
 		
-		protected function update():void	{ }
+		protected function update():void	{}
 		
 		public function mute():void
 		{
-			for each (var sfx:SoundEffect in this.Sfx)
+			if ((muteCooldown.currentCount >= 10 && !isMuted) || !muteCooldown.running)
 			{
-				if (sfx.channel)
-				{
-					sfx.transform.volume = 0;
-				}
+				for each (var sfx:SoundEffect in this.Sfx)
+				{	if (sfx.channel)	sfx.transform.volume = 0;	}
+				
+				for each (var song:Music in this.Songs)
+				{	if (song.channel)	song.transform.volume = 0;	}
+				
+				isMuted = true;
+				muteCooldown.stop();
+				muteCooldown.reset();
+				muteCooldown.start();
 			}
-			
-			for each (var song:Music in this.Songs)
-			{
-				if (song.channel)
-				{
-					song.transform.volume = 0;
-				}
-			}
-			
-			Audio.isMuted = true;
-			Audio.muteCooldown.start();
 		}
 		
 		public function unmute():void
-		{
-			if (Audio.muteCooldown.currentCount >= 10)
+		{	
+			if (muteCooldown.currentCount >= 10 && isMuted)
 			{
-				//TODO: Doesn't work yet
 				for each (var sfx:SoundEffect in this.Sfx)
-				{
-					if (sfx.transform)
-					{
-						sfx.transform.volume = 1;
-					}
-				}
+				{	if (sfx.channel && sfx.transform)	sfx.transform.volume = 1;	}
 				
 				for each (var song:Music in this.Songs)
-				{
-					if (song.transform)
-					{
-						song.transform.volume = 1;
-					}
-				}
+				{	if (song.channel && song.transform)	song.transform.volume = 1;	}
 				
-				Audio.isMuted = false;
-				Audio.muteCooldown.stop();
-				Audio.muteCooldown.reset();
+				isMuted = false;
+				muteCooldown.stop();
+				muteCooldown.reset();
+				muteCooldown.start();
 			}
 		}
 		
@@ -115,10 +100,7 @@ package ifrit
 			
 			var newSfx:SoundEffect = new SoundEffect(name, data);
 			
-			if (newSfx)
-			{
-				this.Sfx.push(newSfx);
-			}
+			if (newSfx)	this.Sfx.push(newSfx);
 		}
 		
 		public function playSFX(name:String, loops:Number = 0, startTime:Number = 0):void
@@ -127,7 +109,7 @@ package ifrit
 			{
 				if (item.name == name)
 				{
-					if (!item.playing && !Audio.isMuted)
+					if (!item.playing && !isMuted)
 					{
 						item.channel = item.sound.play(startTime, loops);
 						item.playing = true;
@@ -150,10 +132,7 @@ package ifrit
 			
 			var newMusic:Music = new Music(name, data);
 			
-			if (newMusic)
-			{
-				this.Songs.push(newMusic);
-			}
+			if (newMusic)	this.Songs.push(newMusic);
 		}
 		
 		/**
@@ -168,19 +147,18 @@ package ifrit
 			{
 				if (item && item.name == name)
 				{
-					if (!item.playing && !Audio.isMuted)
+					if (!item.playing)
 					{
-						item.channel = item.sound.play(startTime, loops);
+						if (isMuted)	item.transform.volume = 0;
+						
+						item.channel = item.sound.play(startTime, loops, item.transform);
 						item.playing = true;
 					}
 				}
 				
 				if ( item && item.name != name)
 				{
-					if (item.playing)
-					{
-						stopMusic(item.name);
-					}
+					if (item.playing)	stopMusic(item.name);
 				}
 			}
 		}
@@ -213,7 +191,6 @@ package ifrit
 		private function enterFrame(e:Event):void 
 		{
 			update();
-			//if (muteCooldown)	trace(muteCooldown.currentCount);
 		}
 	}
 

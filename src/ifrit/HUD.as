@@ -1,417 +1,86 @@
 package ifrit 
 {
-	import com.thaumaturgistgames.flakit.Library;
 	import flash.display.Bitmap;
 	import flash.display.Sprite;
 	import flash.text.TextField;
 	import flash.text.TextFormat;
-	import flash.text.TextFieldType;
 	import flash.utils.Timer;
 	/**
 	 * @author Chris Logsdon
 	 */
 	public class HUD extends IfritObject
 	{
-		
 		public static const MANA:uint = 0;
 		public static const ENERGY:uint = 2;
 		public static const AMMO:uint = 4;
 		public static const SPECIAL:uint = 6;
 		
-		private var area:Bitmap;
-		private var icon1:Bitmap;
-		private var icon2:Bitmap;
+		// Background
+		public static var area:Bitmap;
 		
-		private static var inv:Bitmap;
+		// Skills
+		public static var boxA:Bitmap;
+		public static var skillA:Bitmap;
+		public static var boxS:Bitmap;
+		public static var skillS:Bitmap;
+		public static var boxD:Bitmap;
+		public static var skillD:Bitmap;
 		
-		private static var boxA:Bitmap;
-		private static var skillA:Bitmap;
-		private static var boxS:Bitmap;
-		private static var skillS:Bitmap;
-		private static var boxD:Bitmap;
-		private static var skillD:Bitmap;
+		// Health
+		public static var health:Sprite;
+		public static var healthIcon:Bitmap;
+		public static var lowHealth:Timer;
+		public static var totalHealth:Number;
+		public static var healthScale:Number;
+		public static var remainingHealth:Number;
+		public static var healthTxt:TextField;
+		public static var healthTxtFormat:TextFormat;
 		
-		private static var health:Sprite;
-		private var healthIcon:Bitmap;
-		private var lowHealth:Timer;
-		private static var totalHealth:Number;
-		private static var healthScale:Number;
-		private static var remainingHealth:Number;
-		private var healthTxt:TextField;
-		private var healthTxtFormat:TextFormat;
+		// Mage Resources
+		public static var mana:Sprite;
+		public static var totalMana:Number;
+		public static var manaTxt:TextField;
+		public static var manaTxtFormat:TextFormat;
+		public static var energy:Sprite;
+		public static var energyTxt:TextField;
+		public static var energyTxtFormat:TextFormat;
 		
-		private static var mana:Sprite;
-		private static var totalMana:Number;
-		private var manaTxt:TextField;
-		private var manaTxtFormat:TextFormat;
-		private static var energy:Sprite;
-		private var energyTxt:TextField;
-		private var energyTxtFormat:TextFormat;
+		// Rogue Resources
+		public static var shuriken:Sprite;
+		public static var shurikenTxt:TextField
+		public static var shurikenTxtFormat:TextFormat;
+		public static var caltrops:Sprite;
+		public static var blink:Sprite;
 		
-		private static var shuriken:Sprite;
-		private var shurikenTxt:TextField
-		private var shurikenTxtFormat:TextFormat;
-		private static var caltrops:Sprite;
-		private static var blink:Sprite;
+		// Fighter Resources
+		public static var arrows:Sprite;
+		public static var arrowTxt:TextField
+		public static var arrowTxtFormat:TextFormat;
+		public static var shield:Sprite;
 		
-		private static var arrows:Sprite;
-		private var arrowTxt:TextField
-		private var arrowTxtFormat:TextFormat;
-		private static var shield:Sprite;
-		
+		// Misc.
+		public static var inv:Bitmap;
+		public static var audMute:Bitmap;
+		public static var audUnmute:Bitmap;
+		public static var icon1:Bitmap;
+		public static var icon2:Bitmap;
 		
 		public function HUD() 
 		{
-			area = Library.IMG("HUD.bg.png");
-			area.x = 0;
-			area.y = 400.
-			addChild(area);
-			
-			health = new Sprite();
-			lowHealth = new Timer(1000);
-			health.graphics.beginFill(0xD70000);
-			health.graphics.drawRect(0, 0, 200, 21);
-			health.graphics.endFill();
-			health.x = 50;
-			health.y = 442;
-			addChild(health);
-			
-			healthTxt = new TextField();
-			healthTxt.type = TextFieldType.DYNAMIC;
-			healthTxt.textColor = 0xFFFFFF;
-			healthTxt.x = health.x;
-			healthTxt.y = health.y - 2;
-			healthTxt.height = 20;
-			healthTxt.width = 200;
-			
-			healthTxtFormat = new TextFormat();
-			healthTxtFormat.size = 18;
-			healthTxtFormat.align = "center";
-			healthTxt.defaultTextFormat = healthTxtFormat;
-			
-			addChild(healthTxt);
-			
-			healthIcon = Library.IMG("icons.healthIcon.png");
-			healthIcon.x = health.x - 22
-			healthIcon.y = health.y + 2;
-			addChild(healthIcon);
-			
-			
-			boxA = Library.IMG("HUD.emptyA.png");
-			boxS = Library.IMG("HUD.emptyS.png");
-			boxD = Library.IMG("HUD.emptyD.png");
-			
-			
-			mana = new Sprite();
-			mana.graphics.beginFill(0x006BD7);
-			mana.graphics.drawRect(0, 0, 200, 9);
-			mana.graphics.endFill();
-			mana.x = 750;
-			mana.y = 442;
-			
-			manaTxt = new TextField();
-			manaTxt.type = TextFieldType.DYNAMIC;
-			manaTxt.textColor = 0xFFF584;
-			manaTxt.x = mana.x;
-			manaTxt.y = mana.y - 4;
-			manaTxt.height = 14;
-			manaTxt.width = 200;
-			
-			manaTxtFormat = new TextFormat();
-			manaTxtFormat.size = 10;
-			manaTxtFormat.align = "center";
-			manaTxt.defaultTextFormat = manaTxtFormat;
-			
-			
-			energy = new Sprite();
-			energy.graphics.beginFill(0xD9D300);
-			energy.graphics.drawRect(0, 0, 200, 9);
-			energy.graphics.endFill();
-			energy.x = 750;
-			energy.y = 454;
-			
-			energyTxt = new TextField();
-			energyTxt.type = TextFieldType.DYNAMIC;
-			energyTxt.textColor = 0x00376F;
-			energyTxt.x = energy.x;
-			energyTxt.y = energy.y - 4;
-			energyTxt.height = 14;
-			energyTxt.width = 200;
-			
-			energyTxtFormat = new TextFormat();
-			energyTxtFormat.size = 10;
-			energyTxtFormat.align = "center";
-			energyTxt.defaultTextFormat = energyTxtFormat;
-			
-			if (Game.playerClass == Player.MAGE)
-			{	
-				healthScale = 1;
-				
-				icon1 = Library.IMG("icons.manaIcon.png");
-				icon2 = Library.IMG("icons.energyIcon.png");
-				
-				skillA = Library.IMG("HUD.fire.png");
-				skillS = Library.IMG("HUD.bolt.png");
-				skillD = Library.IMG("HUD.ice.png");
-				
-				addChild(mana);
-				addChild(manaTxt);
-				
-				addChild(energy);
-				addChild(energyTxt);
-			}
-			
-			shuriken = new Sprite();
-			shuriken.graphics.beginFill(0x000000);
-			shuriken.graphics.drawRect(0, 0, 200, 9);
-			shuriken.graphics.endFill();
-			shuriken.x = 750;
-			shuriken.y = 442;
-			
-			shurikenTxt = new TextField();
-			shurikenTxt.type = TextFieldType.DYNAMIC;
-			shurikenTxt.textColor = 0xFFFFFF;
-			shurikenTxt.x = shuriken.x;
-			shurikenTxt.y = shuriken.y - 4;
-			shurikenTxt.height = 14;
-			shurikenTxt.width = 200;
-			
-			shurikenTxtFormat = new TextFormat();
-			shurikenTxtFormat.size = 10;
-			shurikenTxtFormat.align = "center";
-			shurikenTxt.defaultTextFormat = shurikenTxtFormat;
-			
-			caltrops = new Sprite();
-			caltrops.graphics.beginFill(0x000000);
-			caltrops.graphics.drawRect(0, 0, 200, 9);
-			caltrops.graphics.endFill();
-			caltrops.x = 750;
-			caltrops.y = 454;
-			
-			blink = new Sprite();
-			blink.graphics.beginFill(0x9AC193);
-			blink.graphics.drawRect(0, 0, 200, 9);
-			blink.graphics.endFill();
-			blink.x = 750;
-			blink.y = 454;
-			
-			if (Game.playerClass == Player.ROGUE)
-			{
-				healthScale = 2;
-				
-				icon1 = Library.IMG("icons.shurikenIcon.png");
-				icon2 = Library.IMG("icons.blinkIcon.png");
-				
-				skillA = Library.IMG("HUD.shuriken.png");
-				skillS = Library.IMG("HUD.caltrop.png");
-				skillD = Library.IMG("HUD.daggers.png");
-				
-				addChild(shuriken);
-				addChild(shurikenTxt);
-				
-				addChild(blink);
-			}
-			
-			arrows = new Sprite();
-			arrows.graphics.beginFill(0x793300);
-			arrows.graphics.drawRect(0, 0, 200, 9);
-			arrows.graphics.endFill();
-			arrows.x = 750;
-			arrows.y = 442;
-			
-			
-			arrowTxt = new TextField();
-			arrowTxt.type = TextFieldType.DYNAMIC;
-			arrowTxt.textColor = 0xC7C8C9;
-			arrowTxt.x = arrows.x;
-			arrowTxt.y = arrows.y - 4;
-			arrowTxt.height = 14;
-			arrowTxt.width = 200;
-			
-			arrowTxtFormat = new TextFormat();
-			arrowTxtFormat.size = 10;
-			arrowTxtFormat.align = "center";
-			arrowTxt.defaultTextFormat = arrowTxtFormat;
-			
-			shield = new Sprite();
-			shield.graphics.beginFill(0xA5B5C7);
-			shield.graphics.drawRect(0, 0, 200, 9);
-			shield.graphics.endFill();
-			shield.x = 750;
-			shield.y = 454;
-			
-			if (Game.playerClass == Player.FIGHTER)
-			{
-				healthScale = 3;
-				
-				addChild(arrows);
-				addChild(arrowTxt);
-				
-				addChild(shield);
-				
-				icon1 = Library.IMG("icons.arrowIcon.png");
-				icon2 = Library.IMG("icons.shieldIcon.png");
-				
-				skillA = Library.IMG("HUD.bow.png");
-				skillS = Library.IMG("HUD.shield.png");
-				skillD = Library.IMG("HUD.sword.png");
-			}
-			
-			inv = Library.IMG("HUD.keyDrop.png");
-			inv.x = 484;
-			inv.y = 410;
-			addChild(inv);
-			
-			icon1.x = 842;
-			icon1.y = 419;
-			addChild(icon1);
-			
-			icon2.x = 842;
-			icon2.y = 472;
-			addChild(icon2);
-			
-			boxA.x = 430;
-			boxA.y = 432;
-			skillA.x = 430;
-			skillA.y = 432;
-			
-			boxA.alpha = 0;
-			skillA.alpha = 0;
-			
-			addChild(skillA);
-			addChild(boxA);
-			
-			boxS.x = 480;
-			boxS.y = 432;
-			skillS.x = 480;
-			skillS.y = 432;
-			
-			boxS.alpha = 0;
-			skillS.alpha = 0;
-			
-			addChild(skillS);
-			addChild(boxS);
-			
-			boxD.x = 530;
-			boxD.y = 432;
-			skillD.x = 530;
-			skillD.y = 432;
-			
-			boxD.alpha = 0;
-			skillD.alpha = 0;
-			
-			addChild(skillD);
-			addChild(boxD);
-			
-			totalHealth = (200 * healthScale);
-			totalMana = 200;
+			HUDutils.drawArea();
+			HUDutils.drawResources();
+			HUDutils.drawHealth();
+			HUDutils.drawSkills();
+			HUDutils.drawMisc();
 		}
 		
 		override protected function update():void 
-		{	
-			if (health.width > 200) health.width = 200;
-			
-			remainingHealth = (health.width * healthScale);
-			
-			healthTxt.text = String(remainingHealth) + "/" + String(totalHealth);
-			
-			checkHealth();
-			
-			if (mana)  manaTxt.text = String(Math.round(mana.width)) + "/" + String(totalMana);
-			if (energy) {   if (energy.width < 200)   energy.width += 1.5;   }
-			
-			if (shuriken)  shurikenTxt.text = String(Math.round(shuriken.width / 20)) + "/" + String(200 / 20)
-			if (blink)	{	if (blink.width < 200)	blink.width += .75;	}
-			
-			if (arrows)  arrowTxt.text = String(Math.round(arrows.width / 10)) + "/" + String(200 / 10);
-			if (shield) {   if (shield.width < 200)   shield.width += 1.0;   }
-			
-			
-			if (Game.man.knowsA)
-			{
-				boxA.alpha = 1;
-				
-				if (Game.man.type == Player.FIGHTER || Game.man.type == Player.ROGUE)
-				{
-					if (ammoCount <= 0) skillA.alpha = 0.5;
-					else skillA.alpha = 1;
-				}
-				if (Game.man.type == Player.MAGE)
-				{
-					if (!testCost(Fireball.energyCost, Fireball.manaCost)) skillA.alpha = 0.5;
-					else skillA.alpha = 1;
-				}
-			}
-			if (Game.man.knowsS)
-			{
-				boxS.alpha = 1;
-				
-				if (Game.man.type == Player.FIGHTER)
-				{
-					if (shield.width <= 0) skillS.alpha = 0.5;
-					else skillS.alpha = 1;
-				}
-				if (Game.man.type == Player.ROGUE)
-				{
-					if (!Game.man.hasCaltrop) skillS.alpha = 0.25;
-					else skillS.alpha = 1;
-				}
-				if (Game.man.type == Player.MAGE)
-				{
-					if (!testCost(LightningBolt.energyCost, LightningBolt.manaCost)) skillS.alpha = 0.5;
-					else skillS.alpha = 1;
-				}
-			}
-			if (Game.man.knowsD)
-			{
-				boxD.alpha = 1;
-				
-				if (Game.man.type == Player.FIGHTER || Game.man.type == Player.ROGUE)
-				{
-					skillD.alpha = 1;
-				}
-				if (Game.man.type == Player.MAGE)
-				{
-					if (!testCost(FrostBolt.energyCost)) skillD.alpha = 0.5;
-					else skillD.alpha = 1;
-				}
-			}
-			
-			if (Game.man.hasKey)	inv.alpha = 1.0;
-			else					inv.alpha = 0.1;
-		}
-		
-		private function checkHealth():void 
 		{
-			if (health.width <= 50)
-			{
-				lowHealth.start();
-				
-				health.graphics.clear();
-				if (lowHealth.currentCount % 2 == 0)
-				{
-					health.graphics.beginFill(0x770000);
-					health.graphics.drawRect(0, 0, 200, 21);
-					health.graphics.endFill();
-				}
-				else
-				{
-					health.graphics.beginFill(0xFF5B5B);
-					health.graphics.drawRect(0, 0, 200, 21);
-					health.graphics.endFill();
-				}
-			}
-			
-			if (health.width > 50 && lowHealth.running)
-			{
-				lowHealth.stop();
-				lowHealth.reset();
-				
-				health.graphics.clear();
-				health.graphics.beginFill(0xD70000);
-				health.graphics.drawRect(0, 0, 200, 21);
-				health.graphics.endFill();
-			}
+			HUDutils.updateHealth();
+			HUDutils.updateResources();
+			HUDutils.updateAudioState();
+			HUDutils.updateSkills();
+			HUDutils.updateInv();
 		}
 		
 		/**

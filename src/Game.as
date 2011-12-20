@@ -88,16 +88,8 @@
 			 
 			if (Input.isKeyDown(Input.M))
 			{
-				if (!Audio.isMuted)
-				{
-					World.Sounds.mute();
-					World.Songs.mute();
-				}
-				else
-				{
-					World.Sounds.unmute();
-					World.Songs.unmute();
-				}
+				if (!Audio.isMuted)	World.audio.mute();
+				else				World.audio.unmute();
 			}
 			
 			if (man && !man.isDestroyed)

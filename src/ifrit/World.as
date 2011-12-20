@@ -24,8 +24,7 @@ package ifrit
 		public static var nextLevel:String;
 		public static var currentLevel:String;
 		public static var hasKey:Boolean;
-		public static var Songs:Audio;
-		public static var Sounds:Audio;
+		public static var audio:Audio;
 		
 		/**
 		 * Initialize the world manager
@@ -57,19 +56,18 @@ package ifrit
 			
 			Variables = new Map(String, Variable);
 			
-			Songs = new Audio;
-			Sounds = new Audio;
+			audio = new Audio;
 			
-			Songs.addMusic("beach", Library.SND("audio.music.beach.mp3"));
-			Songs.addMusic("forest", Library.SND("audio.music.forest.mp3"));
-			Songs.addMusic("tower", Library.SND("audio.music.tower.mp3"));
-			Songs.addMusic("dungeon", Library.SND("audio.music.dungeon.mp3"));
-			Songs.addMusic("hellther", Library.SND("audio.music.hellther.mp3"));
-			Songs.addMusic("boss", Library.SND("audio.music.boss.mp3"));
+			audio.addMusic("beach", Library.SND("audio.music.beach.mp3"));
+			audio.addMusic("forest", Library.SND("audio.music.forest.mp3"));
+			audio.addMusic("tower", Library.SND("audio.music.tower.mp3"));
+			audio.addMusic("dungeon", Library.SND("audio.music.dungeon.mp3"));
+			audio.addMusic("hellther", Library.SND("audio.music.hellther.mp3"));
+			audio.addMusic("boss", Library.SND("audio.music.boss.mp3"));
 			
-			Sounds.addSFX("beachAmb", Library.SND("audio.sfx.startToBeach.mp3"));
-			Sounds.addSFX("keys", Library.SND("audio.sfx.keys.mp3"));
-			Sounds.addSFX("unlock", Library.SND("audio.sfx.unlock.mp3"));
+			audio.addSFX("beachAmb", Library.SND("audio.sfx.startToBeach.mp3"));
+			audio.addSFX("keys", Library.SND("audio.sfx.keys.mp3"));
+			audio.addSFX("unlock", Library.SND("audio.sfx.unlock.mp3"));
 		}
 		
 		//	Worlds begin
@@ -84,8 +82,8 @@ package ifrit
 		
 		private static function loadBeach_01():void
 		{
-			Songs.playMusic("beach", 3);
-			Sounds.playSFX("beachAmb", 3);
+			audio.playMusic("beach", 3);
+			audio.playSFX("beachAmb", 3);
 			
 			WorldUtils.makeBounds();
 			
@@ -122,8 +120,8 @@ package ifrit
 		
 		private static function loadBeach_02():void
 		{
-			Songs.playMusic("beach", 3);
-			Sounds.playSFX("beachAmb", 3);
+			audio.playMusic("beach", 3);
+			audio.playSFX("beachAmb", 3);
 			
 			WorldUtils.makeBounds();
 			
@@ -148,8 +146,8 @@ package ifrit
 		
 		private static function loadBeach_03():void
 		{
-			Songs.playMusic("beach", 3);
-			Sounds.playSFX("beachAmb", 3);
+			audio.playMusic("beach", 3);
+			audio.playSFX("beachAmb", 3);
 			
 			WorldUtils.makeBounds();
 			
@@ -189,8 +187,8 @@ package ifrit
 		
 		private static function loadForest_01():void
 		{
-			Songs.playMusic("forest", 3);
-			Sounds.stopSFX("beachAmb");
+			audio.playMusic("forest", 3);
+			audio.stopSFX("beachAmb");
 			
 			WorldUtils.makeBounds();
 			
@@ -232,7 +230,7 @@ package ifrit
 		
 		private static function loadForest_02():void
 		{
-			Songs.playMusic("forest", 3);
+			audio.playMusic("forest", 3);
 			
 			WorldUtils.makeBounds();
 			
@@ -264,7 +262,7 @@ package ifrit
 		
 		private static function loadForest_03():void
 		{
-			Songs.playMusic("forest", 3);
+			audio.playMusic("forest", 3);
 			
 			WorldUtils.makeBounds();
 			
@@ -315,7 +313,7 @@ package ifrit
 		
 		private static function loadTower_01():void
 		{
-			Songs.playMusic("tower", 3);
+			audio.playMusic("tower", 3);
 			
 			WorldUtils.makeBounds();
 			
@@ -520,7 +518,7 @@ package ifrit
 		
 		private static function loadTower_02():void
 		{
-			Songs.playMusic("tower", 3);
+			audio.playMusic("tower", 3);
 			
 			WorldUtils.makeBounds();
 			
@@ -585,7 +583,7 @@ package ifrit
 		
 		private static function loadDungeon_01():void 
 		{
-			Songs.playMusic("dungeon", 3);
+			audio.playMusic("dungeon", 3);
 			
 			WorldUtils.makeBounds();
 			
@@ -632,7 +630,7 @@ package ifrit
 		
 		private static function loadHellther_01():void
 		{
-			Songs.playMusic("hellther", 3);
+			audio.playMusic("hellther", 3);
 			
 			WorldUtils.makeBounds();
 			
@@ -695,7 +693,7 @@ package ifrit
 		
 		private static function loadHellther_02():void
 		{
-			Songs.playMusic("hellther", 3);
+			audio.playMusic("hellther", 3);
 			
 			WorldUtils.makeBounds();
 			
@@ -809,7 +807,7 @@ package ifrit
 		
 		private static function loadBalcony_01():void
 		{
-			Songs.playMusic("boss", 5);
+			audio.playMusic("boss", 5);
 			
 			WorldUtils.makeBounds();
 			

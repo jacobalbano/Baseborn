@@ -101,7 +101,7 @@ package ifrit
 					if (Input.isKeyDown(Input.UP) && !Input.isKeyDown(Input.RIGHT) && !Input.isKeyDown(Input.LEFT))
 					{
 						WorldUtils.addTrigger( Game.man.x, Game.man.y, WorldUtils.advance);
-						World.Sounds.playSFX("unlock");
+						World.audio.playSFX("unlock");
 					}
 				}
 				else if(!World.hasKey)

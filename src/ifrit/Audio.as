@@ -188,6 +188,43 @@ package ifrit
 			return false;
 		}
 		
+		/**
+		 * Stops all currently playing sounds and songs.
+		 * @param	exception	Array of names of songs or sounds to NOT stop.
+		 */
+		public function stopAll(exception:Array = null):void
+		{
+			if (exception)
+			{
+				for (var a:int = Sfx.length - 1; a >= 0; a--)
+				{
+					for (var aa:int = Songs.length - 1; aa >= 0; aa--)
+					{
+						for (var aaa:int = exception.length - 1; aaa >= 0; aaa--)
+						{
+							if ((Sfx[a].name != exception[aaa]) && Songs[aa].name != exception[aaa])
+							{
+								if (Sfx[a].channel)		Sfx[a].channel.stop();
+								if (Songs[aa].channel)	Songs[aa].channel.stop();
+							}
+						}
+					}
+				}
+			}
+			else
+			{
+				for each (var sfx:SoundEffect in this.Sfx)
+				{
+					if (sfx.channel)	sfx.channel.stop();
+				}
+					
+				for each (var song:Music in this.Songs)
+				{
+					if (song.channel)	song.channel.stop();
+				}
+			}
+		}
+		
 		private function enterFrame(e:Event):void 
 		{
 			update();

@@ -41,6 +41,8 @@ package ifrit
 			//	It works the same way as a C++ (STL) map, storing objects with keys
 			Worlds = new Map(String, Function);
 			
+			Worlds.add("title", 		loadTitle);
+			
 			Worlds.add("beach_01", 		loadBeach_01);
 			Worlds.add("beach_02", 		loadBeach_02);
 			Worlds.add("beach_03", 		loadBeach_03);
@@ -63,6 +65,8 @@ package ifrit
 			
 			Worlds.add("balcony_01", 	loadBalcony_01);
 			
+			Worlds.add("ending", 	loadEnd);
+			
 			Variables = new Map(String, Variable);
 			
 			audio = new Audio;
@@ -74,6 +78,7 @@ package ifrit
 			audio.addMusic("hellther", Library.SND("audio.music.hellther.mp3"));
 			audio.addMusic("boss", Library.SND("audio.music.boss.mp3"));
 			
+			audio.addSFX("titleAmb", Library.SND("audio.sfx.titleScreenAmbiance.mp3"));
 			audio.addSFX("beachAmb", Library.SND("audio.sfx.startToBeach.mp3"));
 			audio.addSFX("keys", Library.SND("audio.sfx.keys.mp3"));
 			audio.addSFX("unlock", Library.SND("audio.sfx.unlock.mp3"));
@@ -89,8 +94,29 @@ package ifrit
 		 * 		NOTE: First non-bounds platform is #12
 		 *//////////////////////////////////////////////////////
 		
+		private static function loadTitle():void
+		{
+			audio.playSFX("titleAmb", 3);
+			audio.stopAll(["titleAmb"]);
+			
+			WorldUtils.makeBounds();
+			
+			WorldUtils.addDecal(Library.IMG("titleScreen.png"), 500, 250, beginGame);
+			
+			nextLevel = "beach_01";
+		}
+		
+		private static function beginGame(d:Decal):void
+		{
+			if (Input.isKeyDown(Input.ENTER))
+			{
+				WorldUtils.next();
+			}
+		}
+		 
 		private static function loadBeach_01():void
 		{
+			audio.stopSFX("titleAmb");
 			audio.playMusic("beach", 3);
 			audio.playSFX("beachAmb", 3);
 			
@@ -109,20 +135,20 @@ package ifrit
 			WorldUtils.addDecal(Library.IMG("beach.shipAnimation.png"), 400, 175, null, null, [0, 1, 2, 3], 270, 193, 5);
 			WorldUtils.addDecal(Library.IMG("beach.waterDebris2.png"), 500, 250);
 			
-			WorldUtils.addDecal(Library.IMG("enemies.bossDeath.s1.png"), 259, 239, null, function(d:Decal):* { d.y--; } );
-			WorldUtils.addDecal(Library.IMG("enemies.bossDeath.s2.png"), 266, 239, null, function(d:Decal):* { d.y++; } );
-			WorldUtils.addDecal(Library.IMG("enemies.bossDeath.s3.png"), 273, 239, null, function(d:Decal):* { d.y--; } );
-			WorldUtils.addDecal(Library.IMG("enemies.bossDeath.s4.png"), 280, 239, null, function(d:Decal):* { d.y++; } );
-			WorldUtils.addDecal(Library.IMG("enemies.bossDeath.s5.png"), 287, 239, null, function(d:Decal):* { d.y--; } );
-			WorldUtils.addDecal(Library.IMG("enemies.bossDeath.s6.png"), 294, 239, null, function(d:Decal):* { d.y++; } );
-			WorldUtils.addDecal(Library.IMG("enemies.bossDeath.s7.png"), 301, 239, null, function(d:Decal):* { d.y--; } );
-			WorldUtils.addDecal(Library.IMG("enemies.bossDeath.s8.png"), 308, 239, null, function(d:Decal):* { d.y++; } );
-			WorldUtils.addDecal(Library.IMG("enemies.bossDeath.s9.png"), 315, 239, null, function(d:Decal):* { d.y--; } );
-			WorldUtils.addDecal(Library.IMG("enemies.bossDeath.s10.png"), 322, 239, null, function(d:Decal):* { d.y++; } );
-			WorldUtils.addDecal(Library.IMG("enemies.bossDeath.s11.png"), 329, 239, null, function(d:Decal):* { d.y--; } );
-			WorldUtils.addDecal(Library.IMG("enemies.bossDeath.s12.png"), 336, 239, null, function(d:Decal):* { d.y++; } );
-			WorldUtils.addDecal(Library.IMG("enemies.bossDeath.s13.png"), 343, 239, null, function(d:Decal):* { d.y--; } );
-			WorldUtils.addDecal(Library.IMG("enemies.bossDeath.s14.png"), 350, 239, null, function(d:Decal):* { d.y++; } );
+			//WorldUtils.addDecal(Library.IMG("enemies.bossDeath.s1.png"), 259, 239, null, function(d:Decal):* { d.y--; } );
+			//WorldUtils.addDecal(Library.IMG("enemies.bossDeath.s2.png"), 266, 239, null, function(d:Decal):* { d.y++; } );
+			//WorldUtils.addDecal(Library.IMG("enemies.bossDeath.s3.png"), 273, 239, null, function(d:Decal):* { d.y--; } );
+			//WorldUtils.addDecal(Library.IMG("enemies.bossDeath.s4.png"), 280, 239, null, function(d:Decal):* { d.y++; } );
+			//WorldUtils.addDecal(Library.IMG("enemies.bossDeath.s5.png"), 287, 239, null, function(d:Decal):* { d.y--; } );
+			//WorldUtils.addDecal(Library.IMG("enemies.bossDeath.s6.png"), 294, 239, null, function(d:Decal):* { d.y++; } );
+			//WorldUtils.addDecal(Library.IMG("enemies.bossDeath.s7.png"), 301, 239, null, function(d:Decal):* { d.y--; } );
+			//WorldUtils.addDecal(Library.IMG("enemies.bossDeath.s8.png"), 308, 239, null, function(d:Decal):* { d.y++; } );
+			//WorldUtils.addDecal(Library.IMG("enemies.bossDeath.s9.png"), 315, 239, null, function(d:Decal):* { d.y--; } );
+			//WorldUtils.addDecal(Library.IMG("enemies.bossDeath.s10.png"), 322, 239, null, function(d:Decal):* { d.y++; } );
+			//WorldUtils.addDecal(Library.IMG("enemies.bossDeath.s11.png"), 329, 239, null, function(d:Decal):* { d.y--; } );
+			//WorldUtils.addDecal(Library.IMG("enemies.bossDeath.s12.png"), 336, 239, null, function(d:Decal):* { d.y++; } );
+			//WorldUtils.addDecal(Library.IMG("enemies.bossDeath.s13.png"), 343, 239, null, function(d:Decal):* { d.y--; } );
+			//WorldUtils.addDecal(Library.IMG("enemies.bossDeath.s14.png"), 350, 239, null, function(d:Decal):* { d.y++; } );
 			
 			nextLevel = "beach_02";
 		}
@@ -197,7 +223,7 @@ package ifrit
 		private static function loadForest_01():void
 		{
 			audio.playMusic("forest", 3);
-			audio.stopSFX("beachAmb");
+			audio.stopAll(["forest"]);
 			
 			WorldUtils.makeBounds();
 			
@@ -323,6 +349,7 @@ package ifrit
 		private static function loadTower_01():void
 		{
 			audio.playMusic("tower", 3);
+			audio.stopAll(["tower"]);
 			
 			WorldUtils.makeBounds();
 			
@@ -658,6 +685,7 @@ package ifrit
 		private static function loadDungeon_01():void 
 		{
 			audio.playMusic("dungeon", 3);
+			audio.stopAll(["dungeon"]);
 			
 			WorldUtils.makeBounds();
 			
@@ -705,6 +733,7 @@ package ifrit
 		private static function loadHellther_01():void
 		{
 			audio.playMusic("hellther", 3);
+			audio.stopAll(["hellther"]);
 			
 			WorldUtils.makeBounds();
 			
@@ -882,6 +911,7 @@ package ifrit
 		private static function loadBalcony_01():void
 		{
 			audio.playMusic("boss", 5);
+			audio.stopAll(["boss"]);
 			
 			WorldUtils.makeBounds();
 			
@@ -889,7 +919,6 @@ package ifrit
 			
 			Game.stage.addChild(new HUD);
 			
-			//WorldUtils.addEnemy(720, 260, Doppleganger);
 			Game.boss = WorldUtils.addEnemy(50, 50, Boss) as Boss;
 			
 			const portal:Point = new Point(970, 260);
@@ -914,8 +943,20 @@ package ifrit
 			
 			WorldUtils.addTrigger(500, 375, WorldUtils.hurt, 1000, 50)
 			
-			nextLevel = "main_menu";
+			nextLevel = "ending";
 		}
+		
+		private static function loadEnd():void
+		{
+			audio.stopAll();
+			
+			WorldUtils.makeBounds();
+			
+			WorldUtils.addDecal(Library.IMG("endingScreen.png"), 500, 250);
+			
+			nextLevel = "title";
+		}
+		
 		//}
 		//	Worlds end
 		

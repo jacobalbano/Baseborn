@@ -77,7 +77,7 @@ package ifrit
 		 */
 		public static function fade(d:Decal):void
 		{
-			if (d.alpha > 0) 	d.alpha -= 0.075;
+			if (d.alpha > 0) 	d.alpha -= 0.025;
 			if (d.alpha <= 0)	Game.stage.removeChild(d);
 		}
 		

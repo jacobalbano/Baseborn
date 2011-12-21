@@ -51,7 +51,7 @@
 			///*
 			// Next level
 			if (Input.isKeyDown(Input.DIGIT_1))
-				WorldUtils.addDecal(new Bitmap(new BitmapData(50, 50, true, 0)), man.x, man.y, WorldUtils.advance);
+				WorldUtils.next();
 				
 			// Change class to FIGHTER on next scene
 			if (Input.isKeyDown(Input.DIGIT_2) && man.type != Player.FIGHTER)
@@ -66,16 +66,16 @@
 				Game.playerClass = Player.MAGE
 				
 			// Force learn A skill
-			if (Input.isKeyDown(Input.DIGIT_5) && !Game.man.knowsA)
-				Game.man.knowsA = true;	
+			if (Input.isKeyDown(Input.DIGIT_5))
+				Game.man.knowsA = !Game.man.knowsA;	
 					
 			// Force learn S skill
-			if (Input.isKeyDown(Input.DIGIT_6) && !Game.man.knowsS)
-				Game.man.knowsS = true;	
+			if (Input.isKeyDown(Input.DIGIT_6))
+				Game.man.knowsS = !Game.man.knowsS;	
 					
 			// Force learn D skill
-			if (Input.isKeyDown(Input.DIGIT_7) && !Game.man.knowsD)
-				Game.man.knowsD = true;
+			if (Input.isKeyDown(Input.DIGIT_7))
+				Game.man.knowsD = !Game.man.knowsD;
 			
 			//*/ 
 			/**
@@ -83,7 +83,7 @@
 			 */
 			if (Input.isKeyDown(Input.ENTER) || Input.isKeyDown(Input.NUMPAD_ENTER))
 			{
-				WorldUtils.loadLevel( World.currentLevel);
+				if (World.currentLevel != "title")	WorldUtils.loadLevel( World.currentLevel);
 			}
 			 
 			if (Input.isKeyDown(Input.M))

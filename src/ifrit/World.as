@@ -101,6 +101,7 @@ package ifrit
 			
 			WorldUtils.makeBounds();
 			
+			Variables.add("intro", new Variable(0, true, ""));
 			WorldUtils.addDecal(Library.IMG("titleScreen.png"), 500, 250, beginGame);
 			
 			nextLevel = "beach_01";
@@ -108,9 +109,10 @@ package ifrit
 		
 		private static function beginGame(d:Decal):void
 		{
-			if (Input.isKeyDown(Input.ENTER))
+			if (Input.isKeyDown(Input.ENTER) && Variables.retrive("intro").bool)
 			{
-				WorldUtils.next();
+				WorldUtils.addDecal(new Bitmap(new BitmapData(1000, 500, true, 0xff000000)), 500, 250, WorldUtils.fadeOutHold);
+				Variables.retrive("intro").bool = false;
 			}
 		}
 		 

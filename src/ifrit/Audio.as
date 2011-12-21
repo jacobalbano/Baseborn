@@ -109,11 +109,15 @@ package ifrit
 			{
 				if (item.name == name)
 				{
-					if (!item.playing && !isMuted)
+					if (item.playing)	return;
+					else
 					{
-						item.channel = item.sound.play(startTime, loops);
-						item.playing = true;
-						return;
+						if (!isMuted)
+						{
+							item.channel = item.sound.play(startTime, loops);
+							item.playing = true;
+							return;
+						}
 					}
 				}
 			}
@@ -221,6 +225,33 @@ package ifrit
 				for each (var song:Music in this.Songs)
 				{
 					if (song.channel)	song.channel.stop();
+				}
+			}
+		}
+		
+		public function fadeOut(name:String):void
+		{
+			for each (var sfx:SoundEffect in Sfx)
+			{
+				if (sfx.name == name)
+				{
+					if (sfx.channel)
+					{
+						if (sfx.transform.volume > 0)	sfx.transform.volume -= 0.015;
+						if (sfx.transform.volume <= 0)	sfx.stopSFX(sfx.name);
+					}
+				}
+			}
+			
+			for each (var song:Music in Songs)
+			{
+				if (song.name == name)
+				{
+					if (song.channel)
+					{
+						if (song.transform.volume > 0)	song.transform.volume -= 0.015;
+						if (song.transform.volume <= 0)	song.stopMusic(song.name);
+					}
 				}
 			}
 		}

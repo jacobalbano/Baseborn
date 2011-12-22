@@ -295,7 +295,8 @@
 				
 				if (Input.isKeyDown(Input.D) && Game.man.knowsD)
 				{
-					if (!Input.isKeyDown(Input.S) && !Input.isKeyDown(Input.A))
+					if (!Input.isKeyDown(Input.S) 	&&	!Input.isKeyDown(Input.A) &&
+						!Input.isKeyDown(Input.UP)	&&	!Input.isKeyDown(Input.DOWN))
 					{
 						if (man.type != Player.NONE)
 						{

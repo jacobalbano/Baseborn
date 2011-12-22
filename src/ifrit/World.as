@@ -315,15 +315,29 @@ package ifrit
 			WorldUtils.addDecal(Library.IMG("forest.rightDoor.png"), 601, 218, function (d:Decal):*	{	if (Math.abs(d.rotationY) <= 22 && Variables.retrive("opening").bool)  Variables.retrive("door tick right").number = d.rotationY -= 0.50} );
 			WorldUtils.addDecal(Library.IMG("forest.lavaAnimation.png"), 94, 235, null, null, [0, 1, 2, 3], 110, 220, 5);
 			
-			WorldUtils.addLadder(290, 350, 50);
-			WorldUtils.addWall(350, 350, false, Library.IMG("tower.platform.png"), 100);
+			WorldUtils.addLadder(712, 200, 94);
+			WorldUtils.addLadder(847, 56, 352);
 			
-			WorldUtils.addEnemy(650, 330, Guard);
-			WorldUtils.addWall(650, 350, false, Library.IMG("tower.platform.png"), 100);
+			WorldUtils.addWall(630, 9, false, Library.IMG("misc.dotPlatform.png"), 550);
+			
+			WorldUtils.addWall(350, 100, false, Library.IMG("tower.platform.png"), 100);
+			WorldUtils.addWall(350, 200, false, Library.IMG("tower.platform.png"), 100);
+			WorldUtils.addWall(350, 300, false, Library.IMG("tower.platform.png"), 100);
+			WorldUtils.addWall(300, 180, true, Library.IMG("tower.platform.png"), 250);
+			
+			WorldUtils.addWall(651, 200, false, Library.IMG("tower.platform.png"), 100);
+			WorldUtils.addWall(664, 300, false, Library.IMG("tower.platform.png"), 124);
+			WorldUtils.addWall(770, 300, false, Library.IMG("tower.platform.png"), 75);
+			WorldUtils.addWall(770, 200, false, Library.IMG("tower.platform.png"), 75);
+			WorldUtils.addWall(729, 183, true, Library.IMG("tower.platform.png"), 244);
+			WorldUtils.addWall(779, 60, false, Library.IMG("tower.platform.png"), 110);
+			WorldUtils.addWall(935, 60, false, Library.IMG("tower.platform.png"), 150);
+			
+			WorldUtils.addEnemy(350, 80, Guard);
 			
 			Game.stage.addChild(new HUD);
 			
-			WorldUtils.addDecal(Library.IMG("misc.keyA.png"), 380, 320, trainRanged, function (d:Decal):* 	{ d.alpha = 0;	} );
+			WorldUtils.addDecal(Library.IMG("misc.keyA.png"), 790, 30, trainRanged, function (d:Decal):* 	{ d.alpha = 0;	} );
 			WorldUtils.addDecal(Library.IMG("misc.padlock.png"), 500, 375, WorldUtils.doorLocked, function (d:Decal):* { d.alpha = 0;	} );
 			WorldUtils.addDecal(Library.IMG("misc.upArrow.png"), 500, 375, towerDoorAdvance, function (d:Decal):* { d.alpha = 0; } );
 			

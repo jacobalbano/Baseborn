@@ -244,7 +244,7 @@ package ifrit
 			addWall(700, 405, false, Library.IMG("misc.clipPlatform.png"));
 			addWall(900, 405, false, Library.IMG("misc.clipPlatform.png"));
 			
-			addWall(1005, 100, true, Library.IMG("misc.clipPlatform.png"));
+			addWall(1005, 100, true, Library.IMG("misc.clipPlatform.png"), 300);
 			addWall(1005, 300, true, Library.IMG("misc.clipPlatform.png"));
 			addWall( 1005, 500, true, Library.IMG("misc.clipPlatform.png"));
 		}

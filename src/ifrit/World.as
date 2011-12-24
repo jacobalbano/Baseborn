@@ -56,7 +56,7 @@ package ifrit
 			Worlds.add("tower_03", 		loadTower_03);
 			
 			Worlds.add("dungeon_01", 	loadDungeon_01);
-			//Worlds.add("dungeon_02",    loadDungeon_02);
+			Worlds.add("dungeon_02",    loadDungeon_02);
 			//Worlds.add("dungeon_03",    loadDungeon_03);
 			
 			Worlds.add("hellther_01", 	loadHellther_01);
@@ -707,6 +707,67 @@ package ifrit
 			
 			Game.stage.addChild(Library.IMG("dungeon.bg.png"));
 			
+			WorldUtils.addLadder(970, 145, 260);
+			WorldUtils.addLadder(150, 190, 260);
+			
+			WorldUtils.addEnemy(150, 130, Zombie);
+			WorldUtils.addEnemy(150, 130, Zombie);
+			WorldUtils.addEnemy(150, 130, Zombie);
+			WorldUtils.addEnemy(150, 130, Spider);
+			
+			WorldUtils.addEnemy(400, 250, Spider);
+			WorldUtils.addEnemy(700, 250, Spider);
+			
+			WorldUtils.addEnemy(300, 320, Spider);
+			WorldUtils.addEnemy(400, 320, Spider);
+			WorldUtils.addEnemy(500, 320, Spider);
+			WorldUtils.addEnemy(600, 320, Spider);
+			WorldUtils.addEnemy(700, 320, Spider);
+			WorldUtils.addEnemy(800, 320, Spider);
+			
+			WorldUtils.addEnemy(200, 380, SkeletonMage);
+			WorldUtils.addEnemy(300, 380, Skeleton);
+			WorldUtils.addEnemy(400, 380, SkeletonMage);
+			WorldUtils.addEnemy(500, 380, Zombie);
+			WorldUtils.addEnemy(600, 380, Zombie);
+			WorldUtils.addEnemy(700, 380, Spider);
+			WorldUtils.addEnemy(800, 380, Spider);
+			
+			WorldUtils.addWall( 565.5, 325, false, Library.IMG("dungeon.platform.png"), 742);
+			
+			WorldUtils.addWall( 103, 50, true, Library.IMG("dungeon.platform.png"), 100);
+			WorldUtils.addWall( 195, 240, true, Library.IMG("dungeon.platform.png"), 180);
+			WorldUtils.addWall( 100, 150, false, Library.IMG("dungeon.platform.png"), 200);
+			
+			WorldUtils.addWall( 350, 150, false, Library.IMG("dungeon.platform.png"), 60);
+			WorldUtils.addWall( 525, 150, false, Library.IMG("dungeon.platform.png"), 60);
+			WorldUtils.addWall( 700, 150, false, Library.IMG("dungeon.platform.png"), 60);
+			
+			WorldUtils.addWall( 625, 272, false, Library.IMG("dungeon.platform.png"), 610);
+			WorldUtils.addWall( 850, 212, true, Library.IMG("dungeon.platform.png"), 130);
+			WorldUtils.addWall( 932, 212, true, Library.IMG("dungeon.platform.png"), 130);
+			WorldUtils.addWall( 891, 150, false, Library.IMG("dungeon.platform.png"), 92);
+			
+			WorldUtils.addWall( 103, 310, true, Library.IMG("dungeon.platform.png"), 200);
+			
+			Game.stage.addChild(new HUD);
+			
+			WorldUtils.addMan(50, -10, Game.playerClass);
+			
+			WorldUtils.addTrigger(44.5, 395, WorldUtils.advance, 99, 15);
+			
+			nextLevel = "dungeon_02";
+		}
+		
+		private static function loadDungeon_02():void 
+		{
+			audio.playMusic("dungeon", 3);
+			audio.stopAll(["dungeon"]);
+			
+			WorldUtils.makeBounds();
+			
+			Game.stage.addChild(Library.IMG("dungeon.bg.png"));
+			
 			WorldUtils.addDecal(Library.IMG("dungeon.decals.torch.png"), 230, 80, null, null, [0, 1, 2, 3, 4, 5], 40, 40);
 			WorldUtils.addDecal(Library.IMG("dungeon.decals.torch.png"), 700, 80, null, null, [0, 1, 2, 3, 4, 5], 40, 40);
 			WorldUtils.addDecal(Library.IMG("dungeon.decals.cellDoor.png"), 200, 369.5);
@@ -966,12 +1027,15 @@ package ifrit
 		{
 			audio.stopAll();
 			
-			WorldUtils.makeBounds();
-			
 			WorldUtils.addDecal(Library.IMG("endingScreen.png"), 500, 250);
+			WorldUtils.addDecal(Library.IMG("creditRoll.png"), 500, 2000, creditRoll);
+			
+			WorldUtils.makeBounds();
 			
 			nextLevel = "title";
 		}
+		
+		private static function creditRoll(d:Decal):void	{	if (d.y > -872.5) d.y -= 1.25;	}
 		
 		//}
 		//	Worlds end

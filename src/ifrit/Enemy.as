@@ -130,31 +130,29 @@ package ifrit
 				}
 				else
 				{
-					//Only drop pickups some of the time
-					if (new Boolean(Math.round(Math.random() + 0.3)))
+					
+					//	2/3 chance of dropping a pickup
+					if (new Boolean(Math.round(Math.random() + 0.5)))
 					{
-						if (Game.man.type == Player.MAGE)
+						if (HUD.ammoCount <= 0.5)
 						{
-							var typeM:uint = new Boolean(Math.round(Math.random())) ? Pickup.HEALTH : Pickup.MANA;
-							addChild(this.pickup = new Pickup(this.x, this.y, typeM));
-						}
-						else if (Game.man.type == Player.FIGHTER)
-						{
-							if (HUD.ammoCount <= 0.5)
+							switch (Game.man.type) 
 							{
-								var typeF:uint = new Boolean(Math.round(Math.random())) ? Pickup.HEALTH : Pickup.ARROW;
-								addChild(this.pickup = new Pickup(this.x, this.y, typeF));
+								case Player.MAGE:		addChild(this.pickup = new Pickup(this.x, this.y, new Boolean(Math.round(Math.random())) ? Pickup.HEALTH : Pickup.MANA));		break;
+								case Player.FIGHTER:	addChild(this.pickup = new Pickup(this.x, this.y, new Boolean(Math.round(Math.random())) ? Pickup.HEALTH : Pickup.ARROW));		break;
+								case Player.ROGUE:		addChild(this.pickup = new Pickup(this.x, this.y, new Boolean(Math.round(Math.random())) ? Pickup.HEALTH : Pickup.SHURIKEN));	break;
+								default:				throw new Error("How did you manage to kill an enemy without having a class?");													break;
 							}
-							else	addChild(this.pickup = new Pickup(this.x, this.y, Pickup.HEALTH));
 						}
-						else if (Game.man.type == Player.ROGUE)
+						else
 						{
-							if (HUD.ammoCount <= 0.5)
+							switch (Game.man.type) 
 							{
-								var typeR:uint = new Boolean(Math.round(Math.random())) ? Pickup.HEALTH : Pickup.SHURIKEN;
-								addChild(this.pickup = new Pickup(this.x, this.y, typeR));
+								case Player.MAGE:		addChild(this.pickup = new Pickup(this.x, this.y, new Boolean(Math.round(Math.random())) ? Pickup.HEALTH : Pickup.MANA));		break;
+								case Player.FIGHTER:	addChild(this.pickup = new Pickup(this.x, this.y, Pickup.HEALTH));																break;
+								case Player.ROGUE:		addChild(this.pickup = new Pickup(this.x, this.y, Pickup.HEALTH));																break;
+								default:				throw new Error("How did you manage to kill an enemy without having a class?");													break;
 							}
-							else	addChild(this.pickup = new Pickup(this.x, this.y, Pickup.HEALTH));
 						}
 					}
 				}
@@ -304,6 +302,18 @@ package ifrit
 		{
 			this.lastHeading = heading;
 			
+			if (this.homeRect.contains(Game.man.x, Game.man.y) && !Game.man.isDestroyed && Game.man.y <= this.y + this.height / 2)
+			{
+				if (this.x >= Game.man.x)
+				{
+					if (this.x <= this.leftBound)	heading = false;
+				}
+				else
+				{
+					if (this.x >= this.rightBound)	heading = true;
+				}
+			}
+			
 			if (!(this.behaviorFlags & STAND_GROUND) > 0 || this.fleeMode)
 			{
 				if (heading)	{	if (this.x <= this.lastPosition.x) heading = !heading;	}
@@ -337,7 +347,6 @@ package ifrit
 					
 					if ( ! (this.behaviorFlags & PASSIVE) > 0)
 					{
-						if (this.x >= Game.man.x) heading = false;	else heading = true;
 						if (heading)	{	if (Game.man.x > this.x && this.rotationY == 0) this.attack();	}
 						else			{	if (Game.man.x < this.x && this.rotationY == 180) this.attack();	}
 					}

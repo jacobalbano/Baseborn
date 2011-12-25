@@ -302,22 +302,39 @@ package ifrit
 		{
 			this.lastHeading = heading;
 			
-			if (this.homeRect.contains(Game.man.x, Game.man.y) && !Game.man.isDestroyed && Game.man.y <= this.y + this.height / 2)
-			{
-				if (this.x >= Game.man.x)
-				{
-					if (this.x <= this.leftBound)	heading = false;
-				}
-				else
-				{
-					if (this.x >= this.rightBound)	heading = true;
-				}
-			}
-			
 			if (!(this.behaviorFlags & STAND_GROUND) > 0 || this.fleeMode)
 			{
 				if (heading)	{	if (this.x <= this.lastPosition.x) heading = !heading;	}
 				else			{ 	if (this.x >= this.lastPosition.x) heading = !heading;	}
+			}
+			
+			if (this.homeRect.contains(Game.man.x, Game.man.y) && !Game.man.isDestroyed && Game.man.y <= this.y + this.height / 2)
+			{
+				function castDown(heading:Boolean):Boolean
+				{
+					trace("casting from", x, ",", y);
+					
+					for (var step:uint = 0; step < 10; step++)
+					{
+						var test:Point = new Point(this.heading ? x + 15 : x - 15, y + step * 10);
+						trace("Ray at", test);
+						for (var i:uint = 0; i < World.Platforms.length; i++)
+						{
+							if (World.Platforms[i].hitTestPoint(test.x, test.y))	return true;
+						}
+					}
+					
+					return false;
+				}
+				
+				if (this.x >= Game.man.x)
+				{
+					if (castDown(this.heading))	heading = false;
+				}
+				else
+				{
+					if (castDown(this.heading))	heading = true;
+				}
 			}
 			
 			if (!fleeMode)

@@ -223,6 +223,7 @@ package ifrit
 					this.alertedThisFrame = false;
 				}
 				
+				//	Check either side of the home platform for adjacent platforms
 				for (var i:int = 0; i < World.Platforms.length; i++) 
 				{
 					if (World.Platforms[i].collide(this) && World.Platforms[i].rotation == 0 && World.Platforms[i].y > this.y)
@@ -246,7 +247,7 @@ package ifrit
 							
 							if (World.Platforms[ii].x < World.Platforms[i].x)	//	Platform is to the left
 							{								
-								if (distance <= 210)	//	Enemies can pass over a 10 pixel gap without turning
+								if (distance <= World.Platforms[ii].x - 15)	//	Enemies can pass over a 15 pixel gap without turning
 								{
 									li = ii;
 									leftBound = World.Platforms[ii].x - World.Platforms[ii].width / 2;
@@ -255,7 +256,7 @@ package ifrit
 							}
 							else if (World.Platforms[ii].x > World.Platforms[i].x)	//	Platform is to the right
 							{
-								if (distance <= 215)	//	Enemies can pass over a 15 pixel gap without turning
+								if (distance <= World.Platforms[ii].x + 15)	//	Enemies can pass over a 15 pixel gap without turning
 								{
 									ri = ii;
 									rightBound = World.Platforms[ii].x + World.Platforms[ii].width / 2;
@@ -312,12 +313,10 @@ package ifrit
 			{
 				function castDown(heading:Boolean):Boolean
 				{
-					trace("casting from", x, ",", y);
 					
 					for (var step:uint = 0; step < 10; step++)
 					{
 						var test:Point = new Point(this.heading ? x + 15 : x - 15, y + step * 10);
-						trace("Ray at", test);
 						for (var i:uint = 0; i < World.Platforms.length; i++)
 						{
 							if (World.Platforms[i].hitTestPoint(test.x, test.y))	return true;
@@ -329,20 +328,21 @@ package ifrit
 				
 				if (this.x >= Game.man.x)
 				{
-					if (castDown(this.heading))	heading = false;
+					if (castDown(this.heading) && heading)	heading = false;
 				}
 				else
 				{
-					if (castDown(this.heading))	heading = true;
+					if (castDown(this.heading) && !heading)	heading = true;
 				}
 			}
-			
-			if (!fleeMode)
+			else
 			{
-				if (this.x >= this.rightBound) heading = false;
-				else if (this.x <= this.leftBound) heading = true;
-			}
-			
+				if (!fleeMode)
+				{
+					if (this.x >= this.rightBound) heading = false;
+					else if (this.x <= this.leftBound) heading = true;
+				}
+			}			
 		}
 		
 		/**

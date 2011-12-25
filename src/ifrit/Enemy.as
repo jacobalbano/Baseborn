@@ -311,15 +311,13 @@ package ifrit
 			
 			if (this.homeRect.contains(Game.man.x, Game.man.y) && !Game.man.isDestroyed && Game.man.y <= this.y + this.height / 2)
 			{
-				function castDown(heading:Boolean):Boolean
+				function castDown():Boolean
 				{
-					
 					for (var step:uint = 0; step < 10; step++)
 					{
-						var test:Point = new Point(this.heading ? x + 15 : x - 15, y + step * 10);
 						for (var i:uint = 0; i < World.Platforms.length; i++)
 						{
-							if (World.Platforms[i].hitTestPoint(test.x, test.y))	return true;
+							if (World.Platforms[i].hitTestPoint(this.heading ? x + 15 : x - 15, y + step * 10))	return true;
 						}
 					}
 					
@@ -328,11 +326,11 @@ package ifrit
 				
 				if (this.x >= Game.man.x)
 				{
-					if (castDown(this.heading) && heading)	heading = false;
+					if (castDown() && heading)	heading = false;
 				}
 				else
 				{
-					if (castDown(this.heading) && !heading)	heading = true;
+					if (castDown() && !heading)	heading = true;
 				}
 			}
 			else

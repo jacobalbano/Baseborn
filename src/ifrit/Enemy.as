@@ -1,6 +1,5 @@
 package ifrit 
 {
-	import com.thaumaturgistgames.flakit.Library;
 	import flash.display.Bitmap;
 	import flash.display.BitmapData;
 	import flash.display.Sprite;
@@ -271,8 +270,11 @@ package ifrit
 			{
 				if (this.homeRect.contains(Game.man.x, Game.man.y) && !Game.man.isDestroyed && Game.man.y <= this.y + this.height / 2)
 				{
-					if (this.x < Game.man.x)	this.heading = true;
-					else						this.heading = false;
+					if (!fleeMode)
+					{
+						if (this.x < Game.man.x)	this.heading = true;
+						else						this.heading = false;
+					}
 				}
 				else if (!findEdge())
 				{

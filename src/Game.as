@@ -110,12 +110,12 @@
 						man.rotationY = 0;
 					}
 					
-					if (Input.isKeyDown(Input.UP))
+					if (Input.isKeyDown(Input.UP) && !man.isFrozen)
 					{
 						man.y -= 5;
 						man.graphic.play("climbUp");
 					}
-					else if (Input.isKeyDown(Input.DOWN))
+					else if (Input.isKeyDown(Input.DOWN) && !man.isFrozen)
 					{
 						man.y += 5;
 						man.graphic.play("climbDown");
@@ -495,7 +495,7 @@
 							/**
 							 * Platform debugging information
 							 */
-							//if (World.Mobs[jj].friendly && !(World.Mobs[jj] is Doppleganger))
+							//if (World.Mobs[jj].friendly)
 							//{
 								//if (World.Platforms[ii].collide(World.Mobs[jj] ))
 								//{

@@ -2,6 +2,7 @@ package ifrit
 {
 	import com.thaumaturgistgames.flakit.Library;
 	import flash.display.Bitmap;
+	import flash.display.BitmapData;
 	import flash.display.Sprite;
 	import flash.geom.Point;
 	import flash.geom.Rectangle;
@@ -24,11 +25,10 @@ package ifrit
 		public var heading:Boolean;
 		public var lastHeading:Boolean;
 		public var fleeMode:Boolean;
+		public var waiting:Boolean;
 		
 		protected var behaviorFlags:uint;
 		protected var tipsOverWhenDead:Boolean;	//	Ultra stupid variable name
-		protected var rightBound:Number;
-		protected var leftBound:Number;
 		protected var lastPosition:Point;
 		protected var speed:Number;
 		protected var confusionTimer:Timer;
@@ -37,6 +37,8 @@ package ifrit
 		
 		private var homeRect:Rectangle;
 		private var alertedThisFrame:Boolean;
+		
+		private var homeRectDebug:Sprite;
 		
 		public function Enemy(x:Number, y:Number, bitmap:Bitmap, frameWidth:int, frameHeight:int, collisionWidth:int, collisionHeight:int, behaviorFlags:uint = 0) 
 		{
@@ -56,6 +58,8 @@ package ifrit
 			this.fleeCooldown = new Timer(1000, 0);
 			this.homeRect = new Rectangle;
 			this.tipsOverWhenDead = true;
+			
+			Game.stage.addChild(this.homeRectDebug = new Sprite);
 		}
 		
 		override public function preThink():void 
@@ -222,76 +226,23 @@ package ifrit
 				{
 					this.alertedThisFrame = false;
 				}
+			}
+			
+			{
+				this.homeRect.height = 60;
+				this.homeRect.width = 300;
+				this.homeRect.x = this.heading ? this.x - 100 : this.x - 200;
+				this.homeRect.y = this.y - 30;
 				
-				//	Check either side of the home platform for adjacent platforms
-				for (var i:int = 0; i < World.Platforms.length; i++) 
-				{
-					if (World.Platforms[i].collide(this) && World.Platforms[i].rotation == 0 && World.Platforms[i].y > this.y)
-					{
-						collision = true;
-						leftBound = World.Platforms[i].x - World.Platforms[i].width / 2;
-						rightBound = World.Platforms[i].x + World.Platforms[i].width / 2;
-						found = true;
-						
-						var li:int = -1;
-						var ri:int = -1;
-
-						
-						for (var ii:int = 0; ii < World.Platforms.length; ii++)
-						{
-							if (li == ii || ri == ii || i == ii)		continue;
-							
-							if (World.Platforms[ii].y != World.Platforms[i].y) continue;
-							
-							var distance:int = Math.abs(World.Platforms[ii].x - World.Platforms[i].x) ;
-							
-							if (World.Platforms[ii].x < World.Platforms[i].x)	//	Platform is to the left
-							{								
-								if (distance <= World.Platforms[ii].x - 15)	//	Enemies can pass over a 15 pixel gap without turning
-								{
-									li = ii;
-									leftBound = World.Platforms[ii].x - World.Platforms[ii].width / 2;
-								}
-								continue;
-							}
-							else if (World.Platforms[ii].x > World.Platforms[i].x)	//	Platform is to the right
-							{
-								if (distance <= World.Platforms[ii].x + 15)	//	Enemies can pass over a 15 pixel gap without turning
-								{
-									ri = ii;
-									rightBound = World.Platforms[ii].x + World.Platforms[ii].width / 2;
-								}
-								continue;
-							}
-						}
-						
-						break;
-					}
-				}
-				
-				if (!found)
-				{
-					this.leftBound = 0;
-					this.rightBound = Game.dimensions.x;
-				}
-				
-				if (collision)
-				{
-					this.homeRect.height = 60;
-					this.homeRect.width = 300;
-					this.homeRect.x = this.heading ? this.x - 100 : this.x - 200;
-					this.homeRect.y = this.y - 30;
-					
-					/**
-					 * Uncomment to see debugging view for search rectangle
-					 * Warning: Creates a huge amount of sprites when AI is in chase mode
-					 */
-					//var r:Sprite = new Sprite;
-					//r.graphics.beginFill(0x00ffff, 0.1);
-					//r.graphics.drawRect(this.homeRect.x, this.homeRect.y, this.homeRect.width, this.homeRect.height);
-					//r.graphics.endFill();
-					//Game.stage.addChild(r);
-				}
+				/**
+				 * Uncomment to see debugging view for search rectangle
+				 */
+				Game.stage.removeChild(this.homeRectDebug);
+				this.homeRectDebug = new Sprite;
+				this.homeRectDebug.graphics.beginFill(0x00ffff, 0.1);
+				this.homeRectDebug.graphics.drawRect(this.homeRect.x, this.homeRect.y, this.homeRect.width, this.homeRect.height);
+				this.homeRectDebug.graphics.endFill();
+				Game.stage.addChild(this.homeRectDebug);
 			}
 		}
 		
@@ -309,38 +260,25 @@ package ifrit
 				else			{ 	if (this.x >= this.lastPosition.x) heading = !heading;	}
 			}
 			
-			if (this.homeRect.contains(Game.man.x, Game.man.y) && !Game.man.isDestroyed && Game.man.y <= this.y + this.height / 2)
+			if (!castDown())
 			{
-				function castDown():Boolean
+				if (!fleeMode)
 				{
-					for (var step:uint = 0; step < 10; step++)
-					{
-						for (var i:uint = 0; i < World.Platforms.length; i++)
-						{
-							if (World.Platforms[i].hitTestPoint(this.heading ? x + 15 : x - 15, y + step * 10))	return true;
-						}
-					}
-					
-					return false;
-				}
-				
-				if (this.x >= Game.man.x)
-				{
-					if (castDown() && heading)	heading = false;
-				}
-				else
-				{
-					if (castDown() && !heading)	heading = true;
+					heading = !heading;
 				}
 			}
 			else
 			{
-				if (!fleeMode)
+				if (this.homeRect.contains(Game.man.x, Game.man.y) && !Game.man.isDestroyed && Game.man.y <= this.y + this.height / 2)
 				{
-					if (this.x >= this.rightBound) heading = false;
-					else if (this.x <= this.leftBound) heading = true;
+					if (this.x < Game.man.x)	this.heading = true;
+					else						this.heading = false;
 				}
-			}			
+				else if (!findEdge())
+				{
+					heading = !heading;
+				}
+			}
 		}
 		
 		/**
@@ -482,7 +420,38 @@ package ifrit
 					}
 				}
 			}
-		}		
+		}
+		
+		private function castDown():Boolean
+		{
+			for (var step:uint = 0; step < 10; step++)
+			{
+				WorldUtils.addDecal(new Bitmap(new BitmapData(2, 2)), heading ? x + 5 : x - 5, y + step * 10,
+					function (d:Decal):*
+					{
+						//	Function won't run until next frame
+						//	So removing it immediately is fine
+						Game.stage.removeChild(d);
+					});
+				
+				for (var i:uint = 0; i < World.Platforms.length; i++)
+				{							
+					if (World.Platforms[i].hitTestPoint(heading ? x + 5 : x - 5, y + step * 10))	return true;
+				}
+			}
+				
+			return false;
+		}
+			
+		private function findEdge():Boolean
+		{
+			for (var i:uint = 0; i < World.Platforms.length; i++)
+			{							
+				if (World.Platforms[i].hitTestPoint(heading ? x + 5 : x - 5, y + height / 2 + 5))	return true;
+			}
+			
+			return false;
+		}
 		
 	}
 

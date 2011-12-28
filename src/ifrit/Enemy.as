@@ -13,13 +13,13 @@ package ifrit
 	 */
 	public class Enemy extends Mob 
 	{
-		public static var NO_FEAR:uint = 1;
-		public static var NO_MELEE:uint = 2;
-		public static var NO_RANGED:uint = 4;
-		public static var STAND_GROUND:uint = 8;
-		public static var PASSIVE:uint = 16;
-		public static var AFRAID:uint = 32;
-		public static var BRAIN_DEAD:uint = 64;
+		public static const NO_FEAR:uint 		= 1 << 0;
+		public static const NO_MELEE:uint 		= 1 << 1;
+		public static const NO_RANGED:uint 		= 1 << 2;
+		public static const STAND_GROUND:uint 	= 1 << 3;
+		public static const PASSIVE:uint 		= 1 << 4;
+		public static const AFRAID:uint 		= 1 << 5;
+		public static const BRAIN_DEAD:uint 	= 1 << 6;
 		
 		public var brainDead:Boolean;
 		public var heading:Boolean;
@@ -289,7 +289,6 @@ package ifrit
 		{
 			if (!fleeMode)
 			{
-				
 				if (this.homeRect.contains(Game.man.x, Game.man.y) && !Game.man.isDestroyed && Game.man.y <= this.y + this.height / 2)
 				{
 					if (!this.alertedThisFrame)

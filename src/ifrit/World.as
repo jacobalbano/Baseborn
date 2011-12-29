@@ -57,7 +57,7 @@ package ifrit
 			
 			Worlds.add("dungeon_01", 	loadDungeon_01);
 			Worlds.add("dungeon_02",    loadDungeon_02);
-			//Worlds.add("dungeon_03",    loadDungeon_03);
+			Worlds.add("dungeon_03",    loadDungeon_03);
 			
 			Worlds.add("hellther_01", 	loadHellther_01);
 			Worlds.add("hellther_02", 	loadHellther_02);
@@ -758,10 +758,8 @@ package ifrit
 			
 			nextLevel = "dungeon_02";
 		}
-
-
-
-private static function loadDungeon_02():void 
+		
+		private static function loadDungeon_02():void 
 		{
 			audio.playMusic("dungeon", 3);
 			audio.stopAll(["dungeon"]);
@@ -772,39 +770,101 @@ private static function loadDungeon_02():void
 			
 			WorldUtils.addDecal(Library.IMG("dungeon.decals.torch.png"), 230, 80, null, null, [0, 1, 2, 3, 4, 5], 40, 40);
 			WorldUtils.addDecal(Library.IMG("dungeon.decals.torch.png"), 700, 80, null, null, [0, 1, 2, 3, 4, 5], 40, 40);
-			WorldUtils.addDecal(Library.IMG("dungeon.decals.cellDoor.png"), 200, 369.5);
-			WorldUtils.addDecal(Library.IMG("dungeon.decals.crevice.png"), 920, 80, null, null, [0, 1, 2, 3], 149, 44, 2);
 			
-			WorldUtils.addDecal(Library.IMG("misc.upArrow.png"), 920, 80, WorldUtils.chooseAdvance, function (d:Decal):* { d.alpha = 0;} );
-
-			WorldUtils.addLadder(112, 100, 260);
-			WorldUtils.addLadder(855, 200, 115);
+			WorldUtils.addWall( 150, 190, false, Library.IMG("dungeon.platform.png"), 100);
+			WorldUtils.addWall( 125, 155, false, Library.IMG("dungeon.platform.png"), 50);
+			WorldUtils.addWall( 113, 120, false, Library.IMG("dungeon.platform.png"), 25);
 			
-			WorldUtils.addEnemy(724, 75, Skeleton);
-			WorldUtils.addEnemy(924, 75, Skeleton);
-			WorldUtils.addEnemy(600, 336, SkeletonMage);
-			WorldUtils.addEnemy(495, 130, Zombie);
-			WorldUtils.addEnemy(170, 180, Spider);
-			WorldUtils.addEnemy(200, 360, Zombie);
-			WorldUtils.addEnemy(600, 360, Spider);
+			WorldUtils.addWall( 203, 325, false, Library.IMG("dungeon.platform.png"), 200);
+			WorldUtils.addWall( 103, 165, true, Library.IMG("dungeon.platform.png"), 330);
 			
-			WorldUtils.addWall( 0, 110, false, Library.IMG("dungeon.platform.png"));
-			WorldUtils.addWall(150, 250, true, Library.IMG("dungeon.platform.png"));
-			WorldUtils.addWall(255, 186, false, Library.IMG("dungeon.platform.png"));
-			WorldUtils.addWall(495, 229, false, Library.IMG("dungeon.platform.png"));
-			WorldUtils.addWall(495, 144, false, Library.IMG("dungeon.platform.png"));
-			WorldUtils.addWall(800, 110, false, Library.IMG("dungeon.platform.png"), 400);
-			WorldUtils.addWall(772, 414, true, Library.IMG("dungeon.platform.png"));
-			WorldUtils.addWall(600, 346, false, Library.IMG("dungeon.platform.png"));
-			WorldUtils.addWall(375, 371, false, Library.IMG("dungeon.platform.png"));
-			WorldUtils.addWall(829, 315, false, Library.IMG("dungeon.platform.png"));
-			WorldUtils.addWall(700, 272, false, Library.IMG("dungeon.platform.png"));
-			WorldUtils.addWall(227, 109, false, Library.IMG("dungeon.platform.png"));
-			WorldUtils.addWall(745, 210, false, Library.IMG("dungeon.platform.png"));
+			WorldUtils.addWall( 190, 395, false, Library.IMG("dungeon.platform.png"), 500);
+			WorldUtils.addWall( 810, 395, false, Library.IMG("dungeon.platform.png"), 500);
+			
+			WorldUtils.addWall( 390, 355, false, Library.IMG("dungeon.platform.png"), 100);
+			WorldUtils.addWall( 250, 100, false, Library.IMG("dungeon.platform.png"), 100);
+			
+			WorldUtils.addWall( 300, 285, false, Library.IMG("dungeon.platform.png"), 75);
+			WorldUtils.addWall( 300, 220, false, Library.IMG("dungeon.platform.png"), 75);
+			
+			WorldUtils.addWall( 416, 250, false, Library.IMG("dungeon.platform.png"), 42);
+			WorldUtils.addWall( 400, 75, false, Library.IMG("dungeon.platform.png"), 75);
+			
+			WorldUtils.addWall( 611, 95, false, Library.IMG("dungeon.platform.png"), 95);
+			WorldUtils.addWall( 749, 95, false, Library.IMG("dungeon.platform.png"), 95);
+			WorldUtils.addWall( 610, 145, false, Library.IMG("dungeon.platform.png"), 100);
+			WorldUtils.addWall( 750, 145, false, Library.IMG("dungeon.platform.png"), 100);
+			WorldUtils.addWall( 610, 185, false, Library.IMG("dungeon.platform.png"), 100);
+			WorldUtils.addWall( 750, 185, false, Library.IMG("dungeon.platform.png"), 100);
+			WorldUtils.addWall( 610, 225, false, Library.IMG("dungeon.platform.png"), 100);
+			WorldUtils.addWall( 750, 225, false, Library.IMG("dungeon.platform.png"), 100);
+			WorldUtils.addWall( 610, 265, false, Library.IMG("dungeon.platform.png"), 100);
+			WorldUtils.addWall( 750, 265, false, Library.IMG("dungeon.platform.png"), 100);
+			WorldUtils.addWall( 610, 305, false, Library.IMG("dungeon.platform.png"), 100);
+			WorldUtils.addWall( 750, 305, false, Library.IMG("dungeon.platform.png"), 100);
+			WorldUtils.addWall( 610, 345, false, Library.IMG("dungeon.platform.png"), 100);
+			WorldUtils.addWall( 750, 345, false, Library.IMG("dungeon.platform.png"), 100);
+			
+			WorldUtils.addWall( 440, 225, true, Library.IMG("dungeon.platform.png"), 350);
+			WorldUtils.addWall( 560, 250, true, Library.IMG("dungeon.platform.png"), 300);
+			
+			WorldUtils.addWall( 850, 80, false, Library.IMG("dungeon.platform.png"), 100);
+			WorldUtils.addWall( 950, 150, false, Library.IMG("dungeon.platform.png"), 100);
+			WorldUtils.addWall( 850, 220, false, Library.IMG("dungeon.platform.png"), 100);
+			WorldUtils.addWall( 950, 290, false, Library.IMG("dungeon.platform.png"), 100);
+			WorldUtils.addWall( 850, 345, false, Library.IMG("dungeon.platform.png"), 100);
+			
+			WorldUtils.addWall( 800, 200, true, Library.IMG("dungeon.platform.png"), 300);
+			WorldUtils.addWall( 620, 45, false, Library.IMG("dungeon.platform.png"), 350);
+			
+			WorldUtils.addLadder(680, 100, 290);
 			
 			Game.stage.addChild(new HUD);
 			
-			WorldUtils.addMan(50, 375, Game.playerClass);
+			WorldUtils.addMan(50, 0, Game.playerClass);
+			
+			WorldUtils.addTrigger( 500, 415, WorldUtils.advance, 100);
+			
+			nextLevel = "dungeon_03";
+		}
+		
+		private static function loadDungeon_03():void 
+		{
+			audio.playMusic("dungeon", 3);
+			audio.stopAll(["dungeon"]);
+			
+			WorldUtils.makeBounds();
+			
+			Game.stage.addChild(Library.IMG("dungeon.bg.png"));
+			
+			WorldUtils.addWall( 449, 75, true, Library.IMG("dungeon.platform.png"), 150);
+			WorldUtils.addWall( 804, 155, true, Library.IMG("dungeon.platform.png"), 125);
+			WorldUtils.addWall( 747, 95, false, Library.IMG("dungeon.platform.png"), 400);
+			WorldUtils.addWall( 551, 50, true, Library.IMG("dungeon.platform.png"), 100);
+			WorldUtils.addWall( 594, 145, false, Library.IMG("dungeon.platform.png"), 300);
+			
+			WorldUtils.addWall( 264, 265, true, Library.IMG("dungeon.platform.png"), 95);
+			WorldUtils.addWall( 219, 346, false, Library.IMG("dungeon.platform.png"), 295);
+			WorldUtils.addWall( 75, 284, true, Library.IMG("dungeon.platform.png"), 134);
+			
+			WorldUtils.addWall( 604, 215, false, Library.IMG("dungeon.platform.png"), 690);
+			WorldUtils.addWall( 406, 145, true, Library.IMG("dungeon.platform.png"), 150);
+			WorldUtils.addWall( 356, 78, true, Library.IMG("dungeon.platform.png"), 165);
+			
+			WorldUtils.addWall( 659, 306, false, Library.IMG("dungeon.platform.png"), 580);
+			WorldUtils.addWall( 364, 331, true, Library.IMG("dungeon.platform.png"), 40);
+			WorldUtils.addWall( 55, 215, false, Library.IMG("dungeon.platform.png"), 50);
+			
+			WorldUtils.addLadder(427, 65, 145);
+			WorldUtils.addLadder(15, 200, 200);
+			WorldUtils.addLadder(975, 75, 325);
+			
+			WorldUtils.addDecal(Library.IMG("dungeon.decals.crevice.png"), 650, 60, null, null, [0, 1, 2, 3], 149, 44, 2);
+			WorldUtils.addDecal(Library.IMG("misc.upArrow.png"), 650, 60, WorldUtils.chooseAdvance, function (d:Decal):* { d.alpha = 0;} );
+			
+			Game.stage.addChild(new HUD);
+			
+			WorldUtils.addMan(500, 0, Game.playerClass);
 			
 			nextLevel = "hellther_01";
 		}

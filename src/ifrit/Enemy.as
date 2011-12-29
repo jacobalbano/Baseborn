@@ -40,7 +40,7 @@ package ifrit
 		private var homeRectDebug:Sprite;
 		
 		public function Enemy(x:Number, y:Number, bitmap:Bitmap, frameWidth:int, frameHeight:int, collisionWidth:int, collisionHeight:int, behaviorFlags:uint = 0) 
-		{
+		{			
 			super(x, y, bitmap, frameWidth, frameHeight, collisionWidth, collisionHeight);
 			
 			this.lastPosition = new Point(x, y);
@@ -308,7 +308,6 @@ package ifrit
 			{
 				if (this.homeRect.contains(Game.man.x, Game.man.y) && !Game.man.isDestroyed && Game.man.y <= this.y + this.height / 2)
 				{
-					
 					if (wallIsOccluding())	return;
 					
 					if (!this.alertedThisFrame)
@@ -473,6 +472,10 @@ package ifrit
 			return false;
 		}
 		
+		/**
+		 * Determine if a wall exists between this enemy and the player
+		 * @return	If a wall exists between this enemy and the player
+		 */
 		private function wallIsOccluding():Boolean
 		{
 			var goal:Point = new Point(Game.man.x, Game.man.y);
@@ -483,15 +486,13 @@ package ifrit
 			{
 				if (count++ > 200) throw new Error("Loop count exceeded maximum");
 				
-				test.x +=  heading ? -5 : 5;
-				for (var b:int = World.Platforms.length; b --> 0;)
+				test.x +=  Game.man.x > this.x ? 5 : -5;
+				
+				for each (var item:Platform in World.Platforms) 
 				{
-					if (World.Platforms[b].vertical)
+					if (item.vertical && item.hitTestPoint(test.x, test.y))
 					{
-						if (World.Platforms[b].hitTestPoint(test.x, test.y))
-						{
-							return true;
-						}
+						return true;
 					}
 				 }
 			}

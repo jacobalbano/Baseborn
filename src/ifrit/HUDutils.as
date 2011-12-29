@@ -191,6 +191,7 @@ package ifrit
 					break;
 				case Player.FIGHTER:	HUD.healthScale = 3;
 					break;
+				default: throw new Error("How do you have a Heads Up Display without having a class?");
 			}
 			
 			HUD.totalHealth = (200 * HUD.healthScale);

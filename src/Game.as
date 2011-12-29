@@ -495,7 +495,7 @@
 							/**
 							 * Platform debugging information
 							 */
-							//if (World.Mobs[jj].friendly)
+							//if (World.Mobs[jj].friendly && !(World.Mobs[jj] is Doppleganger))
 							//{
 								//if (World.Platforms[ii].collide(World.Mobs[jj] ))
 								//{

@@ -3,8 +3,6 @@
 	import com.jacobalbano.Input;
 	import com.thaumaturgistgames.flakit.Engine;
 	import com.thaumaturgistgames.flakit.Library;
-	import flash.display.Bitmap;
-	import flash.display.BitmapData;
 	import flash.display.Stage;
 	import flash.events.Event;
 	import flash.geom.Point;
@@ -18,9 +16,7 @@
 		public static var stage:Stage;
 		public static var man:Player;
 		public static var boss:Boss;
-		public static var playerClass:uint = Player.FIGHTER;
-		
-		public function Game()	{}
+		public static var playerClass:uint;
 		
 		override public function init():void 
 		{
@@ -131,6 +127,8 @@
 					{
 						stopBolt();
 						
+						blinkCheck(true);
+						
 						for (var d:int = World.Mobs.length; d --> 0; )
 						{
 							if (World.Mobs[d] is Doppleganger && !World.Mobs[d].isDestroyed)
@@ -149,41 +147,12 @@
 						
 						man.rotationY = 180;
 						
-						if (man.type == Player.ROGUE)
-						{
-							man.blinkTimer.start();
-							if (man.canBlink)
-							{
-								man.blinkTo = new Point(man.x, man.y);
-								while (Point.distance(new Point(man.x, man.y), man.blinkTo) <= 75 && !man.endBlink)
-								{
-									man.blinkTo.x -=  5;
-									for (var a:int = World.Platforms.length - 1; a >= 0; a--)
-									{
-										if (World.Platforms[a].vertical)
-										{
-											if (World.Platforms[a].hitTestPoint(man.blinkTo.x, man.blinkTo.y))
-											{
-												man.endBlink = true;
-												break;
-											}
-											else  man.endBlink = false;
-										}
-									 }
-								}
-								
-								man.sound.playSFX("blink");
-								WorldUtils.addDecal(Library.IMG("smoke.png"), man.x, man.y, removeSmoke, null, [0, 1, 2, 3, 4, 5], 40, 40, 10, false);
-								man.x = man.blinkTo.x;
-								man.canBlink = false;
-								HUD.buyAction(200, HUD.SPECIAL);
-							}
-						}
-						
 
 					}
 					else if (Input.isKeyDown(Input.RIGHT) && !man.isFrozen)
 					{
+						blinkCheck(false);
+						
 						stopBolt();
 						
 						for (var dd:int = World.Mobs.length; dd --> 0; )
@@ -203,40 +172,10 @@
 						else			man.x += 7;
 						
 						man.rotationY = 0;
-						
-						if (man.type == Player.ROGUE)
-						{
-							man.blinkTimer.start();
-							if (man.canBlink)
-							{
-								man.blinkTo = new Point(man.x, man.y);
-								while (Point.distance(new Point(man.x, man.y), man.blinkTo) <= 75 && !man.endBlink)
-								{
-									man.blinkTo.x +=  5;
-									for (var b:int = World.Platforms.length - 1; b >= 0; b--)
-									{
-										if (World.Platforms[b].vertical)
-										{
-											if (World.Platforms[b].hitTestPoint(man.blinkTo.x, man.blinkTo.y, true))
-											{
-												man.endBlink = true;
-												break;
-											}
-											else  man.endBlink = false;
-										}
-									 }
-								}
-								
-								man.sound.playSFX("blink");
-								WorldUtils.addDecal(Library.IMG("smoke.png"), man.x, man.y, removeSmoke, null, [0, 1, 2, 3, 4, 5], 40, 40, 20, false);
-								man.x = man.blinkTo.x;
-								man.canBlink = false;
-								HUD.buyAction(200, HUD.SPECIAL);
-							}
-						}
 					}
 					else
 					{
+						
 						if (man.isIdle)
 						{
 							for (var dddd:int = World.Mobs.length; dddd --> 0; )
@@ -696,6 +635,40 @@
 			if (!man.frostAttack) return;
 			stage.removeChild(man.frostAttack);
 			man.frostAttack = null;
+		}
+		
+		private function blinkCheck(heading:Boolean):void
+		{
+			if (man.type == Player.ROGUE)
+			{
+				man.blinkTimer.start();
+				if (man.canBlink)
+				{
+					man.blinkTo = new Point(man.x, man.y);
+					while (Point.distance(new Point(man.x, man.y), man.blinkTo) <= 75 && !man.endBlink)
+					{
+						man.blinkTo.x +=  heading ? -5 : 5;
+						for (var b:int = World.Platforms.length - 1; b >= 0; b--)
+						{
+							if (World.Platforms[b].vertical)
+							{
+								if (World.Platforms[b].hitTestPoint(man.blinkTo.x, man.blinkTo.y, true))
+								{
+									man.endBlink = true;
+									break;
+								}
+								else  man.endBlink = false;
+							}
+						 }
+					}
+					
+					man.sound.playSFX("blink");
+					WorldUtils.addDecal(Library.IMG("smoke.png"), man.x, man.y, removeSmoke, null, [0, 1, 2, 3, 4, 5], 40, 40, 20, false);
+					man.x = man.blinkTo.x;
+					man.canBlink = false;
+					HUD.buyAction(200, HUD.SPECIAL);
+				}
+			}
 		}
 		
 		private function checkLadder():Ladder

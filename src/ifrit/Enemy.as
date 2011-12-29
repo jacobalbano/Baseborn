@@ -24,7 +24,7 @@ package ifrit
 		public var heading:Boolean;
 		public var lastHeading:Boolean;
 		public var fleeMode:Boolean;
-		public var waiting:Boolean;
+		public var ignore:Boolean;
 		
 		protected var behaviorFlags:uint;
 		protected var tipsOverWhenDead:Boolean;	//	Ultra stupid variable name
@@ -51,6 +51,7 @@ package ifrit
 			
 			this.heading = true;
 			this.fleeMode = false;
+			this.ignore = true;
 			this.heading = Boolean(Math.round(Math.random()));
 			this.speed = Math.random();
 			this.confusionTimer = new Timer(1000, 0);
@@ -62,7 +63,7 @@ package ifrit
 		}
 		
 		override public function preThink():void 
-		{
+		{			
 			super.preThink();
 			
 			if (freezeTimer)
@@ -94,7 +95,7 @@ package ifrit
 			
 			if (isDestroyed) 	return;
 			
-			this.findPlatform();
+			this.updateView();
 			
 			this.adjustHeading();
 			
@@ -212,37 +213,33 @@ package ifrit
 		
 		/**
 		 * AI synapse
-		 * Search the platform list and decide which platform, if any, to restrict movement to
+		 * Update the search rectangle
 		 */
-		private function findPlatform():void
+		private function updateView():void
 		{
-			if (this.lastHeading != this.heading || (!Game.man.isDestroyed && homeRect.contains(Game.man.x, Game.man.y)) || !homeRect.contains(this.x + homeRect.width / 3, this.y) || !homeRect.contains(this.x - homeRect.width / 3, this.y))
-			{			
-				var found:Boolean = false;
-				var collision:Boolean = false;
-				
+			if (this.lastHeading != this.heading || (!Game.man.isDestroyed && homeRect.contains(Game.man.x, Game.man.y)))
+			{
 				if (!Game.man.isDestroyed && !homeRect.contains(Game.man.x, Game.man.y))
 				{
 					this.alertedThisFrame = false;
 				}
 			}
 			
-			{
-				this.homeRect.height = 60;
-				this.homeRect.width = 300;
-				this.homeRect.x = this.heading ? this.x - 100 : this.x - 200;
-				this.homeRect.y = this.y - 30;
-				
-				/**
-				 * Uncomment to see debugging view for search rectangle
-				 */
-				//Game.stage.removeChild(this.homeRectDebug);
-				//this.homeRectDebug = new Sprite;
-				//this.homeRectDebug.graphics.beginFill(0x00ffff, 0.1);
-				//this.homeRectDebug.graphics.drawRect(this.homeRect.x, this.homeRect.y, this.homeRect.width, this.homeRect.height);
-				//this.homeRectDebug.graphics.endFill();
-				//Game.stage.addChild(this.homeRectDebug);
-			}
+			this.homeRect.height = 60;
+			this.homeRect.width = 300;
+			
+			this.homeRect.x = this.heading ? this.x - 100 : this.x - 200;
+			this.homeRect.y = this.y - 30;
+			
+			/**
+			 * Uncomment to see debugging view for search rectangle
+			 */
+			//Game.stage.removeChild(this.homeRectDebug);
+			//this.homeRectDebug = new Sprite;
+			//this.homeRectDebug.graphics.beginFill(0x00ffff, 0.1);
+			//this.homeRectDebug.graphics.drawRect(this.homeRect.x, this.homeRect.y, this.homeRect.width, this.homeRect.height);
+			//this.homeRectDebug.graphics.endFill();
+			//Game.stage.addChild(this.homeRectDebug);
 		}
 		
 		/**
@@ -259,26 +256,44 @@ package ifrit
 				else			{ 	if (this.x >= this.lastPosition.x) heading = !heading;	}
 			}
 			
+			if (!this.homeRect.contains(Game.man.x, Game.man.y))	this.ignore = false;
+			
 			if (!castDown())
-			{
+			{				
 				if (!fleeMode)
 				{
 					heading = !heading;
+					
+					if (!ignore)
+					{
+						if (this.homeRect.contains(Game.man.x, Game.man.y))	ignore = true;
+					}
 				}
 			}
 			else
 			{
-				if (this.homeRect.contains(Game.man.x, Game.man.y) && !Game.man.isDestroyed && Game.man.y <= this.y + this.height / 2)
+				if (!ignore)
 				{
-					if (!fleeMode)
+					if (this.homeRect.contains(Game.man.x, Game.man.y) && !Game.man.isDestroyed && Game.man.y <= this.y + this.height / 2)
 					{
-						if (this.x < Game.man.x)	this.heading = true;
-						else						this.heading = false;
+						if (!fleeMode)
+						{
+							if (!wallIsOccluding())
+							{
+								if (this.x < Game.man.x)	this.heading = true;
+								else						this.heading = false;
+							}
+						}
 					}
-				}
-				else if (!findEdge())
-				{
-					heading = !heading;
+					else if (!findEdge())
+					{
+						if (!fleeMode)
+						{
+							heading = !heading;
+						}
+						
+						if (this.homeRect.contains(Game.man.x, Game.man.y))	ignore = true;
+					}
 				}
 			}
 		}
@@ -293,6 +308,9 @@ package ifrit
 			{
 				if (this.homeRect.contains(Game.man.x, Game.man.y) && !Game.man.isDestroyed && Game.man.y <= this.y + this.height / 2)
 				{
+					
+					if (wallIsOccluding())	return;
+					
 					if (!this.alertedThisFrame)
 					{
 						this.sound.playSFX("alerted");
@@ -427,6 +445,7 @@ package ifrit
 		{
 			for (var step:uint = 0; step < 10; step++)
 			{
+				/*
 				WorldUtils.addDecal(new Bitmap(new BitmapData(2, 2)), heading ? x + 5 : x - 5, y + step * 10,
 					function (d:Decal):*
 					{
@@ -434,7 +453,7 @@ package ifrit
 						//	So removing it immediately is fine
 						Game.stage.removeChild(d);
 					});
-				
+				*/
 				for (var i:uint = 0; i < World.Platforms.length; i++)
 				{							
 					if (World.Platforms[i].hitTestPoint(heading ? x + 5 : x - 5, y + step * 10))	return true;
@@ -449,6 +468,32 @@ package ifrit
 			for (var i:uint = 0; i < World.Platforms.length; i++)
 			{							
 				if (World.Platforms[i].hitTestPoint(heading ? x + 5 : x - 5, y + height / 2 + 5))	return true;
+			}
+			
+			return false;
+		}
+		
+		private function wallIsOccluding():Boolean
+		{
+			var goal:Point = new Point(Game.man.x, Game.man.y);
+			var test:Point = new Point(x, y);
+			var count:uint = 0;
+			
+			while (Point.distance(goal, test) >= 10 )
+			{
+				if (count++ > 200) throw new Error("Loop count exceeded maximum");
+				
+				test.x +=  heading ? -5 : 5;
+				for (var b:int = World.Platforms.length; b --> 0;)
+				{
+					if (World.Platforms[b].vertical)
+					{
+						if (World.Platforms[b].hitTestPoint(test.x, test.y))
+						{
+							return true;
+						}
+					}
+				 }
 			}
 			
 			return false;

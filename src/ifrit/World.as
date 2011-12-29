@@ -318,7 +318,7 @@ package ifrit
 			WorldUtils.addLadder(712, 200, 94);
 			WorldUtils.addLadder(847, 56, 352);
 			
-			WorldUtils.addWall(630, 9, false, Library.IMG("misc.dotPlatform.png"), 550);
+			WorldUtils.addWall(630, 11, false, Library.IMG("misc.dotPlatform.png"), 550);
 			
 			WorldUtils.addWall(350, 100, false, Library.IMG("tower.platform.png"), 100);
 			WorldUtils.addWall(350, 200, false, Library.IMG("tower.platform.png"), 100);
@@ -333,7 +333,20 @@ package ifrit
 			WorldUtils.addWall(779, 60, false, Library.IMG("tower.platform.png"), 110);
 			WorldUtils.addWall(935, 60, false, Library.IMG("tower.platform.png"), 150);
 			
+			WorldUtils.addEnemy(400, 370, Guard);
+			WorldUtils.addEnemy(600, 370, Guard);
+			
+			WorldUtils.addEnemy(800, 180, ElfMage);
+			WorldUtils.addEnemy(800, 280, ElfMage);
+			
+			WorldUtils.addEnemy(900, 20, Archer);
+			
 			WorldUtils.addEnemy(350, 80, Guard);
+			WorldUtils.addEnemy(350, 180, ElfMage);
+			WorldUtils.addEnemy(355, 280, Archer);
+			
+			WorldUtils.addEnemy(650, 180, Guard);
+			WorldUtils.addEnemy(650, 280, Guard);
 			
 			Game.stage.addChild(new HUD);
 			
@@ -381,9 +394,14 @@ package ifrit
 			WorldUtils.addDecal(Library.IMG("tower.decals.torch.png"), 687, 342, null, null, [0, 1, 2, 3, 4, 5], 40, 40);
 			WorldUtils.addDecal(Library.IMG("tower.decals.torch.png"), 150, 20, null, null, [0, 1, 2, 3, 4, 5], 40, 40);
 			
-			WorldUtils.addEnemy(700, 350, Guard);
 			WorldUtils.addEnemy(400, 350, ElfMage);
 			WorldUtils.addEnemy(700, 350, Archer);
+			WorldUtils.addEnemy(545, 150, Archer);
+			WorldUtils.addEnemy(190, 20, Archer);
+			WorldUtils.addEnemy(400, 20, ElfMage);
+			WorldUtils.addEnemy(600, 20, Archer);
+			WorldUtils.addEnemy(800, 20, ElfMage);
+			WorldUtils.addEnemy(900, 70, Guard);
 			
 			Game.stage.addChild(new HUD);
 			
@@ -406,16 +424,18 @@ package ifrit
 			
 			if (Game.man.type == Player.ROGUE)
 			{
-				WorldUtils.addEnemy(290, 270, Guard);
-				WorldUtils.addEnemy(300, 270, Guard);
-				WorldUtils.addEnemy(280, 270, Guard);
-				WorldUtils.addEnemy(270, 270, ElfMage);
-				WorldUtils.addEnemy(260, 270, ElfMage);
-				WorldUtils.addEnemy(250, 270, ElfMage);
-				WorldUtils.addEnemy(240, 270, ElfMage);
-				WorldUtils.addEnemy(230, 270, Archer);
-				WorldUtils.addEnemy(220, 270, Archer);
-				WorldUtils.addEnemy(210, 270, Archer);
+				WorldUtils.addEnemy(1, 270, Guard);
+				WorldUtils.addEnemy(25, 270, Guard);
+				WorldUtils.addEnemy(50, 270, Guard);
+				WorldUtils.addEnemy(75, 270, Guard);
+				WorldUtils.addEnemy(100, 270, ElfMage);
+				WorldUtils.addEnemy(125, 270, ElfMage);
+				WorldUtils.addEnemy(150, 270, ElfMage);
+				WorldUtils.addEnemy(175, 270, ElfMage);
+				WorldUtils.addEnemy(200, 270, Archer);
+				WorldUtils.addEnemy(225, 270, Archer);
+				WorldUtils.addEnemy(250, 270, Archer);
+				WorldUtils.addEnemy(275, 270, Archer);
 				
 				WorldUtils.addDecal(Library.IMG("misc.keyS.png"), 327, 186, trainCaltrop, function (d:Decal):* { d.alpha = 0; } );
 			}
@@ -679,11 +699,14 @@ package ifrit
 			WorldUtils.addLadder(962, 93, 292);
 			WorldUtils.addLadder(430, 162, 100);
 			
+			WorldUtils.addEnemy(600, 100, Guard);
+			WorldUtils.addEnemy(700, 100, Guard);
 			WorldUtils.addEnemy(869, 195, Archer);
 			WorldUtils.addEnemy(869, 255, Archer);
 			WorldUtils.addEnemy(869, 309, Archer);
 			WorldUtils.addEnemy(612, 261, ElfMage);
 			WorldUtils.addEnemy(530, 366, Guard);
+			WorldUtils.addEnemy(730, 366, Guard);
 			WorldUtils.addEnemy(236, 223, Guard);
 			WorldUtils.addEnemy(390, 145, Archer);
 			WorldUtils.addEnemy(266, 72, Guard);
@@ -743,7 +766,7 @@ package ifrit
 			WorldUtils.addWall( 525, 150, false, Library.IMG("dungeon.platform.png"), 60);
 			WorldUtils.addWall( 700, 150, false, Library.IMG("dungeon.platform.png"), 60);
 			
-			WorldUtils.addWall( 625, 272, false, Library.IMG("dungeon.platform.png"), 610);
+			WorldUtils.addWall( 615, 272, false, Library.IMG("dungeon.platform.png"), 630);
 			WorldUtils.addWall( 850, 212, true, Library.IMG("dungeon.platform.png"), 130);
 			WorldUtils.addWall( 932, 212, true, Library.IMG("dungeon.platform.png"), 130);
 			WorldUtils.addWall( 891, 150, false, Library.IMG("dungeon.platform.png"), 92);
@@ -819,6 +842,27 @@ package ifrit
 			
 			WorldUtils.addLadder(680, 100, 290);
 			
+			WorldUtils.addEnemy(400, 320, Skeleton);
+			WorldUtils.addEnemy(200, 270, Zombie);
+			WorldUtils.addEnemy(300, 200, Zombie);
+			WorldUtils.addEnemy(280, 50, Skeleton);
+			WorldUtils.addEnemy(370, 30, SkeletonMage);
+			WorldUtils.addEnemy(500, 10, Zombie);
+			WorldUtils.addEnemy(550, 10, Zombie);
+			WorldUtils.addEnemy(600, 10, Zombie);
+			WorldUtils.addEnemy(850, 30, Skeleton);
+			WorldUtils.addEnemy(950, 90, Skeleton);
+			WorldUtils.addEnemy(850, 160, Skeleton);
+			WorldUtils.addEnemy(950, 240, Skeleton);
+			WorldUtils.addEnemy(850, 300, Skeleton);
+			
+			WorldUtils.addEnemy(600, 100, Spider);
+			WorldUtils.addEnemy(750, 100, Spider);
+			WorldUtils.addEnemy(600, 200, Spider);
+			WorldUtils.addEnemy(750, 200, Spider);
+			WorldUtils.addEnemy(600, 300, Spider);
+			WorldUtils.addEnemy(750, 300, Spider);
+			
 			Game.stage.addChild(new HUD);
 			
 			WorldUtils.addMan(50, 0, Game.playerClass);
@@ -861,6 +905,37 @@ package ifrit
 			
 			WorldUtils.addDecal(Library.IMG("dungeon.decals.crevice.png"), 650, 60, null, null, [0, 1, 2, 3], 149, 44, 2);
 			WorldUtils.addDecal(Library.IMG("misc.upArrow.png"), 650, 60, WorldUtils.chooseAdvance, function (d:Decal):* { d.alpha = 0;} );
+			
+			WorldUtils.addEnemy(675, 100, Zombie);
+			WorldUtils.addEnemy(680, 100, Zombie);
+			
+			WorldUtils.addEnemy(500, 150, SkeletonMage);
+			WorldUtils.addEnemy(600, 150, SkeletonMage);
+			WorldUtils.addEnemy(650, 150, SkeletonMage);
+			WorldUtils.addEnemy(700, 150, SkeletonMage);
+			
+			WorldUtils.addEnemy(300, 150, Skeleton);
+			WorldUtils.addEnemy(320, 150, Skeleton);
+			
+			WorldUtils.addEnemy(200, 300, Spider);
+			WorldUtils.addEnemy(250, 300, Spider);
+			
+			WorldUtils.addEnemy(400, 280, Spider);
+			WorldUtils.addEnemy(500, 280, Spider);
+			WorldUtils.addEnemy(600, 280, SkeletonMage);
+			WorldUtils.addEnemy(700, 280, SkeletonMage);
+			WorldUtils.addEnemy(730, 280, SkeletonMage);
+			WorldUtils.addEnemy(800, 280, SkeletonMage);
+			
+			WorldUtils.addEnemy(300, 360, Skeleton);
+			WorldUtils.addEnemy(400, 360, Spider);
+			WorldUtils.addEnemy(500, 360, SkeletonMage);
+			WorldUtils.addEnemy(600, 360, Spider);
+			WorldUtils.addEnemy(700, 360, Zombie);
+			WorldUtils.addEnemy(800, 360, Spider);
+			
+			WorldUtils.addEnemy(830, 150, SkeletonMage);
+			WorldUtils.addEnemy(850, 150, SkeletonMage);
 			
 			Game.stage.addChild(new HUD);
 			

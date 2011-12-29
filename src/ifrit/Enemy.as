@@ -236,12 +236,12 @@ package ifrit
 				/**
 				 * Uncomment to see debugging view for search rectangle
 				 */
-				Game.stage.removeChild(this.homeRectDebug);
-				this.homeRectDebug = new Sprite;
-				this.homeRectDebug.graphics.beginFill(0x00ffff, 0.1);
-				this.homeRectDebug.graphics.drawRect(this.homeRect.x, this.homeRect.y, this.homeRect.width, this.homeRect.height);
-				this.homeRectDebug.graphics.endFill();
-				Game.stage.addChild(this.homeRectDebug);
+				//Game.stage.removeChild(this.homeRectDebug);
+				//this.homeRectDebug = new Sprite;
+				//this.homeRectDebug.graphics.beginFill(0x00ffff, 0.1);
+				//this.homeRectDebug.graphics.drawRect(this.homeRect.x, this.homeRect.y, this.homeRect.width, this.homeRect.height);
+				//this.homeRectDebug.graphics.endFill();
+				//Game.stage.addChild(this.homeRectDebug);
 			}
 		}
 		

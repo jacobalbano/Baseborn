@@ -100,7 +100,7 @@ package ifrit
 				
 				if (bolt.playing != "strike" && vortex.playing != "vortex")
 				{
-					sound.playSFX("bolt");
+					if (sound)	sound.playSFX("bolt");
 					HUD.buyAction(energyCost, HUD.ENERGY);
 					HUD.buyAction(manaCost, HUD.MANA);
 				}

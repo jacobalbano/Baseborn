@@ -259,12 +259,15 @@ package ifrit
 			if (!this.homeRect.contains(Game.man.x, Game.man.y))	this.ignore = false;
 			
 			if (!castDown())
-			{
-				if (this.homeRect.contains(Game.man.x, Game.man.y))	ignore = true;
-				
-				if (!fleeMode || !ignore)
+			{				
+				if (!fleeMode)
 				{
 					heading = !heading;
+					
+					if (!ignore)
+					{
+						if (this.homeRect.contains(Game.man.x, Game.man.y))	ignore = true;
+					}
 				}
 			}
 			else
@@ -275,14 +278,21 @@ package ifrit
 					{
 						if (!fleeMode)
 						{
-							if (this.x < Game.man.x)	this.heading = true;
-							else						this.heading = false;
+							if (!wallIsOccluding())
+							{
+								if (this.x < Game.man.x)	this.heading = true;
+								else						this.heading = false;
+							}
 						}
 					}
 					else if (!findEdge())
 					{
+						if (!fleeMode)
+						{
+							heading = !heading;
+						}
+						
 						if (this.homeRect.contains(Game.man.x, Game.man.y))	ignore = true;
-						heading = !heading;
 					}
 				}
 			}
@@ -298,6 +308,9 @@ package ifrit
 			{
 				if (this.homeRect.contains(Game.man.x, Game.man.y) && !Game.man.isDestroyed && Game.man.y <= this.y + this.height / 2)
 				{
+					
+					if (wallIsOccluding())	return;
+					
 					if (!this.alertedThisFrame)
 					{
 						this.sound.playSFX("alerted");
@@ -455,6 +468,32 @@ package ifrit
 			for (var i:uint = 0; i < World.Platforms.length; i++)
 			{							
 				if (World.Platforms[i].hitTestPoint(heading ? x + 5 : x - 5, y + height / 2 + 5))	return true;
+			}
+			
+			return false;
+		}
+		
+		private function wallIsOccluding():Boolean
+		{
+			var goal:Point = new Point(Game.man.x, Game.man.y);
+			var test:Point = new Point(x, y);
+			var count:uint = 0;
+			
+			while (Point.distance(goal, test) >= 10 )
+			{
+				if (count++ > 200) throw new Error("Loop count exceeded maximum");
+				
+				test.x +=  heading ? -5 : 5;
+				for (var b:int = World.Platforms.length; b --> 0;)
+				{
+					if (World.Platforms[b].vertical)
+					{
+						if (World.Platforms[b].hitTestPoint(test.x, test.y))
+						{
+							return true;
+						}
+					}
+				 }
 			}
 			
 			return false;

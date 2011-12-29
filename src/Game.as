@@ -434,24 +434,20 @@
 							/**
 							 * Platform debugging information
 							 */
-							//if (World.Mobs[jj].friendly)
-							//{
-								//if (World.Platforms[ii].collide(World.Mobs[jj] ))
-								//{
-									//trace(ii);
-								//}
-							//}
+							/*
+							if (World.Mobs[jj].friendly)
+							{
+								if (World.Platforms[ii].collide(World.Mobs[jj] ))
+								{
+									trace(ii);
+								}
+							}
+							*/
 						}
 					}
 				}
 			}
-		}
-		
-		private function removeSmoke(d:Decal):void 
-		{
-			if (d.animation.playing != "animation")	Game.stage.removeChild(d);
-		}
-		
+		}		
 		
 		private function beginRangedAttack():void 
 		{			
@@ -560,7 +556,6 @@
 				man.canDropCaltrop = true;
 			}
 			
-			
 		}
 		
 		private function finalizeSpecialAttack():void
@@ -662,6 +657,11 @@
 						 }
 					}
 					
+					function removeSmoke(d:Decal):void 
+					{
+						if (d.animation.playing != "animation")	Game.stage.removeChild(d);
+					}
+					
 					man.sound.playSFX("blink");
 					WorldUtils.addDecal(Library.IMG("smoke.png"), man.x, man.y, removeSmoke, null, [0, 1, 2, 3, 4, 5], 40, 40, 20, false);
 					man.x = man.blinkTo.x;
@@ -671,33 +671,32 @@
 			}
 		}
 		
+		/**
+		 * Checks to see if the player is colliding with a ladder and centers him on it if he isn't moving
+		 * @return	The ladder the player is colliding with, if any; otherwise null
+		 */
 		private function checkLadder():Ladder
-		{
-			var oneLadder:Boolean = false;
-			var l:int;
-			
+		{			
 			if (World.Ladders.length > 0)
 			{
-				for (l = World.Ladders.length; l --> 0; )
+				for (var l:uint = World.Ladders.length; l --> 0; )
 				{
-					if (Point.distance(new Point(man.x, man.y), new Point(World.Ladders[l].x, man.y)) < 14 &&
+					if (Point.distance(new Point(man.x, man.y), new Point(World.Ladders[l].x, man.y)) < 14 	&&
 						man.y > World.Ladders[l].getRect(Game.stage).top - man.height / 2					&&
 						man.y < World.Ladders[l].getRect(Game.stage).bottom)
 					{
 						man.gravUp = false;
-						oneLadder = true;
 						if (!Input.isKeyDown(Input.LEFT) && !Input.isKeyDown(Input.RIGHT))
 						{
 							man.x = World.Ladders[l].x;
 						}
-						break;
+						return World.Ladders[l]
 					}
 				}
-				
-				if (!oneLadder)	man.gravUp = true;
 			}
 			
-			return oneLadder ? World.Ladders[l] : null;
+			man.gravUp = true;
+			return null;
 		}
 		
 	}

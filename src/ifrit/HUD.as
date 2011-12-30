@@ -49,7 +49,7 @@ package ifrit
 		public static var shuriken:Sprite;
 		public static var shurikenTxt:TextField
 		public static var shurikenTxtFormat:TextFormat;
-		public static var caltrops:Sprite;
+		public static var caltrop:Sprite;
 		public static var blink:Sprite;
 		
 		// Fighter Resources
@@ -173,7 +173,7 @@ package ifrit
 				a <= shuriken.width	&&
 				a <= arrows.width	&&
 				s <= shield.width	&&
-				s <= blink.width);
+				s <= caltrop.width);
 		}
 		
 		/**
@@ -221,15 +221,15 @@ package ifrit
 					}
 				}
 				
-				if (type == SPECIAL)
-				{
-					var remainingBlink:Number = blink.width;
-					
-					if (cost <= remainingBlink)
-					{
-						blink.width -= cost;
-					}
-				}
+				//if (type == SPECIAL)
+				//{
+					//var remainingBlink:Number = blink.width;
+					//
+					//if (cost <= remainingBlink)
+					//{
+						//blink.width -= cost;
+					//}
+				//}
 			}
 			
 			if (Game.man.type == Player.FIGHTER)

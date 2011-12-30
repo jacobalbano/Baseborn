@@ -71,7 +71,6 @@ package ifrit
 			HUD.energyTxt.defaultTextFormat = HUD.energyTxtFormat;
 			
 			
-			
 			/**
 			 * ROGUE
 			 */
@@ -95,20 +94,12 @@ package ifrit
 			HUD.shurikenTxtFormat.align = "center";
 			HUD.shurikenTxt.defaultTextFormat = HUD.shurikenTxtFormat;
 			
-			HUD.caltrops = new Sprite();
-			HUD.caltrops.graphics.beginFill(0x000000);
-			HUD.caltrops.graphics.drawRect(0, 0, 200, 9);
-			HUD.caltrops.graphics.endFill();
-			HUD.caltrops.x = 750;
-			HUD.caltrops.y = 454;
-			
-			HUD.blink = new Sprite();
-			HUD.blink.graphics.beginFill(0x9AC193);
-			HUD.blink.graphics.drawRect(0, 0, 200, 9);
-			HUD.blink.graphics.endFill();
-			HUD.blink.x = 750;
-			HUD.blink.y = 454;
-			
+			HUD.caltrop = new Sprite();
+			HUD.caltrop.graphics.beginFill(0xFFFFFF);
+			HUD.caltrop.graphics.drawRect(0, 0, 200, 9);
+			HUD.caltrop.graphics.endFill();
+			HUD.caltrop.x = 750;
+			HUD.caltrop.y = 454;
 			
 			
 			 /**
@@ -140,6 +131,7 @@ package ifrit
 			HUD.shield.graphics.endFill();
 			HUD.shield.x = 750;
 			HUD.shield.y = 454;
+			
 			
 			drawClass(); // Player class-specific
 			
@@ -191,7 +183,7 @@ package ifrit
 					break;
 				case Player.FIGHTER:	HUD.healthScale = 3;
 					break;
-				default: throw new Error("How do you have a Heads Up Display without having a class?");
+				default: throw new Error("How do you have a HUD without having a class?");
 			}
 			
 			HUD.totalHealth = (200 * HUD.healthScale);
@@ -300,7 +292,7 @@ package ifrit
 			if (HUD.energy) {   if (HUD.energy.width < 200)   HUD.energy.width += 1.5;   }
 			
 			if (HUD.shuriken)  HUD.shurikenTxt.text = String(Math.round(HUD.shuriken.width / 20)) + "/" + String(200 / 20)
-			if (HUD.blink)	{	if (HUD.blink.width < 200)	HUD.blink.width += .75;	}
+			if (HUD.caltrop)	{	HUD.caltrop.width = Game.man.hasCaltrop ? 200 : 0;	}
 			
 			if (HUD.arrows)  HUD.arrowTxt.text = String(Math.round(HUD.arrows.width / 10)) + "/" + String(200 / 10);
 			if (HUD.shield) {   if (HUD.shield.width < 200)   HUD.shield.width += 1.0;   }
@@ -404,7 +396,7 @@ package ifrit
 			if (Game.playerClass == Player.ROGUE)
 			{
 				HUD.icon1 = Library.IMG("icons.shurikenIcon.png");
-				HUD.icon2 = Library.IMG("icons.blinkIcon.png");
+				HUD.icon2 = Library.IMG("icons.caltropIcon.png");
 				
 				HUD.skillA = Library.IMG("HUD.shuriken.png");
 				HUD.skillS = Library.IMG("HUD.caltrop.png");
@@ -413,7 +405,7 @@ package ifrit
 				Game.stage.addChild(HUD.shuriken);
 				Game.stage.addChild(HUD.shurikenTxt);
 				
-				Game.stage.addChild(HUD.blink);
+				Game.stage.addChild(HUD.caltrop);
 			}
 		
 			if (Game.playerClass == Player.FIGHTER)

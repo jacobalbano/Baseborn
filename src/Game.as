@@ -127,8 +127,6 @@
 					{
 						stopBolt();
 						
-						blinkCheck(true);
-						
 						for (var d:int = World.Mobs.length; d --> 0; )
 						{
 							if (World.Mobs[d] is Doppleganger && !World.Mobs[d].isDestroyed)
@@ -146,13 +144,9 @@
 						else 				man.x -= 7;
 						
 						man.rotationY = 180;
-						
-
 					}
 					else if (Input.isKeyDown(Input.RIGHT) && !man.isFrozen)
 					{
-						blinkCheck(false);
-						
 						stopBolt();
 						
 						for (var dd:int = World.Mobs.length; dd --> 0; )
@@ -188,15 +182,8 @@
 							
 							man.graphic.play("stand", true);
 						}
-						
-						if (man.blinkTimer.running && HUD.testCost(0, 0, 0, 200))	man.canBlink = true;
-						else man.canBlink = false;
-						
-						if (man.blinkTimer.currentCount == man.blinkTimer.repeatCount)
-							if (!man.blinkTimer.running)	man.blinkTimer.reset();
 					}
 				}
-				if (man.blinkTimer.currentCount == man.blinkTimer.repeatCount)	man.blinkTimer.stop();
 				
 				if (man.canJump && !man.isFrozen)
 				{
@@ -582,6 +569,7 @@
 				}
 			}
 			
+			//BUG: Pressing 'S' quickly and repeatedly makes the game think the caltrop is out when it is not
 			if (man.type == Player.ROGUE)
 			{
 				if (man.canDropCaltrop)
@@ -633,46 +621,6 @@
 			if (!man.frostAttack) return;
 			stage.removeChild(man.frostAttack);
 			man.frostAttack = null;
-		}
-		
-		//FIXME: Man can blink when tapping opposite keys at speed of single-key double-tap
-		private function blinkCheck(heading:Boolean):void
-		{
-			if (man.type == Player.ROGUE)
-			{
-				man.blinkTimer.start();
-				if (man.canBlink)
-				{
-					man.blinkTo = new Point(man.x, man.y);
-					while (Point.distance(new Point(man.x, man.y), man.blinkTo) <= 75 && !man.endBlink)
-					{
-						man.blinkTo.x +=  heading ? -5 : 5;
-						for (var b:int = World.Platforms.length - 1; b >= 0; b--)
-						{
-							if (World.Platforms[b].vertical)
-							{
-								if (World.Platforms[b].hitTestPoint(man.blinkTo.x, man.blinkTo.y, true))
-								{
-									man.endBlink = true;
-									break;
-								}
-								else  man.endBlink = false;
-							}
-						 }
-					}
-					
-					function removeSmoke(d:Decal):void 
-					{
-						if (d.animation.playing != "animation")	Game.stage.removeChild(d);
-					}
-					
-					man.sound.playSFX("blink");
-					WorldUtils.addDecal(Library.IMG("smoke.png"), man.x, man.y, removeSmoke, null, [0, 1, 2, 3, 4, 5], 40, 40, 20, false);
-					man.x = man.blinkTo.x;
-					man.canBlink = false;
-					HUD.buyAction(200, HUD.SPECIAL);
-				}
-			}
 		}
 		
 		/**

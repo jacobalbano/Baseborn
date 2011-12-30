@@ -114,7 +114,7 @@ package ifrit
 		 */
 		public static function advance(d:Decal):void 
 		{
-			if (Game.man.collisionHull.hitTestObject(d))	next();
+			if (Game.man.collisionHull.hitTestObject(d) && !Game.man.isDestroyed)	next();
 		}
 		
 		public static function chooseAdvance(d:Decal):void 
@@ -122,7 +122,7 @@ package ifrit
 			
 			if (Game.man.hitTestObject(d))
 			{
-				if (World.hasKey && Game.man.hasKey && !Game.man.isDestroyed)
+				if (World.hasKey && Game.man.hasKey)
 				{
 					if (d.alpha <= 1) d.alpha += 0.05;
 					
@@ -132,7 +132,7 @@ package ifrit
 						World.audio.playSFX("unlock");
 					}
 				}
-				else if(!World.hasKey && !Game.man.isDestroyed)
+				else if(!World.hasKey)
 				{
 					if (d.alpha <= 1) d.alpha += 0.05;
 					

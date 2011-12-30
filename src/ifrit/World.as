@@ -286,12 +286,6 @@ package ifrit
 			
 			WorldUtils.addMan(0, 240, Game.playerClass);
 			
-			if (Game.man.type == Player.ROGUE)
-			{
-				WorldUtils.addEnemy(300, 310, Giant);
-				WorldUtils.addDecal(Library.IMG("misc.doubleRight.png"), 225, 395, trainBlink, function (d:Decal):* { d.alpha = 0;} );
-			}
-			
 			WorldUtils.addTrigger(1023, 375, WorldUtils.advance);
 			
 			nextLevel = "forest_03";
@@ -738,22 +732,22 @@ package ifrit
 			WorldUtils.addEnemy(150, 130, Zombie);
 			WorldUtils.addEnemy(150, 130, Spider);
 			
-			WorldUtils.addEnemy(400, 250, Spider);
+			WorldUtils.addEnemy(320, 130, Zombie);
+			WorldUtils.addEnemy(500, 130, Zombie);
+			WorldUtils.addEnemy(680, 130, Zombie);
+			WorldUtils.addEnemy(850, 130, Zombie);
+			
 			WorldUtils.addEnemy(700, 250, Spider);
 			
 			WorldUtils.addEnemy(300, 320, Spider);
 			WorldUtils.addEnemy(400, 320, Spider);
 			WorldUtils.addEnemy(500, 320, Spider);
-			WorldUtils.addEnemy(600, 320, Spider);
-			WorldUtils.addEnemy(700, 320, Spider);
-			WorldUtils.addEnemy(800, 320, Spider);
 			
 			WorldUtils.addEnemy(200, 380, SkeletonMage);
 			WorldUtils.addEnemy(300, 380, Skeleton);
 			WorldUtils.addEnemy(400, 380, SkeletonMage);
 			WorldUtils.addEnemy(500, 380, Zombie);
 			WorldUtils.addEnemy(600, 380, Zombie);
-			WorldUtils.addEnemy(700, 380, Spider);
 			WorldUtils.addEnemy(800, 380, Spider);
 			
 			WorldUtils.addWall( 565.5, 325, false, Library.IMG("dungeon.platform.png"), 742);
@@ -1263,7 +1257,7 @@ package ifrit
 			
 			if (Game.man.hitTestPoint(adv.x, adv.y))
 			{
-				if (d.alpha <= 1) d.alpha += 0.05;
+				if (d.alpha <= 1 && !Game.man.isDestroyed) d.alpha += 0.05;
 					
 				if (Input.isKeyDown(Input.UP) && !Input.isKeyDown(Input.RIGHT) && !Input.isKeyDown(Input.LEFT))
 				{
@@ -1468,19 +1462,6 @@ package ifrit
 				if (d.alpha >= 0) d.alpha -= 0.05;
 			}
 		}
-		
-		private static function trainBlink(d:Decal):void
-		{
-			if (Game.man.collisionHull.hitTestPoint(270, 390))
-			{
-				if (d.alpha <= 1) d.alpha += 0.05;
-			}
-			else
-			{
-				if (d.alpha >= 0) d.alpha -= 0.05;
-			}
-		}
-		
 	}
 
 }

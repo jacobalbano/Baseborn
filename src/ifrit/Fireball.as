@@ -17,9 +17,6 @@ package ifrit
 			this.animation.add("fly", [0, 1, 2, 3, 4, 5, 6, 7], 12, true);
 			this.animation.play("fly");
 			
-			//sound.addSFX("fly", Library.SND("audio.sfx.fireball.mp3"));
-			
-			
 			if (this.friendly)
 			{
 				HUD.buyAction(manaCost, HUD.MANA);

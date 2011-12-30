@@ -28,14 +28,6 @@ package ifrit
 		 * Shield
 		 */
 		public var shielding:Boolean;
-		
-		/**
-		 * Blink
-		 */
-		public var blinkTimer:Timer;
-		public var blinkTo:Point;
-		public var endBlink:Boolean;
-		public var canBlink:Boolean;
 		 
 		public var canMelee:Boolean;
 		public var canShoot:Boolean;
@@ -103,7 +95,6 @@ package ifrit
 					
 					this.sound.addSFX("shoot", Library.SND("audio.sfx.throw.mp3"));
 					this.sound.addSFX("stab", Library.SND("audio.sfx.daggerStab.mp3"));
-					this.sound.addSFX("blink", Library.SND("audio.sfx.blink.mp3"));
 					
 					break;
 				case 4:
@@ -139,7 +130,6 @@ package ifrit
 			this.idle = false;
 			
 			this.hasCaltrop = true;
-			this.blinkTimer = new Timer(0, 7);
 			this.lightningAttack = null;
 			this.boltPlaying = false;
 			

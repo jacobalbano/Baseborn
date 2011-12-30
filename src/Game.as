@@ -421,13 +421,13 @@
 							/**
 							 * Platform debugging information
 							 */
-							if (World.Mobs[jj].friendly)
-							{
-								if (World.Platforms[ii].collide(World.Mobs[jj]) && !(World.Mobs[jj] is Doppleganger))
-								{
-									trace(ii);
-								}
-							}
+							//if (World.Mobs[jj].friendly)
+							//{
+								//if (World.Platforms[ii].collide(World.Mobs[jj]) && !(World.Mobs[jj] is Doppleganger))
+								//{
+									//trace(ii);
+								//}
+							//}
 						}
 					}
 				}

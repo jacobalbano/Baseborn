@@ -635,6 +635,7 @@
 			man.frostAttack = null;
 		}
 		
+		//FIXME: Man can blink when tapping opposite keys at speed of single-key double-tap
 		private function blinkCheck(heading:Boolean):void
 		{
 			if (man.type == Player.ROGUE)

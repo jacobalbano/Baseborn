@@ -302,6 +302,9 @@ package ifrit
 		 * AI synapse
 		 * Attepmt to attack player if on the same platform
 		 */
+		
+		 //BUG: Taller enemies cannot "see" the player, and therefore don't attack--even when they are right next to each other
+		 
 		private function beginOffense():void
 		{
 			if (!fleeMode)
@@ -461,7 +464,9 @@ package ifrit
 				
 			return false;
 		}
-			
+		
+		//BUG: Enemies will walk off edge even if a hurt trigger is below (see hellther_01)
+		
 		private function findEdge():Boolean
 		{
 			for (var i:uint = 0; i < World.Platforms.length; i++)

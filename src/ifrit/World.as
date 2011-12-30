@@ -1044,84 +1044,93 @@ package ifrit
 			
 			WorldUtils.makeBounds();
 			
-			// Top row (#16-18)
+			// Top row 
 			WorldUtils.addWall(228, 24, false, Library.IMG("forest.platform.png"), 446);
 			WorldUtils.addWall(505, 10, false, Library.IMG("forest.platform.png"), 96);
 			WorldUtils.addWall(745, 10, false, Library.IMG("forest.platform.png"), 294);
 			
-			// Far right edge (#19-20)
+			// Far right edge
 			WorldUtils.addWall(986, 48, true, Library.IMG("forest.platform.png"), 53);
 			WorldUtils.addWall(999, 152, true, Library.IMG("forest.platform.png"), 126);
 			
-			// Far left edge (#21-22)
+			// Far left edge
 			WorldUtils.addWall(0, 120, true, Library.IMG("forest.platform.png"), 181);
 			WorldUtils.addWall(-1, 302, true, Library.IMG("forest.platform.png"), 81);
 			
-			//Second row (#23-25)
+			//Second row
 			WorldUtils.addWall(810, 80, false, Library.IMG("forest.platform.png"), 340);
 			WorldUtils.addWall(574, 54, false, Library.IMG("forest.platform.png"), 161);
 			WorldUtils.addWall(339, 79, false, Library.IMG("forest.platform.png"), 355);
 			
-			// Hole (#26-27)
+			// Hole
 			WorldUtils.addWall(406, 132, false, Library.IMG("forest.platform.png"), 270);
 			WorldUtils.addWall(747, 131, false, Library.IMG("forest.platform.png"), 270);
 			
-			// Pit (#28-29)
+			// Pit
 			WorldUtils.addWall(611, 313, true, Library.IMG("forest.platform.png"), 173);
 			WorldUtils.addWall(530, 318, true, Library.IMG("forest.platform.png"), 183);
 			
-			// Entrance ladder (#30-31)
+			// Entrance ladder
 			WorldUtils.addWall(418, 384, true, Library.IMG("forest.platform.png"), 52);
 			WorldUtils.addWall(477, 350, true, Library.IMG("forest.platform.png"), 93);
 			
-			// Top left smalls (column L to R) (#32-33)
+			// Top left smalls (column L to R)
 			WorldUtils.addWall(20, 125, false, Library.IMG("forest.platform.png"), 31);
 			WorldUtils.addWall(16, 179, false, Library.IMG("forest.platform.png"), 22);
-			/**/// (#34-36)
 			WorldUtils.addWall(126, 111, false, Library.IMG("forest.platform.png"), 45);
 			WorldUtils.addWall(105, 151, false, Library.IMG("forest.platform.png"), 86);
 			WorldUtils.addWall(142, 163, false, Library.IMG("forest.platform.png"), 158);
-			/**/// (#37-39)
 			WorldUtils.addWall(155, 112, true, Library.IMG("forest.platform.png"), 55);
 			WorldUtils.addWall(187, 126, false, Library.IMG("forest.platform.png"), 46);
 			WorldUtils.addWall(217, 143, true, Library.IMG("forest.platform.png"), 39);
 			
-			// Bottom right smalls (L to R) (#40-44)
+			// Bottom right smalls (L to R)
 			WorldUtils.addWall(20, 347, false, Library.IMG("forest.platform.png"), 38);
 			WorldUtils.addWall(50, 357, false, Library.IMG("forest.platform.png"), 25);
 			WorldUtils.addWall(75, 367, false, Library.IMG("forest.platform.png"), 25);
 			WorldUtils.addWall(149, 320, false, Library.IMG("forest.platform.png"), 105);
 			WorldUtils.addWall(162, 309, false, Library.IMG("forest.platform.png"), 62);
 			
-			// Middle smalls (bottom to top) (#45-48)
+			// Middle smalls
 			WorldUtils.addWall(471, 280, false, Library.IMG("forest.platform.png"), 20);
 			WorldUtils.addWall(487, 263, false, Library.IMG("forest.platform.png"), 14);
 			WorldUtils.addWall(499, 252, true, Library.IMG("forest.platform.png"), 50);
 			WorldUtils.addWall(515, 223, false, Library.IMG("forest.platform.png"), 15);
 			
-			// Right smalls (L to R) (#49-51)
+			// Right smalls (L to R)
 			WorldUtils.addWall(887, 155, true, Library.IMG("forest.platform.png"), 51);
 			WorldUtils.addWall(905, 152, false, Library.IMG("forest.platform.png"), 25);
 			WorldUtils.addWall(974, 186, false, Library.IMG("forest.platform.png"), 40);
 			
-			// Other horizontals (top to bottom) (#52-59)
+			// Other horizontals (top to bottom)
 			WorldUtils.addWall(140, 216, false, Library.IMG("forest.platform.png"), 276);
 			WorldUtils.addWall(801, 223, false, Library.IMG("forest.platform.png"), 390);
+			
 			WorldUtils.addWall(372, 233, false, Library.IMG("forest.platform.png"), 161);
+			WorldUtils.addWall(436, 245, true, Library.IMG("forest.platform.png"), 10);
 			WorldUtils.addWall(220, 255, false, Library.IMG("forest.platform.png"), 427);
+			
 			WorldUtils.addWall(336, 296, false, Library.IMG("forest.platform.png"), 270);
 			WorldUtils.addWall(365, 354, false, Library.IMG("forest.platform.png"), 95);
 			WorldUtils.addWall(205, 377, false, Library.IMG("forest.platform.png"), 233);
 			
-			// Other verticals (L to R) (#60-61)
+			// Other verticals (L to R)
 			WorldUtils.addWall(276, 174, true, Library.IMG("forest.platform.png"), 75);
 			WorldUtils.addWall(288, 185, true, Library.IMG("forest.platform.png"), 86);
 			
 			WorldUtils.addWall(495, 68, true, Library.IMG("forest.platform.png"), 20);
+			WorldUtils.addWall(515, 68, true, Library.IMG("forest.platform.png"), 20);
 			WorldUtils.addWall(651, 68, true, Library.IMG("forest.platform.png"), 20);
+			WorldUtils.addWall(641, 68, true, Library.IMG("forest.platform.png"), 20);
 			WorldUtils.addWall(315, 370, true, Library.IMG("forest.platform.png"), 25);
 			
 			WorldUtils.addDecal(Library.IMG("hellther.bg.png"), 500, 200);
+			
+			WorldUtils.addEnemy(100, 150, Demon);
+			WorldUtils.addEnemy(100, 150, Demon);
+			WorldUtils.addEnemy(100, 150, Demon);
+			WorldUtils.addEnemy(100, 150, Demon);
+			WorldUtils.addEnemy(100, 180, Serpent);
 			
 			WorldUtils.addEnemy(300, 185, Serpent);
 			WorldUtils.addEnemy(760, 200, Demon);
@@ -1130,15 +1139,19 @@ package ifrit
 			WorldUtils.addEnemy(730, 200, Demon);
 			WorldUtils.addEnemy(730, 200, Demon);
 			
+			WorldUtils.addEnemy(180, 100, Doppleganger);
+			WorldUtils.addEnemy(950, 20, Doppleganger);
+			
 			WorldUtils.addLadder(447, 345, 55, "hellther.ladder.png");
 			WorldUtils.addLadder(576, 0, 49, "hellther.ladder.png");
 			
 			Game.stage.addChild(new HUD);
 			
 			WorldUtils.addMan(435, 300, Game.playerClass);
-			WorldUtils.addDecal(Library.IMG("hellther.layout1.png"), 500, 200);
 			
 			WorldUtils.addDecal(Library.IMG("hellther.lavaTrap.png"), 571, 391);
+			
+			WorldUtils.addDecal(Library.IMG("hellther.layout1.png"), 500, 200);
 			
 			WorldUtils.addTrigger( 550, -15, WorldUtils.advance);
 			WorldUtils.addTrigger( 570, 385, WorldUtils.hurt);
@@ -1230,6 +1243,16 @@ package ifrit
 			
 			WorldUtils.addEnemy(28, 19, Doppleganger);
 			WorldUtils.addEnemy(968, 19, Doppleganger);
+			
+			WorldUtils.addEnemy(280, 120, Demon);
+			WorldUtils.addEnemy(270, 120, Demon);
+			WorldUtils.addEnemy(260, 120, Demon);
+			WorldUtils.addEnemy(740, 120, Demon);
+			WorldUtils.addEnemy(750, 120, Demon);
+			WorldUtils.addEnemy(760, 120, Demon);
+			
+			WorldUtils.addEnemy(400, 100, Serpent);
+			WorldUtils.addEnemy(600, 100, Serpent);
 			
 			Game.stage.addChild(new HUD);
 			

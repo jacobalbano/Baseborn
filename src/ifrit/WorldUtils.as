@@ -110,9 +110,8 @@ package ifrit
 		
 		/**
 		 * Check if player has reached the exit and load the next level
-		 * @param	i			Standard reference parameter
+		 * @param	d			Standard reference parameter
 		 */
-		//BUG: Even when dead, player can advance if colliding with up arrow decal
 		public static function advance(d:Decal):void 
 		{
 			if (Game.man.collisionHull.hitTestObject(d))	next();
@@ -120,9 +119,10 @@ package ifrit
 		
 		public static function chooseAdvance(d:Decal):void 
 		{
+			
 			if (Game.man.hitTestObject(d))
 			{
-				if (World.hasKey && Game.man.hasKey)
+				if (World.hasKey && Game.man.hasKey && !Game.man.isDestroyed)
 				{
 					if (d.alpha <= 1) d.alpha += 0.05;
 					
@@ -132,7 +132,7 @@ package ifrit
 						World.audio.playSFX("unlock");
 					}
 				}
-				else if(!World.hasKey)
+				else if(!World.hasKey && !Game.man.isDestroyed)
 				{
 					if (d.alpha <= 1) d.alpha += 0.05;
 					
@@ -257,15 +257,6 @@ package ifrit
 			
 			trace("x:", Game.stage.mouseX, "y:", Game.stage.mouseY);
 		}
-		
-		//BUG: Strange bugs with hurt trigger (see description below)
-		/**
-		 * The first enemy to die in a hurt trigger will, after dying, stand back up when the
-		 * player begins walking AFTER it's death. 
-		 * 
-		 * When this happens with a Doppleganger, they are able to move to the left, but not
-		 * the right. They also cannot jump, and the pickup they drop follows them.
-		 */
 		
 		public static function hurt(d:Decal):void 
 		{

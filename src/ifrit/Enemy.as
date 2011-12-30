@@ -302,9 +302,6 @@ package ifrit
 		 * AI synapse
 		 * Attepmt to attack player if on the same platform
 		 */
-		
-		 //BUG: Taller enemies cannot "see" the player, and therefore don't attack--even when they are right next to each other
-		 
 		private function beginOffense():void
 		{
 			if (!fleeMode)
@@ -484,7 +481,7 @@ package ifrit
 		private function wallIsOccluding():Boolean
 		{
 			var goal:Point = new Point(Game.man.x, Game.man.y);
-			var test:Point = new Point(x, y);
+			var test:Point = new Point(x, Game.man.y);
 			var count:uint = 0;
 			
 			while (Point.distance(goal, test) >= 10 )

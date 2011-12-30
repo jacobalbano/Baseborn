@@ -157,7 +157,7 @@
 						
 						for (var dd:int = World.Mobs.length; dd --> 0; )
 						{
-							if (World.Mobs[dd] is Doppleganger && !World.Mobs[d].isDestroyed)
+							if (World.Mobs[dd] is Doppleganger && !World.Mobs[dd].isDestroyed)
 							{
 								World.Mobs[dd].x -= 7;
 								World.Mobs[dd].rotationY = 180;

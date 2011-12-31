@@ -313,8 +313,6 @@ package ifrit
 			WorldUtils.addLadder(712, 200, 94);
 			WorldUtils.addLadder(847, 56, 352);
 			
-			WorldUtils.addWall(630, 13, false, Library.IMG("misc.dotPlatform.png"), 550);
-			
 			WorldUtils.addWall(350, 100, false, Library.IMG("tower.platform.png"), 100);
 			WorldUtils.addWall(350, 200, false, Library.IMG("tower.platform.png"), 100);
 			WorldUtils.addWall(350, 300, false, Library.IMG("tower.platform.png"), 100);
@@ -347,30 +345,13 @@ package ifrit
 			
 			WorldUtils.addDecal(Library.IMG("misc.keyA.png"), 790, 30, trainRanged, function (d:Decal):* 	{ d.alpha = 0;	} );
 			WorldUtils.addDecal(Library.IMG("misc.padlock.png"), 500, 375, WorldUtils.doorLocked, function (d:Decal):* { d.alpha = 0;	} );
-			WorldUtils.addDecal(Library.IMG("misc.upArrow.png"), 500, 375, towerDoorAdvance, function (d:Decal):* { d.alpha = 0; } );
-			WorldUtils.addDecal(Library.IMG("misc.upArrow.png"), 910, 50, getKeyHelp, function (d:Decal):* { d.alpha = 0; } );
+			WorldUtils.addDecal(Library.IMG("misc.upArrow.png"), 500, 375, towerDoorAdvance, function (d:Decal):* { d.alpha = 0; } );WorldUtils.addDecal(Library.IMG("misc.upArrow.png"), 910, 50, getKeyHelp, function (d:Decal):* { d.alpha = 0; } );
+			
+			WorldUtils.addTrigger( 357, 180, WorldUtils.safe, 125, 250);
 			
 			WorldUtils.addMan(50, 375, Game.playerClass);
 			
 			nextLevel = "tower_01";
-		}
-		
-		private static function getKeyHelp(d:Decal):void 
-		{
-			var enemiesKilled:int = 0;
-			
-			for (var w:int = 0; w < World.Mobs.length; w++)
-			{
-				if (World.Mobs[w].hitpoints <= 0)	enemiesKilled++;
-			}
-			
-			if (enemiesKilled == World.Mobs.length && !Game.man.hasKey)	World.Variables.retrive("keyHelp").number++;
-			
-			if (World.Variables.retrive("keyHelp").number >= 400 && !Game.man.hasKey)
-			{
-				d.alpha = (World.Variables.retrive("keyHelp").number % 10 == 0) ? 0 : 1;
-			}
-			else if (Game.man.hasKey) d.alpha = 0;
 		}
 		
 		private static function towerDoorAdvance(d:Decal):void 

@@ -277,6 +277,25 @@ package ifrit
 		}
 		
 		/**
+		 * If an enemy begins fleeing, they will remain at their current health while within this trigger.
+		 * @param	d	Standard reference parameter
+		 */
+		public static function safe(d:Decal):void 
+		{
+			for (var i:int = World.Mobs.length; i --> 0; )
+			{
+				if (!World.Mobs[i].friendly)
+				{
+					if (d.hitTestObject(World.Mobs[i].collisionHull))
+					{
+						if (World.Mobs[i].hitpoints <= World.Mobs[i].maxHealth / 2)
+							World.Mobs[i].hitpoints = World.Mobs[i].maxHealth / 2;
+					}
+				}
+			}
+		}
+		
+		/**
 		 * Remove all objects from the world
 		 */
 		private static function unloadLevel():void 

@@ -377,7 +377,7 @@ package ifrit
 				this.fleeMode = false;
 				this.fleeCooldown.stop();
 				this.fleeCooldown.reset();
-				this.hitpoints = this.maxHealth;
+				if (!(this.behaviorFlags & AFRAID) > 0) this.hitpoints = this.maxHealth;
 			}
 		}
 		

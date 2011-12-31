@@ -23,8 +23,8 @@ package ifrit
 			this.sound.addSFX("alerted", Library.SND("audio.sfx.zombieAttack.mp3"));
 			this.sound.addSFX("die", Library.SND("audio.sfx.zombieDie.mp3"));
 			
-			this.hitpoints = 15;
-			this.maxHealth = 15;
+			this.hitpoints = 25;
+			this.maxHealth = 25;
 		}
 		
 	}

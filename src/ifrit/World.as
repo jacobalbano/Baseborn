@@ -302,6 +302,7 @@ package ifrit
 			Variables.add("door tick left", new Variable(0));
 			Variables.add("door tick right", new Variable(0));
 			Variables.add("opening", new Variable);
+			Variables.add("keyHelp", new Variable(0));
 			
 			WorldUtils.addDecal(Library.IMG("forest.towerDoor.png"), 500, 200);
 			WorldUtils.addDecal(Library.IMG("forest.archway.png"), 501, 210);
@@ -312,7 +313,7 @@ package ifrit
 			WorldUtils.addLadder(712, 200, 94);
 			WorldUtils.addLadder(847, 56, 352);
 			
-			WorldUtils.addWall(630, 11, false, Library.IMG("misc.dotPlatform.png"), 550);
+			WorldUtils.addWall(630, 13, false, Library.IMG("misc.dotPlatform.png"), 550);
 			
 			WorldUtils.addWall(350, 100, false, Library.IMG("tower.platform.png"), 100);
 			WorldUtils.addWall(350, 200, false, Library.IMG("tower.platform.png"), 100);
@@ -347,10 +348,29 @@ package ifrit
 			WorldUtils.addDecal(Library.IMG("misc.keyA.png"), 790, 30, trainRanged, function (d:Decal):* 	{ d.alpha = 0;	} );
 			WorldUtils.addDecal(Library.IMG("misc.padlock.png"), 500, 375, WorldUtils.doorLocked, function (d:Decal):* { d.alpha = 0;	} );
 			WorldUtils.addDecal(Library.IMG("misc.upArrow.png"), 500, 375, towerDoorAdvance, function (d:Decal):* { d.alpha = 0; } );
+			WorldUtils.addDecal(Library.IMG("misc.upArrow.png"), 910, 50, getKeyHelp, function (d:Decal):* { d.alpha = 0; } );
 			
 			WorldUtils.addMan(50, 375, Game.playerClass);
 			
 			nextLevel = "tower_01";
+		}
+		
+		private static function getKeyHelp(d:Decal):void 
+		{
+			var enemiesKilled:int = 0;
+			
+			for (var w:int = 0; w < World.Mobs.length; w++)
+			{
+				if (World.Mobs[w].hitpoints <= 0)	enemiesKilled++;
+			}
+			
+			if (enemiesKilled == World.Mobs.length && !Game.man.hasKey)	World.Variables.retrive("keyHelp").number++;
+			
+			if (World.Variables.retrive("keyHelp").number >= 400 && !Game.man.hasKey)
+			{
+				d.alpha = (World.Variables.retrive("keyHelp").number % 10 == 0) ? 0 : 1;
+			}
+			else if (Game.man.hasKey) d.alpha = 0;
 		}
 		
 		private static function towerDoorAdvance(d:Decal):void 
@@ -1166,6 +1186,7 @@ package ifrit
 			
 			WorldUtils.makeBounds();
 			
+			
 			// Left
 			WorldUtils.addWall(471, 390, true, Library.IMG("forest.platform.png"), 22);
 			WorldUtils.addWall(389, 375, false, Library.IMG("forest.platform.png"), 156);
@@ -1244,15 +1265,11 @@ package ifrit
 			WorldUtils.addEnemy(28, 19, Doppleganger);
 			WorldUtils.addEnemy(968, 19, Doppleganger);
 			
-			WorldUtils.addEnemy(280, 120, Demon);
-			WorldUtils.addEnemy(270, 120, Demon);
-			WorldUtils.addEnemy(260, 120, Demon);
-			WorldUtils.addEnemy(740, 120, Demon);
-			WorldUtils.addEnemy(750, 120, Demon);
-			WorldUtils.addEnemy(760, 120, Demon);
+			WorldUtils.addEnemy(400, 50, Doppleganger);
+			WorldUtils.addEnemy(600, 50, Doppleganger);
 			
-			WorldUtils.addEnemy(400, 100, Serpent);
-			WorldUtils.addEnemy(600, 100, Serpent);
+			WorldUtils.addEnemy(990, 330, Doppleganger);
+			WorldUtils.addEnemy(10, 330, Doppleganger);
 			
 			Game.stage.addChild(new HUD);
 			

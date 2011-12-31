@@ -22,8 +22,8 @@ package ifrit
 			
 			this.sound.addSFX("die", Library.SND("audio.sfx.skeletonDie.mp3"));
 			
-			this.hitpoints = 15;
-			this.maxHealth = 15;
+			this.hitpoints = 25;
+			this.maxHealth = 25;
 			this.tipsOverWhenDead = false;
 		}
 		

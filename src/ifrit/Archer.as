@@ -23,8 +23,8 @@ package ifrit
 			
 			this.sound.addSFX("shoot", Library.SND("audio.sfx.bow.mp3"));
 			
-			this.hitpoints = 15;
-			this.maxHealth = 15;
+			this.hitpoints = 20;
+			this.maxHealth = 20;
 		}
 		
 	}

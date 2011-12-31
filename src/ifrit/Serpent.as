@@ -22,8 +22,8 @@ package ifrit
 			
 			this.sound.addSFX("stab", Library.SND("audio.sfx.serpentHiss.mp3"));
 			
-			this.hitpoints = 15;
-			this.maxHealth = 15;
+			this.hitpoints = 25;
+			this.maxHealth = 25;
 			this.tipsOverWhenDead = false;
 		}
 		

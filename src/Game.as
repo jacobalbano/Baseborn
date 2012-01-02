@@ -133,7 +133,7 @@
 							{
 								World.Mobs[d].x += 7;
 								World.Mobs[d].rotationY = 0;
-								World.Mobs[dd].graphic.play("walk");
+								World.Mobs[d].graphic.play("walk");
 							}
 						}
 						

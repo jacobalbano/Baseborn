@@ -444,15 +444,15 @@ package ifrit
 		{
 			for (var step:uint = 0; step < 10; step++)
 			{
-				/*
-				WorldUtils.addDecal(new Bitmap(new BitmapData(2, 2)), heading ? x + 5 : x - 5, y + step * 10,
-					function (d:Decal):*
-					{
+				
+				//WorldUtils.addDecal(new Bitmap(new BitmapData(2, 2)), heading ? x + 5 : x - 5, y + step * 10,
+					//function (d:Decal):*
+					//{
 						//	Function won't run until next frame
 						//	So removing it immediately is fine
-						Game.stage.removeChild(d);
-					});
-				*/
+						//Game.stage.removeChild(d);
+					//});
+				
 				for (var i:uint = 0; i < World.Platforms.length; i++)
 				{							
 					if (World.Platforms[i].hitTestPoint(heading ? x + 5 : x - 5, y + step * 10))	return true;

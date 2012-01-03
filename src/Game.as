@@ -79,7 +79,8 @@
 			 */
 			if (Input.isKeyDown(Input.ENTER) || Input.isKeyDown(Input.NUMPAD_ENTER))
 			{
-				if (World.currentLevel != "title")	WorldUtils.loadLevel( World.currentLevel);
+				if (World.currentLevel != "title" && World.currentLevel != "ending")
+					WorldUtils.loadLevel( World.currentLevel);
 			}
 			 
 			if (Input.isKeyDown(Input.M))

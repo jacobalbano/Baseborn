@@ -80,7 +80,7 @@ package ifrit
 		override public function preThink():void 
 		{
 			super.preThink();
-			trace(this.hitpoints);
+			//trace(this.hitpoints);
 			
 			this.stateFunctions[this.state]();
 		}

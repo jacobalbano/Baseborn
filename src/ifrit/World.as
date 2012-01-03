@@ -1007,6 +1007,8 @@ package ifrit
 			WorldUtils.makeBounds();
 			
 			// Top row 
+			WorldUtils.addWall(558, 0, true, Library.IMG("forest.platform.png"), 20);
+			WorldUtils.addWall(592, 0, true, Library.IMG("forest.platform.png"), 20);
 			WorldUtils.addWall(228, 24, false, Library.IMG("forest.platform.png"), 446);
 			WorldUtils.addWall(505, 10, false, Library.IMG("forest.platform.png"), 96);
 			WorldUtils.addWall(745, 10, false, Library.IMG("forest.platform.png"), 294);
@@ -1087,6 +1089,10 @@ package ifrit
 			WorldUtils.addWall(315, 370, true, Library.IMG("forest.platform.png"), 25);
 			
 			WorldUtils.addDecal(Library.IMG("hellther.bg.png"), 500, 200);
+			WorldUtils.addDecal(Library.IMG("hellther.layout1.png"), 500, 200);
+			
+			WorldUtils.addLadder(447, 345, 55, "hellther.ladder.png");
+			WorldUtils.addLadder(576, 0, 49, "hellther.ladder.png");
 			
 			WorldUtils.addEnemy(100, 150, Demon);
 			WorldUtils.addEnemy(100, 150, Demon);
@@ -1104,16 +1110,11 @@ package ifrit
 			WorldUtils.addEnemy(180, 100, Doppleganger);
 			WorldUtils.addEnemy(950, 20, Doppleganger);
 			
-			WorldUtils.addLadder(447, 345, 55, "hellther.ladder.png");
-			WorldUtils.addLadder(576, 0, 49, "hellther.ladder.png");
-			
 			Game.stage.addChild(new HUD);
 			
 			WorldUtils.addMan(435, 300, Game.playerClass);
 			
 			WorldUtils.addDecal(Library.IMG("hellther.lavaTrap.png"), 571, 391);
-			
-			WorldUtils.addDecal(Library.IMG("hellther.layout1.png"), 500, 200);
 			
 			WorldUtils.addTrigger( 550, -15, WorldUtils.advance);
 			WorldUtils.addTrigger( 570, 385, WorldUtils.hurt);
@@ -1287,7 +1288,20 @@ package ifrit
 			WorldUtils.addWall(630, 305, false, Library.IMG("misc.clipPlatform.png"), 748);
 			WorldUtils.addWall(635, 315, false, Library.IMG("misc.clipPlatform.png"), 748);
 			
-			WorldUtils.addTrigger(500, 375, WorldUtils.hurt, 1000, 50)
+			WorldUtils.addTrigger(500, 375, WorldUtils.hurt, 1000, 50);
+			WorldUtils.addDecal(new Bitmap(new BitmapData(1000, 50, true, 0)), 500, 375,
+			function (d:Decal):*
+			{
+				if (d.hitTestObject(Game.man.collisionHull))	Game.man.alpha -= .05;
+				else
+				{
+					for (var i:int = World.Mobs.length; i --> 0; )
+					{
+						if (d.hitTestObject(World.Mobs[i].collisionHull))	World.Mobs[i].alpha -= .05;
+					}
+				}
+			}
+			);
 			
 			nextLevel = "ending";
 		}

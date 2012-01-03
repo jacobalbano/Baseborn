@@ -96,7 +96,7 @@ package ifrit
 		
 		private static function loadTitle():void
 		{
-			audio.playSFX("titleAmb", 3);
+			audio.playSFX("titleAmb", 5);
 			audio.stopAll(["titleAmb"]);
 			
 			WorldUtils.makeBounds();
@@ -119,8 +119,8 @@ package ifrit
 		private static function loadBeach_01():void
 		{
 			audio.stopSFX("titleAmb");
-			audio.playMusic("beach", 3);
-			audio.playSFX("beachAmb", 3);
+			audio.playMusic("beach", 5);
+			audio.playSFX("beachAmb");
 			
 			WorldUtils.makeBounds();
 			
@@ -157,8 +157,7 @@ package ifrit
 		
 		private static function loadBeach_02():void
 		{
-			audio.playMusic("beach", 3);
-			audio.playSFX("beachAmb", 3);
+			audio.playMusic("beach", 5);
 			
 			WorldUtils.makeBounds();
 			
@@ -183,8 +182,7 @@ package ifrit
 		
 		private static function loadBeach_03():void
 		{
-			audio.playMusic("beach", 3);
-			audio.playSFX("beachAmb", 3);
+			audio.playMusic("beach", 5);
 			
 			WorldUtils.makeBounds();
 			
@@ -224,7 +222,7 @@ package ifrit
 		
 		private static function loadForest_01():void
 		{
-			audio.playMusic("forest", 3);
+			audio.playMusic("forest", 5);
 			audio.stopAll(["forest"]);
 			
 			WorldUtils.makeBounds();
@@ -267,7 +265,8 @@ package ifrit
 		
 		private static function loadForest_02():void
 		{
-			audio.playMusic("forest", 3);
+			audio.playMusic("forest", 5);
+			audio.stopAll(["forest"]);
 			
 			WorldUtils.makeBounds();
 			
@@ -293,7 +292,8 @@ package ifrit
 		
 		private static function loadForest_03():void
 		{
-			audio.playMusic("forest", 3);
+			audio.playMusic("forest", 5);
+			audio.stopAll(["forest"]);
 			
 			WorldUtils.makeBounds();
 			
@@ -313,7 +313,7 @@ package ifrit
 			WorldUtils.addLadder(712, 200, 94);
 			WorldUtils.addLadder(847, 56, 352);
 			
-			WorldUtils.addWall(350, 100, false, Library.IMG("tower.platform.png"), 100);
+			WorldUtils.addWall(350, 70, false, Library.IMG("tower.platform.png"), 100);
 			WorldUtils.addWall(350, 200, false, Library.IMG("tower.platform.png"), 100);
 			WorldUtils.addWall(350, 300, false, Library.IMG("tower.platform.png"), 100);
 			WorldUtils.addWall(300, 180, true, Library.IMG("tower.platform.png"), 250);
@@ -334,7 +334,7 @@ package ifrit
 			
 			WorldUtils.addEnemy(900, 20, Archer);
 			
-			WorldUtils.addEnemy(350, 80, Guard);
+			WorldUtils.addEnemy(350, 40, Guard);
 			WorldUtils.addEnemy(350, 180, ElfMage);
 			WorldUtils.addEnemy(355, 280, Archer);
 			
@@ -372,7 +372,7 @@ package ifrit
 		
 		private static function loadTower_01():void
 		{
-			audio.playMusic("tower", 3);
+			audio.playMusic("tower", 5);
 			audio.stopAll(["tower"]);
 			
 			WorldUtils.makeBounds();
@@ -592,7 +592,7 @@ package ifrit
 		
 		private static function loadTower_02():void
 		{
-			audio.playMusic("tower", 3);
+			audio.playMusic("tower", 5);
 			
 			WorldUtils.makeBounds();
 			
@@ -655,7 +655,7 @@ package ifrit
 		
 		private static function loadTower_03():void
 		{
-			audio.playMusic("tower", 3);
+			audio.playMusic("tower", 5);
 			
 			WorldUtils.makeBounds();
 			
@@ -718,7 +718,7 @@ package ifrit
 		
 		private static function loadDungeon_01():void 
 		{
-			audio.playMusic("dungeon", 3);
+			audio.playMusic("dungeon", 5);
 			audio.stopAll(["dungeon"]);
 			
 			WorldUtils.makeBounds();
@@ -779,7 +779,7 @@ package ifrit
 		
 		private static function loadDungeon_02():void 
 		{
-			audio.playMusic("dungeon", 3);
+			audio.playMusic("dungeon", 5);
 			audio.stopAll(["dungeon"]);
 			
 			WorldUtils.makeBounds();
@@ -800,9 +800,13 @@ package ifrit
 			WorldUtils.addWall( 810, 395, false, Library.IMG("dungeon.platform.png"), 500);
 			
 			WorldUtils.addWall( 390, 355, false, Library.IMG("dungeon.platform.png"), 100);
+			WorldUtils.addWall(345, 355, true, Library.IMG("misc.clipPlatform.png"), 5);
+			
 			WorldUtils.addWall( 250, 100, false, Library.IMG("dungeon.platform.png"), 100);
 			
 			WorldUtils.addWall( 300, 285, false, Library.IMG("dungeon.platform.png"), 75);
+			WorldUtils.addWall(267.5, 285, true, Library.IMG("misc.clipPlatform.png"), 5);
+			
 			WorldUtils.addWall( 300, 220, false, Library.IMG("dungeon.platform.png"), 75);
 			
 			WorldUtils.addWall( 416, 250, false, Library.IMG("dungeon.platform.png"), 42);
@@ -830,7 +834,9 @@ package ifrit
 			WorldUtils.addWall( 950, 150, false, Library.IMG("dungeon.platform.png"), 100);
 			WorldUtils.addWall( 850, 220, false, Library.IMG("dungeon.platform.png"), 100);
 			WorldUtils.addWall( 950, 290, false, Library.IMG("dungeon.platform.png"), 100);
+			
 			WorldUtils.addWall( 850, 345, false, Library.IMG("dungeon.platform.png"), 100);
+			WorldUtils.addWall(895, 345, true, Library.IMG("misc.clipPlatform.png"), 5);
 			
 			WorldUtils.addWall( 800, 200, true, Library.IMG("dungeon.platform.png"), 300);
 			WorldUtils.addWall( 620, 45, false, Library.IMG("dungeon.platform.png"), 350);
@@ -869,7 +875,7 @@ package ifrit
 		
 		private static function loadDungeon_03():void 
 		{
-			audio.playMusic("dungeon", 3);
+			audio.playMusic("dungeon", 5);
 			audio.stopAll(["dungeon"]);
 			
 			WorldUtils.makeBounds();
@@ -941,7 +947,7 @@ package ifrit
 		
 		private static function loadHellther_01():void
 		{
-			audio.playMusic("hellther", 3);
+			audio.playMusic("hellther", 5);
 			audio.stopAll(["hellther"]);
 			
 			WorldUtils.makeBounds();
@@ -1011,7 +1017,7 @@ package ifrit
 		
 		private static function loadHellther_02():void
 		{
-			audio.playMusic("hellther", 3);
+			audio.playMusic("hellther", 5);
 			
 			WorldUtils.makeBounds();
 			
@@ -1132,11 +1138,10 @@ package ifrit
 		
 		private static function loadHellther_03():void
 		{
-			audio.playMusic("hellther", 3);
+			audio.playMusic("hellther", 5);
 			audio.stopAll(["hellther"]);
 			
 			WorldUtils.makeBounds();
-			
 			
 			// Left
 			WorldUtils.addWall(471, 390, true, Library.IMG("forest.platform.png"), 22);
@@ -1282,7 +1287,10 @@ package ifrit
 			WorldUtils.addMan(950, 265, Game.playerClass);
 			
 			// Visible
-			WorldUtils.addWall(760, 259, false, Library.IMG("balcony.platform.png"), 79);
+			WorldUtils.addWall(760, 266, false, Library.IMG("balcony.platform.png"), 79);
+			WorldUtils.addWall(795, 266, true, Library.IMG("misc.clipPlatform.png"), 5);
+			WorldUtils.addWall(724, 266, true, Library.IMG("misc.clipPlatform.png"), 5);
+			
 			WorldUtils.addWall(846, 231, false, Library.IMG("balcony.platform.png"), 48);
 			WorldUtils.addWall(724, 205, false, Library.IMG("balcony.platform.png"), 88);
 			WorldUtils.addWall(852, 182, false, Library.IMG("balcony.platform.png"), 62);

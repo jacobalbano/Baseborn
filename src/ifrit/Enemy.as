@@ -136,7 +136,7 @@ package ifrit
 				{
 					
 					//	2/3 chance of dropping a pickup
-					if (new Boolean(Math.round(Math.random() + 0.5)))
+					if (new Boolean(Math.round(Math.random() + 0.5)) && !(this is Boss))
 					{
 						if (HUD.ammoCount <= 0.5)
 						{

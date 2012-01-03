@@ -137,21 +137,6 @@ package ifrit
 			WorldUtils.addDecal(Library.IMG("beach.shipAnimation.png"), 400, 175, null, null, [0, 1, 2, 3], 270, 193, 5);
 			WorldUtils.addDecal(Library.IMG("beach.waterDebris2.png"), 500, 250);
 			
-			//WorldUtils.addDecal(Library.IMG("enemies.bossDeath.s1.png"), 259, 239, null, function(d:Decal):* { d.y--; } );
-			//WorldUtils.addDecal(Library.IMG("enemies.bossDeath.s2.png"), 266, 239, null, function(d:Decal):* { d.y++; } );
-			//WorldUtils.addDecal(Library.IMG("enemies.bossDeath.s3.png"), 273, 239, null, function(d:Decal):* { d.y--; } );
-			//WorldUtils.addDecal(Library.IMG("enemies.bossDeath.s4.png"), 280, 239, null, function(d:Decal):* { d.y++; } );
-			//WorldUtils.addDecal(Library.IMG("enemies.bossDeath.s5.png"), 287, 239, null, function(d:Decal):* { d.y--; } );
-			//WorldUtils.addDecal(Library.IMG("enemies.bossDeath.s6.png"), 294, 239, null, function(d:Decal):* { d.y++; } );
-			//WorldUtils.addDecal(Library.IMG("enemies.bossDeath.s7.png"), 301, 239, null, function(d:Decal):* { d.y--; } );
-			//WorldUtils.addDecal(Library.IMG("enemies.bossDeath.s8.png"), 308, 239, null, function(d:Decal):* { d.y++; } );
-			//WorldUtils.addDecal(Library.IMG("enemies.bossDeath.s9.png"), 315, 239, null, function(d:Decal):* { d.y--; } );
-			//WorldUtils.addDecal(Library.IMG("enemies.bossDeath.s10.png"), 322, 239, null, function(d:Decal):* { d.y++; } );
-			//WorldUtils.addDecal(Library.IMG("enemies.bossDeath.s11.png"), 329, 239, null, function(d:Decal):* { d.y--; } );
-			//WorldUtils.addDecal(Library.IMG("enemies.bossDeath.s12.png"), 336, 239, null, function(d:Decal):* { d.y++; } );
-			//WorldUtils.addDecal(Library.IMG("enemies.bossDeath.s13.png"), 343, 239, null, function(d:Decal):* { d.y--; } );
-			//WorldUtils.addDecal(Library.IMG("enemies.bossDeath.s14.png"), 350, 239, null, function(d:Decal):* { d.y++; } );
-			
 			nextLevel = "beach_02";
 		}
 		

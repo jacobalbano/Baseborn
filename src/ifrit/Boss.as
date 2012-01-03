@@ -348,7 +348,7 @@ package ifrit
 			WorldUtils.addDecal(new Bitmap(new BitmapData(1000, 500, false, 0x000000)), 500, 250,
 			function (d:Decal):*
 			{
-				d.alpha += 0.001;
+				d.alpha += 0.01;
 				if (d.alpha >= 1)	WorldUtils.next();
 			},
 			function (d:Decal):*

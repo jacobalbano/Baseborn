@@ -27,6 +27,14 @@ package ifrit
 		{
 			super(x, y, Library.IMG("enemies.boss.png"), 150, 111, 60, 111, Enemy.BRAIN_DEAD);
 			
+			this.graphic.add("casting_no_scythe", [0, 1, 2, 3], 6, false);
+			this.graphic.add("casting_with_scythe", [5, 6, 7, 8], 6, false);
+			this.graphic.add("warding", [10, 11, 12, 13], 6, false);
+			this.graphic.add("hover_with_scythe", [15, 16, 17, 18], 6, true);
+			this.graphic.add("hover_no_scythe", [20, 21, 22, 23], 6, true);
+			this.graphic.add("collapse", [35, 36, 37, 38, 39], 6, true);
+			this.graphic.play("hover_with_scythe");
+			
 			this.lastPosition = new Point(x, y);
 			
 			this.sineTicks = 0;
@@ -45,7 +53,7 @@ package ifrit
 			
 			this.target = new Point;
 			
-			this.state = 15;
+			this.state = 0;
 			
 			this.stateFunctions = [
 				runState1,
@@ -63,13 +71,16 @@ package ifrit
 				runState13,
 				runState14,
 				runState15,
-				runState16
+				runState16,
+				runState17,
+				function ():*{}
 			];
 		}
 		
 		override public function preThink():void 
 		{
 			super.preThink();
+			trace(this.hitpoints);
 			
 			this.stateFunctions[this.state]();
 		}
@@ -95,11 +106,14 @@ package ifrit
 			
 			this.state = 3;
 			this.throwScythe();
+			this.graphic.play("hover_no_scythe");
 		}
 		
 		private function runState4():void
 		{
 			if (!this.canShoot)	return;
+			
+			this.graphic.play("casting_with_scythe");
 			
 			var positions:Array =
 			[
@@ -122,7 +136,11 @@ package ifrit
 						WorldUtils.addEnemy(d.x, d.y, Demon);
 					}
 					
-					if (d.alpha <= 0)	Game.stage.removeChild(d);
+					if (d.alpha <= 0)
+					{
+						Game.boss.graphic.play("hover_with_scythe");
+						Game.stage.removeChild(d);
+					}
 					
 				} );
 			}
@@ -144,6 +162,7 @@ package ifrit
 		
 		private function runState6():void
 		{
+			this.stopped = true;
 			y++;
 			
 			if (this.y > 200)	this.state = 6;
@@ -151,6 +170,8 @@ package ifrit
 		
 		private function runState7():void 
 		{
+			this.stopped = false;
+			
 			var positions:Array =
 			[
 				[525, 185],
@@ -159,6 +180,8 @@ package ifrit
 				[400, 270],
 				[460, 145]
 			];
+			
+			this.graphic.play("casting_with_scythe");
 			
 			for (var i:uint = 0; i < positions.length; i++)
 			{
@@ -171,7 +194,11 @@ package ifrit
 						WorldUtils.addEnemy(d.x, d.y, (new Boolean(Math.round(Math.random()))) ? Skeleton : Zombie );
 					}
 					
-					if (d.alpha <= 0)	Game.stage.removeChild(d);
+					if (d.alpha <= 0)
+					{
+						Game.boss.graphic.play("hover_with_scythe");
+						Game.stage.removeChild(d);
+					}
 					
 				} );
 			}
@@ -215,6 +242,8 @@ package ifrit
 				[960, 145]
 			];
 			
+			this.graphic.play("casting_with_scythe");
+			
 			for (var i:uint = 0; i < positions.length; i++)
 			{
 				WorldUtils.addDecal(Library.IMG("hellther.portal.png"), positions[i][0], positions[i][1], function (d:Decal):*
@@ -226,7 +255,11 @@ package ifrit
 						WorldUtils.addEnemy(d.x, d.y, SkeletonMage);
 					}
 					
-					if (d.alpha <= 0)	Game.stage.removeChild(d);
+					if (d.alpha <= 0)
+					{
+						Game.boss.graphic.play("hover_with_scythe");
+						Game.stage.removeChild(d);
+					}
 					
 				} );
 			}
@@ -282,27 +315,49 @@ package ifrit
 		
 		private function runState16():void
 		{
+			
+			this.graphic.play("collapse");
+
 			this.x = this.lastPosition.x;
 			
 			if (this.hitpoints <= 0)
 			{
-				// Hard-coded up the wazoo. This is the code for the boss death "animation".
-				//
-				WorldUtils.addDecal(Library.IMG("enemies.bossDeath.s1.png"), 259, 239, null, function(d:Decal):* { d.y--; } );
-				WorldUtils.addDecal(Library.IMG("enemies.bossDeath.s2.png"), 266, 239, null, function(d:Decal):* { d.y++; } );
-				WorldUtils.addDecal(Library.IMG("enemies.bossDeath.s3.png"), 273, 239, null, function(d:Decal):* { d.y--; } );
-				WorldUtils.addDecal(Library.IMG("enemies.bossDeath.s4.png"), 280, 239, null, function(d:Decal):* { d.y++; } );
-				WorldUtils.addDecal(Library.IMG("enemies.bossDeath.s5.png"), 287, 239, null, function(d:Decal):* { d.y--; } );
-				WorldUtils.addDecal(Library.IMG("enemies.bossDeath.s6.png"), 294, 239, null, function(d:Decal):* { d.y++; } );
-				WorldUtils.addDecal(Library.IMG("enemies.bossDeath.s7.png"), 301, 239, null, function(d:Decal):* { d.y--; } );
-				WorldUtils.addDecal(Library.IMG("enemies.bossDeath.s8.png"), 308, 239, null, function(d:Decal):* { d.y++; } );
-				WorldUtils.addDecal(Library.IMG("enemies.bossDeath.s9.png"), 315, 239, null, function(d:Decal):* { d.y--; } );
-				WorldUtils.addDecal(Library.IMG("enemies.bossDeath.s10.png"), 322, 239, null, function(d:Decal):* { d.y++; } );
-				WorldUtils.addDecal(Library.IMG("enemies.bossDeath.s11.png"), 329, 239, null, function(d:Decal):* { d.y--; } );
-				WorldUtils.addDecal(Library.IMG("enemies.bossDeath.s12.png"), 336, 239, null, function(d:Decal):* { d.y++; } );
-				WorldUtils.addDecal(Library.IMG("enemies.bossDeath.s13.png"), 343, 239, null, function(d:Decal):* { d.y--; } );
-				WorldUtils.addDecal(Library.IMG("enemies.bossDeath.s14.png"), 350, 239, null, function(d:Decal):* { d.y++; } );
+				WorldUtils.addDecal(Library.IMG("enemies.bossDeath.s1.png"), 259, 239, function(d:Decal):* { d.y--; d.alpha -= 0.01; } );
+				WorldUtils.addDecal(Library.IMG("enemies.bossDeath.s2.png"), 266, 239, function(d:Decal):* { d.y++; d.alpha -= 0.01; } );
+				WorldUtils.addDecal(Library.IMG("enemies.bossDeath.s3.png"), 273, 239, function(d:Decal):* { d.y--; d.alpha -= 0.01; } );
+				WorldUtils.addDecal(Library.IMG("enemies.bossDeath.s4.png"), 280, 239, function(d:Decal):* { d.y++; d.alpha -= 0.01; } );
+				WorldUtils.addDecal(Library.IMG("enemies.bossDeath.s5.png"), 287, 239, function(d:Decal):* { d.y--; d.alpha -= 0.01; } );
+				WorldUtils.addDecal(Library.IMG("enemies.bossDeath.s6.png"), 294, 239, function(d:Decal):* { d.y++; d.alpha -= 0.01; } );
+				WorldUtils.addDecal(Library.IMG("enemies.bossDeath.s7.png"), 301, 239, function(d:Decal):* { d.y--; d.alpha -= 0.01; } );
+				WorldUtils.addDecal(Library.IMG("enemies.bossDeath.s8.png"), 308, 239, function(d:Decal):* { d.y++; d.alpha -= 0.01; } );
+				WorldUtils.addDecal(Library.IMG("enemies.bossDeath.s9.png"), 315, 239, function(d:Decal):* { d.y--; d.alpha -= 0.01; } );
+				WorldUtils.addDecal(Library.IMG("enemies.bossDeath.s10.png"), 322, 239, function(d:Decal):* { d.y++; d.alpha -= 0.01; } );
+				WorldUtils.addDecal(Library.IMG("enemies.bossDeath.s11.png"), 329, 239, function(d:Decal):* { d.y--; d.alpha -= 0.01; } );
+				WorldUtils.addDecal(Library.IMG("enemies.bossDeath.s12.png"), 336, 239, function(d:Decal):* { d.y++; d.alpha -= 0.01; } );
+				WorldUtils.addDecal(Library.IMG("enemies.bossDeath.s13.png"), 343, 239, function(d:Decal):* { d.y--; d.alpha -= 0.01; } );
+				WorldUtils.addDecal(Library.IMG("enemies.bossDeath.s14.png"), 350, 239, function(d:Decal):* { d.y++; d.alpha -= 0.01; } );
+				
+				this.visible = false;
+				
+				state = 16;
 			}
+		}
+		
+		private function runState17():void
+		{
+			WorldUtils.addDecal(new Bitmap(new BitmapData(1000, 500, false, 0x000000)), 500, 250,
+			function (d:Decal):*
+			{
+				d.alpha += 0.001;
+				if (d.alpha >= 1)	WorldUtils.next();
+			},
+			function (d:Decal):*
+			{
+				d.alpha = 0;
+			}
+			);
+			
+			state = 17;
 		}
 		
 		override public function postThink():void 
@@ -312,10 +367,6 @@ package ifrit
 			if (!this.isDestroyed)
 			{				
 				if (!this.stopped)	this.y += Math.sin(sineTicks += 0.1);
-			}
-			else
-			{
-				
 			}
 		}
 		
@@ -332,7 +383,8 @@ package ifrit
 			 * World's longest anonymous function
 			 * All the behaviour code for the scythe is in here
 			 */
-			WorldUtils.addDecal(Library.IMG("enemies.scythe.png"), Game.boss.x, Game.boss.y, function (d:Decal):*
+			WorldUtils.addDecal(Library.IMG("enemies.scythe.png"), Game.boss.x, Game.boss.y,
+			function (d:Decal):*
 			{
 				d.rotation += scythePoint.x;
 				

@@ -324,6 +324,8 @@ package ifrit
 			
 			if (this.hitpoints <= 0)
 			{
+				World.audio.stopMusic("boss");
+				
 				WorldUtils.addDecal(Library.IMG("enemies.bossDeath.s1.png"), 259, 239, function(d:Decal):* { d.y--; d.alpha -= 0.01; } );
 				WorldUtils.addDecal(Library.IMG("enemies.bossDeath.s2.png"), 266, 239, function(d:Decal):* { d.y++; d.alpha -= 0.01; } );
 				WorldUtils.addDecal(Library.IMG("enemies.bossDeath.s3.png"), 273, 239, function(d:Decal):* { d.y--; d.alpha -= 0.01; } );

@@ -77,6 +77,7 @@ package ifrit
 			audio.addMusic("dungeon", Library.SND("audio.music.dungeon.mp3"));
 			audio.addMusic("hellther", Library.SND("audio.music.hellther.mp3"));
 			audio.addMusic("boss", Library.SND("audio.music.boss.mp3"));
+			audio.addMusic("finale", Library.SND("audio.music.finale.mp3"));
 			
 			audio.addSFX("titleAmb", Library.SND("audio.sfx.titleScreenAmbiance.mp3"));
 			audio.addSFX("beachAmb", Library.SND("audio.sfx.startToBeach.mp3"));
@@ -1309,9 +1310,10 @@ package ifrit
 		private static function loadEnd():void
 		{
 			audio.stopAll();
+			audio.playMusic("finale");
 			
 			WorldUtils.addDecal(Library.IMG("endingScreen.png"), 500, 250);
-			WorldUtils.addDecal(Library.IMG("creditRoll.png"), 500, 1850, creditRoll);
+			WorldUtils.addDecal(Library.IMG("creditRoll.png"), 500, 1900, creditRoll);
 			
 			WorldUtils.makeBounds();
 			

@@ -4,7 +4,6 @@
 <flex-config>
   <target-player>10.0</target-player>
   <benchmark>false</benchmark>
-  <use-network>false</use-network>
   <static-link-runtime-shared-libraries>true</static-link-runtime-shared-libraries>
   <compiler>
     <define append="true">
@@ -21,12 +20,12 @@
     </define>
     <verbose-stacktraces>true</verbose-stacktraces>
     <source-path append="true">
-      <path-element>C:\Users\Jake\Documents\FlashDevelop\Ifrit\src</path-element>
-      <path-element>C:\Program Files (x86)\FlashDevelop\Library\AS3\classes</path-element>
+      <path-element>C:\Documents and Settings\Chris\Desktop\Ifrit\src</path-element>
+      <path-element>C:\Program Files\FlashDevelop\Library\AS3\classes</path-element>
     </source-path>
   </compiler>
   <file-specs>
-    <path-element>C:\Users\Jake\Documents\FlashDevelop\Ifrit\src\Game.as</path-element>
+    <path-element>C:\Documents and Settings\Chris\Desktop\Ifrit\src\Game.as</path-element>
   </file-specs>
   <default-background-color>#FFFFFF</default-background-color>
   <default-frame-rate>30</default-frame-rate>

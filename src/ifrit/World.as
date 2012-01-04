@@ -119,9 +119,10 @@ package ifrit
 		 
 		private static function loadBeach_01():void
 		{
-			audio.stopSFX("titleAmb");
+			audio.stopAll(); // Remove this line when the title screen is used
+			//audio.stopSFX("titleAmb"); // Renew this line when the title screen is used
 			audio.playMusic("beach", 5);
-			audio.playSFX("beachAmb");
+			//audio.playSFX("beachAmb"); // Renew this line when the title screen is used
 			
 			WorldUtils.makeBounds();
 			
@@ -1335,7 +1336,7 @@ package ifrit
 				
 			WorldUtils.makeBounds();
 			
-			nextLevel = "title";
+			nextLevel = "beach_01";
 		}
 		
 		private static function creditRoll(d:Decal):void

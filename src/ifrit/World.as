@@ -1314,13 +1314,34 @@ package ifrit
 			
 			WorldUtils.addDecal(Library.IMG("endingScreen.png"), 500, 250);
 			WorldUtils.addDecal(Library.IMG("creditRoll.png"), 500, 1900, creditRoll);
+			Variables.add("reset", new Variable(0));
 			
+			WorldUtils.addDecal(new Bitmap(new BitmapData(1000, 500, false, 0x000000)), 500, 250,
+				function (d:Decal):*
+				{
+					Variables.retrive("reset").number++;
+					
+					if (Variables.retrive("reset").number >= 2400)
+					{
+						d.alpha += 0.01;
+						if (d.alpha >= 1)	WorldUtils.next();
+					}
+				},
+				function (d:Decal):*
+				{
+					d.alpha = 0;
+				}
+				);
+				
 			WorldUtils.makeBounds();
 			
 			nextLevel = "title";
 		}
 		
-		private static function creditRoll(d:Decal):void	{	if (d.y > -872.5) d.y -= 1.25;	}
+		private static function creditRoll(d:Decal):void
+		{
+			if (d.y > -872.5) d.y -= 1.25;
+		}
 		
 		//}
 		//	Worlds end

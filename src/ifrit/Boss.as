@@ -39,7 +39,7 @@ package ifrit
 			
 			this.sineTicks = 0;
 			
-			this.hitpoints = 100;
+			this.hitpoints = 1;
 			
 			this.hasGravity = false;
 			
@@ -54,6 +54,8 @@ package ifrit
 			this.target = new Point;
 			
 			this.state = 0;
+			
+			this.friendly = true;
 			
 			this.stateFunctions = [
 				runState1,
@@ -311,6 +313,7 @@ package ifrit
 			}
 			
 			this.hasGravity = true;
+			this.friendly = false;
 		}
 		
 		private function runState16():void

@@ -462,8 +462,6 @@ package ifrit
 			return false;
 		}
 		
-		//BUG: Enemies will walk off edge even if a hurt trigger is below (see hellther_01)
-		
 		private function findEdge():Boolean
 		{
 			for (var i:uint = 0; i < World.Platforms.length; i++)

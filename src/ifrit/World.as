@@ -83,6 +83,7 @@ package ifrit
 			audio.addSFX("beachAmb", Library.SND("audio.sfx.startToBeach.mp3"));
 			audio.addSFX("keys", Library.SND("audio.sfx.keys.mp3"));
 			audio.addSFX("unlock", Library.SND("audio.sfx.unlock.mp3"));
+			audio.addSFX("pickup", Library.SND("audio.sfx.pickup.mp3"));
 		}
 		
 		//	Worlds begin

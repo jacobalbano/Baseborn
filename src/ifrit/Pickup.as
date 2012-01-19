@@ -50,8 +50,6 @@ package ifrit
 			this.animation.add("float", [0, 1, 2, 3, 4, 5], 10, true);
 			this.animation.play("float");
 			
-			if (this.type != KEY)	this.sound.addSFX("pickup", Library.SND("audio.sfx.pickup.mp3"));
-			
 			this.type = type;
 		}
 		

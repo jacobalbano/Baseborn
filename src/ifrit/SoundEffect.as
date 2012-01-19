@@ -36,7 +36,7 @@ package ifrit
 			if (this.channel)
 			{
 				this.channel.soundTransform = this.transform;
-				if (this.count % 2 == 0)
+				if (this.count % 10 == 0)
 				{
 					if (this.channel.position > 0)
 					{

@@ -44,7 +44,7 @@
 			* Debugging shortcuts
 			*/
 			
-			/*
+			
 			// Next level
 			if (Input.isKeyDown(Input.DIGIT_1))
 				WorldUtils.next();
@@ -100,7 +100,7 @@
 						}
 					}
 			}
-			*/
+			
 			/**
 			 * End debugging shortcuts
 			 */
@@ -628,15 +628,15 @@
 							{
 								man.hasCaltrop = true;
 								Game.stage.removeChild(man.activeCaltrop);
-								man.activeCaltrop = null;
 								man.caltropTimer.reset();
 								man.caltropTimer.start();
 								
 								for (var p:int = World.Projectiles.length; p --> 0; )
 								{
-									if (World.Projectiles[p] == man.activeCaltrop)
+									if (World.Projectiles[p] is Caltrop)
 									{
 										World.Projectiles.splice(p, 1);
+										man.activeCaltrop = null;
 										break;
 									}
 								}

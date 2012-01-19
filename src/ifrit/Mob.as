@@ -237,7 +237,7 @@ package ifrit
 			this.x = d.x
 			d.y = this.y
 			
-			if (this.freezeTimer.currentCount >= 20)
+			if (this.freezeTimer.currentCount >= 10)
 			{
 				stage.removeChild(d);
 				this.freezeTimer.stop();

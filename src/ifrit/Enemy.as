@@ -143,8 +143,8 @@ package ifrit
 							switch (Game.man.type) 
 							{
 								case Player.MAGE:		addChild(this.pickup = new Pickup(this.x, this.y, new Boolean(Math.round(Math.random())) ? Pickup.HEALTH : Pickup.MANA));		break;
-								case Player.FIGHTER:	addChild(this.pickup = new Pickup(this.x, this.y, new Boolean(Math.round(Math.random())) ? Pickup.HEALTH : Pickup.ARROW));		break;
-								case Player.ROGUE:		addChild(this.pickup = new Pickup(this.x, this.y, new Boolean(Math.round(Math.random())) ? Pickup.HEALTH : Pickup.SHURIKEN));	break;
+								case Player.FIGHTER:	addChild(this.pickup = new Pickup(this.x, this.y, new Boolean(Math.round(Math.random() - 0.40)) ? Pickup.HEALTH : Pickup.ARROW));		break;
+								case Player.ROGUE:		addChild(this.pickup = new Pickup(this.x, this.y, new Boolean(Math.round(Math.random() - 0.40)) ? Pickup.HEALTH : Pickup.SHURIKEN));	break;
 								default:				throw new Error("How did you manage to kill an enemy without having a class?");													break;
 							}
 						}
@@ -181,7 +181,7 @@ package ifrit
 			}
 			else if (!Game.man.isDestroyed && this.pickup.hitTestObject(Game.man.collisionHull))
 			{
-				if 		(this.pickup.type == Pickup.HEALTH) 	HUD.healPlayer(10, true);
+				if 		(this.pickup.type == Pickup.HEALTH) 	HUD.healPlayer(10.001, true);
 				else if (this.pickup.type == Pickup.MANA)		HUD.restoreMana(25);
 				else if (this.pickup.type == Pickup.KEY)		Game.man.hasKey = true;
 				else if (this.pickup.type == Pickup.ARROW)		HUD.restoreAmmo(5);

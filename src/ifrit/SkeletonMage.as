@@ -1,6 +1,7 @@
 package ifrit 
 {
 	import com.thaumaturgistgames.flakit.Library;
+	import flash.utils.Timer;
 	
 	/**
 	 * @author Jake Albano
@@ -25,6 +26,7 @@ package ifrit
 			
 			this.hitpoints = 20;
 			this.maxHealth = 20;
+			this.attackTimer = new Timer(0, 30);
 			this.tipsOverWhenDead = false;
 		}
 		

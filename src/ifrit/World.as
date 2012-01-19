@@ -961,7 +961,7 @@ package ifrit
 			WorldUtils.addWall(631, 288, true, Library.IMG("forest.platform.png"), 30);
 			WorldUtils.addWall(685, 270, false, Library.IMG("forest.platform.png"), 100);
 			
-			WorldUtils.addWall(950, 300, false, Library.IMG("forest.platform.png"), 120);
+			WorldUtils.addWall(936, 300, false, Library.IMG("forest.platform.png"), 120);
 			WorldUtils.addWall(915, 150, false, Library.IMG("forest.platform.png"), 120);
 			WorldUtils.addWall(850, 135, true, Library.IMG("forest.platform.png"), 30);
 			WorldUtils.addWall(700, 115, false, Library.IMG("forest.platform.png"), 290);

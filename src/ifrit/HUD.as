@@ -211,7 +211,6 @@ package ifrit
 			
 			if (Game.man.type == Player.ROGUE)
 			{
-				
 				if (type == AMMO)
 				{
 					var remainingShuriken:Number = shuriken.width;
@@ -220,16 +219,6 @@ package ifrit
 						shuriken.width -= cost;
 					}
 				}
-				
-				//if (type == SPECIAL)
-				//{
-					//var remainingBlink:Number = blink.width;
-					//
-					//if (cost <= remainingBlink)
-					//{
-						//blink.width -= cost;
-					//}
-				//}
 			}
 			
 			if (Game.man.type == Player.FIGHTER)

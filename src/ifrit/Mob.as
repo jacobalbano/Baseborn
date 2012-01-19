@@ -155,22 +155,13 @@ package ifrit
 		
 		public function shoot(ammo:Class = null):Projectile
 		{
-			if (attackTimer.currentCount == attackTimer.repeatCount)
-			{
-				attackTimer.reset();
-			}
+			if (attackTimer.currentCount == attackTimer.repeatCount)	attackTimer.reset();
 			
 			var ammunition:Class;
 			var shot:Projectile = null;
 			
-			if (ammo)
-			{
-				ammunition = ammo;
-			}
-			else
-			{
-				ammunition = this.rangedType;
-			}
+			if (ammo)	ammunition = ammo;
+			else		ammunition = this.rangedType;
 			
 			if (!attackTimer.running)
 			{
@@ -202,10 +193,7 @@ package ifrit
 		
 		public function stab():void 
 		{
-			if (attackTimer.currentCount == attackTimer.repeatCount)
-			{
-				attackTimer.reset();
-			}
+			if (attackTimer.currentCount == attackTimer.repeatCount)	attackTimer.reset();
 			
 			if (!attackTimer.running)
 			{

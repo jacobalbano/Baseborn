@@ -142,10 +142,10 @@ package ifrit
 						{
 							switch (Game.man.type) 
 							{
-								case Player.MAGE:		addChild(this.pickup = new Pickup(this.x, this.y, new Boolean(Math.round(Math.random())) ? Pickup.HEALTH : Pickup.MANA));		break;
+								case Player.MAGE:		addChild(this.pickup = new Pickup(this.x, this.y, new Boolean(Math.round(Math.random())) ? Pickup.HEALTH : Pickup.MANA));				break;
 								case Player.FIGHTER:	addChild(this.pickup = new Pickup(this.x, this.y, new Boolean(Math.round(Math.random() - 0.40)) ? Pickup.HEALTH : Pickup.ARROW));		break;
 								case Player.ROGUE:		addChild(this.pickup = new Pickup(this.x, this.y, new Boolean(Math.round(Math.random() - 0.40)) ? Pickup.HEALTH : Pickup.SHURIKEN));	break;
-								default:				throw new Error("How did you manage to kill an enemy without having a class?");													break;
+								default:				throw new Error("How did you manage to kill an enemy without having a class?");															break;
 							}
 						}
 						else

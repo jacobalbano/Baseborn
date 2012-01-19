@@ -1132,6 +1132,8 @@ package ifrit
 			
 			WorldUtils.makeBounds();
 			
+			
+			
 			// Left
 			WorldUtils.addWall(471, 390, true, Library.IMG("forest.platform.png"), 22);
 			WorldUtils.addWall(389, 375, false, Library.IMG("forest.platform.png"), 156);
@@ -1147,6 +1149,7 @@ package ifrit
 			WorldUtils.addWall(104, 158, false, Library.IMG("forest.platform.png"), 72);
 			WorldUtils.addWall(35, 44, false, Library.IMG("forest.platform.png"), 71);
 			WorldUtils.addWall(35, 63, false, Library.IMG("forest.platform.png"), 71);
+			WorldUtils.addWall(66, 52, false, Library.IMG("forest.platform.png"), 10);
 			
 			// Right
 			WorldUtils.addWall(529, 390, true, Library.IMG("forest.platform.png"), 22);
@@ -1163,6 +1166,7 @@ package ifrit
 			WorldUtils.addWall(906, 158, false, Library.IMG("forest.platform.png"), 72);
 			WorldUtils.addWall(965, 44, false, Library.IMG("forest.platform.png"), 71);
 			WorldUtils.addWall(965, 63, false, Library.IMG("forest.platform.png"), 71);
+			WorldUtils.addWall(934, 52, false, Library.IMG("forest.platform.png"), 10);
 			
 			// Mid Bottom Chunk
 			WorldUtils.addWall(500, 258, false, Library.IMG("forest.platform.png"), 672);
@@ -1180,7 +1184,9 @@ package ifrit
 			
 			// Mid Top Chunk
 			WorldUtils.addWall(206, 193, false, Library.IMG("forest.platform.png"), 48);
+			WorldUtils.addWall(184, 183, false, Library.IMG("forest.platform.png"), 10);
 			WorldUtils.addWall(794, 193, false, Library.IMG("forest.platform.png"), 48);
+			WorldUtils.addWall(816, 183, false, Library.IMG("forest.platform.png"), 10);
 			WorldUtils.addWall(266, 188, false, Library.IMG("forest.platform.png"), 70);
 			WorldUtils.addWall(734, 188, false, Library.IMG("forest.platform.png"), 70);
 			WorldUtils.addWall(500, 175, false, Library.IMG("forest.platform.png"), 636);
@@ -1195,6 +1201,7 @@ package ifrit
 			WorldUtils.addWall(560, 105, true, Library.IMG("forest.platform.png"), 20);
 			
 			WorldUtils.addDecal(Library.IMG("hellther.bg.png"), 500, 200);
+			WorldUtils.addDecal(Library.IMG("hellther.layout3.png"), 500, 200);
 			
 			const portal:Point = new Point(500, 56);
 			WorldUtils.addDecal(Library.IMG("hellther.portalFrame.png"), portal.x, portal.y);
@@ -1202,8 +1209,6 @@ package ifrit
 			WorldUtils.addDecal(Library.IMG("hellther.portal.png"), portal.x, portal.y, function (d:Decal):*	{	d.rotation += 5; d.alpha = Math.abs(d.rotation) / 180;	} );
 			
 			WorldUtils.addDecal(Library.IMG("misc.upArrow.png"), 500, 56, portalAdvance, function (d:Decal):* { d.alpha = 0;	} );
-			
-			WorldUtils.addDecal(Library.IMG("hellther.layout3.png"), 500, 200);
 			
 			WorldUtils.addLadder(500, 370, 30, "hellther.ladder.png");
 			

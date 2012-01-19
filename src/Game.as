@@ -44,7 +44,7 @@
 			* Debugging shortcuts
 			*/
 			
-			
+			/*
 			// Next level
 			if (Input.isKeyDown(Input.DIGIT_1))
 				WorldUtils.next();
@@ -73,11 +73,34 @@
 			if (Input.isKeyDown(Input.DIGIT_7))
 				Game.man.knowsD = !Game.man.knowsD;
 			
-			if (Input.isKeyDown(Input.LEFT_SQUARE_BRACKET) && Game.man)
+			// Teleport man
+			if (Input.isMouseDown && !Input.isKeyDown(Input.SHIFT) && Game.man)
 			{
 				Game.man.x = Input.mouseX;
 				Game.man.y = Input.mouseY;
 			}
+			
+			// Kill enemy
+			if (Input.isMouseDown && Input.isKeyDown(Input.SHIFT) && Game.man)
+			{
+				WorldUtils.addDecal(Library.IMG("smoke.png"), Input.mouseX, Input.mouseY,
+				function removeSmoke(d:Decal):void 
+				{
+						if (d.animation.playing != "animation") Game.stage.removeChild(d);
+				}, null, [0, 1, 2, 3, 4, 5], 40, 40, 10, false);
+				
+				for (var tt:int = World.Mobs.length - 1; tt >= 0; tt--)
+					{
+						if (!World.Mobs[tt].friendly)
+						{
+							if (World.Mobs[tt].hitTestPoint(mouseX, mouseY))
+							{
+								World.Mobs[tt].hitpoints = 0;
+							}
+						}
+					}
+			}
+			*/
 			/**
 			 * End debugging shortcuts
 			 */
@@ -559,7 +582,6 @@
 			{
 				if (man.lightningAttack)
 				{
-					//Library.SND("audio.sfx.bolt.mp3").play(0);
 					man.boltTime.start();
 					man.lightningAttack.sendBolt();
 				}

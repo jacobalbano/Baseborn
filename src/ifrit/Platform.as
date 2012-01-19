@@ -103,7 +103,6 @@ package ifrit
 			}
 			
 			return false;
-		
 		}
 		
 		private function resolveAsObject(obj:DisplayObject):Boolean

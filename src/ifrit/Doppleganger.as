@@ -57,6 +57,8 @@ package ifrit
 			
 			if (this.isDestroyed)	return;
 			
+			if (Game.man.isDestroyed)	this.graphic.play("stand");
+			
 			if (this.collisionHull.hitTestObject(Game.man.collisionHull))
 			{
 				Game.man.alpha -= 0.025;

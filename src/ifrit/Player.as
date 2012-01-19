@@ -37,6 +37,7 @@ package ifrit
 		public var hasCaltrop:Boolean;
 		public var activeCaltrop:Caltrop;
 		public var canDropCaltrop:Boolean;	
+		public var caltropTimer:Timer;
 		
 		public static const MAGE:uint = 0;
 		public static const ROGUE:uint = 2;
@@ -49,7 +50,7 @@ package ifrit
 		
 		private	var idle:Boolean;
 		
-		public function Player(x:Number, y:Number, type:uint) 
+		public function Player(x:Number, y:Number, type:uint)
 		{
 			var animationName:String;
 			var frameWidth:int = 18;
@@ -92,6 +93,9 @@ package ifrit
 					graphic.add("climbDown", [11, 10, 9, 8], 8, true);
 					graphic.add("climbIdle", [9], 0, true);
 					graphic.add("death", [12, 13, 14, 15], 6, false, true);
+					
+					this.caltropTimer = new Timer(20, 0);
+					this.caltropTimer.start();
 					
 					this.sound.addSFX("shoot", Library.SND("audio.sfx.throw.mp3"));
 					this.sound.addSFX("stab", Library.SND("audio.sfx.daggerStab.mp3"));
@@ -177,7 +181,7 @@ package ifrit
 			}
 			
 			super.think();
-			if (!Input.isKeyDown(Input.SPACE))
+			if (!Input.isKeyDown(Input.SPACE) && !Input.isKeyDown(Input.UP))
 			{
 				this.canJump = true;
 			}

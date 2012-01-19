@@ -213,9 +213,9 @@
 					}
 				}
 				
-				if (man.canJump && !man.isFrozen)
+				if (man.canJump && !man.isFrozen && !checkLadder())
 				{
-					if (Input.isKeyDown(Input.SPACE))
+					if (Input.isKeyDown(Input.SPACE) || Input.isKeyDown(Input.UP))
 					{
 						for (var p:int = World.Mobs.length; p --> 0; )
 						{
@@ -225,14 +225,26 @@
 						man.jumping = true;
 						man.canJump = false;
 					}
-				}
-				else
-				{
+					else if (!Input.isKeyDown(Input.SPACE) || !Input.isKeyDown(Input.UP))
+					{
 						man.jumping = false;
 						for (var f:int = World.Mobs.length; f --> 0; )
 						{
 							if (World.Mobs[f] is Doppleganger)	World.Mobs[f].jumping = false;
 						}
+					}
+					
+				}
+				else
+				{
+					if (!Input.isKeyDown(Input.SPACE) || !Input.isKeyDown(Input.UP))
+					{
+						man.jumping = false;
+						for (var ff:int = World.Mobs.length; ff --> 0; )
+						{
+							if (World.Mobs[ff] is Doppleganger)	World.Mobs[ff].jumping = false;
+						}
+					}
 				}
 
 				
@@ -596,7 +608,6 @@
 				}
 			}
 			
-			//BUG: Pressing 'S' quickly and repeatedly makes the game think the caltrop is out when it is not
 			if (man.type == Player.ROGUE)
 			{
 				if (man.canDropCaltrop)
@@ -604,16 +615,22 @@
 					if (man.hasCaltrop)
 					{
 						man.hasCaltrop = false;
+						man.caltropTimer.reset();
+						man.caltropTimer.start();
+						
 						man.activeCaltrop =	(man.shoot(Caltrop) as Caltrop);
 					}
 					else
 					{
-						if (man.activeCaltrop)
+						if (man.activeCaltrop && man.caltropTimer.currentCount > 10)
 						{
 							if (man.collisionHull.hitTestObject(man.activeCaltrop))
 							{
 								man.hasCaltrop = true;
 								Game.stage.removeChild(man.activeCaltrop);
+								man.activeCaltrop = null;
+								man.caltropTimer.reset();
+								man.caltropTimer.start();
 								
 								for (var p:int = World.Projectiles.length; p --> 0; )
 								{
@@ -627,6 +644,8 @@
 						}
 					}
 					man.canDropCaltrop = false;
+					man.caltropTimer.reset();
+					man.caltropTimer.start();
 				}
 			}
 			
@@ -669,6 +688,10 @@
 						{
 							man.x = World.Ladders[l].x;
 						}
+						
+						man.canJump = true;
+						man.jumpTimer.stop();
+						man.jumpTimer.reset();
 						return World.Ladders[l]
 					}
 				}

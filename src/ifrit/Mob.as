@@ -95,7 +95,7 @@ package ifrit
 		
 		public function collideWithMob(obj:Mob):Boolean
 		{
-			if (this.friendly == obj.friendly)
+			if (this.friendly == obj.friendly || this is Doppleganger || obj is Doppleganger)
 				return false;
 				
 			if (this.isDestroyed || obj.isDestroyed)

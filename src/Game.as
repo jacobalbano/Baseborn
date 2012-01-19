@@ -282,7 +282,7 @@
 				{
 					for (var ll:int = World.Mobs.length - 1; ll >= 0; ll--)
 					{
-						if (World.Mobs[l].collideWithMob(World.Mobs[ll]))	{ }
+						World.Mobs[l].collideWithMob(World.Mobs[ll]);
 					}
 					
 					var removed:Boolean = false;

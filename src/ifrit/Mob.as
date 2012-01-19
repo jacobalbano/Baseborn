@@ -86,7 +86,7 @@ package ifrit
 			
 			this.halfSize = new Point(this.collisionHull.width / 2, this.collisionHull.height / 2);
 			
-			this.speedLimit = new Point(7, 20);
+			this.speedLimit = new Point(7, 15);
 			
 			this.hasGravity = true;
 			

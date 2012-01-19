@@ -51,11 +51,13 @@ package ifrit
 			this.friendly = false;
 		}
 		
-		override public function postThink():void
+		override public function preThink():void
 		{
 			if (this.hitpoints <= 0)	this.destroy();
 			
 			if (this.isDestroyed)	return;
+			
+			if (Game.man.isDestroyed)	this.graphic.play("stand");
 			
 			if (this.collisionHull.hitTestObject(Game.man.collisionHull))
 			{

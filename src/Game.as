@@ -44,7 +44,7 @@
 			* Debugging shortcuts
 			*/
 			
-			/*
+			
 			// Next level
 			if (Input.isKeyDown(Input.DIGIT_1))
 				WorldUtils.next();
@@ -73,7 +73,11 @@
 			if (Input.isKeyDown(Input.DIGIT_7))
 				Game.man.knowsD = !Game.man.knowsD;
 			
-			*/ 
+			if (Input.isKeyDown(Input.LEFT_SQUARE_BRACKET) && Game.man)
+			{
+				Game.man.x = Input.mouseX;
+				Game.man.y = Input.mouseY;
+			}
 			/**
 			 * End debugging shortcuts
 			 */

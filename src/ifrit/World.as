@@ -98,8 +98,8 @@ package ifrit
 		
 		private static function loadTitle():void
 		{
-			audio.playSFX("titleAmb", 5);
 			audio.stopAll(["titleAmb"]);
+			audio.playSFX("titleAmb", 5);
 			
 			WorldUtils.makeBounds();
 			
@@ -122,7 +122,7 @@ package ifrit
 		{
 			audio.stopAll(); // Remove this line when the title screen is used
 			//audio.stopSFX("titleAmb"); // Renew this line when the title screen is used
-			audio.playMusic("beach", 5);
+			audio.playMusic("beach", 3);
 			//audio.playSFX("beachAmb"); // Renew this line when the title screen is used
 			
 			WorldUtils.makeBounds();
@@ -145,7 +145,7 @@ package ifrit
 		
 		private static function loadBeach_02():void
 		{
-			audio.playMusic("beach", 5);
+			audio.playMusic("beach", 3);
 			
 			WorldUtils.makeBounds();
 			
@@ -170,7 +170,7 @@ package ifrit
 		
 		private static function loadBeach_03():void
 		{
-			audio.playMusic("beach", 5);
+			audio.playMusic("beach", 3);
 			
 			WorldUtils.makeBounds();
 			
@@ -210,8 +210,8 @@ package ifrit
 		
 		private static function loadForest_01():void
 		{
-			audio.playMusic("forest", 5);
-			audio.stopAll(["forest"]);
+			audio.stopAll();
+			audio.playMusic("forest", 3);
 			
 			WorldUtils.makeBounds();
 			
@@ -253,8 +253,7 @@ package ifrit
 		
 		private static function loadForest_02():void
 		{
-			audio.playMusic("forest", 5);
-			audio.stopAll(["forest"]);
+			audio.playMusic("forest", 3);
 			
 			WorldUtils.makeBounds();
 			
@@ -280,8 +279,7 @@ package ifrit
 		
 		private static function loadForest_03():void
 		{
-			audio.playMusic("forest", 5);
-			audio.stopAll(["forest"]);
+			audio.playMusic("forest", 3);
 			
 			WorldUtils.makeBounds();
 			
@@ -360,8 +358,8 @@ package ifrit
 		
 		private static function loadTower_01():void
 		{
-			audio.playMusic("tower", 5);
-			audio.stopAll(["tower"]);
+			audio.stopAll();
+			audio.playMusic("tower", 3);
 			
 			WorldUtils.makeBounds();
 			
@@ -580,7 +578,7 @@ package ifrit
 		
 		private static function loadTower_02():void
 		{
-			audio.playMusic("tower", 5);
+			audio.playMusic("tower", 3);
 			
 			WorldUtils.makeBounds();
 			
@@ -643,7 +641,7 @@ package ifrit
 		
 		private static function loadTower_03():void
 		{
-			audio.playMusic("tower", 5);
+			audio.playMusic("tower", 3);
 			
 			WorldUtils.makeBounds();
 			
@@ -706,8 +704,8 @@ package ifrit
 		
 		private static function loadDungeon_01():void 
 		{
-			audio.playMusic("dungeon", 5);
-			audio.stopAll(["dungeon"]);
+			audio.stopAll();
+			audio.playMusic("dungeon", 3);
 			
 			WorldUtils.makeBounds();
 			
@@ -767,8 +765,7 @@ package ifrit
 		
 		private static function loadDungeon_02():void 
 		{
-			audio.playMusic("dungeon", 5);
-			audio.stopAll(["dungeon"]);
+			audio.playMusic("dungeon", 3);
 			
 			WorldUtils.makeBounds();
 			
@@ -863,8 +860,7 @@ package ifrit
 		
 		private static function loadDungeon_03():void 
 		{
-			audio.playMusic("dungeon", 5);
-			audio.stopAll(["dungeon"]);
+			audio.playMusic("dungeon", 3);
 			
 			WorldUtils.makeBounds();
 			
@@ -935,8 +931,8 @@ package ifrit
 		
 		private static function loadHellther_01():void
 		{
-			audio.playMusic("hellther", 5);
-			audio.stopAll(["hellther"]);
+			audio.stopAll();
+			audio.playMusic("hellther", 3);
 			
 			WorldUtils.makeBounds();
 			
@@ -1005,7 +1001,7 @@ package ifrit
 		
 		private static function loadHellther_02():void
 		{
-			audio.playMusic("hellther", 5);
+			audio.playMusic("hellther", 3);
 			
 			WorldUtils.makeBounds();
 			
@@ -1127,8 +1123,7 @@ package ifrit
 		
 		private static function loadHellther_03():void
 		{
-			audio.playMusic("hellther", 5);
-			audio.stopAll(["hellther"]);
+			audio.playMusic("hellther", 3);
 			
 			WorldUtils.makeBounds();
 			
@@ -1262,8 +1257,8 @@ package ifrit
 		
 		private static function loadBalcony_01():void
 		{
-			audio.playMusic("boss", 5);
-			audio.stopAll(["boss"]);
+			audio.stopAll();
+			audio.playMusic("boss", 3);
 			
 			WorldUtils.makeBounds();
 			

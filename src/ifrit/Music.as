@@ -3,13 +3,14 @@ package ifrit
 	import flash.media.Sound;
 	import flash.media.SoundChannel;
 	import flash.media.SoundTransform;
+	
 	/**
 	 * ...
 	 * @author Chris Logsdon
 	 */
 	public class Music extends Audio
 	{
-		public var sound:Sound
+		public var sound:Sound;
 		public var channel:SoundChannel;
 		public var transform:SoundTransform = new SoundTransform;
 		
@@ -21,8 +22,8 @@ package ifrit
 		
 		public function Music(name:String, sound:Sound) 
 		{
-			this.sound = sound;
 			this.name = name;
+			this.sound = sound;
 			this.position = -1;
 			this.count = 0;
 		}
@@ -34,23 +35,21 @@ package ifrit
 			if (this.channel)
 			{
 				this.channel.soundTransform = this.transform;
-				
 				if (this.count % 10 == 0)
 				{
 					if (this.channel.position > 0)
 					{
-						if (this.position < this.channel.position)
+						if (this.channel.position < this.sound.length)
 						{
 							this.playing = true;
 							this.position = this.channel.position;
 						}
-						else
-						{
-							this.playing = false;
-						}
 					}
+					
+					if (this.channel.position == 0)	this.playing = false;
 				}
 				count++;
+				
 			}
 		}
 		

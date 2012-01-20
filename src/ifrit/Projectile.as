@@ -110,7 +110,7 @@ package ifrit
 				
 				this.x += vx;
 				
-				if (!(this is MeleeSwing))
+				if (!(this is MeleeSwing || this is Web))
 				{
 					var pix:BitmapData = new BitmapData(this.width, this.height, true, 0);
 					pix.draw(this);

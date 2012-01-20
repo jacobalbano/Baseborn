@@ -17,6 +17,8 @@ package ifrit
 		
 		public var hasPhysics:Boolean;
 		public var stopped:Boolean;
+		public var stoppedX:Boolean;
+		public var stoppedY:Boolean;
 		public var isStatic:Boolean;
 		public var damage:Number;
 		protected var container:Sprite;
@@ -28,7 +30,6 @@ package ifrit
 		public function Caltrop()
 		{
 			super();
-			//Library.IMG("caltrop.png"), 12, 9, direction, x, y, friendly, 0, true);
 			
 			var graphic:Bitmap = Library.IMG("caltrop.png");
 			
@@ -69,11 +70,34 @@ package ifrit
 			{
 				if (this.hitTestObject(p))
 				{
-					if (this.y + this.height / 2 > p.y - p.height / 2)
+					if (p.vertical)
 					{
-						this.y = p.y - p.height / 2 - this.height / 2;
+						this.stoppedX = true;
+						this.vx = 0;
 					}
-					this.stopped = true;
+					else
+					{
+						if (this.y + this.height / 2 > p.y - p.height / 2 && !p.vertical)
+						{
+							this.y = p.y - p.height / 2 - this.height / 2;
+							this.stoppedY = true;
+							this.stoppedX = true;
+						}
+					}
+					
+				}
+			}
+			
+			if (this.stoppedX && this.stoppedY)
+			{
+				this.stopped = true;
+			}
+			
+			for each(var m:Mob in World.Mobs)
+			{
+				if (m is Enemy && this.hitTestObject(m.collisionHull))
+				{
+					m.hitpoints -= 10;
 				}
 			}
 			
@@ -81,7 +105,7 @@ package ifrit
 			{
 				this.sound.playSFX("fly");
 				
-				if (this.hasPhysics)
+				if (this.hasPhysics && !this.stoppedY)
 				{
 					if (this.dx > 0)   	this.vx -= 0.05;
 					if (this.dx < 0)   	this.vx += 0.05;
@@ -92,7 +116,10 @@ package ifrit
 					
 				}
 				
-				this.x += vx;
+				if (!this.stoppedX)
+				{
+					this.x += vx;
+				}
 				
 				var pix:BitmapData = new BitmapData(this.width, this.height, true, 0);
 				pix.draw(this);

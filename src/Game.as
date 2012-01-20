@@ -43,8 +43,7 @@
 		{
 			/**
 			* Debugging shortcuts
-			*/
-			
+			*/			
 			
 			// Next level
 			if (Input.isKeyDown(Input.DIGIT_1))

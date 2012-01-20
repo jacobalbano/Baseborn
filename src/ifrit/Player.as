@@ -178,7 +178,6 @@ package ifrit
 			{
 				this.destroy();
 				this.graphic.play("death");
-				this.canJump = false;
 			}
 			
 			super.think();
@@ -224,6 +223,9 @@ package ifrit
 			
 			var x:int = this.x <= Game.dimensions.x / 2 ? this.x - 50 : this.x + 50;
 			WorldUtils.addDecal(Library.IMG("misc.enter.png"), x, this.y, function (d:Decal):*	{	d.alpha += 0.01;	}, function (d:Decal):*	{	d.alpha = 0;	} );
+			
+			this.canJump = false;
+			this.jumping = false;
 			
 			super.destroy();
 		}

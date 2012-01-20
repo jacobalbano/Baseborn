@@ -77,7 +77,7 @@ package ifrit
 					}
 					else
 					{
-						if (this.y + this.height / 2 > p.y - p.height / 2 && !p.vertical)
+						if (this.y + this.height / 2 > p.y - p.height / 2)
 						{
 							this.y = p.y - p.height / 2 - this.height / 2;
 							this.stoppedY = true;
@@ -105,7 +105,7 @@ package ifrit
 			{
 				this.sound.playSFX("fly");
 				
-				if (this.hasPhysics && !this.stoppedY)
+				if (!this.stoppedY)
 				{
 					if (this.dx > 0)   	this.vx -= 0.05;
 					if (this.dx < 0)   	this.vx += 0.05;

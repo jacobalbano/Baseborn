@@ -634,7 +634,7 @@
 					}
 					else
 					{
-						if (man.activeCaltrop && man.caltropTimer.currentCount > 10)
+						if (man.activeCaltrop && man.caltropTimer.currentCount > 2)
 						{
 							if (man.collisionHull.hitTestObject(man.activeCaltrop))
 							{

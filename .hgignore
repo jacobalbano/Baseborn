@@ -1,6 +1,7 @@
 syntax: glob
 obj/IfritConfig.old
 bin/FLAKit.swf
+Game.swf
 syntax: regexp
 Raw assets/*
 tools/*

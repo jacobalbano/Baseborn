@@ -30,6 +30,7 @@
 			Input.init(stage);
 			
 			stage.scaleMode = "noScale";
+			//stage.quality = "low";
 			
 			World.init();
 			
@@ -248,18 +249,12 @@
 				}
 
 				
-				if (Input.isKeyDown(Input.A) && Game.man.knowsA)
+				if 		(Input.isKeyDown(Input.A) && Game.man.knowsA)
 				{
 					if (!Input.isKeyDown(Input.S) && !Input.isKeyDown(Input.D))
 						beginRangedAttack();
 				}
-				else
-				{
-					if (man.canShoot)
-						finalizeRangedAttack();
-				}
-				
-				if (Input.isKeyDown(Input.D) && Game.man.knowsD)
+				else if (Input.isKeyDown(Input.D) && Game.man.knowsD)
 				{
 					if (!Input.isKeyDown(Input.S) 	&&	!Input.isKeyDown(Input.A) &&
 						!Input.isKeyDown(Input.UP)	&&	!Input.isKeyDown(Input.DOWN))
@@ -271,18 +266,34 @@
 						}
 					}
 				}
-				else
+				else if (Input.isKeyDown(Input.S) && Game.man.knowsS)
+				{
+					if (!Input.isKeyDown(Input.A) && !Input.isKeyDown(Input.D))
+						beginSpecialAttack();
+				}
+				
+				if (!Input.isKeyDown(Input.A) 	&&
+					!Input.isKeyDown(Input.S)	&&
+					!Input.isKeyDown(Input.D)	&&
+					Game.man.knowsA)
+				{
+					if (man.canShoot)
+						finalizeRangedAttack();
+				}
+				
+				if (!Input.isKeyDown(Input.A) 	&&
+					!Input.isKeyDown(Input.S)	&&
+					!Input.isKeyDown(Input.D)	&&
+					Game.man.knowsD)
 				{
 					if (man.canMelee)
 						finalizeMeleeAttack();
 				}
 				
-				if (Input.isKeyDown(Input.S) && Game.man.knowsS)
-				{
-					if (!Input.isKeyDown(Input.A) && !Input.isKeyDown(Input.D))
-						beginSpecialAttack();
-				}
-				else
+				if (!Input.isKeyDown(Input.A) 	&&
+					!Input.isKeyDown(Input.S)	&&
+					!Input.isKeyDown(Input.D)	&&
+					Game.man.knowsS)
 				{
 					finalizeSpecialAttack();
 				}
@@ -463,7 +474,7 @@
 							 */
 							//if (World.Mobs[jj].friendly)
 							//{
-								//if (World.Platforms[ii].collide(World.Mobs[jj]) && !(World.Mobs[jj] is Doppleganger))
+								//if (World.Platforms[ii].collide(World.Mobs[jj])))
 								//{
 									//trace(ii);
 								//}
@@ -618,7 +629,8 @@
 						man.caltropTimer.reset();
 						man.caltropTimer.start();
 						
-						man.activeCaltrop =	(man.shoot(Caltrop) as Caltrop);
+						man.activeCaltrop =	new Caltrop;
+						Game.stage.addChild(man.activeCaltrop);
 					}
 					else
 					{
@@ -630,16 +642,6 @@
 								Game.stage.removeChild(man.activeCaltrop);
 								man.caltropTimer.reset();
 								man.caltropTimer.start();
-								
-								for (var p:int = World.Projectiles.length; p --> 0; )
-								{
-									if (World.Projectiles[p] is Caltrop)
-									{
-										World.Projectiles.splice(p, 1);
-										man.activeCaltrop = null;
-										break;
-									}
-								}
 							}
 						}
 					}

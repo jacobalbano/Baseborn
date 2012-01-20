@@ -178,6 +178,7 @@ package ifrit
 			{
 				this.destroy();
 				this.graphic.play("death");
+				this.canJump = false;
 			}
 			
 			super.think();

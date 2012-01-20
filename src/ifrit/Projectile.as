@@ -110,14 +110,25 @@ package ifrit
 				
 				this.x += vx;
 				
-				/**
-				 * Debugging information; displays trajectory
-				 * Uncomment the lines below to see in action
-				 */
-				//var bmp:Bitmap = new Bitmap(new BitmapData(10, 1, false, 0xff0000));
-				//bmp.x = this.x;
-				//bmp.y = this.y;
-				//Game.stage.addChild(bmp);
+				if (!(this is MeleeSwing))
+				{
+					var pix:BitmapData = new BitmapData(this.width, this.height, true, 0);
+					pix.draw(this);
+					var bmp:Bitmap = new Bitmap(new BitmapData(10, 2, false, pix.getPixel(0, 0)));
+					
+					bmp.x = this.x;
+					bmp.y = this.y;
+					WorldUtils.addDecal(bmp, bmp.x, bmp.y,
+					function (d:Decal):void
+					{
+						if (d.alpha > 0) 	d.alpha -= 0.05;
+						if (d.alpha <= 0)	Game.stage.removeChild(d);
+					},
+					function (d:Decal):void
+					{
+						d.rotation = Math.atan2( y + vy - y, x + vx - x) * 180 / Math.PI;
+					});
+				}
 			}
 		}
 		

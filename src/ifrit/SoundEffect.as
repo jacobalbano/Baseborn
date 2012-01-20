@@ -10,7 +10,6 @@ package ifrit
 	 */
 	public class SoundEffect extends Audio
 	{
-		
 		public var sound:Sound;
 		public var channel:SoundChannel;
 		public var transform:SoundTransform = new SoundTransform;
@@ -40,15 +39,20 @@ package ifrit
 				{
 					if (this.channel.position > 0)
 					{
-						if (this.position < this.channel.position)
+						if (this.channel.position < this.sound.length)
 						{
 							this.playing = true;
 							this.position = this.channel.position;
 						}
-						else	this.playing = false;
+					}
+					
+					if (this.channel.position == 0 || this.channel.position == this.sound.length)
+					{
+						this.playing = false;
 					}
 				}
 				count++;
+				
 			}
 		}
 		

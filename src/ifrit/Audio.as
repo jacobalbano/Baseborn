@@ -219,12 +219,20 @@ package ifrit
 			{
 				for each (var sfx:SoundEffect in this.Sfx)
 				{
-					if (sfx.channel)	sfx.channel.stop();
+					if (sfx.channel)
+					{
+						sfx.channel.stop();
+						sfx.playing = false;
+					}
 				}
 					
 				for each (var song:Music in this.Songs)
 				{
-					if (song.channel)	song.channel.stop();
+					if (song.channel)
+					{
+						song.channel.stop();
+						song.playing = false;
+					}
 				}
 			}
 		}

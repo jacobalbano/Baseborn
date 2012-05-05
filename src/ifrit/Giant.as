@@ -14,7 +14,7 @@ package ifrit
 		
 		public function Giant(x:Number, y:Number) 
 		{
-			super(x, y, Library.IMG("enemies.giant.png"), 119, 185, 32, 185, Enemy.BRAIN_DEAD | Enemy.PASSIVE);
+			super(x, y, Library.getImage("enemies.giant.png"), 119, 185, 32, 185, Enemy.BRAIN_DEAD | Enemy.PASSIVE);
 			
 			this.fixedPosition = new Point(x, y);
 			this.graphic.add("sleep", [0, 1, 2, 3], 3, true);

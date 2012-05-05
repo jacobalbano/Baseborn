@@ -14,7 +14,7 @@ package ifrit
 		
 		public function Debris(x:Number, y:Number) 
 		{
-			super(x, y, Library.IMG("beach.dynamicDebris.png"), 54, 33, 57, 33, Enemy.BRAIN_DEAD | Enemy.PASSIVE);
+			super(x, y, Library.getImage("beach.dynamicDebris.png"), 54, 33, 57, 33, Enemy.BRAIN_DEAD | Enemy.PASSIVE);
 			
 			this.fixedPosition = new Point(x, y);
 			this.graphic.add("togther", [0], 6, true);

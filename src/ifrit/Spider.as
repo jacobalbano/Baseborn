@@ -11,7 +11,7 @@ package ifrit
 		
 		public function Spider(x:Number, y:Number) 
 		{
-			super(x, y, Library.IMG("enemies.spider.png"), 61, 22, 58, 22, Enemy.NO_MELEE | Enemy.AFRAID);
+			super(x, y, Library.getImage("enemies.spider.png"), 61, 22, 58, 22, Enemy.NO_MELEE | Enemy.AFRAID);
 			this.rangedType = Web;
 			
 			this.graphic.add("stand", [1], 6, true);
@@ -21,7 +21,7 @@ package ifrit
 			this.graphic.add("shocked", [12, 13, 14, 15], 6, false);
 			this.graphic.play("walk");
 			
-			this.sound.addSFX("alerted", Library.SND("audio.sfx.spiderHiss.mp3"));
+			this.sound.addSFX("alerted", Library.getSound("audio.sfx.spiderHiss.mp3"));
 			
 			this.hitpoints = 15;
 			this.maxHealth = 15;

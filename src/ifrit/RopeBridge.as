@@ -20,7 +20,7 @@ package ifrit
 			var w:Number = width < 60 ? 60 : width;
 				w -= w % 15;
 				w += 24;
-			var source:BitmapData = Library.IMG("forest.ropeBridge.png").bitmapData;
+			var source:BitmapData = Library.getImage("forest.ropeBridge.png").bitmapData;
 			
 			this.buffer = new BitmapData(w, 14, true, 0);
 			

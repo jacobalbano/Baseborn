@@ -11,7 +11,7 @@ package ifrit
 		
 		public function Zombie(x:Number, y:Number) 
 		{
-			super(x, y, Library.IMG("enemies.zombie.png"), 36, 25, 15, 25, Enemy.NO_FEAR | Enemy.NO_RANGED);
+			super(x, y, Library.getImage("enemies.zombie.png"), 36, 25, 15, 25, Enemy.NO_FEAR | Enemy.NO_RANGED);
 			
 			this.graphic.add("stand", [1], 6, true);
 			this.graphic.add("walk", [0, 1, 2, 3], 6, true);
@@ -20,8 +20,8 @@ package ifrit
 			this.graphic.add("shocked", [12, 13, 14, 15], 6, false);
 			this.graphic.play("walk");
 			
-			this.sound.addSFX("alerted", Library.SND("audio.sfx.zombieAttack.mp3"));
-			this.sound.addSFX("die", Library.SND("audio.sfx.zombieDie.mp3"));
+			this.sound.addSFX("alerted", Library.getSound("audio.sfx.zombieAttack.mp3"));
+			this.sound.addSFX("die", Library.getSound("audio.sfx.zombieDie.mp3"));
 			
 			this.hitpoints = 25;
 			this.maxHealth = 25;

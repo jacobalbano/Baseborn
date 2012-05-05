@@ -31,7 +31,7 @@ package ifrit
 		{
 			super();
 			
-			var graphic:Bitmap = Library.IMG("caltrop.png");
+			var graphic:Bitmap = Library.getImage("caltrop.png");
 			
 			if (Game.man.rotationY == 0)	this.vx = 3;
 			else							this.vx = -3;

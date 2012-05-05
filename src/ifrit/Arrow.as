@@ -9,7 +9,7 @@ package ifrit
 		
 		public function Arrow(direction:int, x:Number, y:Number, friendly:Boolean = true) 
 		{
-			super(Library.IMG("arrow.png"), 22, 6, direction, x, y, friendly, 0, true);
+			super(Library.getImage("arrow.png"), 22, 6, direction, x, y, friendly, 0, true);
 			
 			if (this.friendly)	HUD.buyAction(10, HUD.AMMO);
 			

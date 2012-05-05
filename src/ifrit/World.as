@@ -71,19 +71,19 @@ package ifrit
 			
 			audio = new Audio;
 			
-			audio.addMusic("beach", Library.SND("audio.music.beach.mp3"));
-			audio.addMusic("forest", Library.SND("audio.music.forest.mp3"));
-			audio.addMusic("tower", Library.SND("audio.music.tower.mp3"));
-			audio.addMusic("dungeon", Library.SND("audio.music.dungeon.mp3"));
-			audio.addMusic("hellther", Library.SND("audio.music.hellther.mp3"));
-			audio.addMusic("boss", Library.SND("audio.music.boss.mp3"));
-			audio.addMusic("finale", Library.SND("audio.music.finale.mp3"));
+			audio.addMusic("beach", Library.getSound("audio.music.beach.mp3"));
+			audio.addMusic("forest", Library.getSound("audio.music.forest.mp3"));
+			audio.addMusic("tower", Library.getSound("audio.music.tower.mp3"));
+			audio.addMusic("dungeon", Library.getSound("audio.music.dungeon.mp3"));
+			audio.addMusic("hellther", Library.getSound("audio.music.hellther.mp3"));
+			audio.addMusic("boss", Library.getSound("audio.music.boss.mp3"));
+			audio.addMusic("finale", Library.getSound("audio.music.finale.mp3"));
 			
-			audio.addSFX("titleAmb", Library.SND("audio.sfx.titleScreenAmbiance.mp3"));
-			audio.addSFX("beachAmb", Library.SND("audio.sfx.startToBeach.mp3"));
-			audio.addSFX("keys", Library.SND("audio.sfx.keys.mp3"));
-			audio.addSFX("unlock", Library.SND("audio.sfx.unlock.mp3"));
-			audio.addSFX("pickup", Library.SND("audio.sfx.pickup.mp3"));
+			audio.addSFX("titleAmb", Library.getSound("audio.sfx.titleScreenAmbiance.mp3"));
+			audio.addSFX("beachAmb", Library.getSound("audio.sfx.startToBeach.mp3"));
+			audio.addSFX("keys", Library.getSound("audio.sfx.keys.mp3"));
+			audio.addSFX("unlock", Library.getSound("audio.sfx.unlock.mp3"));
+			audio.addSFX("pickup", Library.getSound("audio.sfx.pickup.mp3"));
 		}
 		
 		//	Worlds begin
@@ -104,7 +104,7 @@ package ifrit
 			WorldUtils.makeBounds();
 			
 			Variables.add("intro", new Variable(0, true, ""));
-			WorldUtils.addDecal(Library.IMG("titleScreen.png"), 500, 250, beginGame);
+			WorldUtils.addDecal(Library.getImage("titleScreen.png"), 500, 250, beginGame);
 			
 			nextLevel = "beach_01";
 		}
@@ -129,16 +129,16 @@ package ifrit
 			
 			Game.stage.addChild(new HUD);
 			
-			WorldUtils.addDecal(Library.IMG("beach.bg.png"), 500, 250);
+			WorldUtils.addDecal(Library.getImage("beach.bg.png"), 500, 250);
 			
 			WorldUtils.addMan(500, 490, Player.NONE);
 			Game.man.graphic.play("getUp");
 			
 			WorldUtils.addTrigger(1023, 375, WorldUtils.advance);
 			
-			WorldUtils.addDecal(Library.IMG("beach.towerLightning.png"), 835, 10, null, null, [0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0 , 0 , 0, 0, 0, 0, 0, 0, 0, 0 ,1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11, 12, 13, 14, 15, 16, 17], 340, 72,  30, true);
-			WorldUtils.addDecal(Library.IMG("beach.shipAnimation.png"), 400, 175, null, null, [0, 1, 2, 3], 270, 193, 5);
-			WorldUtils.addDecal(Library.IMG("beach.waterDebris2.png"), 500, 250);
+			WorldUtils.addDecal(Library.getImage("beach.towerLightning.png"), 835, 10, null, null, [0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0 , 0 , 0, 0, 0, 0, 0, 0, 0, 0 ,1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11, 12, 13, 14, 15, 16, 17], 340, 72,  30, true);
+			WorldUtils.addDecal(Library.getImage("beach.shipAnimation.png"), 400, 175, null, null, [0, 1, 2, 3], 270, 193, 5);
+			WorldUtils.addDecal(Library.getImage("beach.waterDebris2.png"), 500, 250);
 			
 			nextLevel = "beach_02";
 		}
@@ -149,21 +149,21 @@ package ifrit
 			
 			WorldUtils.makeBounds();
 			
-			WorldUtils.addDecal(Library.IMG("beach.bg2.png"), 500, 250);
-			WorldUtils.addDecal(Library.IMG("beach.shipAnimation.png"), 100, 175, null, null, [0, 1, 2, 3], 270, 193, 5);
-			WorldUtils.addDecal(Library.IMG("beach.waterDebris.png"), 500, 250);
+			WorldUtils.addDecal(Library.getImage("beach.bg2.png"), 500, 250);
+			WorldUtils.addDecal(Library.getImage("beach.shipAnimation.png"), 100, 175, null, null, [0, 1, 2, 3], 270, 193, 5);
+			WorldUtils.addDecal(Library.getImage("beach.waterDebris.png"), 500, 250);
 			
-			WorldUtils.addDecal(Library.IMG("beach.crate.png"), 236, 370);
+			WorldUtils.addDecal(Library.getImage("beach.crate.png"), 236, 370);
 			
-			WorldUtils.addDecal(Library.IMG("misc.upArrow.png"), 165, 350, chooseClass_Mage, function (d:Decal):* { d.alpha = 0;} );
-			WorldUtils.addDecal(Library.IMG("misc.upArrow.png"), 240, 350, chooseClass_Fighter, function (d:Decal):* { d.alpha = 0; } );
-			WorldUtils.addDecal(Library.IMG("misc.upArrow.png"), 285, 350, chooseClass_Rogue, function (d:Decal):* { d.alpha = 0; } );
+			WorldUtils.addDecal(Library.getImage("misc.upArrow.png"), 165, 350, chooseClass_Mage, function (d:Decal):* { d.alpha = 0;} );
+			WorldUtils.addDecal(Library.getImage("misc.upArrow.png"), 240, 350, chooseClass_Fighter, function (d:Decal):* { d.alpha = 0; } );
+			WorldUtils.addDecal(Library.getImage("misc.upArrow.png"), 285, 350, chooseClass_Rogue, function (d:Decal):* { d.alpha = 0; } );
 			
 			WorldUtils.addEnemy(975, 385, Debris);
 			
 			WorldUtils.addMan( 0, 500, Player.NONE);
 			
-			WorldUtils.addDecal(Library.IMG("beach.towerLightning.png"), 625, 10, null, null, [0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0 , 0 , 0, 0, 0, 0, 0, 0, 0, 0 , 1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11, 12, 13, 14, 15, 16, 17], 340, 72,  30, true);
+			WorldUtils.addDecal(Library.getImage("beach.towerLightning.png"), 625, 10, null, null, [0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0 , 0 , 0, 0, 0, 0, 0, 0, 0, 0 , 1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11, 12, 13, 14, 15, 16, 17], 340, 72,  30, true);
 			
 			nextLevel = "beach_03";
 		}
@@ -174,15 +174,15 @@ package ifrit
 			
 			WorldUtils.makeBounds();
 			
-			WorldUtils.addDecal(Library.IMG("beach.bg2.png"), 500, 250);
-			WorldUtils.addDecal(Library.IMG("beach.shipAnimation.png"), 100, 175, null, null, [0, 1, 2, 3], 270, 193, 5);
-			WorldUtils.addDecal(Library.IMG("beach.crate.png"), 236, 370);
-			WorldUtils.addDecal(Library.IMG("beach.waterDebris.png"), 500, 250);
+			WorldUtils.addDecal(Library.getImage("beach.bg2.png"), 500, 250);
+			WorldUtils.addDecal(Library.getImage("beach.shipAnimation.png"), 100, 175, null, null, [0, 1, 2, 3], 270, 193, 5);
+			WorldUtils.addDecal(Library.getImage("beach.crate.png"), 236, 370);
+			WorldUtils.addDecal(Library.getImage("beach.waterDebris.png"), 500, 250);
 			
-			WorldUtils.addDecal(Library.IMG("misc.upArrow.png"), 165, 350, chooseClass_Mage, function (d:Decal):* { d.alpha = 0;} );
-			WorldUtils.addDecal(Library.IMG("misc.upArrow.png"), 240, 350, chooseClass_Fighter, function (d:Decal):* { d.alpha = 0; } );
-			WorldUtils.addDecal(Library.IMG("misc.upArrow.png"), 285, 350, chooseClass_Rogue, function (d:Decal):* { d.alpha = 0; } );
-			WorldUtils.addDecal(Library.IMG("misc.keyD.png"), 930, 350, destroyDebris, function (d:Decal):* { d.alpha = 0; } );
+			WorldUtils.addDecal(Library.getImage("misc.upArrow.png"), 165, 350, chooseClass_Mage, function (d:Decal):* { d.alpha = 0;} );
+			WorldUtils.addDecal(Library.getImage("misc.upArrow.png"), 240, 350, chooseClass_Fighter, function (d:Decal):* { d.alpha = 0; } );
+			WorldUtils.addDecal(Library.getImage("misc.upArrow.png"), 285, 350, chooseClass_Rogue, function (d:Decal):* { d.alpha = 0; } );
+			WorldUtils.addDecal(Library.getImage("misc.keyD.png"), 930, 350, destroyDebris, function (d:Decal):* { d.alpha = 0; } );
 			
 			Game.stage.addChild(new HUD);
 			
@@ -203,7 +203,7 @@ package ifrit
 			
 			WorldUtils.addTrigger(1023, 375, WorldUtils.advance);
 			
-			WorldUtils.addDecal(Library.IMG("beach.towerLightning.png"), 625, 10, null, null, [0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0 , 0 , 0, 0, 0, 0, 0, 0, 0, 0 , 1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11, 12, 13, 14, 15, 16, 17], 340, 72,  30, true);
+			WorldUtils.addDecal(Library.getImage("beach.towerLightning.png"), 625, 10, null, null, [0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0 , 0 , 0, 0, 0, 0, 0, 0, 0, 0 , 1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11, 12, 13, 14, 15, 16, 17], 340, 72,  30, true);
 			
 			nextLevel = "forest_01";
 		}
@@ -215,21 +215,21 @@ package ifrit
 			
 			WorldUtils.makeBounds();
 			
-			WorldUtils.addDecal(Library.IMG("forest.forestBG.png"), 500, 200 );
-			WorldUtils.addDecal(Library.IMG("forest.decals.stump.png"), 450, 375);
-			WorldUtils.addDecal(Library.IMG("forest.house.png"), 150, 253);
-			WorldUtils.addDecal(Library.IMG("forest.house2.png"), 400, 253, null, function (d:Decal):*	{	d.rotationY = 180;	} );
-			WorldUtils.addDecal(Library.IMG("forest.house.png"), 566, 307, null, function (d:Decal):*	{	d.rotationY = 180;	});
-			WorldUtils.addDecal(Library.IMG("forest.house.png"), 1024, 240, null, function (d:Decal):*	{	d.rotationY = 180;	});
+			WorldUtils.addDecal(Library.getImage("forest.forestBG.png"), 500, 200 );
+			WorldUtils.addDecal(Library.getImage("forest.decals.stump.png"), 450, 375);
+			WorldUtils.addDecal(Library.getImage("forest.house.png"), 150, 253);
+			WorldUtils.addDecal(Library.getImage("forest.house2.png"), 400, 253, null, function (d:Decal):*	{	d.rotationY = 180;	} );
+			WorldUtils.addDecal(Library.getImage("forest.house.png"), 566, 307, null, function (d:Decal):*	{	d.rotationY = 180;	});
+			WorldUtils.addDecal(Library.getImage("forest.house.png"), 1024, 240, null, function (d:Decal):*	{	d.rotationY = 180;	});
 			
-			WorldUtils.addDecal(Library.IMG("misc.upArrow.png"), 55, 355, trainClimb, function (d:Decal):* { d.alpha = 0;} );
-			WorldUtils.addDecal(Library.IMG("misc.keySpace.png"), 165, 285, trainJump, function (d:Decal):* { d.alpha = 0;} );
+			WorldUtils.addDecal(Library.getImage("misc.upArrow.png"), 55, 355, trainClimb, function (d:Decal):* { d.alpha = 0;} );
+			WorldUtils.addDecal(Library.getImage("misc.keySpace.png"), 165, 285, trainJump, function (d:Decal):* { d.alpha = 0;} );
 			
-			WorldUtils.addWall(158, 285, false, Library.IMG("forest.platform.png"), 125);
-			WorldUtils.addWall(390, 285, false, Library.IMG("forest.platform.png"), 125);
-			WorldUtils.addWall(585, 340, false, Library.IMG("forest.platform.png"), 125);
-			WorldUtils.addWall(700, 265, false, Library.IMG("forest.platform.png"), 100);
-			WorldUtils.addWall(975, 265, false, Library.IMG("forest.platform.png"), 50);
+			WorldUtils.addWall(158, 285, false, Library.getImage("forest.platform.png"), 125);
+			WorldUtils.addWall(390, 285, false, Library.getImage("forest.platform.png"), 125);
+			WorldUtils.addWall(585, 340, false, Library.getImage("forest.platform.png"), 125);
+			WorldUtils.addWall(700, 265, false, Library.getImage("forest.platform.png"), 100);
+			WorldUtils.addWall(975, 265, false, Library.getImage("forest.platform.png"), 50);
 			
 			WorldUtils.addLadder(80, 275, 115, "misc.ropeLadder.png");
 			WorldUtils.addLadder(635, 260, 75, "misc.ropeLadder.png");
@@ -244,7 +244,7 @@ package ifrit
 			WorldUtils.addMan(50, 375, Game.playerClass);
 			
 			Game.stage.addChild(new RopeBridge(845, 255, 200));
-			WorldUtils.addWall(845, 265, false, Library.IMG("misc.clipPlatform.png"), 200);
+			WorldUtils.addWall(845, 265, false, Library.getImage("misc.clipPlatform.png"), 200);
 			
 			WorldUtils.addTrigger(1023, 240, WorldUtils.advance);
 			
@@ -257,13 +257,13 @@ package ifrit
 			
 			WorldUtils.makeBounds();
 			
-			WorldUtils.addDecal(Library.IMG("forest.forestBG.png"), 500, 200, null, function (d:Decal):* {	d.rotationY = 180;	} );
+			WorldUtils.addDecal(Library.getImage("forest.forestBG.png"), 500, 200, null, function (d:Decal):* {	d.rotationY = 180;	} );
 			
-			WorldUtils.addDecal(Library.IMG("forest.house.png"), -24, 240, null, function (d:Decal):*	{	d.rotationY = 180;	});
+			WorldUtils.addDecal(Library.getImage("forest.house.png"), -24, 240, null, function (d:Decal):*	{	d.rotationY = 180;	});
 			
 			Game.stage.addChild(new HUD);
 			
-			WorldUtils.addWall(0, 265, false, Library.IMG("forest.platform.png"), 200);
+			WorldUtils.addWall(0, 265, false, Library.getImage("forest.platform.png"), 200);
 			
 			WorldUtils.addEnemy(700, 450, Bear);
 			WorldUtils.addEnemy(500, 450, Wolf);
@@ -290,27 +290,27 @@ package ifrit
 			Variables.add("opening", new Variable);
 			Variables.add("keyHelp", new Variable(0));
 			
-			WorldUtils.addDecal(Library.IMG("forest.towerDoor.png"), 500, 200);
-			WorldUtils.addDecal(Library.IMG("forest.archway.png"), 501, 210);
-			WorldUtils.addDecal(Library.IMG("forest.leftDoor.png"), 401, 218, function (d:Decal):*	{ 	if (d.rotationY <= 45 && Variables.retrive("opening").bool)	Variables.retrive("door tick left").number = d.rotationY += 1;	} );
-			WorldUtils.addDecal(Library.IMG("forest.rightDoor.png"), 601, 218, function (d:Decal):*	{	if (Math.abs(d.rotationY) <= 22 && Variables.retrive("opening").bool)  Variables.retrive("door tick right").number = d.rotationY -= 0.50} );
-			WorldUtils.addDecal(Library.IMG("forest.lavaAnimation.png"), 94, 235, null, null, [0, 1, 2, 3], 110, 220, 5);
+			WorldUtils.addDecal(Library.getImage("forest.towerDoor.png"), 500, 200);
+			WorldUtils.addDecal(Library.getImage("forest.archway.png"), 501, 210);
+			WorldUtils.addDecal(Library.getImage("forest.leftDoor.png"), 401, 218, function (d:Decal):*	{ 	if (d.rotationY <= 45 && Variables.retrive("opening").bool)	Variables.retrive("door tick left").number = d.rotationY += 1;	} );
+			WorldUtils.addDecal(Library.getImage("forest.rightDoor.png"), 601, 218, function (d:Decal):*	{	if (Math.abs(d.rotationY) <= 22 && Variables.retrive("opening").bool)  Variables.retrive("door tick right").number = d.rotationY -= 0.50} );
+			WorldUtils.addDecal(Library.getImage("forest.lavaAnimation.png"), 94, 235, null, null, [0, 1, 2, 3], 110, 220, 5);
 			
 			WorldUtils.addLadder(712, 200, 94);
 			WorldUtils.addLadder(847, 56, 352);
 			
-			WorldUtils.addWall(350, 70, false, Library.IMG("tower.platform.png"), 100);
-			WorldUtils.addWall(350, 200, false, Library.IMG("tower.platform.png"), 100);
-			WorldUtils.addWall(350, 300, false, Library.IMG("tower.platform.png"), 100);
-			WorldUtils.addWall(300, 180, true, Library.IMG("tower.platform.png"), 250);
+			WorldUtils.addWall(350, 70, false, Library.getImage("tower.platform.png"), 100);
+			WorldUtils.addWall(350, 200, false, Library.getImage("tower.platform.png"), 100);
+			WorldUtils.addWall(350, 300, false, Library.getImage("tower.platform.png"), 100);
+			WorldUtils.addWall(300, 180, true, Library.getImage("tower.platform.png"), 250);
 			
-			WorldUtils.addWall(651, 200, false, Library.IMG("tower.platform.png"), 100);
-			WorldUtils.addWall(664, 300, false, Library.IMG("tower.platform.png"), 124);
-			WorldUtils.addWall(770, 300, false, Library.IMG("tower.platform.png"), 75);
-			WorldUtils.addWall(770, 200, false, Library.IMG("tower.platform.png"), 75);
-			WorldUtils.addWall(729, 183, true, Library.IMG("tower.platform.png"), 244);
-			WorldUtils.addWall(779, 60, false, Library.IMG("tower.platform.png"), 110);
-			WorldUtils.addWall(935, 60, false, Library.IMG("tower.platform.png"), 150);
+			WorldUtils.addWall(651, 200, false, Library.getImage("tower.platform.png"), 100);
+			WorldUtils.addWall(664, 300, false, Library.getImage("tower.platform.png"), 124);
+			WorldUtils.addWall(770, 300, false, Library.getImage("tower.platform.png"), 75);
+			WorldUtils.addWall(770, 200, false, Library.getImage("tower.platform.png"), 75);
+			WorldUtils.addWall(729, 183, true, Library.getImage("tower.platform.png"), 244);
+			WorldUtils.addWall(779, 60, false, Library.getImage("tower.platform.png"), 110);
+			WorldUtils.addWall(935, 60, false, Library.getImage("tower.platform.png"), 150);
 			
 			WorldUtils.addEnemy(400, 370, Guard);
 			WorldUtils.addEnemy(600, 370, Guard);
@@ -329,9 +329,9 @@ package ifrit
 			
 			Game.stage.addChild(new HUD);
 			
-			WorldUtils.addDecal(Library.IMG("misc.keyA.png"), 790, 30, trainRanged, function (d:Decal):* 	{ d.alpha = 0;	} );
-			WorldUtils.addDecal(Library.IMG("misc.padlock.png"), 500, 375, WorldUtils.doorLocked, function (d:Decal):* { d.alpha = 0;	} );
-			WorldUtils.addDecal(Library.IMG("misc.upArrow.png"), 500, 375, towerDoorAdvance, function (d:Decal):* { d.alpha = 0; } );
+			WorldUtils.addDecal(Library.getImage("misc.keyA.png"), 790, 30, trainRanged, function (d:Decal):* 	{ d.alpha = 0;	} );
+			WorldUtils.addDecal(Library.getImage("misc.padlock.png"), 500, 375, WorldUtils.doorLocked, function (d:Decal):* { d.alpha = 0;	} );
+			WorldUtils.addDecal(Library.getImage("misc.upArrow.png"), 500, 375, towerDoorAdvance, function (d:Decal):* { d.alpha = 0; } );
 			
 			WorldUtils.addTrigger( 357, 180, WorldUtils.safe, 125, 250);
 			
@@ -363,17 +363,17 @@ package ifrit
 			
 			WorldUtils.makeBounds();
 			
-			WorldUtils.addDecal(Library.IMG("tower.bg.png"), 500, 200);
+			WorldUtils.addDecal(Library.getImage("tower.bg.png"), 500, 200);
 			
-			WorldUtils.addDecal(Library.IMG("tower.decals.stainedGlass.png"), 546, 210);
-			WorldUtils.addDecal(Library.IMG("tower.decals.chandelier.png"), 365, 103, null, null , [0, 1, 2, 3], 46, 101);
-			WorldUtils.addDecal(Library.IMG("tower.decals.chandelier.png"), 636, 103, null, null , [0, 1, 2, 3], 46, 101);
+			WorldUtils.addDecal(Library.getImage("tower.decals.stainedGlass.png"), 546, 210);
+			WorldUtils.addDecal(Library.getImage("tower.decals.chandelier.png"), 365, 103, null, null , [0, 1, 2, 3], 46, 101);
+			WorldUtils.addDecal(Library.getImage("tower.decals.chandelier.png"), 636, 103, null, null , [0, 1, 2, 3], 46, 101);
 			
-			WorldUtils.addDecal(Library.IMG("tower.decals.torch.png"), 849, 72, null, null, [0, 1, 2, 3, 4, 5], 40, 40);
-			WorldUtils.addDecal(Library.IMG("tower.decals.torch.png"), 849, 247, null, null, [0, 1, 2, 3, 4, 5], 40, 40);
-			WorldUtils.addDecal(Library.IMG("tower.decals.torch.png"), 340, 271, null, null, [0, 1, 2, 3, 4, 5], 40, 40);
-			WorldUtils.addDecal(Library.IMG("tower.decals.torch.png"), 687, 342, null, null, [0, 1, 2, 3, 4, 5], 40, 40);
-			WorldUtils.addDecal(Library.IMG("tower.decals.torch.png"), 150, 20, null, null, [0, 1, 2, 3, 4, 5], 40, 40);
+			WorldUtils.addDecal(Library.getImage("tower.decals.torch.png"), 849, 72, null, null, [0, 1, 2, 3, 4, 5], 40, 40);
+			WorldUtils.addDecal(Library.getImage("tower.decals.torch.png"), 849, 247, null, null, [0, 1, 2, 3, 4, 5], 40, 40);
+			WorldUtils.addDecal(Library.getImage("tower.decals.torch.png"), 340, 271, null, null, [0, 1, 2, 3, 4, 5], 40, 40);
+			WorldUtils.addDecal(Library.getImage("tower.decals.torch.png"), 687, 342, null, null, [0, 1, 2, 3, 4, 5], 40, 40);
+			WorldUtils.addDecal(Library.getImage("tower.decals.torch.png"), 150, 20, null, null, [0, 1, 2, 3, 4, 5], 40, 40);
 			
 			WorldUtils.addLadder(50, 42, 245);
 			WorldUtils.addLadder(790, 93, 178);
@@ -394,13 +394,13 @@ package ifrit
 			
 			if (Game.man.type == Player.FIGHTER)
 			{
-				WorldUtils.addWall(263, 294, false, Library.IMG("misc.clipPlatform.png"), 448);
-				WorldUtils.addDecal(Library.IMG("tower.layouts.layout2.png"), 500, 200);
+				WorldUtils.addWall(263, 294, false, Library.getImage("misc.clipPlatform.png"), 448);
+				WorldUtils.addDecal(Library.getImage("tower.layouts.layout2.png"), 500, 200);
 			}
 			else
 			{
-				WorldUtils.addWall(243, 294, false, Library.IMG("misc.clipPlatform.png"), 488);
-				WorldUtils.addDecal(Library.IMG("tower.layouts.layout1.png"), 500, 200);
+				WorldUtils.addWall(243, 294, false, Library.getImage("misc.clipPlatform.png"), 488);
+				WorldUtils.addDecal(Library.getImage("tower.layouts.layout1.png"), 500, 200);
 			}
 			
 			if (Game.man.type == Player.ROGUE)
@@ -418,7 +418,7 @@ package ifrit
 				WorldUtils.addEnemy(250, 270, Archer);
 				WorldUtils.addEnemy(275, 270, Archer);
 				
-				WorldUtils.addDecal(Library.IMG("misc.keyS.png"), 327, 186, trainCaltrop, function (d:Decal):* { d.alpha = 0; } );
+				WorldUtils.addDecal(Library.getImage("misc.keyS.png"), 327, 186, trainCaltrop, function (d:Decal):* { d.alpha = 0; } );
 			}
 			else if	(Game.man.type == Player.FIGHTER)
 			{
@@ -428,49 +428,49 @@ package ifrit
 				WorldUtils.addEnemy(140, 270, PansyArcher).heading = true;
 				WorldUtils.addEnemy(170, 270, PansyArcher).heading = true;
 				WorldUtils.addEnemy(200, 270, PansyArcher).heading = true;
-				WorldUtils.addDecal(Library.IMG("misc.keyS.png"), 327, 186, trainShield, function (d:Decal):* { d.alpha = 0; } );
+				WorldUtils.addDecal(Library.getImage("misc.keyS.png"), 327, 186, trainShield, function (d:Decal):* { d.alpha = 0; } );
 			}
 			
 			
-			WorldUtils.addWall(483, 317, true, Library.IMG("misc.clipPlatform.png"), 37);
-			WorldUtils.addWall(519, 330, false, Library.IMG("misc.clipPlatform.png"), 65);
-			WorldUtils.addWall(684, 365, false, Library.IMG("misc.clipPlatform.png"), 128);
-			WorldUtils.addWall(597, 254, false, Library.IMG("misc.clipPlatform.png"), 101);
-			WorldUtils.addWall(642, 237, true, Library.IMG("misc.clipPlatform.png"), 25);
-			WorldUtils.addWall(702, 220, false, Library.IMG("misc.clipPlatform.png"), 108);
-			WorldUtils.addWall(542, 178, false, Library.IMG("misc.clipPlatform.png"), 136);
-			WorldUtils.addWall(752, 227, true, Library.IMG("misc.clipPlatform.png"), 349);
-			WorldUtils.addWall(396, 249, true, Library.IMG("misc.clipPlatform.png"), 83);
-			WorldUtils.addWall(360, 203, false, Library.IMG("misc.clipPlatform.png"), 83);
-			WorldUtils.addWall(324, 230, true, Library.IMG("misc.clipPlatform.png"), 44);
-			WorldUtils.addWall(345, 246, false, Library.IMG("misc.clipPlatform.png"), 33);
-			WorldUtils.addWall(367, 270, true, Library.IMG("misc.clipPlatform.png"), 39);
-			WorldUtils.addWall(267, 145, true, Library.IMG("misc.clipPlatform.png"), 196);
-			WorldUtils.addWall(184, 237, false, Library.IMG("misc.clipPlatform.png"), 159);
-			WorldUtils.addWall(108, 142, true, Library.IMG("misc.clipPlatform.png"), 181);
-			WorldUtils.addWall(187, 47, false, Library.IMG("misc.clipPlatform.png"), 168);
-			WorldUtils.addWall(405, 47, false, Library.IMG("misc.clipPlatform.png"), 127);
-			WorldUtils.addWall(616, 47, false, Library.IMG("misc.clipPlatform.png"), 135);
-			WorldUtils.addWall(839, 47, false, Library.IMG("misc.clipPlatform.png"), 184);
-			WorldUtils.addWall(911, 98, false, Library.IMG("misc.clipPlatform.png"), 177);
-			WorldUtils.addWall(828, 161, true, Library.IMG("misc.clipPlatform.png"), 117);
-			WorldUtils.addWall(916, 215, false, Library.IMG("misc.clipPlatform.png"), 167);
-			WorldUtils.addWall(821, 276, false, Library.IMG("misc.clipPlatform.png"), 130);
-			WorldUtils.addWall(883, 291, true, Library.IMG("misc.clipPlatform.png"), 21);
-			WorldUtils.addWall(902, 307, false, Library.IMG("misc.clipPlatform.png"), 32);
-			WorldUtils.addWall(914, 323, true, Library.IMG("misc.clipPlatform.png"), 23);
-			WorldUtils.addWall(933, 340, false, Library.IMG("misc.clipPlatform.png"), 36);
-			WorldUtils.addWall(947, 373, true, Library.IMG("misc.clipPlatform.png"), 57);
+			WorldUtils.addWall(483, 317, true, Library.getImage("misc.clipPlatform.png"), 37);
+			WorldUtils.addWall(519, 330, false, Library.getImage("misc.clipPlatform.png"), 65);
+			WorldUtils.addWall(684, 365, false, Library.getImage("misc.clipPlatform.png"), 128);
+			WorldUtils.addWall(597, 254, false, Library.getImage("misc.clipPlatform.png"), 101);
+			WorldUtils.addWall(642, 237, true, Library.getImage("misc.clipPlatform.png"), 25);
+			WorldUtils.addWall(702, 220, false, Library.getImage("misc.clipPlatform.png"), 108);
+			WorldUtils.addWall(542, 178, false, Library.getImage("misc.clipPlatform.png"), 136);
+			WorldUtils.addWall(752, 227, true, Library.getImage("misc.clipPlatform.png"), 349);
+			WorldUtils.addWall(396, 249, true, Library.getImage("misc.clipPlatform.png"), 83);
+			WorldUtils.addWall(360, 203, false, Library.getImage("misc.clipPlatform.png"), 83);
+			WorldUtils.addWall(324, 230, true, Library.getImage("misc.clipPlatform.png"), 44);
+			WorldUtils.addWall(345, 246, false, Library.getImage("misc.clipPlatform.png"), 33);
+			WorldUtils.addWall(367, 270, true, Library.getImage("misc.clipPlatform.png"), 39);
+			WorldUtils.addWall(267, 145, true, Library.getImage("misc.clipPlatform.png"), 196);
+			WorldUtils.addWall(184, 237, false, Library.getImage("misc.clipPlatform.png"), 159);
+			WorldUtils.addWall(108, 142, true, Library.getImage("misc.clipPlatform.png"), 181);
+			WorldUtils.addWall(187, 47, false, Library.getImage("misc.clipPlatform.png"), 168);
+			WorldUtils.addWall(405, 47, false, Library.getImage("misc.clipPlatform.png"), 127);
+			WorldUtils.addWall(616, 47, false, Library.getImage("misc.clipPlatform.png"), 135);
+			WorldUtils.addWall(839, 47, false, Library.getImage("misc.clipPlatform.png"), 184);
+			WorldUtils.addWall(911, 98, false, Library.getImage("misc.clipPlatform.png"), 177);
+			WorldUtils.addWall(828, 161, true, Library.getImage("misc.clipPlatform.png"), 117);
+			WorldUtils.addWall(916, 215, false, Library.getImage("misc.clipPlatform.png"), 167);
+			WorldUtils.addWall(821, 276, false, Library.getImage("misc.clipPlatform.png"), 130);
+			WorldUtils.addWall(883, 291, true, Library.getImage("misc.clipPlatform.png"), 21);
+			WorldUtils.addWall(902, 307, false, Library.getImage("misc.clipPlatform.png"), 32);
+			WorldUtils.addWall(914, 323, true, Library.getImage("misc.clipPlatform.png"), 23);
+			WorldUtils.addWall(933, 340, false, Library.getImage("misc.clipPlatform.png"), 36);
+			WorldUtils.addWall(947, 373, true, Library.getImage("misc.clipPlatform.png"), 57);
 			
 			if (Game.playerClass == Player.MAGE)
 			{
 				Variables.add("lever", new Variable(0, false, ""));
-				WorldUtils.addDecal(Library.IMG("misc.keyS.png"), 240, 350, openGate, function (d:Decal):* { d.alpha = 0; } );
-				WorldUtils.addDecal(Library.IMG("misc.leverL.png"), 690, 382, hitLever);
+				WorldUtils.addDecal(Library.getImage("misc.keyS.png"), 240, 350, openGate, function (d:Decal):* { d.alpha = 0; } );
+				WorldUtils.addDecal(Library.getImage("misc.leverL.png"), 690, 382, hitLever);
 				
-				WorldUtils.addDecal(Library.IMG("tower.decals.gateWall.png"), 275, 350);
-				WorldUtils.addWall(265, 350, true, Library.IMG("misc.clipPlatform.png"), 105);
-				WorldUtils.addWall(295, 350, true, Library.IMG("misc.clipPlatform.png"), 105);
+				WorldUtils.addDecal(Library.getImage("tower.decals.gateWall.png"), 275, 350);
+				WorldUtils.addWall(265, 350, true, Library.getImage("misc.clipPlatform.png"), 105);
+				WorldUtils.addWall(295, 350, true, Library.getImage("misc.clipPlatform.png"), 105);
 			}
 			
 			WorldUtils.addTrigger(980, 425, WorldUtils.advance);
@@ -570,7 +570,7 @@ package ifrit
 			
 			if (d.rotationY == 180 && Variables.retrive("lever").string != "open")
 			{
-				WorldUtils.addDecal(Library.IMG("tower.decals.gate.png"), 330, 350, null, null, [0, 1, 2, 3, 4], 135, 95, 5, false);
+				WorldUtils.addDecal(Library.getImage("tower.decals.gate.png"), 330, 350, null, null, [0, 1, 2, 3, 4], 135, 95, 5, false);
 				Variables.retrive("lever").string = "open"
 				Platforms.splice(41, 2);
 			}
@@ -584,22 +584,22 @@ package ifrit
 			
 			hasKey = true;
 			
-			Game.stage.addChild(Library.IMG("tower.bg.png"));
+			Game.stage.addChild(Library.getImage("tower.bg.png"));
 			
-			WorldUtils.addDecal(Library.IMG("tower.decals.chandelier.png"), 923, 165.5, null, null , [0, 1, 2, 3], 46, 101);
-			WorldUtils.addDecal(Library.IMG("tower.decals.chandelier.png"), 73, 165.5, null, null, [0, 1, 2, 3], 46, 101);
+			WorldUtils.addDecal(Library.getImage("tower.decals.chandelier.png"), 923, 165.5, null, null , [0, 1, 2, 3], 46, 101);
+			WorldUtils.addDecal(Library.getImage("tower.decals.chandelier.png"), 73, 165.5, null, null, [0, 1, 2, 3], 46, 101);
 			
-			WorldUtils.addDecal(Library.IMG("tower.decals.shield.png"), 180, 80);
-			WorldUtils.addDecal(Library.IMG("tower.decals.shield.png"), 280, 80);
-			WorldUtils.addDecal(Library.IMG("tower.decals.torch.png"), 230, 80, null, null, [0, 1, 2, 3, 4, 5], 40, 40);
+			WorldUtils.addDecal(Library.getImage("tower.decals.shield.png"), 180, 80);
+			WorldUtils.addDecal(Library.getImage("tower.decals.shield.png"), 280, 80);
+			WorldUtils.addDecal(Library.getImage("tower.decals.torch.png"), 230, 80, null, null, [0, 1, 2, 3, 4, 5], 40, 40);
 			
-			WorldUtils.addDecal(Library.IMG("tower.decals.shield.png"), 650, 80);
-			WorldUtils.addDecal(Library.IMG("tower.decals.shield.png"), 750, 80);
-			WorldUtils.addDecal(Library.IMG("tower.decals.torch.png"), 700, 80, null, null, [0, 1, 2, 3, 4, 5], 40, 40);
+			WorldUtils.addDecal(Library.getImage("tower.decals.shield.png"), 650, 80);
+			WorldUtils.addDecal(Library.getImage("tower.decals.shield.png"), 750, 80);
+			WorldUtils.addDecal(Library.getImage("tower.decals.torch.png"), 700, 80, null, null, [0, 1, 2, 3, 4, 5], 40, 40);
 			
-			WorldUtils.addDecal(Library.IMG("tower.decals.door.png"), 855, 363.5);
-			WorldUtils.addDecal(Library.IMG("misc.upArrow.png"), 855, 363.5, WorldUtils.chooseAdvance, function (d:Decal):* { d.alpha = 0;	} );
-			WorldUtils.addDecal(Library.IMG("misc.padlock.png"), 855, 363.5, WorldUtils.doorLocked, function (d:Decal):* { d.alpha = 0;	} );
+			WorldUtils.addDecal(Library.getImage("tower.decals.door.png"), 855, 363.5);
+			WorldUtils.addDecal(Library.getImage("misc.upArrow.png"), 855, 363.5, WorldUtils.chooseAdvance, function (d:Decal):* { d.alpha = 0;	} );
+			WorldUtils.addDecal(Library.getImage("misc.padlock.png"), 855, 363.5, WorldUtils.doorLocked, function (d:Decal):* { d.alpha = 0;	} );
 			
 			WorldUtils.addLadder(30, 0, 110);
 			WorldUtils.addLadder(112, 100, 260);
@@ -617,19 +617,19 @@ package ifrit
 			WorldUtils.addEnemy(495, 130, ElfMage);
 			WorldUtils.addEnemy(170, 180, ElfMage);
 			
-			WorldUtils.addWall( 0, 110, false, Library.IMG("tower.platform.png"));
-			WorldUtils.addWall(150, 250, true, Library.IMG("tower.platform.png"));
-			WorldUtils.addWall(255, 186, false, Library.IMG("tower.platform.png"));
-			WorldUtils.addWall(495, 229, false, Library.IMG("tower.platform.png"));
-			WorldUtils.addWall(495, 144, false, Library.IMG("tower.platform.png"));
-			WorldUtils.addWall(800, 110, false, Library.IMG("tower.platform.png"), 400);
-			WorldUtils.addWall(772, 414, true, Library.IMG("tower.platform.png"));
-			WorldUtils.addWall(600, 346, false, Library.IMG("tower.platform.png"));
-			WorldUtils.addWall(375, 371, false, Library.IMG("tower.platform.png"));
-			WorldUtils.addWall(829, 315, false, Library.IMG("tower.platform.png"));
-			WorldUtils.addWall(700, 272, false, Library.IMG("tower.platform.png"));
-			WorldUtils.addWall(227, 109, false, Library.IMG("tower.platform.png"));
-			WorldUtils.addWall(745, 210, false, Library.IMG("tower.platform.png"));
+			WorldUtils.addWall( 0, 110, false, Library.getImage("tower.platform.png"));
+			WorldUtils.addWall(150, 250, true, Library.getImage("tower.platform.png"));
+			WorldUtils.addWall(255, 186, false, Library.getImage("tower.platform.png"));
+			WorldUtils.addWall(495, 229, false, Library.getImage("tower.platform.png"));
+			WorldUtils.addWall(495, 144, false, Library.getImage("tower.platform.png"));
+			WorldUtils.addWall(800, 110, false, Library.getImage("tower.platform.png"), 400);
+			WorldUtils.addWall(772, 414, true, Library.getImage("tower.platform.png"));
+			WorldUtils.addWall(600, 346, false, Library.getImage("tower.platform.png"));
+			WorldUtils.addWall(375, 371, false, Library.getImage("tower.platform.png"));
+			WorldUtils.addWall(829, 315, false, Library.getImage("tower.platform.png"));
+			WorldUtils.addWall(700, 272, false, Library.getImage("tower.platform.png"));
+			WorldUtils.addWall(227, 109, false, Library.getImage("tower.platform.png"));
+			WorldUtils.addWall(745, 210, false, Library.getImage("tower.platform.png"));
 			
 			
 			Game.stage.addChild(new HUD);
@@ -645,37 +645,37 @@ package ifrit
 			
 			WorldUtils.makeBounds();
 			
-			Game.stage.addChild(Library.IMG("tower.bg.png"));
-			WorldUtils.addDecal(Library.IMG("tower.decals.shield.png"), 280, 80);
-			WorldUtils.addDecal(Library.IMG("tower.decals.torch.png"), 230, 80, null, null, [0, 1, 2, 3, 4, 5], 40, 40);
-			WorldUtils.addDecal(Library.IMG("dungeon.decals.cornerWeb.png"), 16, 376, null, function (d:Decal):*	{	d.rotationX = 180;	});
+			Game.stage.addChild(Library.getImage("tower.bg.png"));
+			WorldUtils.addDecal(Library.getImage("tower.decals.shield.png"), 280, 80);
+			WorldUtils.addDecal(Library.getImage("tower.decals.torch.png"), 230, 80, null, null, [0, 1, 2, 3, 4, 5], 40, 40);
+			WorldUtils.addDecal(Library.getImage("dungeon.decals.cornerWeb.png"), 16, 376, null, function (d:Decal):*	{	d.rotationX = 180;	});
 			
-			WorldUtils.addDecal(Library.IMG("tower.decals.door.png"), 850, 55);
+			WorldUtils.addDecal(Library.getImage("tower.decals.door.png"), 850, 55);
 			
-			WorldUtils.addWall(850, 98, false, Library.IMG("tower.platform.png"), 198);
-			WorldUtils.addWall(628, 166, false, Library.IMG("tower.platform.png"), 373);
-			WorldUtils.addWall(871, 216, false, Library.IMG("tower.platform.png"), 85);
-			WorldUtils.addWall(871, 277, false, Library.IMG("tower.platform.png"), 85);
-			WorldUtils.addWall(871, 338, false, Library.IMG("tower.platform.png"), 85);
-			WorldUtils.addWall(630, 277, false, Library.IMG("tower.platform.png"), 196);
-			WorldUtils.addWall(140, 359, false, Library.IMG("tower.platform.png"), 70);
-			WorldUtils.addWall(239, 331, false, Library.IMG("tower.platform.png"), 61);
-			WorldUtils.addWall(135, 310, false, Library.IMG("tower.platform.png"), 55);
-			WorldUtils.addWall(123, 267, false, Library.IMG("tower.platform.png"), 39);
-			WorldUtils.addWall(239, 248, false, Library.IMG("tower.platform.png"), 120);
-			WorldUtils.addWall(375, 167, false, Library.IMG("tower.platform.png"), 85);
-			WorldUtils.addWall(407, 118, false, Library.IMG("tower.platform.png"), 85);
-			WorldUtils.addWall(268, 96, false, Library.IMG("tower.platform.png"), 85);
-			WorldUtils.addWall(140, 72, false, Library.IMG("tower.platform.png"), 72);
-			WorldUtils.addWall(507, 139, false, Library.IMG("tower.platform.png"), 39);
+			WorldUtils.addWall(850, 98, false, Library.getImage("tower.platform.png"), 198);
+			WorldUtils.addWall(628, 166, false, Library.getImage("tower.platform.png"), 373);
+			WorldUtils.addWall(871, 216, false, Library.getImage("tower.platform.png"), 85);
+			WorldUtils.addWall(871, 277, false, Library.getImage("tower.platform.png"), 85);
+			WorldUtils.addWall(871, 338, false, Library.getImage("tower.platform.png"), 85);
+			WorldUtils.addWall(630, 277, false, Library.getImage("tower.platform.png"), 196);
+			WorldUtils.addWall(140, 359, false, Library.getImage("tower.platform.png"), 70);
+			WorldUtils.addWall(239, 331, false, Library.getImage("tower.platform.png"), 61);
+			WorldUtils.addWall(135, 310, false, Library.getImage("tower.platform.png"), 55);
+			WorldUtils.addWall(123, 267, false, Library.getImage("tower.platform.png"), 39);
+			WorldUtils.addWall(239, 248, false, Library.getImage("tower.platform.png"), 120);
+			WorldUtils.addWall(375, 167, false, Library.getImage("tower.platform.png"), 85);
+			WorldUtils.addWall(407, 118, false, Library.getImage("tower.platform.png"), 85);
+			WorldUtils.addWall(268, 96, false, Library.getImage("tower.platform.png"), 85);
+			WorldUtils.addWall(140, 72, false, Library.getImage("tower.platform.png"), 72);
+			WorldUtils.addWall(507, 139, false, Library.getImage("tower.platform.png"), 39);
 			
-			WorldUtils.addWall(530, 163, true, Library.IMG("tower.platform.png"), 327);
-			WorldUtils.addWall(104, 221, true, Library.IMG("tower.platform.png"), 331);
+			WorldUtils.addWall(530, 163, true, Library.getImage("tower.platform.png"), 327);
+			WorldUtils.addWall(104, 221, true, Library.getImage("tower.platform.png"), 331);
 			
-			WorldUtils.addWall(549, 390, false, Library.IMG("tower.platform.png"), 901);
-			WorldUtils.addWall(549, 400, false, Library.IMG("tower.platform.png"), 901);
-			WorldUtils.addWall(172, 373, true, Library.IMG("misc.clipPlatform.png"), 20);
-			WorldUtils.addWall(490, 152, true, Library.IMG("misc.clipPlatform.png"), 20);
+			WorldUtils.addWall(549, 390, false, Library.getImage("tower.platform.png"), 901);
+			WorldUtils.addWall(549, 400, false, Library.getImage("tower.platform.png"), 901);
+			WorldUtils.addWall(172, 373, true, Library.getImage("misc.clipPlatform.png"), 20);
+			WorldUtils.addWall(490, 152, true, Library.getImage("misc.clipPlatform.png"), 20);
 			
 			WorldUtils.addLadder(962, 93, 292);
 			WorldUtils.addLadder(430, 162, 100);
@@ -709,7 +709,7 @@ package ifrit
 			
 			WorldUtils.makeBounds();
 			
-			Game.stage.addChild(Library.IMG("dungeon.bg.png"));
+			Game.stage.addChild(Library.getImage("dungeon.bg.png"));
 			
 			WorldUtils.addLadder(970, 145, 260);
 			WorldUtils.addLadder(150, 190, 260);
@@ -737,22 +737,22 @@ package ifrit
 			WorldUtils.addEnemy(600, 380, Zombie);
 			WorldUtils.addEnemy(800, 380, Spider);
 			
-			WorldUtils.addWall( 565.5, 325, false, Library.IMG("dungeon.platform.png"), 742);
+			WorldUtils.addWall( 565.5, 325, false, Library.getImage("dungeon.platform.png"), 742);
 			
-			WorldUtils.addWall( 103, 50, true, Library.IMG("dungeon.platform.png"), 100);
-			WorldUtils.addWall( 195, 240, true, Library.IMG("dungeon.platform.png"), 180);
-			WorldUtils.addWall( 100, 150, false, Library.IMG("dungeon.platform.png"), 200);
+			WorldUtils.addWall( 103, 50, true, Library.getImage("dungeon.platform.png"), 100);
+			WorldUtils.addWall( 195, 240, true, Library.getImage("dungeon.platform.png"), 180);
+			WorldUtils.addWall( 100, 150, false, Library.getImage("dungeon.platform.png"), 200);
 			
-			WorldUtils.addWall( 350, 150, false, Library.IMG("dungeon.platform.png"), 60);
-			WorldUtils.addWall( 525, 150, false, Library.IMG("dungeon.platform.png"), 60);
-			WorldUtils.addWall( 700, 150, false, Library.IMG("dungeon.platform.png"), 60);
+			WorldUtils.addWall( 350, 150, false, Library.getImage("dungeon.platform.png"), 60);
+			WorldUtils.addWall( 525, 150, false, Library.getImage("dungeon.platform.png"), 60);
+			WorldUtils.addWall( 700, 150, false, Library.getImage("dungeon.platform.png"), 60);
 			
-			WorldUtils.addWall( 615, 272, false, Library.IMG("dungeon.platform.png"), 630);
-			WorldUtils.addWall( 850, 212, true, Library.IMG("dungeon.platform.png"), 130);
-			WorldUtils.addWall( 932, 212, true, Library.IMG("dungeon.platform.png"), 130);
-			WorldUtils.addWall( 891, 150, false, Library.IMG("dungeon.platform.png"), 92);
+			WorldUtils.addWall( 615, 272, false, Library.getImage("dungeon.platform.png"), 630);
+			WorldUtils.addWall( 850, 212, true, Library.getImage("dungeon.platform.png"), 130);
+			WorldUtils.addWall( 932, 212, true, Library.getImage("dungeon.platform.png"), 130);
+			WorldUtils.addWall( 891, 150, false, Library.getImage("dungeon.platform.png"), 92);
 			
-			WorldUtils.addWall( 103, 310, true, Library.IMG("dungeon.platform.png"), 200);
+			WorldUtils.addWall( 103, 310, true, Library.getImage("dungeon.platform.png"), 200);
 			
 			Game.stage.addChild(new HUD);
 			
@@ -769,62 +769,62 @@ package ifrit
 			
 			WorldUtils.makeBounds();
 			
-			Game.stage.addChild(Library.IMG("dungeon.bg.png"));
+			Game.stage.addChild(Library.getImage("dungeon.bg.png"));
 			
-			WorldUtils.addDecal(Library.IMG("dungeon.decals.torch.png"), 230, 80, null, null, [0, 1, 2, 3, 4, 5], 40, 40);
-			WorldUtils.addDecal(Library.IMG("dungeon.decals.torch.png"), 700, 80, null, null, [0, 1, 2, 3, 4, 5], 40, 40);
+			WorldUtils.addDecal(Library.getImage("dungeon.decals.torch.png"), 230, 80, null, null, [0, 1, 2, 3, 4, 5], 40, 40);
+			WorldUtils.addDecal(Library.getImage("dungeon.decals.torch.png"), 700, 80, null, null, [0, 1, 2, 3, 4, 5], 40, 40);
 			
-			WorldUtils.addWall( 150, 190, false, Library.IMG("dungeon.platform.png"), 100);
-			WorldUtils.addWall( 125, 155, false, Library.IMG("dungeon.platform.png"), 50);
-			WorldUtils.addWall( 113, 120, false, Library.IMG("dungeon.platform.png"), 25);
+			WorldUtils.addWall( 150, 190, false, Library.getImage("dungeon.platform.png"), 100);
+			WorldUtils.addWall( 125, 155, false, Library.getImage("dungeon.platform.png"), 50);
+			WorldUtils.addWall( 113, 120, false, Library.getImage("dungeon.platform.png"), 25);
 			
-			WorldUtils.addWall( 203, 325, false, Library.IMG("dungeon.platform.png"), 200);
-			WorldUtils.addWall( 103, 165, true, Library.IMG("dungeon.platform.png"), 330);
+			WorldUtils.addWall( 203, 325, false, Library.getImage("dungeon.platform.png"), 200);
+			WorldUtils.addWall( 103, 165, true, Library.getImage("dungeon.platform.png"), 330);
 			
-			WorldUtils.addWall( 190, 395, false, Library.IMG("dungeon.platform.png"), 500);
-			WorldUtils.addWall( 810, 395, false, Library.IMG("dungeon.platform.png"), 500);
+			WorldUtils.addWall( 190, 395, false, Library.getImage("dungeon.platform.png"), 500);
+			WorldUtils.addWall( 810, 395, false, Library.getImage("dungeon.platform.png"), 500);
 			
-			WorldUtils.addWall( 390, 355, false, Library.IMG("dungeon.platform.png"), 100);
-			WorldUtils.addWall(345, 355, true, Library.IMG("misc.clipPlatform.png"), 5);
+			WorldUtils.addWall( 390, 355, false, Library.getImage("dungeon.platform.png"), 100);
+			WorldUtils.addWall(345, 355, true, Library.getImage("misc.clipPlatform.png"), 5);
 			
-			WorldUtils.addWall( 250, 100, false, Library.IMG("dungeon.platform.png"), 100);
+			WorldUtils.addWall( 250, 100, false, Library.getImage("dungeon.platform.png"), 100);
 			
-			WorldUtils.addWall( 300, 285, false, Library.IMG("dungeon.platform.png"), 75);
-			WorldUtils.addWall(267.5, 285, true, Library.IMG("misc.clipPlatform.png"), 5);
+			WorldUtils.addWall( 300, 285, false, Library.getImage("dungeon.platform.png"), 75);
+			WorldUtils.addWall(267.5, 285, true, Library.getImage("misc.clipPlatform.png"), 5);
 			
-			WorldUtils.addWall( 300, 220, false, Library.IMG("dungeon.platform.png"), 75);
+			WorldUtils.addWall( 300, 220, false, Library.getImage("dungeon.platform.png"), 75);
 			
-			WorldUtils.addWall( 416, 250, false, Library.IMG("dungeon.platform.png"), 42);
-			WorldUtils.addWall( 400, 75, false, Library.IMG("dungeon.platform.png"), 75);
+			WorldUtils.addWall( 416, 250, false, Library.getImage("dungeon.platform.png"), 42);
+			WorldUtils.addWall( 400, 75, false, Library.getImage("dungeon.platform.png"), 75);
 			
-			WorldUtils.addWall( 611, 95, false, Library.IMG("dungeon.platform.png"), 95);
-			WorldUtils.addWall( 749, 95, false, Library.IMG("dungeon.platform.png"), 95);
-			WorldUtils.addWall( 610, 145, false, Library.IMG("dungeon.platform.png"), 100);
-			WorldUtils.addWall( 750, 145, false, Library.IMG("dungeon.platform.png"), 100);
-			WorldUtils.addWall( 610, 185, false, Library.IMG("dungeon.platform.png"), 100);
-			WorldUtils.addWall( 750, 185, false, Library.IMG("dungeon.platform.png"), 100);
-			WorldUtils.addWall( 610, 225, false, Library.IMG("dungeon.platform.png"), 100);
-			WorldUtils.addWall( 750, 225, false, Library.IMG("dungeon.platform.png"), 100);
-			WorldUtils.addWall( 610, 265, false, Library.IMG("dungeon.platform.png"), 100);
-			WorldUtils.addWall( 750, 265, false, Library.IMG("dungeon.platform.png"), 100);
-			WorldUtils.addWall( 610, 305, false, Library.IMG("dungeon.platform.png"), 100);
-			WorldUtils.addWall( 750, 305, false, Library.IMG("dungeon.platform.png"), 100);
-			WorldUtils.addWall( 610, 345, false, Library.IMG("dungeon.platform.png"), 100);
-			WorldUtils.addWall( 750, 345, false, Library.IMG("dungeon.platform.png"), 100);
+			WorldUtils.addWall( 611, 95, false, Library.getImage("dungeon.platform.png"), 95);
+			WorldUtils.addWall( 749, 95, false, Library.getImage("dungeon.platform.png"), 95);
+			WorldUtils.addWall( 610, 145, false, Library.getImage("dungeon.platform.png"), 100);
+			WorldUtils.addWall( 750, 145, false, Library.getImage("dungeon.platform.png"), 100);
+			WorldUtils.addWall( 610, 185, false, Library.getImage("dungeon.platform.png"), 100);
+			WorldUtils.addWall( 750, 185, false, Library.getImage("dungeon.platform.png"), 100);
+			WorldUtils.addWall( 610, 225, false, Library.getImage("dungeon.platform.png"), 100);
+			WorldUtils.addWall( 750, 225, false, Library.getImage("dungeon.platform.png"), 100);
+			WorldUtils.addWall( 610, 265, false, Library.getImage("dungeon.platform.png"), 100);
+			WorldUtils.addWall( 750, 265, false, Library.getImage("dungeon.platform.png"), 100);
+			WorldUtils.addWall( 610, 305, false, Library.getImage("dungeon.platform.png"), 100);
+			WorldUtils.addWall( 750, 305, false, Library.getImage("dungeon.platform.png"), 100);
+			WorldUtils.addWall( 610, 345, false, Library.getImage("dungeon.platform.png"), 100);
+			WorldUtils.addWall( 750, 345, false, Library.getImage("dungeon.platform.png"), 100);
 			
-			WorldUtils.addWall( 440, 225, true, Library.IMG("dungeon.platform.png"), 350);
-			WorldUtils.addWall( 560, 250, true, Library.IMG("dungeon.platform.png"), 300);
+			WorldUtils.addWall( 440, 225, true, Library.getImage("dungeon.platform.png"), 350);
+			WorldUtils.addWall( 560, 250, true, Library.getImage("dungeon.platform.png"), 300);
 			
-			WorldUtils.addWall( 850, 80, false, Library.IMG("dungeon.platform.png"), 100);
-			WorldUtils.addWall( 950, 150, false, Library.IMG("dungeon.platform.png"), 100);
-			WorldUtils.addWall( 850, 220, false, Library.IMG("dungeon.platform.png"), 100);
-			WorldUtils.addWall( 950, 290, false, Library.IMG("dungeon.platform.png"), 100);
+			WorldUtils.addWall( 850, 80, false, Library.getImage("dungeon.platform.png"), 100);
+			WorldUtils.addWall( 950, 150, false, Library.getImage("dungeon.platform.png"), 100);
+			WorldUtils.addWall( 850, 220, false, Library.getImage("dungeon.platform.png"), 100);
+			WorldUtils.addWall( 950, 290, false, Library.getImage("dungeon.platform.png"), 100);
 			
-			WorldUtils.addWall( 850, 345, false, Library.IMG("dungeon.platform.png"), 100);
-			WorldUtils.addWall(895, 345, true, Library.IMG("misc.clipPlatform.png"), 5);
+			WorldUtils.addWall( 850, 345, false, Library.getImage("dungeon.platform.png"), 100);
+			WorldUtils.addWall(895, 345, true, Library.getImage("misc.clipPlatform.png"), 5);
 			
-			WorldUtils.addWall( 800, 200, true, Library.IMG("dungeon.platform.png"), 300);
-			WorldUtils.addWall( 620, 45, false, Library.IMG("dungeon.platform.png"), 350);
+			WorldUtils.addWall( 800, 200, true, Library.getImage("dungeon.platform.png"), 300);
+			WorldUtils.addWall( 620, 45, false, Library.getImage("dungeon.platform.png"), 350);
 			
 			WorldUtils.addLadder(680, 100, 290);
 			
@@ -864,32 +864,32 @@ package ifrit
 			
 			WorldUtils.makeBounds();
 			
-			Game.stage.addChild(Library.IMG("dungeon.bg.png"));
+			Game.stage.addChild(Library.getImage("dungeon.bg.png"));
 			
-			WorldUtils.addWall( 449, 75, true, Library.IMG("dungeon.platform.png"), 150);
-			WorldUtils.addWall( 804, 155, true, Library.IMG("dungeon.platform.png"), 125);
-			WorldUtils.addWall( 747, 95, false, Library.IMG("dungeon.platform.png"), 400);
-			WorldUtils.addWall( 551, 50, true, Library.IMG("dungeon.platform.png"), 100);
-			WorldUtils.addWall( 594, 145, false, Library.IMG("dungeon.platform.png"), 300);
+			WorldUtils.addWall( 449, 75, true, Library.getImage("dungeon.platform.png"), 150);
+			WorldUtils.addWall( 804, 155, true, Library.getImage("dungeon.platform.png"), 125);
+			WorldUtils.addWall( 747, 95, false, Library.getImage("dungeon.platform.png"), 400);
+			WorldUtils.addWall( 551, 50, true, Library.getImage("dungeon.platform.png"), 100);
+			WorldUtils.addWall( 594, 145, false, Library.getImage("dungeon.platform.png"), 300);
 			
-			WorldUtils.addWall( 264, 265, true, Library.IMG("dungeon.platform.png"), 95);
-			WorldUtils.addWall( 219, 346, false, Library.IMG("dungeon.platform.png"), 295);
-			WorldUtils.addWall( 75, 284, true, Library.IMG("dungeon.platform.png"), 134);
+			WorldUtils.addWall( 264, 265, true, Library.getImage("dungeon.platform.png"), 95);
+			WorldUtils.addWall( 219, 346, false, Library.getImage("dungeon.platform.png"), 295);
+			WorldUtils.addWall( 75, 284, true, Library.getImage("dungeon.platform.png"), 134);
 			
-			WorldUtils.addWall( 604, 215, false, Library.IMG("dungeon.platform.png"), 690);
-			WorldUtils.addWall( 406, 145, true, Library.IMG("dungeon.platform.png"), 150);
-			WorldUtils.addWall( 356, 78, true, Library.IMG("dungeon.platform.png"), 165);
+			WorldUtils.addWall( 604, 215, false, Library.getImage("dungeon.platform.png"), 690);
+			WorldUtils.addWall( 406, 145, true, Library.getImage("dungeon.platform.png"), 150);
+			WorldUtils.addWall( 356, 78, true, Library.getImage("dungeon.platform.png"), 165);
 			
-			WorldUtils.addWall( 659, 306, false, Library.IMG("dungeon.platform.png"), 580);
-			WorldUtils.addWall( 364, 331, true, Library.IMG("dungeon.platform.png"), 40);
-			WorldUtils.addWall( 55, 215, false, Library.IMG("dungeon.platform.png"), 50);
+			WorldUtils.addWall( 659, 306, false, Library.getImage("dungeon.platform.png"), 580);
+			WorldUtils.addWall( 364, 331, true, Library.getImage("dungeon.platform.png"), 40);
+			WorldUtils.addWall( 55, 215, false, Library.getImage("dungeon.platform.png"), 50);
 			
 			WorldUtils.addLadder(427, 65, 145);
 			WorldUtils.addLadder(15, 200, 200);
 			WorldUtils.addLadder(975, 75, 325);
 			
-			WorldUtils.addDecal(Library.IMG("dungeon.decals.crevice.png"), 650, 60, null, null, [0, 1, 2, 3], 149, 44, 2);
-			WorldUtils.addDecal(Library.IMG("misc.upArrow.png"), 650, 60, WorldUtils.chooseAdvance, function (d:Decal):* { d.alpha = 0;} );
+			WorldUtils.addDecal(Library.getImage("dungeon.decals.crevice.png"), 650, 60, null, null, [0, 1, 2, 3], 149, 44, 2);
+			WorldUtils.addDecal(Library.getImage("misc.upArrow.png"), 650, 60, WorldUtils.chooseAdvance, function (d:Decal):* { d.alpha = 0;} );
 			
 			WorldUtils.addEnemy(675, 100, Zombie);
 			WorldUtils.addEnemy(680, 100, Zombie);
@@ -938,35 +938,35 @@ package ifrit
 			
 			var crevice:Point = new Point(80, 190);
 			
-			WorldUtils.addWall(419, 11, true, Library.IMG("forest.platform.png"), 22);
-			WorldUtils.addWall(207, 27, false, Library.IMG("forest.platform.png"), 414);
-			WorldUtils.addWall(613, 27, false, Library.IMG("forest.platform.png"), 301);
-			WorldUtils.addWall(467, 39, true, Library.IMG("forest.platform.png"), 70);
-			WorldUtils.addWall(758, 11, true, Library.IMG("forest.platform.png"), 22);
+			WorldUtils.addWall(419, 11, true, Library.getImage("forest.platform.png"), 22);
+			WorldUtils.addWall(207, 27, false, Library.getImage("forest.platform.png"), 414);
+			WorldUtils.addWall(613, 27, false, Library.getImage("forest.platform.png"), 301);
+			WorldUtils.addWall(467, 39, true, Library.getImage("forest.platform.png"), 70);
+			WorldUtils.addWall(758, 11, true, Library.getImage("forest.platform.png"), 22);
 			
-			WorldUtils.addWall(907, 27, false, Library.IMG("forest.platform.png"), 185);
-			WorldUtils.addWall(995, 10, true, Library.IMG("forest.platform.png"), 22);
-			WorldUtils.addWall(819, 11, true, Library.IMG("forest.platform.png"), 22);
+			WorldUtils.addWall(907, 27, false, Library.getImage("forest.platform.png"), 185);
+			WorldUtils.addWall(995, 10, true, Library.getImage("forest.platform.png"), 22);
+			WorldUtils.addWall(819, 11, true, Library.getImage("forest.platform.png"), 22);
 			
-			WorldUtils.addWall(260, 80, false, Library.IMG("forest.platform.png"), 400);
-			WorldUtils.addWall(275, 120, false, Library.IMG("forest.platform.png"), 550);
+			WorldUtils.addWall(260, 80, false, Library.getImage("forest.platform.png"), 400);
+			WorldUtils.addWall(275, 120, false, Library.getImage("forest.platform.png"), 550);
 			
-			WorldUtils.addWall(110, 355, false, Library.IMG("forest.platform.png"), 30);
-			WorldUtils.addWall(380, 350, false, Library.IMG("forest.platform.png"), 100);
+			WorldUtils.addWall(110, 355, false, Library.getImage("forest.platform.png"), 30);
+			WorldUtils.addWall(380, 350, false, Library.getImage("forest.platform.png"), 100);
 			
-			WorldUtils.addWall(600, 300, false, Library.IMG("forest.platform.png"), 50);
-			WorldUtils.addWall(631, 288, true, Library.IMG("forest.platform.png"), 30);
-			WorldUtils.addWall(685, 270, false, Library.IMG("forest.platform.png"), 100);
+			WorldUtils.addWall(600, 300, false, Library.getImage("forest.platform.png"), 50);
+			WorldUtils.addWall(631, 288, true, Library.getImage("forest.platform.png"), 30);
+			WorldUtils.addWall(685, 270, false, Library.getImage("forest.platform.png"), 100);
 			
-			WorldUtils.addWall(936, 300, false, Library.IMG("forest.platform.png"), 120);
-			WorldUtils.addWall(915, 150, false, Library.IMG("forest.platform.png"), 120);
-			WorldUtils.addWall(850, 135, true, Library.IMG("forest.platform.png"), 30);
-			WorldUtils.addWall(700, 115, false, Library.IMG("forest.platform.png"), 290);
-			WorldUtils.addWall(550, 135, true, Library.IMG("forest.platform.png"), 30);
+			WorldUtils.addWall(936, 300, false, Library.getImage("forest.platform.png"), 120);
+			WorldUtils.addWall(915, 150, false, Library.getImage("forest.platform.png"), 120);
+			WorldUtils.addWall(850, 135, true, Library.getImage("forest.platform.png"), 30);
+			WorldUtils.addWall(700, 115, false, Library.getImage("forest.platform.png"), 290);
+			WorldUtils.addWall(550, 135, true, Library.getImage("forest.platform.png"), 30);
 			
-			WorldUtils.addDecal(Library.IMG("hellther.bg.png"), 500, 200);
-			WorldUtils.addDecal(Library.IMG("hellther.crevice.png"), crevice.x, crevice.y);
-			WorldUtils.addDecal(Library.IMG("hellther.layout5.png"), 500, 200);
+			WorldUtils.addDecal(Library.getImage("hellther.bg.png"), 500, 200);
+			WorldUtils.addDecal(Library.getImage("hellther.crevice.png"), crevice.x, crevice.y);
+			WorldUtils.addDecal(Library.getImage("hellther.layout5.png"), 500, 200);
 			
 			WorldUtils.addLadder(443, -10, 85, "hellther.ladder.png");
 			WorldUtils.addLadder(crevice.x, 350, 50, "hellther.ladder.png");
@@ -991,7 +991,7 @@ package ifrit
 			
 			WorldUtils.addMan(crevice.x, crevice.y, Game.playerClass);
 			
-			WorldUtils.addDecal(Library.IMG("hellther.lavaTrap2.png"), 500, 391);
+			WorldUtils.addDecal(Library.getImage("hellther.lavaTrap2.png"), 500, 391);
 			
 			WorldUtils.addTrigger( 443, -15, WorldUtils.advance);
 			WorldUtils.addTrigger( 500, 391, WorldUtils.hurt, 1000, 19);
@@ -1006,89 +1006,89 @@ package ifrit
 			WorldUtils.makeBounds();
 			
 			// Top row 
-			WorldUtils.addWall(558, 0, true, Library.IMG("forest.platform.png"), 20);
-			WorldUtils.addWall(592, 0, true, Library.IMG("forest.platform.png"), 20);
-			WorldUtils.addWall(228, 24, false, Library.IMG("forest.platform.png"), 446);
-			WorldUtils.addWall(505, 10, false, Library.IMG("forest.platform.png"), 96);
-			WorldUtils.addWall(745, 10, false, Library.IMG("forest.platform.png"), 294);
+			WorldUtils.addWall(558, 0, true, Library.getImage("forest.platform.png"), 20);
+			WorldUtils.addWall(592, 0, true, Library.getImage("forest.platform.png"), 20);
+			WorldUtils.addWall(228, 24, false, Library.getImage("forest.platform.png"), 446);
+			WorldUtils.addWall(505, 10, false, Library.getImage("forest.platform.png"), 96);
+			WorldUtils.addWall(745, 10, false, Library.getImage("forest.platform.png"), 294);
 			
 			// Far right edge
-			WorldUtils.addWall(986, 48, true, Library.IMG("forest.platform.png"), 53);
-			WorldUtils.addWall(999, 152, true, Library.IMG("forest.platform.png"), 126);
+			WorldUtils.addWall(986, 48, true, Library.getImage("forest.platform.png"), 53);
+			WorldUtils.addWall(999, 152, true, Library.getImage("forest.platform.png"), 126);
 			
 			// Far left edge
-			WorldUtils.addWall(0, 120, true, Library.IMG("forest.platform.png"), 181);
-			WorldUtils.addWall(-1, 302, true, Library.IMG("forest.platform.png"), 81);
+			WorldUtils.addWall(0, 120, true, Library.getImage("forest.platform.png"), 181);
+			WorldUtils.addWall(-1, 302, true, Library.getImage("forest.platform.png"), 81);
 			
 			//Second row
-			WorldUtils.addWall(810, 80, false, Library.IMG("forest.platform.png"), 340);
-			WorldUtils.addWall(574, 54, false, Library.IMG("forest.platform.png"), 161);
-			WorldUtils.addWall(339, 79, false, Library.IMG("forest.platform.png"), 355);
+			WorldUtils.addWall(810, 80, false, Library.getImage("forest.platform.png"), 340);
+			WorldUtils.addWall(574, 54, false, Library.getImage("forest.platform.png"), 161);
+			WorldUtils.addWall(339, 79, false, Library.getImage("forest.platform.png"), 355);
 			
 			// Hole
-			WorldUtils.addWall(406, 132, false, Library.IMG("forest.platform.png"), 270);
-			WorldUtils.addWall(747, 131, false, Library.IMG("forest.platform.png"), 270);
+			WorldUtils.addWall(406, 132, false, Library.getImage("forest.platform.png"), 270);
+			WorldUtils.addWall(747, 131, false, Library.getImage("forest.platform.png"), 270);
 			
 			// Pit
-			WorldUtils.addWall(611, 313, true, Library.IMG("forest.platform.png"), 173);
-			WorldUtils.addWall(530, 318, true, Library.IMG("forest.platform.png"), 183);
+			WorldUtils.addWall(611, 313, true, Library.getImage("forest.platform.png"), 173);
+			WorldUtils.addWall(530, 318, true, Library.getImage("forest.platform.png"), 183);
 			
 			// Entrance ladder
-			WorldUtils.addWall(418, 384, true, Library.IMG("forest.platform.png"), 52);
-			WorldUtils.addWall(477, 350, true, Library.IMG("forest.platform.png"), 93);
+			WorldUtils.addWall(418, 384, true, Library.getImage("forest.platform.png"), 52);
+			WorldUtils.addWall(477, 350, true, Library.getImage("forest.platform.png"), 93);
 			
 			// Top left smalls (column L to R)
-			WorldUtils.addWall(20, 125, false, Library.IMG("forest.platform.png"), 31);
-			WorldUtils.addWall(16, 179, false, Library.IMG("forest.platform.png"), 22);
-			WorldUtils.addWall(126, 111, false, Library.IMG("forest.platform.png"), 45);
-			WorldUtils.addWall(105, 151, false, Library.IMG("forest.platform.png"), 86);
-			WorldUtils.addWall(142, 163, false, Library.IMG("forest.platform.png"), 158);
-			WorldUtils.addWall(155, 112, true, Library.IMG("forest.platform.png"), 55);
-			WorldUtils.addWall(187, 126, false, Library.IMG("forest.platform.png"), 46);
-			WorldUtils.addWall(217, 143, true, Library.IMG("forest.platform.png"), 39);
+			WorldUtils.addWall(20, 125, false, Library.getImage("forest.platform.png"), 31);
+			WorldUtils.addWall(16, 179, false, Library.getImage("forest.platform.png"), 22);
+			WorldUtils.addWall(126, 111, false, Library.getImage("forest.platform.png"), 45);
+			WorldUtils.addWall(105, 151, false, Library.getImage("forest.platform.png"), 86);
+			WorldUtils.addWall(142, 163, false, Library.getImage("forest.platform.png"), 158);
+			WorldUtils.addWall(155, 112, true, Library.getImage("forest.platform.png"), 55);
+			WorldUtils.addWall(187, 126, false, Library.getImage("forest.platform.png"), 46);
+			WorldUtils.addWall(217, 143, true, Library.getImage("forest.platform.png"), 39);
 			
 			// Bottom right smalls (L to R)
-			WorldUtils.addWall(20, 347, false, Library.IMG("forest.platform.png"), 38);
-			WorldUtils.addWall(50, 357, false, Library.IMG("forest.platform.png"), 25);
-			WorldUtils.addWall(75, 367, false, Library.IMG("forest.platform.png"), 25);
-			WorldUtils.addWall(149, 320, false, Library.IMG("forest.platform.png"), 105);
-			WorldUtils.addWall(162, 309, false, Library.IMG("forest.platform.png"), 62);
+			WorldUtils.addWall(20, 347, false, Library.getImage("forest.platform.png"), 38);
+			WorldUtils.addWall(50, 357, false, Library.getImage("forest.platform.png"), 25);
+			WorldUtils.addWall(75, 367, false, Library.getImage("forest.platform.png"), 25);
+			WorldUtils.addWall(149, 320, false, Library.getImage("forest.platform.png"), 105);
+			WorldUtils.addWall(162, 309, false, Library.getImage("forest.platform.png"), 62);
 			
 			// Middle smalls
-			WorldUtils.addWall(471, 280, false, Library.IMG("forest.platform.png"), 20);
-			WorldUtils.addWall(487, 263, false, Library.IMG("forest.platform.png"), 14);
-			WorldUtils.addWall(499, 252, true, Library.IMG("forest.platform.png"), 50);
-			WorldUtils.addWall(515, 223, false, Library.IMG("forest.platform.png"), 15);
+			WorldUtils.addWall(471, 280, false, Library.getImage("forest.platform.png"), 20);
+			WorldUtils.addWall(487, 263, false, Library.getImage("forest.platform.png"), 14);
+			WorldUtils.addWall(499, 252, true, Library.getImage("forest.platform.png"), 50);
+			WorldUtils.addWall(515, 223, false, Library.getImage("forest.platform.png"), 15);
 			
 			// Right smalls (L to R)
-			WorldUtils.addWall(887, 155, true, Library.IMG("forest.platform.png"), 51);
-			WorldUtils.addWall(905, 152, false, Library.IMG("forest.platform.png"), 25);
-			WorldUtils.addWall(974, 186, false, Library.IMG("forest.platform.png"), 40);
+			WorldUtils.addWall(887, 155, true, Library.getImage("forest.platform.png"), 51);
+			WorldUtils.addWall(905, 152, false, Library.getImage("forest.platform.png"), 25);
+			WorldUtils.addWall(974, 186, false, Library.getImage("forest.platform.png"), 40);
 			
 			// Other horizontals (top to bottom)
-			WorldUtils.addWall(140, 216, false, Library.IMG("forest.platform.png"), 276);
-			WorldUtils.addWall(801, 223, false, Library.IMG("forest.platform.png"), 390);
+			WorldUtils.addWall(140, 216, false, Library.getImage("forest.platform.png"), 276);
+			WorldUtils.addWall(801, 223, false, Library.getImage("forest.platform.png"), 390);
 			
-			WorldUtils.addWall(372, 233, false, Library.IMG("forest.platform.png"), 161);
-			WorldUtils.addWall(436, 245, true, Library.IMG("forest.platform.png"), 10);
-			WorldUtils.addWall(220, 255, false, Library.IMG("forest.platform.png"), 427);
+			WorldUtils.addWall(372, 233, false, Library.getImage("forest.platform.png"), 161);
+			WorldUtils.addWall(436, 245, true, Library.getImage("forest.platform.png"), 10);
+			WorldUtils.addWall(220, 255, false, Library.getImage("forest.platform.png"), 427);
 			
-			WorldUtils.addWall(336, 296, false, Library.IMG("forest.platform.png"), 270);
-			WorldUtils.addWall(365, 354, false, Library.IMG("forest.platform.png"), 95);
-			WorldUtils.addWall(205, 377, false, Library.IMG("forest.platform.png"), 233);
+			WorldUtils.addWall(336, 296, false, Library.getImage("forest.platform.png"), 270);
+			WorldUtils.addWall(365, 354, false, Library.getImage("forest.platform.png"), 95);
+			WorldUtils.addWall(205, 377, false, Library.getImage("forest.platform.png"), 233);
 			
 			// Other verticals (L to R)
-			WorldUtils.addWall(276, 174, true, Library.IMG("forest.platform.png"), 75);
-			WorldUtils.addWall(288, 185, true, Library.IMG("forest.platform.png"), 86);
+			WorldUtils.addWall(276, 174, true, Library.getImage("forest.platform.png"), 75);
+			WorldUtils.addWall(288, 185, true, Library.getImage("forest.platform.png"), 86);
 			
-			WorldUtils.addWall(495, 68, true, Library.IMG("forest.platform.png"), 20);
-			WorldUtils.addWall(515, 68, true, Library.IMG("forest.platform.png"), 20);
-			WorldUtils.addWall(651, 68, true, Library.IMG("forest.platform.png"), 20);
-			WorldUtils.addWall(641, 68, true, Library.IMG("forest.platform.png"), 20);
-			WorldUtils.addWall(315, 370, true, Library.IMG("forest.platform.png"), 25);
+			WorldUtils.addWall(495, 68, true, Library.getImage("forest.platform.png"), 20);
+			WorldUtils.addWall(515, 68, true, Library.getImage("forest.platform.png"), 20);
+			WorldUtils.addWall(651, 68, true, Library.getImage("forest.platform.png"), 20);
+			WorldUtils.addWall(641, 68, true, Library.getImage("forest.platform.png"), 20);
+			WorldUtils.addWall(315, 370, true, Library.getImage("forest.platform.png"), 25);
 			
-			WorldUtils.addDecal(Library.IMG("hellther.bg.png"), 500, 200);
-			WorldUtils.addDecal(Library.IMG("hellther.layout1.png"), 500, 200);
+			WorldUtils.addDecal(Library.getImage("hellther.bg.png"), 500, 200);
+			WorldUtils.addDecal(Library.getImage("hellther.layout1.png"), 500, 200);
 			
 			WorldUtils.addLadder(447, 345, 55, "hellther.ladder.png");
 			WorldUtils.addLadder(576, 0, 49, "hellther.ladder.png");
@@ -1113,7 +1113,7 @@ package ifrit
 			
 			WorldUtils.addMan(435, 300, Game.playerClass);
 			
-			WorldUtils.addDecal(Library.IMG("hellther.lavaTrap.png"), 571, 391);
+			WorldUtils.addDecal(Library.getImage("hellther.lavaTrap.png"), 571, 391);
 			
 			WorldUtils.addTrigger( 550, -15, WorldUtils.advance);
 			WorldUtils.addTrigger( 570, 385, WorldUtils.hurt);
@@ -1130,80 +1130,80 @@ package ifrit
 			
 			
 			// Left
-			WorldUtils.addWall(471, 390, true, Library.IMG("forest.platform.png"), 22);
-			WorldUtils.addWall(389, 375, false, Library.IMG("forest.platform.png"), 156);
-			WorldUtils.addWall(274, 367, false, Library.IMG("forest.platform.png"), 72);
-			WorldUtils.addWall(203, 358, false, Library.IMG("forest.platform.png"), 72);
-			WorldUtils.addWall(132, 350, false, Library.IMG("forest.platform.png"), 72);
-			WorldUtils.addWall(61, 341, false, Library.IMG("forest.platform.png"), 72);
-			WorldUtils.addWall(12, 331, false, Library.IMG("forest.platform.png"), 26);
-			WorldUtils.addWall(56, 290, false, Library.IMG("forest.platform.png"), 36);
-			WorldUtils.addWall(120, 270, false, Library.IMG("forest.platform.png"), 36);
-			WorldUtils.addWall(33, 230, false, Library.IMG("forest.platform.png"), 67);
-			WorldUtils.addWall(13, 187, false, Library.IMG("forest.platform.png"), 28);
-			WorldUtils.addWall(104, 158, false, Library.IMG("forest.platform.png"), 72);
-			WorldUtils.addWall(35, 44, false, Library.IMG("forest.platform.png"), 71);
-			WorldUtils.addWall(35, 63, false, Library.IMG("forest.platform.png"), 71);
-			WorldUtils.addWall(66, 52, false, Library.IMG("forest.platform.png"), 10);
+			WorldUtils.addWall(471, 390, true, Library.getImage("forest.platform.png"), 22);
+			WorldUtils.addWall(389, 375, false, Library.getImage("forest.platform.png"), 156);
+			WorldUtils.addWall(274, 367, false, Library.getImage("forest.platform.png"), 72);
+			WorldUtils.addWall(203, 358, false, Library.getImage("forest.platform.png"), 72);
+			WorldUtils.addWall(132, 350, false, Library.getImage("forest.platform.png"), 72);
+			WorldUtils.addWall(61, 341, false, Library.getImage("forest.platform.png"), 72);
+			WorldUtils.addWall(12, 331, false, Library.getImage("forest.platform.png"), 26);
+			WorldUtils.addWall(56, 290, false, Library.getImage("forest.platform.png"), 36);
+			WorldUtils.addWall(120, 270, false, Library.getImage("forest.platform.png"), 36);
+			WorldUtils.addWall(33, 230, false, Library.getImage("forest.platform.png"), 67);
+			WorldUtils.addWall(13, 187, false, Library.getImage("forest.platform.png"), 28);
+			WorldUtils.addWall(104, 158, false, Library.getImage("forest.platform.png"), 72);
+			WorldUtils.addWall(35, 44, false, Library.getImage("forest.platform.png"), 71);
+			WorldUtils.addWall(35, 63, false, Library.getImage("forest.platform.png"), 71);
+			WorldUtils.addWall(66, 52, false, Library.getImage("forest.platform.png"), 10);
 			
 			// Right
-			WorldUtils.addWall(529, 390, true, Library.IMG("forest.platform.png"), 22);
-			WorldUtils.addWall(611, 375, false, Library.IMG("forest.platform.png"), 156);
-			WorldUtils.addWall(726, 367, false, Library.IMG("forest.platform.png"), 72);
-			WorldUtils.addWall(797, 358, false, Library.IMG("forest.platform.png"), 72);
-			WorldUtils.addWall(868, 350, false, Library.IMG("forest.platform.png"), 72);
-			WorldUtils.addWall(939, 341, false, Library.IMG("forest.platform.png"), 72);
-			WorldUtils.addWall(988, 331, false, Library.IMG("forest.platform.png"), 26);
-			WorldUtils.addWall(934, 290, false, Library.IMG("forest.platform.png"), 36);
-			WorldUtils.addWall(880, 270, false, Library.IMG("forest.platform.png"), 36);
-			WorldUtils.addWall(967, 230, false, Library.IMG("forest.platform.png"), 67);
-			WorldUtils.addWall(987, 187, false, Library.IMG("forest.platform.png"), 28);
-			WorldUtils.addWall(906, 158, false, Library.IMG("forest.platform.png"), 72);
-			WorldUtils.addWall(965, 44, false, Library.IMG("forest.platform.png"), 71);
-			WorldUtils.addWall(965, 63, false, Library.IMG("forest.platform.png"), 71);
-			WorldUtils.addWall(934, 52, false, Library.IMG("forest.platform.png"), 10);
+			WorldUtils.addWall(529, 390, true, Library.getImage("forest.platform.png"), 22);
+			WorldUtils.addWall(611, 375, false, Library.getImage("forest.platform.png"), 156);
+			WorldUtils.addWall(726, 367, false, Library.getImage("forest.platform.png"), 72);
+			WorldUtils.addWall(797, 358, false, Library.getImage("forest.platform.png"), 72);
+			WorldUtils.addWall(868, 350, false, Library.getImage("forest.platform.png"), 72);
+			WorldUtils.addWall(939, 341, false, Library.getImage("forest.platform.png"), 72);
+			WorldUtils.addWall(988, 331, false, Library.getImage("forest.platform.png"), 26);
+			WorldUtils.addWall(934, 290, false, Library.getImage("forest.platform.png"), 36);
+			WorldUtils.addWall(880, 270, false, Library.getImage("forest.platform.png"), 36);
+			WorldUtils.addWall(967, 230, false, Library.getImage("forest.platform.png"), 67);
+			WorldUtils.addWall(987, 187, false, Library.getImage("forest.platform.png"), 28);
+			WorldUtils.addWall(906, 158, false, Library.getImage("forest.platform.png"), 72);
+			WorldUtils.addWall(965, 44, false, Library.getImage("forest.platform.png"), 71);
+			WorldUtils.addWall(965, 63, false, Library.getImage("forest.platform.png"), 71);
+			WorldUtils.addWall(934, 52, false, Library.getImage("forest.platform.png"), 10);
 			
 			// Mid Bottom Chunk
-			WorldUtils.addWall(500, 258, false, Library.IMG("forest.platform.png"), 672);
-			WorldUtils.addWall(197, 238, false, Library.IMG("forest.platform.png"), 67);
-			WorldUtils.addWall(266, 234, false, Library.IMG("forest.platform.png"), 72);
-			WorldUtils.addWall(336, 229, false, Library.IMG("forest.platform.png"), 72);
-			WorldUtils.addWall(408, 223, false, Library.IMG("forest.platform.png"), 72);
-			WorldUtils.addWall(499, 222, false, Library.IMG("forest.platform.png"), 112);
-			WorldUtils.addWall(592, 223, false, Library.IMG("forest.platform.png"), 72);
-			WorldUtils.addWall(663, 229, false, Library.IMG("forest.platform.png"), 72);
-			WorldUtils.addWall(734, 234, false, Library.IMG("forest.platform.png"), 72);
-			WorldUtils.addWall(802, 238, false, Library.IMG("forest.platform.png"), 67);
-			WorldUtils.addWall(835, 248, false, Library.IMG("forest.platform.png"), 10);
-			WorldUtils.addWall(164, 248, false, Library.IMG("forest.platform.png"), 10);
+			WorldUtils.addWall(500, 258, false, Library.getImage("forest.platform.png"), 672);
+			WorldUtils.addWall(197, 238, false, Library.getImage("forest.platform.png"), 67);
+			WorldUtils.addWall(266, 234, false, Library.getImage("forest.platform.png"), 72);
+			WorldUtils.addWall(336, 229, false, Library.getImage("forest.platform.png"), 72);
+			WorldUtils.addWall(408, 223, false, Library.getImage("forest.platform.png"), 72);
+			WorldUtils.addWall(499, 222, false, Library.getImage("forest.platform.png"), 112);
+			WorldUtils.addWall(592, 223, false, Library.getImage("forest.platform.png"), 72);
+			WorldUtils.addWall(663, 229, false, Library.getImage("forest.platform.png"), 72);
+			WorldUtils.addWall(734, 234, false, Library.getImage("forest.platform.png"), 72);
+			WorldUtils.addWall(802, 238, false, Library.getImage("forest.platform.png"), 67);
+			WorldUtils.addWall(835, 248, false, Library.getImage("forest.platform.png"), 10);
+			WorldUtils.addWall(164, 248, false, Library.getImage("forest.platform.png"), 10);
 			
 			// Mid Top Chunk
-			WorldUtils.addWall(206, 193, false, Library.IMG("forest.platform.png"), 48);
-			WorldUtils.addWall(184, 183, false, Library.IMG("forest.platform.png"), 10);
-			WorldUtils.addWall(794, 193, false, Library.IMG("forest.platform.png"), 48);
-			WorldUtils.addWall(816, 183, false, Library.IMG("forest.platform.png"), 10);
-			WorldUtils.addWall(266, 188, false, Library.IMG("forest.platform.png"), 70);
-			WorldUtils.addWall(734, 188, false, Library.IMG("forest.platform.png"), 70);
-			WorldUtils.addWall(500, 175, false, Library.IMG("forest.platform.png"), 636);
-			WorldUtils.addWall(500, 147, false, Library.IMG("forest.platform.png"), 528);
-			WorldUtils.addWall(236, 162, true, Library.IMG("forest.platform.png"), 20);
-			WorldUtils.addWall(764, 162, true, Library.IMG("forest.platform.png"), 20);
-			WorldUtils.addWall(500, 119, false, Library.IMG("forest.platform.png"), 386);
-			WorldUtils.addWall(307, 134, true, Library.IMG("forest.platform.png"), 20);
-			WorldUtils.addWall(696, 134, true, Library.IMG("forest.platform.png"), 20);
-			WorldUtils.addWall(500, 90, false, Library.IMG("forest.platform.png"), 122);
-			WorldUtils.addWall(438, 105, true, Library.IMG("forest.platform.png"), 20);
-			WorldUtils.addWall(560, 105, true, Library.IMG("forest.platform.png"), 20);
+			WorldUtils.addWall(206, 193, false, Library.getImage("forest.platform.png"), 48);
+			WorldUtils.addWall(184, 183, false, Library.getImage("forest.platform.png"), 10);
+			WorldUtils.addWall(794, 193, false, Library.getImage("forest.platform.png"), 48);
+			WorldUtils.addWall(816, 183, false, Library.getImage("forest.platform.png"), 10);
+			WorldUtils.addWall(266, 188, false, Library.getImage("forest.platform.png"), 70);
+			WorldUtils.addWall(734, 188, false, Library.getImage("forest.platform.png"), 70);
+			WorldUtils.addWall(500, 175, false, Library.getImage("forest.platform.png"), 636);
+			WorldUtils.addWall(500, 147, false, Library.getImage("forest.platform.png"), 528);
+			WorldUtils.addWall(236, 162, true, Library.getImage("forest.platform.png"), 20);
+			WorldUtils.addWall(764, 162, true, Library.getImage("forest.platform.png"), 20);
+			WorldUtils.addWall(500, 119, false, Library.getImage("forest.platform.png"), 386);
+			WorldUtils.addWall(307, 134, true, Library.getImage("forest.platform.png"), 20);
+			WorldUtils.addWall(696, 134, true, Library.getImage("forest.platform.png"), 20);
+			WorldUtils.addWall(500, 90, false, Library.getImage("forest.platform.png"), 122);
+			WorldUtils.addWall(438, 105, true, Library.getImage("forest.platform.png"), 20);
+			WorldUtils.addWall(560, 105, true, Library.getImage("forest.platform.png"), 20);
 			
-			WorldUtils.addDecal(Library.IMG("hellther.bg.png"), 500, 200);
-			WorldUtils.addDecal(Library.IMG("hellther.layout3.png"), 500, 200);
+			WorldUtils.addDecal(Library.getImage("hellther.bg.png"), 500, 200);
+			WorldUtils.addDecal(Library.getImage("hellther.layout3.png"), 500, 200);
 			
 			const portal:Point = new Point(500, 56);
-			WorldUtils.addDecal(Library.IMG("hellther.portalFrame.png"), portal.x, portal.y);
-			WorldUtils.addDecal(Library.IMG("hellther.portalSparks.png"), portal.x, portal.y, null, null, [0, 1, 0, 2], 40, 40, 3, true );
-			WorldUtils.addDecal(Library.IMG("hellther.portal.png"), portal.x, portal.y, function (d:Decal):*	{	d.rotation += 5; d.alpha = Math.abs(d.rotation) / 180;	} );
+			WorldUtils.addDecal(Library.getImage("hellther.portalFrame.png"), portal.x, portal.y);
+			WorldUtils.addDecal(Library.getImage("hellther.portalSparks.png"), portal.x, portal.y, null, null, [0, 1, 0, 2], 40, 40, 3, true );
+			WorldUtils.addDecal(Library.getImage("hellther.portal.png"), portal.x, portal.y, function (d:Decal):*	{	d.rotation += 5; d.alpha = Math.abs(d.rotation) / 180;	} );
 			
-			WorldUtils.addDecal(Library.IMG("misc.upArrow.png"), 500, 56, portalAdvance, function (d:Decal):* { d.alpha = 0;	} );
+			WorldUtils.addDecal(Library.getImage("misc.upArrow.png"), 500, 56, portalAdvance, function (d:Decal):* { d.alpha = 0;	} );
 			
 			WorldUtils.addLadder(500, 370, 30, "hellther.ladder.png");
 			
@@ -1262,34 +1262,34 @@ package ifrit
 			
 			WorldUtils.makeBounds();
 			
-			WorldUtils.addDecal(Library.IMG("balcony.bg.png"), 500, 200, function (d:Decal):*	{	if (Input.isKeyDown(Input.P) && Game.boss)	{	Game.boss.throwScythe();	}} );
+			WorldUtils.addDecal(Library.getImage("balcony.bg.png"), 500, 200, function (d:Decal):*	{	if (Input.isKeyDown(Input.P) && Game.boss)	{	Game.boss.throwScythe();	}} );
 			
 			Game.stage.addChild(new HUD);
 			
 			Game.boss = WorldUtils.addEnemy(50, 50, Boss) as Boss;
 			
 			const portal:Point = new Point(970, 260);
-			WorldUtils.addDecal(Library.IMG("hellther.portalFrame.png"), portal.x, portal.y);
-			WorldUtils.addDecal(Library.IMG("hellther.portalSparks.png"), portal.x, portal.y, null, null, [0, 1, 0, 2], 40, 40, 3, true );
-			WorldUtils.addDecal(Library.IMG("hellther.portal.png"), portal.x, portal.y, function (d:Decal):*	{	d.rotation += 5; d.alpha = Math.abs(d.rotation) / 180;	} );
+			WorldUtils.addDecal(Library.getImage("hellther.portalFrame.png"), portal.x, portal.y);
+			WorldUtils.addDecal(Library.getImage("hellther.portalSparks.png"), portal.x, portal.y, null, null, [0, 1, 0, 2], 40, 40, 3, true );
+			WorldUtils.addDecal(Library.getImage("hellther.portal.png"), portal.x, portal.y, function (d:Decal):*	{	d.rotation += 5; d.alpha = Math.abs(d.rotation) / 180;	} );
 			
 			WorldUtils.addMan(950, 265, Game.playerClass);
 			
 			// Visible
-			WorldUtils.addWall(760, 266, false, Library.IMG("balcony.platform.png"), 79);
-			WorldUtils.addWall(795, 266, true, Library.IMG("misc.clipPlatform.png"), 5);
-			WorldUtils.addWall(724, 266, true, Library.IMG("misc.clipPlatform.png"), 5);
+			WorldUtils.addWall(760, 266, false, Library.getImage("balcony.platform.png"), 79);
+			WorldUtils.addWall(795, 266, true, Library.getImage("misc.clipPlatform.png"), 5);
+			WorldUtils.addWall(724, 266, true, Library.getImage("misc.clipPlatform.png"), 5);
 			
-			WorldUtils.addWall(846, 231, false, Library.IMG("balcony.platform.png"), 48);
-			WorldUtils.addWall(724, 205, false, Library.IMG("balcony.platform.png"), 88);
-			WorldUtils.addWall(852, 182, false, Library.IMG("balcony.platform.png"), 62);
-			WorldUtils.addWall(960, 159, false, Library.IMG("balcony.platform.png"), 80);
-			WorldUtils.addWall(835, 125, false, Library.IMG("balcony.platform.png"), 80);
+			WorldUtils.addWall(846, 231, false, Library.getImage("balcony.platform.png"), 48);
+			WorldUtils.addWall(724, 205, false, Library.getImage("balcony.platform.png"), 88);
+			WorldUtils.addWall(852, 182, false, Library.getImage("balcony.platform.png"), 62);
+			WorldUtils.addWall(960, 159, false, Library.getImage("balcony.platform.png"), 80);
+			WorldUtils.addWall(835, 125, false, Library.getImage("balcony.platform.png"), 80);
 			
 			// Floor
-			WorldUtils.addWall(626, 295, false, Library.IMG("misc.clipPlatform.png"), 748);
-			WorldUtils.addWall(630, 305, false, Library.IMG("misc.clipPlatform.png"), 748);
-			WorldUtils.addWall(635, 315, false, Library.IMG("misc.clipPlatform.png"), 748);
+			WorldUtils.addWall(626, 295, false, Library.getImage("misc.clipPlatform.png"), 748);
+			WorldUtils.addWall(630, 305, false, Library.getImage("misc.clipPlatform.png"), 748);
+			WorldUtils.addWall(635, 315, false, Library.getImage("misc.clipPlatform.png"), 748);
 			
 			WorldUtils.addTrigger(500, 375, WorldUtils.hurt, 1000, 50);
 			WorldUtils.addDecal(new Bitmap(new BitmapData(1000, 50, true, 0)), 500, 375,
@@ -1314,8 +1314,8 @@ package ifrit
 			audio.stopAll();
 			audio.playMusic("finale");
 			
-			WorldUtils.addDecal(Library.IMG("endingScreen.png"), 500, 250);
-			WorldUtils.addDecal(Library.IMG("creditRoll.png"), 500, 1900, creditRoll);
+			WorldUtils.addDecal(Library.getImage("endingScreen.png"), 500, 250);
+			WorldUtils.addDecal(Library.getImage("creditRoll.png"), 500, 1900, creditRoll);
 			Variables.add("reset", new Variable(0));
 			
 			WorldUtils.addDecal(new Bitmap(new BitmapData(1000, 500, false, 0x000000)), 500, 250,

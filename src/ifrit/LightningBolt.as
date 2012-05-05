@@ -35,24 +35,24 @@ package ifrit
 		public function LightningBolt(direction:Boolean, x:Number, y:Number) 
 		{
 			sound = new Audio;
-			sound.addSFX("wisp", Library.SND("audio.sfx.Wisp.mp3"));
-			sound.addSFX("bolt", Library.SND("audio.sfx.bolt.mp3"));
+			sound.addSFX("wisp", Library.getSound("audio.sfx.Wisp.mp3"));
+			sound.addSFX("bolt", Library.getSound("audio.sfx.bolt.mp3"));
 			sound.playSFX("wisp");
 			
 			addChild(wispC);
-			wisp = new Animation(Library.IMG("wisp.png"), 15, 15);
+			wisp = new Animation(Library.getImage("wisp.png"), 15, 15);
 			wispC.x = -20 / 2;
 			wispC.y = -20 / 2;
 			wispC.addChild(wisp);
 			
 			addChild(boltC);
-			bolt = new Animation(Library.IMG("lightningBolt.png"), 10, 75);
+			bolt = new Animation(Library.getImage("lightningBolt.png"), 10, 75);
 			boltC.x = -10 / 2;
 			boltC.y = -75 / 2;
 			boltHalfHeight = bolt.height / 2;
 			
 			addChild(vortexC);
-			vortex = new Animation(Library.IMG("vortex.png"), 20, 15);
+			vortex = new Animation(Library.getImage("vortex.png"), 20, 15);
 			vortexC.x = -20 / 2;
 			vortexC.y = -15 / 2;
 			

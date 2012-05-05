@@ -11,7 +11,7 @@ package ifrit
 		
 		public function Archer(x:Number, y:Number) 
 		{
-			super(x, y, Library.IMG("enemies.archer.png"), 60, 23, 13, 23, Enemy.NO_MELEE);
+			super(x, y, Library.getImage("enemies.archer.png"), 60, 23, 13, 23, Enemy.NO_MELEE);
 			this.rangedType = Arrow;
 			
 			this.graphic.add("stand", [1], 6, true);
@@ -21,7 +21,7 @@ package ifrit
 			this.graphic.add("shocked", [12, 13, 14, 15], 6, false);
 			this.graphic.play("walk");
 			
-			this.sound.addSFX("shoot", Library.SND("audio.sfx.bow.mp3"));
+			this.sound.addSFX("shoot", Library.getSound("audio.sfx.bow.mp3"));
 			
 			this.hitpoints = 20;
 			this.maxHealth = 20;

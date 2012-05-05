@@ -25,7 +25,7 @@ package ifrit
 		
 		public function Boss(x:int, y:int) 
 		{
-			super(x, y, Library.IMG("enemies.boss.png"), 150, 111, 60, 111, Enemy.BRAIN_DEAD);
+			super(x, y, Library.getImage("enemies.boss.png"), 150, 111, 60, 111, Enemy.BRAIN_DEAD);
 			
 			this.graphic.add("casting_no_scythe", [0, 1, 2, 3], 6, false);
 			this.graphic.add("casting_with_scythe", [5, 6, 7, 8], 6, false);
@@ -128,7 +128,7 @@ package ifrit
 			
 			for (var i:uint = 0; i < positions.length; i++)
 			{
-				WorldUtils.addDecal(Library.IMG("hellther.portal.png"), positions[i][0], positions[i][1], function (d:Decal):*
+				WorldUtils.addDecal(Library.getImage("hellther.portal.png"), positions[i][0], positions[i][1], function (d:Decal):*
 				{
 					d.rotation += 5;
 					d.alpha = Math.abs(d.rotation) / 180;
@@ -186,7 +186,7 @@ package ifrit
 			
 			for (var i:uint = 0; i < positions.length; i++)
 			{
-				WorldUtils.addDecal(Library.IMG("hellther.portal.png"), positions[i][0], positions[i][1], function (d:Decal):*
+				WorldUtils.addDecal(Library.getImage("hellther.portal.png"), positions[i][0], positions[i][1], function (d:Decal):*
 				{
 					d.rotation += 5;
 					d.alpha = Math.abs(d.rotation) / 180;
@@ -247,7 +247,7 @@ package ifrit
 			
 			for (var i:uint = 0; i < positions.length; i++)
 			{
-				WorldUtils.addDecal(Library.IMG("hellther.portal.png"), positions[i][0], positions[i][1], function (d:Decal):*
+				WorldUtils.addDecal(Library.getImage("hellther.portal.png"), positions[i][0], positions[i][1], function (d:Decal):*
 				{
 					d.rotation += 5;
 					d.alpha = Math.abs(d.rotation) / 180;
@@ -326,20 +326,20 @@ package ifrit
 			{
 				World.audio.stopMusic("boss");
 				
-				WorldUtils.addDecal(Library.IMG("enemies.bossDeath.s1.png"), 259, 239, function(d:Decal):* { d.y--; d.alpha -= 0.01; } );
-				WorldUtils.addDecal(Library.IMG("enemies.bossDeath.s2.png"), 266, 239, function(d:Decal):* { d.y++; d.alpha -= 0.01; } );
-				WorldUtils.addDecal(Library.IMG("enemies.bossDeath.s3.png"), 273, 239, function(d:Decal):* { d.y--; d.alpha -= 0.01; } );
-				WorldUtils.addDecal(Library.IMG("enemies.bossDeath.s4.png"), 280, 239, function(d:Decal):* { d.y++; d.alpha -= 0.01; } );
-				WorldUtils.addDecal(Library.IMG("enemies.bossDeath.s5.png"), 287, 239, function(d:Decal):* { d.y--; d.alpha -= 0.01; } );
-				WorldUtils.addDecal(Library.IMG("enemies.bossDeath.s6.png"), 294, 239, function(d:Decal):* { d.y++; d.alpha -= 0.01; } );
-				WorldUtils.addDecal(Library.IMG("enemies.bossDeath.s7.png"), 301, 239, function(d:Decal):* { d.y--; d.alpha -= 0.01; } );
-				WorldUtils.addDecal(Library.IMG("enemies.bossDeath.s8.png"), 308, 239, function(d:Decal):* { d.y++; d.alpha -= 0.01; } );
-				WorldUtils.addDecal(Library.IMG("enemies.bossDeath.s9.png"), 315, 239, function(d:Decal):* { d.y--; d.alpha -= 0.01; } );
-				WorldUtils.addDecal(Library.IMG("enemies.bossDeath.s10.png"), 322, 239, function(d:Decal):* { d.y++; d.alpha -= 0.01; } );
-				WorldUtils.addDecal(Library.IMG("enemies.bossDeath.s11.png"), 329, 239, function(d:Decal):* { d.y--; d.alpha -= 0.01; } );
-				WorldUtils.addDecal(Library.IMG("enemies.bossDeath.s12.png"), 336, 239, function(d:Decal):* { d.y++; d.alpha -= 0.01; } );
-				WorldUtils.addDecal(Library.IMG("enemies.bossDeath.s13.png"), 343, 239, function(d:Decal):* { d.y--; d.alpha -= 0.01; } );
-				WorldUtils.addDecal(Library.IMG("enemies.bossDeath.s14.png"), 350, 239, function(d:Decal):* { d.y++; d.alpha -= 0.01; } );
+				WorldUtils.addDecal(Library.getImage("enemies.bossDeath.s1.png"), 259, 239, function(d:Decal):* { d.y--; d.alpha -= 0.01; } );
+				WorldUtils.addDecal(Library.getImage("enemies.bossDeath.s2.png"), 266, 239, function(d:Decal):* { d.y++; d.alpha -= 0.01; } );
+				WorldUtils.addDecal(Library.getImage("enemies.bossDeath.s3.png"), 273, 239, function(d:Decal):* { d.y--; d.alpha -= 0.01; } );
+				WorldUtils.addDecal(Library.getImage("enemies.bossDeath.s4.png"), 280, 239, function(d:Decal):* { d.y++; d.alpha -= 0.01; } );
+				WorldUtils.addDecal(Library.getImage("enemies.bossDeath.s5.png"), 287, 239, function(d:Decal):* { d.y--; d.alpha -= 0.01; } );
+				WorldUtils.addDecal(Library.getImage("enemies.bossDeath.s6.png"), 294, 239, function(d:Decal):* { d.y++; d.alpha -= 0.01; } );
+				WorldUtils.addDecal(Library.getImage("enemies.bossDeath.s7.png"), 301, 239, function(d:Decal):* { d.y--; d.alpha -= 0.01; } );
+				WorldUtils.addDecal(Library.getImage("enemies.bossDeath.s8.png"), 308, 239, function(d:Decal):* { d.y++; d.alpha -= 0.01; } );
+				WorldUtils.addDecal(Library.getImage("enemies.bossDeath.s9.png"), 315, 239, function(d:Decal):* { d.y--; d.alpha -= 0.01; } );
+				WorldUtils.addDecal(Library.getImage("enemies.bossDeath.s10.png"), 322, 239, function(d:Decal):* { d.y++; d.alpha -= 0.01; } );
+				WorldUtils.addDecal(Library.getImage("enemies.bossDeath.s11.png"), 329, 239, function(d:Decal):* { d.y--; d.alpha -= 0.01; } );
+				WorldUtils.addDecal(Library.getImage("enemies.bossDeath.s12.png"), 336, 239, function(d:Decal):* { d.y++; d.alpha -= 0.01; } );
+				WorldUtils.addDecal(Library.getImage("enemies.bossDeath.s13.png"), 343, 239, function(d:Decal):* { d.y--; d.alpha -= 0.01; } );
+				WorldUtils.addDecal(Library.getImage("enemies.bossDeath.s14.png"), 350, 239, function(d:Decal):* { d.y++; d.alpha -= 0.01; } );
 				
 				this.visible = false;
 				
@@ -387,7 +387,7 @@ package ifrit
 			 * World's longest anonymous function
 			 * All the behaviour code for the scythe is in here
 			 */
-			WorldUtils.addDecal(Library.IMG("enemies.scythe.png"), Game.boss.x, Game.boss.y,
+			WorldUtils.addDecal(Library.getImage("enemies.scythe.png"), Game.boss.x, Game.boss.y,
 			function (d:Decal):*
 			{
 				d.rotation += scythePoint.x;

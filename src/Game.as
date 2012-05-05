@@ -18,6 +18,13 @@
 		public static var boss:Boss;
 		public static var playerClass:uint;
 		
+		public static const DEBUG_MODE:Boolean = true;
+		
+		public function Game()
+		{
+			super(Library.USE_EMBEDDED, EmbeddedAssets);
+		}
+		
 		override public function init():void 
 		{
 			super.init();
@@ -30,7 +37,7 @@
 			Input.init(stage);
 			
 			stage.scaleMode = "noScale";
-			//stage.quality = "low";
+			stage.quality = "low";
 			
 			World.init();
 			
@@ -45,60 +52,63 @@
 			* Debugging shortcuts
 			*/			
 			
-			// Next level
-			if (Input.isKeyDown(Input.DIGIT_1))
-				WorldUtils.next();
-				
-			// Change class to FIGHTER on next scene
-			if (Input.isKeyDown(Input.DIGIT_2) && man.type != Player.FIGHTER)
-				Game.playerClass = Player.FIGHTER
-				
-			// Change class to ROGUE on next scene
-			if (Input.isKeyDown(Input.DIGIT_3) && man.type != Player.ROGUE)
-				Game.playerClass = Player.ROGUE	
-					
-			// Change class to MAGE on next scene
-			if (Input.isKeyDown(Input.DIGIT_4) && man.type != Player.MAGE)
-				Game.playerClass = Player.MAGE
-				
-			// Force learn A skill
-			if (Input.isKeyDown(Input.DIGIT_5))
-				Game.man.knowsA = !Game.man.knowsA;	
-					
-			// Force learn S skill
-			if (Input.isKeyDown(Input.DIGIT_6))
-				Game.man.knowsS = !Game.man.knowsS;	
-					
-			// Force learn D skill
-			if (Input.isKeyDown(Input.DIGIT_7))
-				Game.man.knowsD = !Game.man.knowsD;
-			
-			// Teleport man
-			if (Input.isMouseDown && !Input.isKeyDown(Input.SHIFT) && Game.man)
+			if (DEBUG_MODE)
 			{
-				Game.man.x = Input.mouseX;
-				Game.man.y = Input.mouseY;
-			}
-			
-			// Kill enemy
-			if (Input.isMouseDown && Input.isKeyDown(Input.SHIFT) && Game.man)
-			{
-				WorldUtils.addDecal(Library.IMG("smoke.png"), Input.mouseX, Input.mouseY,
-				function removeSmoke(d:Decal):void 
+				// Next level
+				if (Input.isKeyDown(Input.DIGIT_1))
+					WorldUtils.next();
+					
+				// Change class to FIGHTER on next scene
+				if (Input.isKeyDown(Input.DIGIT_2) && man.type != Player.FIGHTER)
+					Game.playerClass = Player.FIGHTER
+					
+				// Change class to ROGUE on next scene
+				if (Input.isKeyDown(Input.DIGIT_3) && man.type != Player.ROGUE)
+					Game.playerClass = Player.ROGUE	
+						
+				// Change class to MAGE on next scene
+				if (Input.isKeyDown(Input.DIGIT_4) && man.type != Player.MAGE)
+					Game.playerClass = Player.MAGE
+					
+				// Force learn A skill
+				if (Input.isKeyDown(Input.DIGIT_5))
+					Game.man.knowsA = !Game.man.knowsA;	
+						
+				// Force learn S skill
+				if (Input.isKeyDown(Input.DIGIT_6))
+					Game.man.knowsS = !Game.man.knowsS;	
+						
+				// Force learn D skill
+				if (Input.isKeyDown(Input.DIGIT_7))
+					Game.man.knowsD = !Game.man.knowsD;
+				
+				// Teleport man
+				if (Input.isMouseDown && !Input.isKeyDown(Input.SHIFT) && Game.man)
 				{
-						if (d.animation.playing != "animation") Game.stage.removeChild(d);
-				}, null, [0, 1, 2, 3, 4, 5], 40, 40, 10, false);
+					Game.man.x = Input.mouseX;
+					Game.man.y = Input.mouseY;
+				}
 				
-				for (var tt:int = World.Mobs.length - 1; tt >= 0; tt--)
+				// Kill enemy
+				if (Input.isMouseDown && Input.isKeyDown(Input.SHIFT) && Game.man)
+				{
+					WorldUtils.addDecal(Library.getImage("smoke.png"), Input.mouseX, Input.mouseY,
+					function removeSmoke(d:Decal):void 
 					{
-						if (!World.Mobs[tt].friendly)
+							if (d.animation.playing != "animation") Game.stage.removeChild(d);
+					}, null, [0, 1, 2, 3, 4, 5], 40, 40, 10, false);
+					
+					for (var tt:int = World.Mobs.length - 1; tt >= 0; tt--)
 						{
-							if (World.Mobs[tt].hitTestPoint(mouseX, mouseY))
+							if (!World.Mobs[tt].friendly)
 							{
-								World.Mobs[tt].hitpoints = 0;
+								if (World.Mobs[tt].hitTestPoint(mouseX, mouseY))
+								{
+									World.Mobs[tt].hitpoints = 0;
+								}
 							}
 						}
-					}
+				}
 			}
 			
 			/**
@@ -349,9 +359,9 @@
 											if (World.Projectiles[k] is Web && World.Mobs[l].friendly && !World.Mobs[l].isFrozen)
 											{
 												if (playerClass == Player.FIGHTER)
-													WorldUtils.addDecal(Library.IMG("webTrapFighter.png"), man.x, man.y, man.webbed);
+													WorldUtils.addDecal(Library.getImage("webTrapFighter.png"), man.x, man.y, man.webbed);
 												else
-													WorldUtils.addDecal(Library.IMG("webTrap.png"), man.x, man.y, man.webbed);
+													WorldUtils.addDecal(Library.getImage("webTrap.png"), man.x, man.y, man.webbed);
 													
 												World.Mobs[l].freeze();
 											}

@@ -12,7 +12,7 @@ package ifrit
 		
 		public function Web(direction:int, x:Number, y:Number, friendly:Boolean = true)
 		{
-			super(Library.IMG("webShot.png"), 25, 10, direction, x, y, friendly, 40);
+			super(Library.getImage("webShot.png"), 25, 10, direction, x, y, friendly, 40);
 			this.animation.add("fly", [0, 1, 2, 3, 4, 5], 12, true);
 			this.animation.play("fly");
 			

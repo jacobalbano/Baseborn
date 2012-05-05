@@ -11,7 +11,7 @@ package ifrit
 		
 		public function SkeletonMage(x:Number, y:Number) 
 		{
-			super(x, y, Library.IMG("enemies.skeletonMage.png"), 30, 47, 13, 47, Enemy.NO_FEAR);
+			super(x, y, Library.getImage("enemies.skeletonMage.png"), 30, 47, 13, 47, Enemy.NO_FEAR);
 			this.rangedType = Fireball;
 			
 			this.graphic.add("stand", [0], 6, true);
@@ -21,8 +21,8 @@ package ifrit
 			this.graphic.add("shocked", [0, 1, 2, 3], 6, false);
 			this.graphic.play("walk");
 			
-			this.sound.addSFX("shoot", Library.SND("audio.sfx.fireball.mp3"));
-			this.sound.addSFX("die", Library.SND("audio.sfx.skeletonDie.mp3"));
+			this.sound.addSFX("shoot", Library.getSound("audio.sfx.fireball.mp3"));
+			this.sound.addSFX("die", Library.getSound("audio.sfx.skeletonDie.mp3"));
 			
 			this.hitpoints = 20;
 			this.maxHealth = 20;

@@ -10,7 +10,7 @@ package ifrit
 	{
 		public function Demon(x:Number, y:Number) 
 		{
-			super(x, y, Library.IMG("enemies.demon.png"), 16, 23, 14, 23, Enemy.NO_RANGED | Enemy.NO_FEAR);
+			super(x, y, Library.getImage("enemies.demon.png"), 16, 23, 14, 23, Enemy.NO_RANGED | Enemy.NO_FEAR);
 			
 			this.graphic.add("stand", [1], 6, true);
 			this.graphic.add("walk", [0, 1, 2, 3], 6, true);
@@ -19,8 +19,8 @@ package ifrit
 			this.graphic.add("shocked", [14, 15, 16, 17], 6, false);
 			this.graphic.play("walk");
 			
-			this.sound.addSFX("alerted", Library.SND("audio.sfx.demon.mp3"));
-			this.sound.addSFX("die", Library.SND("audio.sfx.demonDie.mp3"));
+			this.sound.addSFX("alerted", Library.getSound("audio.sfx.demon.mp3"));
+			this.sound.addSFX("die", Library.getSound("audio.sfx.demonDie.mp3"));
 			
 			this.hitpoints = 15;
 			this.maxHealth = 15;

@@ -35,7 +35,7 @@ package ifrit
 				animWidth = 65;
 			}
 			
-			super(x, y, Library.IMG(imageString), animWidth, animHeight, 18, 25, BRAIN_DEAD | NO_RANGED);
+			super(x, y, Library.getImage(imageString), animWidth, animHeight, 18, 25, BRAIN_DEAD | NO_RANGED);
 			
 			
 			this.graphic.add("stand", [1], 6, true);

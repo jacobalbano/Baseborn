@@ -19,7 +19,7 @@ package ifrit
 		
 		public static function drawArea():void
 		{
-			HUD.area = Library.IMG("HUD.bg.png");
+			HUD.area = Library.getImage("HUD.bg.png");
 			HUD.area.x = 0;
 			HUD.area.y = 400.
 			Game.stage.addChild(HUD.area);
@@ -170,7 +170,7 @@ package ifrit
 			
 			Game.stage.addChild(HUD.healthTxt);
 			
-			HUD.healthIcon = Library.IMG("icons.healthIcon.png");
+			HUD.healthIcon = Library.getImage("icons.healthIcon.png");
 			HUD.healthIcon.x = HUD.health.x - 22
 			HUD.healthIcon.y = HUD.health.y + 2;
 			Game.stage.addChild(HUD.healthIcon);
@@ -192,7 +192,7 @@ package ifrit
 		
 		public static function drawSkills():void
 		{
-			HUD.boxA = Library.IMG("HUD.emptyA.png");
+			HUD.boxA = Library.getImage("HUD.emptyA.png");
 			HUD.boxA.x = 430;
 			HUD.boxA.y = 432;
 			HUD.skillA.x = 430;
@@ -202,7 +202,7 @@ package ifrit
 			Game.stage.addChild(HUD.skillA);
 			Game.stage.addChild(HUD.boxA);
 			
-			HUD.boxS = Library.IMG("HUD.emptyS.png");
+			HUD.boxS = Library.getImage("HUD.emptyS.png");
 			HUD.boxS.x = 480;
 			HUD.boxS.y = 432;
 			HUD.skillS.x = 480;
@@ -212,7 +212,7 @@ package ifrit
 			Game.stage.addChild(HUD.skillS);
 			Game.stage.addChild(HUD.boxS);
 			
-			HUD.boxD = Library.IMG("HUD.emptyD.png");
+			HUD.boxD = Library.getImage("HUD.emptyD.png");
 			HUD.boxD.x = 530;
 			HUD.boxD.y = 432;
 			HUD.skillD.x = 530;
@@ -226,18 +226,18 @@ package ifrit
 		public static function drawMisc():void
 		{
 			// Inventory
-			HUD.inv = Library.IMG("HUD.keyDrop.png");
+			HUD.inv = Library.getImage("HUD.keyDrop.png");
 			HUD.inv.x = 484;
 			HUD.inv.y = 410;
 			Game.stage.addChild(HUD.inv);
 			
 			// Audio State
-			HUD.audUnmute = Library.IMG("HUD.unmuted.png");
+			HUD.audUnmute = Library.getImage("HUD.unmuted.png");
 			HUD.audUnmute.x = 635;
 			HUD.audUnmute.y = 445;
 			Game.stage.addChild(HUD.audUnmute);
 			
-			HUD.audMute = Library.IMG("HUD.muted.png");
+			HUD.audMute = Library.getImage("HUD.muted.png");
 			HUD.audMute.x = 635;
 			HUD.audMute.y = 445;
 			Game.stage.addChild(HUD.audMute);
@@ -379,12 +379,12 @@ package ifrit
 		{
 			if (Game.playerClass == Player.MAGE)
 			{
-				HUD.icon1 = Library.IMG("icons.manaIcon.png");
-				HUD.icon2 = Library.IMG("icons.energyIcon.png");
+				HUD.icon1 = Library.getImage("icons.manaIcon.png");
+				HUD.icon2 = Library.getImage("icons.energyIcon.png");
 				
-				HUD.skillA = Library.IMG("HUD.fire.png");
-				HUD.skillS = Library.IMG("HUD.bolt.png");
-				HUD.skillD = Library.IMG("HUD.ice.png");
+				HUD.skillA = Library.getImage("HUD.fire.png");
+				HUD.skillS = Library.getImage("HUD.bolt.png");
+				HUD.skillD = Library.getImage("HUD.ice.png");
 				
 				Game.stage.addChild(HUD.mana);
 				Game.stage.addChild(HUD.manaTxt);
@@ -395,12 +395,12 @@ package ifrit
 			
 			if (Game.playerClass == Player.ROGUE)
 			{
-				HUD.icon1 = Library.IMG("icons.shurikenIcon.png");
-				HUD.icon2 = Library.IMG("icons.caltropIcon.png");
+				HUD.icon1 = Library.getImage("icons.shurikenIcon.png");
+				HUD.icon2 = Library.getImage("icons.caltropIcon.png");
 				
-				HUD.skillA = Library.IMG("HUD.shuriken.png");
-				HUD.skillS = Library.IMG("HUD.caltrop.png");
-				HUD.skillD = Library.IMG("HUD.daggers.png");
+				HUD.skillA = Library.getImage("HUD.shuriken.png");
+				HUD.skillS = Library.getImage("HUD.caltrop.png");
+				HUD.skillD = Library.getImage("HUD.daggers.png");
 				
 				Game.stage.addChild(HUD.shuriken);
 				Game.stage.addChild(HUD.shurikenTxt);
@@ -410,12 +410,12 @@ package ifrit
 		
 			if (Game.playerClass == Player.FIGHTER)
 			{
-				HUD.icon1 = Library.IMG("icons.arrowIcon.png");
-				HUD.icon2 = Library.IMG("icons.shieldIcon.png");
+				HUD.icon1 = Library.getImage("icons.arrowIcon.png");
+				HUD.icon2 = Library.getImage("icons.shieldIcon.png");
 				
-				HUD.skillA = Library.IMG("HUD.bow.png");
-				HUD.skillS = Library.IMG("HUD.shield.png");
-				HUD.skillD = Library.IMG("HUD.sword.png");
+				HUD.skillA = Library.getImage("HUD.bow.png");
+				HUD.skillS = Library.getImage("HUD.shield.png");
+				HUD.skillD = Library.getImage("HUD.sword.png");
 				
 				Game.stage.addChild(HUD.arrows);
 				Game.stage.addChild(HUD.arrowTxt);

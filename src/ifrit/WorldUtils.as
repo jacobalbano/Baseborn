@@ -215,7 +215,7 @@ package ifrit
 		 */
 		public static function addLadder(x:Number, y:Number, height:int, imageName:String = "misc.ladder.png"):void
 		{
-			World.Ladders.push(Game.stage.addChild(new Ladder(x, y, height, Library.IMG(imageName).bitmapData)) as Ladder);
+			World.Ladders.push(Game.stage.addChild(new Ladder(x, y, height, Library.getImage(imageName).bitmapData)) as Ladder);
 		}
 		
 		/**
@@ -235,30 +235,30 @@ package ifrit
 		 */
 		public static function makeBounds():void
 		{
-			addWall(-5, 100, true, Library.IMG("misc.clipPlatform.png"));
-			addWall(-15, 100, true, Library.IMG("misc.clipPlatform.png"));
-			addWall(-5, 300, true, Library.IMG("misc.clipPlatform.png"));
-			addWall(-15, 300, true, Library.IMG("misc.clipPlatform.png"));
-			addWall( -5, 500, true, Library.IMG("misc.clipPlatform.png"));
-			addWall( -15, 500, true, Library.IMG("misc.clipPlatform.png"));
+			addWall(-5, 100, true, Library.getImage("misc.clipPlatform.png"));
+			addWall(-15, 100, true, Library.getImage("misc.clipPlatform.png"));
+			addWall(-5, 300, true, Library.getImage("misc.clipPlatform.png"));
+			addWall(-15, 300, true, Library.getImage("misc.clipPlatform.png"));
+			addWall( -5, 500, true, Library.getImage("misc.clipPlatform.png"));
+			addWall( -15, 500, true, Library.getImage("misc.clipPlatform.png"));
 			
-			addWall(100, 405, false, Library.IMG("misc.clipPlatform.png"));
-			addWall(100, 415, false, Library.IMG("misc.clipPlatform.png"));
-			addWall(300, 405, false, Library.IMG("misc.clipPlatform.png"));
-			addWall(300, 415, false, Library.IMG("misc.clipPlatform.png"));
-			addWall(500, 405, false, Library.IMG("misc.clipPlatform.png"));
-			addWall(500, 415, false, Library.IMG("misc.clipPlatform.png"));
-			addWall(700, 405, false, Library.IMG("misc.clipPlatform.png"));
-			addWall(700, 415, false, Library.IMG("misc.clipPlatform.png"));
-			addWall(900, 405, false, Library.IMG("misc.clipPlatform.png"));
-			addWall(900, 415, false, Library.IMG("misc.clipPlatform.png"));
+			addWall(100, 405, false, Library.getImage("misc.clipPlatform.png"));
+			addWall(100, 415, false, Library.getImage("misc.clipPlatform.png"));
+			addWall(300, 405, false, Library.getImage("misc.clipPlatform.png"));
+			addWall(300, 415, false, Library.getImage("misc.clipPlatform.png"));
+			addWall(500, 405, false, Library.getImage("misc.clipPlatform.png"));
+			addWall(500, 415, false, Library.getImage("misc.clipPlatform.png"));
+			addWall(700, 405, false, Library.getImage("misc.clipPlatform.png"));
+			addWall(700, 415, false, Library.getImage("misc.clipPlatform.png"));
+			addWall(900, 405, false, Library.getImage("misc.clipPlatform.png"));
+			addWall(900, 415, false, Library.getImage("misc.clipPlatform.png"));
 			
-			addWall(1005, 100, true, Library.IMG("misc.clipPlatform.png"), 300);
-			addWall(1015, 100, true, Library.IMG("misc.clipPlatform.png"), 300);
-			addWall(1005, 300, true, Library.IMG("misc.clipPlatform.png"));
-			addWall(1015, 300, true, Library.IMG("misc.clipPlatform.png"));
-			addWall( 1005, 500, true, Library.IMG("misc.clipPlatform.png"));
-			addWall( 1015, 500, true, Library.IMG("misc.clipPlatform.png"));
+			addWall(1005, 100, true, Library.getImage("misc.clipPlatform.png"), 300);
+			addWall(1015, 100, true, Library.getImage("misc.clipPlatform.png"), 300);
+			addWall(1005, 300, true, Library.getImage("misc.clipPlatform.png"));
+			addWall(1015, 300, true, Library.getImage("misc.clipPlatform.png"));
+			addWall( 1005, 500, true, Library.getImage("misc.clipPlatform.png"));
+			addWall( 1015, 500, true, Library.getImage("misc.clipPlatform.png"));
 		}
 		
 		static public function followMouse(d:Decal):void 

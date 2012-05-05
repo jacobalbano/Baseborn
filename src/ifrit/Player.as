@@ -64,7 +64,7 @@ package ifrit
 				case 8:		animationName = "unclassed.png";		frameWidth = 57;	frameHeight = 25;		break;
 			}
 			
-			super( x, y, Library.IMG(animationName), frameWidth, frameHeight, 18, 25);
+			super( x, y, Library.getImage(animationName), frameWidth, frameHeight, 18, 25);
 			
 			switch (type)
 			{
@@ -80,7 +80,7 @@ package ifrit
 					graphic.add("climbIdle", [9], 0, true);
 					graphic.add("death", [12, 13, 14, 15], 6, false, true);
 					
-					sound.addSFX("shoot", Library.SND("audio.sfx.fireball.mp3"));
+					sound.addSFX("shoot", Library.getSound("audio.sfx.fireball.mp3"));
 					
 					break;
 				case 2:
@@ -97,8 +97,8 @@ package ifrit
 					this.caltropTimer = new Timer(20, 0);
 					this.caltropTimer.start();
 					
-					this.sound.addSFX("shoot", Library.SND("audio.sfx.throw.mp3"));
-					this.sound.addSFX("stab", Library.SND("audio.sfx.daggerStab.mp3"));
+					this.sound.addSFX("shoot", Library.getSound("audio.sfx.throw.mp3"));
+					this.sound.addSFX("stab", Library.getSound("audio.sfx.daggerStab.mp3"));
 					
 					break;
 				case 4:
@@ -115,8 +115,8 @@ package ifrit
 					graphic.add("climbIdle", [21], 0, true);
 					graphic.add("death", [25, 26, 27, 28], 6, false, true);
 					
-					this.sound.addSFX("shoot", Library.SND("audio.sfx.bow.mp3"));
-					this.sound.addSFX("stab", Library.SND("audio.sfx.swordSlash.mp3"));
+					this.sound.addSFX("shoot", Library.getSound("audio.sfx.bow.mp3"));
+					this.sound.addSFX("stab", Library.getSound("audio.sfx.swordSlash.mp3"));
 					
 					break;
 				case 8:
@@ -222,7 +222,7 @@ package ifrit
 			if (this.isDestroyed)	return;
 			
 			var x:int = this.x <= Game.dimensions.x / 2 ? this.x - 50 : this.x + 50;
-			WorldUtils.addDecal(Library.IMG("misc.enter.png"), x, this.y, function (d:Decal):*	{	d.alpha += 0.01;	}, function (d:Decal):*	{	d.alpha = 0;	} );
+			WorldUtils.addDecal(Library.getImage("misc.enter.png"), x, this.y, function (d:Decal):*	{	d.alpha += 0.01;	}, function (d:Decal):*	{	d.alpha = 0;	} );
 			
 			this.canJump = false;
 			this.jumping = false;

@@ -11,7 +11,7 @@ package ifrit
 		
 		public function Serpent(x:Number, y:Number) 
 		{
-			super(x, y, Library.IMG("enemies.serpent.png"), 75, 34, 65, 20, NO_RANGED | NO_FEAR);
+			super(x, y, Library.getImage("enemies.serpent.png"), 75, 34, 65, 20, NO_RANGED | NO_FEAR);
 			
 			this.graphic.add("stand", [1], 6, true);
 			this.graphic.add("walk", [0, 1, 2, 3, 4, 5], 6, true);
@@ -20,7 +20,7 @@ package ifrit
 			this.graphic.add("shocked", [18, 19, 20, 21], 6, false);
 			this.graphic.play("walk");
 			
-			this.sound.addSFX("stab", Library.SND("audio.sfx.serpentHiss.mp3"));
+			this.sound.addSFX("stab", Library.getSound("audio.sfx.serpentHiss.mp3"));
 			
 			this.hitpoints = 25;
 			this.maxHealth = 25;

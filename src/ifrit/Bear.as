@@ -11,7 +11,7 @@ package ifrit
 		
 		public function Bear(x:Number, y:Number) 
 		{
-			super(x, y, Library.IMG("enemies.bear.png"), 61, 36, 57, 36, Enemy.NO_FEAR | Enemy.NO_RANGED);
+			super(x, y, Library.getImage("enemies.bear.png"), 61, 36, 57, 36, Enemy.NO_FEAR | Enemy.NO_RANGED);
 			
 			this.graphic.add("stand", [1], 6, true);
 			this.graphic.add("walk", [0, 1, 2, 3], 3, true);
@@ -20,7 +20,7 @@ package ifrit
 			this.graphic.add("shocked", [12, 13, 14, 15], 6, false);
 			this.graphic.play("walk");
 			
-			this.sound.addSFX("stab", Library.SND("audio.sfx.bearAttack.mp3"));
+			this.sound.addSFX("stab", Library.getSound("audio.sfx.bearAttack.mp3"));
 			
 			this.hitpoints = 25;
 			this.maxHealth = 25;

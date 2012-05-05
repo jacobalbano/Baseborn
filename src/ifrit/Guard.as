@@ -11,7 +11,7 @@ package ifrit
 		
 		public function Guard(x:Number, y:Number) 
 		{
-			super(x, y, Library.IMG("enemies.guard.png"), 60, 23, 13, 23, NO_RANGED);
+			super(x, y, Library.getImage("enemies.guard.png"), 60, 23, 13, 23, NO_RANGED);
 			
 			this.graphic.add("stand", [1], 6, true);
 			this.graphic.add("walk", [0, 1, 2, 3], 6, true);
@@ -20,7 +20,7 @@ package ifrit
 			this.graphic.add("shocked", [12, 13, 14, 15], 6, false);
 			this.graphic.play("walk");
 			
-			this.sound.addSFX("stab", Library.SND("audio.sfx.swordSlash.mp3"));
+			this.sound.addSFX("stab", Library.getSound("audio.sfx.swordSlash.mp3"));
 			
 			this.hitpoints = 25;
 			this.maxHealth = 25;

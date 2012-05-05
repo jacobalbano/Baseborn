@@ -21,12 +21,12 @@ package ifrit
 		public function FrostBolt(direction:Boolean, x:Number, y:Number) 
 		{
 			sound = new Audio;
-			sound.addSFX("frost", Library.SND("audio.sfx.frostAttack.mp3"));
+			sound.addSFX("frost", Library.getSound("audio.sfx.frostAttack.mp3"));
 			sound.playSFX("frost");
 			
 			container = new Sprite();
 			addChild(container);
-			freeze = new Animation(Library.IMG("iceBlast.png"), 22, 23);
+			freeze = new Animation(Library.getImage("iceBlast.png"), 22, 23);
 			container.x = -22 / 2;
 			container.y = -23 / 2;
 			container.addChild(freeze);

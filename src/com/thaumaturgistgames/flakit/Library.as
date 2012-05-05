@@ -1,7 +1,6 @@
 ﻿package com.thaumaturgistgames.flakit
 {
 	import flash.display.Bitmap;
-	import flash.display.BitmapData;
 	import flash.display.Stage;
 	import flash.events.Event;
 	import flash.media.Sound;
@@ -22,6 +21,11 @@
 		private static var stage:Stage;
 		private static var loader:XMLLoader;
 		
+		public static const USE_IMAGES:int = 2;
+		public static const USE_AUDIO:int = 4;
+		public static const USE_EMBEDDED:uint = 8;
+		public static const USE_ALL:uint = USE_AUDIO | USE_IMAGES;
+		
 		public function Library() 
 		{
 			//	Pure static classes cannot be created as objects
@@ -39,6 +43,12 @@
 			
 			imageResources = new Vector.<imageResource>;
 			soundResources = new Vector.<soundResource>;
+			
+			if (flags & Library.USE_EMBEDDED)
+			{
+				isInitialized = true;
+				return;
+			}
 			
 			totalImages = 0;
 			loadedImages = 0;
@@ -86,7 +96,7 @@
 		 * @param	name	The filename of the image to load
 		 * @return			A bitmap object loaded at runtime
 		 */
-		public static function IMG(name:String):Bitmap
+		public static function getImage(name:String):Bitmap
 		{
 			checkInit();
 			
@@ -98,7 +108,7 @@
 			throw new Error("The image \"" + name + "\" does not exist in the library.");
 		}
 		
-		public static function SND(name:String):Sound
+		public static function getSound(name:String):Sound
 		{
 			checkInit();
 			
@@ -107,7 +117,7 @@
 				if (item.name == name) return item.sound;
 			}
 			
-			throw new Error("The image \"" + name + "\" does not exist in the library.");
+			throw new Error("The sound \"" + name + "\" does not exist in the library.");
 		}
 		
 		/**
@@ -127,12 +137,9 @@
 		{
 			checkInit();
 			
-			var result:Number = (loadedImages + loadedSounds) / (totalImages + totalSounds) * 100;
+			var result:Number = loadedImages + loadedSounds / totalImages + totalSounds * 100;
 			return isNaN(result) ? 0 : result;
 		}
-		
-		public static const IMAGE:int = 2;
-		public static const AUDIO:int = 4;
 		
 		//	Listeners
 		static private function imagesLoaded(e:Event):void 
@@ -146,7 +153,7 @@
 			{
 				stage.removeEventListener(Event.ENTER_FRAME, xmlLoaded);
 				
-				if ((loadFlags & IMAGE) > 0)
+				if ((loadFlags & USE_IMAGES) > 0)
 				{
 					for each (var imagename:XML in loader.XMLData.images.image) 
 					{
@@ -155,7 +162,7 @@
 					}
 				}
 				
-				if ((loadFlags & AUDIO) > 0)
+				if ((loadFlags & USE_AUDIO) > 0)
 				{
 					for each (var soundname:XML in loader.XMLData.sounds.sound) 
 					{

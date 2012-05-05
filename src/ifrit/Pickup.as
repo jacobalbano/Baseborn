@@ -36,11 +36,11 @@ package ifrit
 			this.container = new Sprite;
 			addChild(this.container);
 			
-			if 		(type == 0) this.animation = new Animation(Library.IMG("misc.healthDrop.png"), 15, 15);
-			else if (type == 2)	this.animation = new Animation(Library.IMG("misc.manaDrop.png"), 15, 15);
-			else if (type == 4) this.animation = new Animation(Library.IMG("misc.keyDrop.png"), 9, 21);
-			else if (type == 8) this.animation = new Animation(Library.IMG("misc.arrowDrop.png"), 22, 9);
-			else if (type == 16) this.animation = new Animation(Library.IMG("misc.shurikenDrop.png"), 10, 13);
+			if 		(type == 0) this.animation = new Animation(Library.getImage("misc.healthDrop.png"), 15, 15);
+			else if (type == 2)	this.animation = new Animation(Library.getImage("misc.manaDrop.png"), 15, 15);
+			else if (type == 4) this.animation = new Animation(Library.getImage("misc.keyDrop.png"), 9, 21);
+			else if (type == 8) this.animation = new Animation(Library.getImage("misc.arrowDrop.png"), 22, 9);
+			else if (type == 16) this.animation = new Animation(Library.getImage("misc.shurikenDrop.png"), 10, 13);
 			
 			container.x = -15 /2;
 			container.y = -15 /2;

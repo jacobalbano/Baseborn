@@ -1,4 +1,4 @@
-package ifrit 
+package ifrit
 {
 	import flash.display.Bitmap;
 	import flash.display.BitmapData;
@@ -10,24 +10,24 @@ package ifrit
 	/**
 	 * @author Jake Albano
 	 */
-	public class Enemy extends Mob 
+	public class Enemy extends Mob
 	{
-		public static const NO_FEAR:uint 		= 1 << 0;
-		public static const NO_MELEE:uint 		= 1 << 1;
-		public static const NO_RANGED:uint 		= 1 << 2;
-		public static const STAND_GROUND:uint 	= 1 << 3;
-		public static const PASSIVE:uint 		= 1 << 4;
-		public static const AFRAID:uint 		= 1 << 5;
-		public static const BRAIN_DEAD:uint 	= 1 << 6;
+		public static const NO_FEAR:uint = 1 << 0;
+		public static const NO_MELEE:uint = 1 << 1;
+		public static const NO_RANGED:uint = 1 << 2;
+		public static const STAND_GROUND:uint = 1 << 3;
+		public static const PASSIVE:uint = 1 << 4;
+		public static const AFRAID:uint = 1 << 5;
+		public static const BRAIN_DEAD:uint = 1 << 6;
 		
 		public var brainDead:Boolean;
 		public var heading:Boolean;
 		public var lastHeading:Boolean;
 		public var fleeMode:Boolean;
-		public var ignore:Boolean;
+		public var holdingGround:Boolean;
 		
 		protected var behaviorFlags:uint;
-		protected var tipsOverWhenDead:Boolean;	//	Ultra stupid variable name
+		protected var tipsOverWhenDead:Boolean; //	Ultra stupid variable name
 		protected var lastPosition:Point;
 		protected var speed:Number;
 		protected var confusionTimer:Timer;
@@ -39,19 +39,20 @@ package ifrit
 		
 		private var homeRectDebug:Sprite;
 		
-		public function Enemy(x:Number, y:Number, bitmap:Bitmap, frameWidth:int, frameHeight:int, collisionWidth:int, collisionHeight:int, behaviorFlags:uint = 0) 
-		{			
+		public function Enemy(x:Number, y:Number, bitmap:Bitmap, frameWidth:int, frameHeight:int, collisionWidth:int, collisionHeight:int, behaviorFlags:uint = 0)
+		{
 			super(x, y, bitmap, frameWidth, frameHeight, collisionWidth, collisionHeight);
 			
 			this.lastPosition = new Point(x, y);
 			
 			this.behaviorFlags = behaviorFlags;
 			
-			if ( (this.behaviorFlags & BRAIN_DEAD) > 0)	this.brainDead = true;
+			if ((this.behaviorFlags & BRAIN_DEAD) > 0)
+				this.brainDead = true;
 			
 			this.heading = true;
 			this.fleeMode = false;
-			this.ignore = true;
+			this.holdingGround = true;
 			this.heading = Boolean(Math.round(Math.random()));
 			this.speed = Math.random();
 			this.confusionTimer = new Timer(1000, 0);
@@ -62,8 +63,8 @@ package ifrit
 			Game.stage.addChild(this.homeRectDebug = new Sprite);
 		}
 		
-		override public function preThink():void 
-		{			
+		override public function preThink():void
+		{
 			super.preThink();
 			
 			if (freezeTimer)
@@ -83,17 +84,19 @@ package ifrit
 			}
 		}
 		
-		override public function think():void 
+		override public function think():void
 		{
 			super.think();
 			
 			this.checkPickup();
 			
-			if (this.brainDead)	return;
+			if (this.brainDead)
+				return;
 			
 			this.testHealth();
 			
-			if (isDestroyed) 	return;
+			if (isDestroyed)
+				return;
 			
 			this.updateView();
 			
@@ -108,15 +111,16 @@ package ifrit
 			this.move();
 		}
 		
-		override public function destroy():void 
+		override public function destroy():void
 		{
-			if (this.isDestroyed) return;
+			if (this.isDestroyed)
+				return;
 			super.destroy();
 			
 			this.sound.playSFX("die");
 			this.graphic.play("die");
 			
-			if ( ! (this.behaviorFlags & PASSIVE) > 0)
+			if (!(this.behaviorFlags & PASSIVE) > 0)
 			{
 				var enemiesKilled:int = 0;
 				
@@ -140,29 +144,46 @@ package ifrit
 					{
 						if (HUD.ammoCount <= 0.5)
 						{
-							switch (Game.man.type) 
+							switch (Game.man.type)
 							{
-								case Player.MAGE:		addChild(this.pickup = new Pickup(this.x, this.y, new Boolean(Math.round(Math.random())) ? Pickup.HEALTH : Pickup.MANA));				break;
-								case Player.FIGHTER:	addChild(this.pickup = new Pickup(this.x, this.y, new Boolean(Math.round(Math.random() - 0.40)) ? Pickup.HEALTH : Pickup.ARROW));		break;
-								case Player.ROGUE:		addChild(this.pickup = new Pickup(this.x, this.y, new Boolean(Math.round(Math.random() - 0.40)) ? Pickup.HEALTH : Pickup.SHURIKEN));	break;
-								default:				throw new Error("How did you manage to kill an enemy without having a class?");															break;
+								case Player.MAGE: 
+									addChild(this.pickup = new Pickup(this.x, this.y, new Boolean(Math.round(Math.random())) ? Pickup.HEALTH : Pickup.MANA));
+									break;
+								case Player.FIGHTER: 
+									addChild(this.pickup = new Pickup(this.x, this.y, new Boolean(Math.round(Math.random() - 0.40)) ? Pickup.HEALTH : Pickup.ARROW));
+									break;
+								case Player.ROGUE: 
+									addChild(this.pickup = new Pickup(this.x, this.y, new Boolean(Math.round(Math.random() - 0.40)) ? Pickup.HEALTH : Pickup.SHURIKEN));
+									break;
+								default: 
+									throw new Error("How did you manage to kill an enemy without having a class?");
+									break;
 							}
 						}
 						else
 						{
-							switch (Game.man.type) 
+							switch (Game.man.type)
 							{
-								case Player.MAGE:		addChild(this.pickup = new Pickup(this.x, this.y, new Boolean(Math.round(Math.random())) ? Pickup.HEALTH : Pickup.MANA));		break;
-								case Player.FIGHTER:	addChild(this.pickup = new Pickup(this.x, this.y, Pickup.HEALTH));																break;
-								case Player.ROGUE:		addChild(this.pickup = new Pickup(this.x, this.y, Pickup.HEALTH));																break;
-								default:				throw new Error("How did you manage to kill an enemy without having a class?");													break;
+								case Player.MAGE: 
+									addChild(this.pickup = new Pickup(this.x, this.y, new Boolean(Math.round(Math.random())) ? Pickup.HEALTH : Pickup.MANA));
+									break;
+								case Player.FIGHTER: 
+									addChild(this.pickup = new Pickup(this.x, this.y, Pickup.HEALTH));
+									break;
+								case Player.ROGUE: 
+									addChild(this.pickup = new Pickup(this.x, this.y, Pickup.HEALTH));
+									break;
+								default: 
+									throw new Error("How did you manage to kill an enemy without having a class?");
+									break;
 							}
 						}
 					}
 				}
 			}
 			
-			if (this.tipsOverWhenDead)	this.collisionHull.x += this.collisionHull.width * 1.5;
+			if (this.tipsOverWhenDead)
+				this.collisionHull.x += this.collisionHull.width * 1.5;
 		}
 		
 		/**
@@ -170,9 +191,11 @@ package ifrit
 		 */
 		private function checkPickup():void
 		{
-			if (!this.pickup)	return;
+			if (!this.pickup)
+				return;
 			
-			if (this.pickup.alpha < 1)	this.pickup.alpha -= 0.1;
+			if (this.pickup.alpha < 1)
+				this.pickup.alpha -= 0.1;
 			
 			if (this.pickup.alpha <= 0)
 			{
@@ -181,14 +204,21 @@ package ifrit
 			}
 			else if (!Game.man.isDestroyed && this.pickup.hitTestObject(Game.man.collisionHull))
 			{
-				if 		(this.pickup.type == Pickup.HEALTH) 	HUD.healPlayer(10.001, true);
-				else if (this.pickup.type == Pickup.MANA)		HUD.restoreMana(25);
-				else if (this.pickup.type == Pickup.KEY)		Game.man.hasKey = true;
-				else if (this.pickup.type == Pickup.ARROW)		HUD.restoreAmmo(5);
-				else if (this.pickup.type == Pickup.SHURIKEN)	HUD.restoreAmmo(5);
+				if (this.pickup.type == Pickup.HEALTH)
+					HUD.healPlayer(10.001, true);
+				else if (this.pickup.type == Pickup.MANA)
+					HUD.restoreMana(25);
+				else if (this.pickup.type == Pickup.KEY)
+					Game.man.hasKey = true;
+				else if (this.pickup.type == Pickup.ARROW)
+					HUD.restoreAmmo(5);
+				else if (this.pickup.type == Pickup.SHURIKEN)
+					HUD.restoreAmmo(5);
 				
-				if (this.pickup.type == Pickup.KEY)	World.audio.playSFX("keys");
-				else	World.audio.playSFX("pickup");
+				if (this.pickup.type == Pickup.KEY)
+					World.audio.playSFX("keys");
+				else
+					World.audio.playSFX("pickup");
 				
 				this.pickup.parent.removeChild(this.pickup);
 				this.pickup = null;
@@ -197,8 +227,7 @@ package ifrit
 			{
 				this.pickup.alpha = 0.9;
 			}
-			
-			
+		
 		}
 		
 		/**
@@ -207,8 +236,10 @@ package ifrit
 		 */
 		private function testHealth():void
 		{
-			if (this.hitpoints <= 0 && !isDestroyed)	this.destroy();
-			else if (this.hitpoints <= this.maxHealth)	this.hitpoints += 0.05
+			if (this.hitpoints <= 0 && !isDestroyed)
+				this.destroy();
+			else if (this.hitpoints <= this.maxHealth)
+				this.hitpoints += 0.05
 		}
 		
 		/**
@@ -252,47 +283,61 @@ package ifrit
 			
 			if (!(this.behaviorFlags & STAND_GROUND) > 0 || this.fleeMode)
 			{
-				if (heading)	{	if (this.x <= this.lastPosition.x) heading = !heading;	}
-				else			{ 	if (this.x >= this.lastPosition.x) heading = !heading;	}
-			}
-			
-			if (!this.homeRect.contains(Game.man.x, Game.man.y))	this.ignore = false;
-			
-			if (!castDown())
-			{				
-				if (!fleeMode)
+				if (!holdingGround)
 				{
-					heading = !heading;
-					
-					if (!ignore)
+					if (heading)
 					{
-						if (this.homeRect.contains(Game.man.x, Game.man.y))	ignore = true;
+						if (this.x <= this.lastPosition.x)
+						{
+							heading = !heading;
+						}
+					}
+					else
+					{
+						if (this.x >= this.lastPosition.x)
+						{
+							heading = !heading;
+						}
 					}
 				}
 			}
-			else
+			
+			if (this.homeRect.contains(Game.man.x, Game.man.y))
 			{
-				if (!ignore)
+				if (!Game.man.isDestroyed)
 				{
-					if (this.homeRect.contains(Game.man.x, Game.man.y) && !Game.man.isDestroyed && Game.man.y <= this.y + this.height / 2)
+					if (Game.man.y <= this.y + this.height / 2)
 					{
 						if (!fleeMode)
 						{
 							if (!wallIsOccluding())
 							{
-								if (this.x < Game.man.x)	this.heading = true;
-								else						this.heading = false;
+								this.heading = this.x < Game.man.x;
 							}
 						}
 					}
-					else if (!findEdge())
+				}
+			}
+			
+			if (!fleeMode)
+			{
+				if (findEdge())
+				{
+					holdingGround = false;
+				}
+				else
+				{
+					if (this.homeRect.contains(Game.man.x, Game.man.y))
 					{
-						if (!fleeMode)
+						holdingGround = true;
+						this.heading = this.x < Game.man.x;
+					}
+					else
+					{
+						if (castDown(1))
 						{
-							heading = !heading;
+							this.heading = !this.heading;
 						}
-						
-						if (this.homeRect.contains(Game.man.x, Game.man.y))	ignore = true;
 					}
 				}
 			}
@@ -303,12 +348,13 @@ package ifrit
 		 * Attepmt to attack player if on the same platform
 		 */
 		private function beginOffense():void
-		{
+		{			
 			if (!fleeMode)
 			{
 				if (this.homeRect.contains(Game.man.x, Game.man.y) && !Game.man.isDestroyed && Game.man.y <= this.y + this.height / 2)
 				{
-					if (wallIsOccluding())	return;
+					if (wallIsOccluding())
+						return;
 					
 					if (!this.alertedThisFrame)
 					{
@@ -316,18 +362,27 @@ package ifrit
 						this.alertedThisFrame = true;
 					}
 					
-					if ( ! (this.behaviorFlags & PASSIVE) > 0)
+					if (!(this.behaviorFlags & PASSIVE) > 0)
 					{
-						if (heading)	{	if (Game.man.x > this.x && this.rotationY == 0) this.attack();	}
-						else			{	if (Game.man.x < this.x && this.rotationY == 180) this.attack();	}
+						if (heading)
+						{
+							if (Game.man.x > this.x && this.rotationY == 0)
+								this.attack();
+						}
+						else
+						{
+							if (Game.man.x < this.x && this.rotationY == 180)
+								this.attack();
+						}
 					}
 					
-					if ( (this.behaviorFlags & AFRAID) > 0)
+					if ((this.behaviorFlags & AFRAID) > 0)
 					{
 						if (Point.distance(new Point(Game.man.x, Game.man.y), new Point(this.x, this.y)) < this.homeRect.width / 4)
 						{
 							fleeMode = true;
-							if (this.x <= Game.man.x) heading = false;	else heading = true;
+							
+							this.heading = this.x > Game.man.x;
 							
 							this.fleeCooldown.stop();
 							this.fleeCooldown.reset();
@@ -344,17 +399,20 @@ package ifrit
 		 */
 		private function beginFlee():void
 		{
-			if ( ! (behaviorFlags & NO_FEAR) > 0)
+			if (!(behaviorFlags & NO_FEAR) > 0)
 			{
-				if ( this.hitpoints <= this.maxHealth / 2 && !fleeMode)
+				if (this.hitpoints <= this.maxHealth / 3 && !fleeMode)
 				{
 					fleeMode = true;
 					
 					fleeMode = true;
-
+					
 					if (this.homeRect.contains(Game.man.x, Game.man.y))
 					{
-						if (this.x <= Game.man.x) heading = false;	else heading = true;
+						if (this.x <= Game.man.x)
+							heading = false;
+						else
+							heading = true;
 					}
 					else
 					{
@@ -377,7 +435,10 @@ package ifrit
 				this.fleeMode = false;
 				this.fleeCooldown.stop();
 				this.fleeCooldown.reset();
-				if (!(this.behaviorFlags & AFRAID) > 0 && !this.isFrozen) this.hitpoints = this.maxHealth;
+				if (!(this.behaviorFlags & AFRAID) > 0 && !this.isFrozen)
+				{
+					this.hitpoints = this.maxHealth / 2;
+				}
 			}
 		}
 		
@@ -387,7 +448,18 @@ package ifrit
 		 */
 		private function move():void
 		{
-			if (this.graphic.playing != "shocked" && this.graphic.playing != "die" && this.graphic.playing != "attack")	this.graphic.play("walk");
+			if (this.graphic.playing != "shocked" && this.graphic.playing != "die" && this.graphic.playing != "attack")
+			{
+				this.graphic.play("walk");
+			}
+			
+			if (holdingGround)
+			{
+				this.graphic.play("stand");
+			}
+			
+			
+			
 			
 			this.lastPosition.x = this.x;
 			this.lastPosition.y = this.y;
@@ -399,39 +471,48 @@ package ifrit
 				
 				if (heading)
 				{
-					if (Game.man.x > this.x && !Game.man.isDestroyed && this.homeRect.contains(Game.man.x, Game.man.y) && (this.behaviorFlags & NO_RANGED) <= 0) this.shoot();
+					if (Game.man.x > this.x && !Game.man.isDestroyed && this.homeRect.contains(Game.man.x, Game.man.y) && (this.behaviorFlags & NO_RANGED) <= 0)
+						this.shoot();
 					this.x += 5;
 				}
 				else
 				{
-					if (Game.man.x < this.x && !Game.man.isDestroyed && this.homeRect.contains(Game.man.x, Game.man.y) && (this.behaviorFlags & NO_RANGED) <= 0) this.shoot();
+					if (Game.man.x < this.x && !Game.man.isDestroyed && this.homeRect.contains(Game.man.x, Game.man.y) && (this.behaviorFlags & NO_RANGED) <= 0)
+						this.shoot();
 					x -= 5;
 				}
 				
 			}
 			else
 			{
-				if (!(this.behaviorFlags & STAND_GROUND) > 0)
+				if (!(this.behaviorFlags & STAND_GROUND) > 0 && !this.holdingGround)
 				{
-					if (heading) this.x += 1 + this.speed;  else x -= 1 + speed;
+					if (heading)
+					{
+						this.x += (1 + this.speed);
+					}
+					else
+					{
+						x -= (1 + this.speed);
+					}
 				}
 			}
 		}
 		
 		private function attack():void
 		{
-			if ( !Game.man.isDestroyed)
+			if (!Game.man.isDestroyed)
 			{
-				if (Point.distance(new Point(this.x, this.y), new Point(Game.man.x, Game.man.y)) > this.width )
+				if (Point.distance(new Point(this.x, this.y), new Point(Game.man.x, Game.man.y)) > this.collisionHull.width)
 				{
-					if (! (behaviorFlags & NO_RANGED) > 0 )	
+					if (!(behaviorFlags & NO_RANGED) > 0)
 					{
 						shoot();
 					}
 				}
 				else
 				{
-					if (! (behaviorFlags & NO_MELEE) > 0 )
+					if (!(behaviorFlags & NO_MELEE) > 0)
 					{
 						this.graphic.play("attack");
 						stab();
@@ -440,33 +521,47 @@ package ifrit
 			}
 		}
 		
-		private function castDown():Boolean
+		private function castDown(steps:int = 10):Boolean
 		{
-			for (var step:uint = 0; step < 10; step++)
+			var offset:int = 0;
+			
+			for (var step:uint = 0; step < steps; step++)
 			{
 				
-				//WorldUtils.addDecal(new Bitmap(new BitmapData(2, 2)), heading ? x + 5 : x - 5, y + step * 10,
-					//function (d:Decal):*
+				//WorldUtils.addDecal(new Bitmap(new BitmapData(2, 2)), x + (heading ? offset : -offset), y + 5 + (collisionHull.height / 2) + step * 10, function(d:Decal):*
 					//{
-						//	Function won't run until next frame
-						//	So removing it immediately is fine
+						//Function won't run until next frame
+						//So removing it immediately is fine
 						//Game.stage.removeChild(d);
 					//});
 				
 				for (var i:uint = 0; i < World.Platforms.length; i++)
-				{							
-					if (World.Platforms[i].hitTestPoint(heading ? x + 5 : x - 5, y + step * 10))	return true;
+				{
+					if (World.Platforms[i].hitTestPoint(x + (heading ? offset : -offset), y + 5 + (collisionHull.height / 2) + step * 10))
+					{
+						return true;
+					}
 				}
 			}
-				
+			
 			return false;
 		}
 		
 		private function findEdge():Boolean
 		{
+			var check:Number = 5;
+			
+			//WorldUtils.addDecal(new Bitmap(new BitmapData(2, 2, false, 0xff0000)), heading ? x + check : x - check, y + collisionHull.height / 2 + 10, function(d:Decal):*
+				//{
+					//Function won't run until next frame
+					//So removing it immediately is fine
+					//Game.stage.removeChild(d);
+				//});
+			
 			for (var i:uint = 0; i < World.Platforms.length; i++)
-			{							
-				if (World.Platforms[i].hitTestPoint(heading ? x + 5 : x - 5, y + height / 2 + 5))	return true;
+			{
+				if (World.Platforms[i].hitTestPoint(heading ? x + check : x - check, y + collisionHull.height / 2 + 10))
+					return true;
 			}
 			
 			return false;
@@ -482,24 +577,25 @@ package ifrit
 			var test:Point = new Point(x, Game.man.y);
 			var count:uint = 0;
 			
-			while (Point.distance(goal, test) >= 10 )
+			while (Point.distance(goal, test) >= 10)
 			{
-				if (count++ > 200) throw new Error("Loop count exceeded maximum");
+				if (count++ > 200)
+					throw new Error("Loop count exceeded maximum");
 				
-				test.x +=  Game.man.x > this.x ? 5 : -5;
+				test.x += Game.man.x > this.x ? 5 : -5;
 				
-				for each (var item:Platform in World.Platforms) 
+				for each (var item:Platform in World.Platforms)
 				{
 					if (item.vertical && item.hitTestPoint(test.x, test.y))
 					{
 						return true;
 					}
-				 }
+				}
 			}
 			
 			return false;
 		}
-		
+	
 	}
 
 }

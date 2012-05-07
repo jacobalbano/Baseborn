@@ -22,7 +22,7 @@
 		
 		public function Game()
 		{
-			super(Library.USE_EMBEDDED, EmbeddedAssets);
+			super(Library.USE_ALL);//, EmbeddedAssets);
 		}
 		
 		override public function init():void 
@@ -87,6 +87,9 @@
 				{
 					Game.man.x = Input.mouseX;
 					Game.man.y = Input.mouseY;
+					
+					//World.Mobs[0].x = Input.mouseX;
+					//World.Mobs[0].y = Input.mouseY;
 				}
 				
 				// Kill enemy
@@ -95,19 +98,23 @@
 					WorldUtils.addDecal(Library.getImage("smoke.png"), Input.mouseX, Input.mouseY,
 					function removeSmoke(d:Decal):void 
 					{
-							if (d.animation.playing != "animation") Game.stage.removeChild(d);
+							if (d.animation.playing != "animation")
+							{
+								Game.stage.removeChild(d);
+							}
+							
 					}, null, [0, 1, 2, 3, 4, 5], 40, 40, 10, false);
 					
-					for (var tt:int = World.Mobs.length - 1; tt >= 0; tt--)
+					for (var tt:int = World.Mobs.length; tt --> 0;)
+					{
+						if (!World.Mobs[tt].friendly)
 						{
-							if (!World.Mobs[tt].friendly)
+							if (World.Mobs[tt].hitTestPoint(mouseX, mouseY))
 							{
-								if (World.Mobs[tt].hitTestPoint(mouseX, mouseY))
-								{
-									World.Mobs[tt].hitpoints = 0;
-								}
+								World.Mobs[tt].hitpoints = 0;
 							}
 						}
+					}
 				}
 			}
 			
@@ -116,8 +123,7 @@
 			 */
 			if (Input.isKeyDown(Input.ENTER) || Input.isKeyDown(Input.NUMPAD_ENTER))
 			{
-				if (World.currentLevel != "title" && World.currentLevel != "ending")
-					WorldUtils.loadLevel( World.currentLevel);
+				WorldUtils.loadLevel( World.currentLevel);
 			}
 			 
 			if (Input.isKeyDown(Input.M))
@@ -176,10 +182,18 @@
 						}
 						
 						if (man.graphic.playing != "attack" && !man.shielding && !Input.isKeyDown(Input.A))
+						{
 							man.graphic.play("walk");
+						}
 							
-						if (man.shielding)	man.x -= 2;
-						else 				man.x -= 7;
+						if (man.shielding)
+						{
+							man.x -= 2;
+						}
+						else
+						{
+							man.x -= 7;
+						}
 						
 						man.rotationY = 180;
 					}
@@ -198,10 +212,18 @@
 						}
 						
 						if (man.graphic.playing != "attack"	&& !man.shielding && !Input.isKeyDown(Input.A))
-								man.graphic.play("walk");
+						{
+							man.graphic.play("walk");
+						}
 							
-						if (man.shielding)	man.x += 2;
-						else			man.x += 7;
+						if (man.shielding)
+						{
+							man.x += 2;
+						}
+						else
+						{
+							man.x += 7;
+						}
 						
 						man.rotationY = 0;
 					}
@@ -240,7 +262,10 @@
 						man.jumping = false;
 						for (var f:int = World.Mobs.length; f --> 0; )
 						{
-							if (World.Mobs[f] is Doppleganger)	World.Mobs[f].jumping = false;
+							if (World.Mobs[f] is Doppleganger && !World.Mobs[f].isDestroyed)
+							{
+								World.Mobs[f].jumping = false;
+							}
 						}
 					}
 					
@@ -258,10 +283,12 @@
 				}
 
 				
-				if 		(Input.isKeyDown(Input.A) && Game.man.knowsA)
+				if (Input.isKeyDown(Input.A) && Game.man.knowsA)
 				{
 					if (!Input.isKeyDown(Input.S) && !Input.isKeyDown(Input.D))
+					{
 						beginRangedAttack();
+					}
 				}
 				else if (Input.isKeyDown(Input.D) && Game.man.knowsD)
 				{
@@ -333,9 +360,9 @@
 			
 			if (World.Mobs.length > 0)
 			{
-				for (var l:int = World.Mobs.length - 1; l >= 0; l--)
+				for (var l:int = World.Mobs.length; l --> 0;)
 				{
-					for (var ll:int = World.Mobs.length - 1; ll >= 0; ll--)
+					for (var ll:int = World.Mobs.length; ll --> 0;)
 					{
 						World.Mobs[l].collideWithMob(World.Mobs[ll]);
 					}
@@ -343,7 +370,7 @@
 					var removed:Boolean = false;
 					if (World.Projectiles.length > 0)
 					{						
-						for (var k:int = World.Projectiles.length - 1; k >= 0; k--) 
+						for (var k:int = World.Projectiles.length; k --> 0;) 
 						{
 							if (World.Projectiles[k].hitTestObject(World.Mobs[l].collisionHull))
 							{

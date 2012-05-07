@@ -70,7 +70,11 @@ package ifrit
 				{
 					if (item.playing)
 					{
-						item.channel.stop();
+						if (item.channel)
+						{
+							item.channel.stop();
+						}
+						
 						item.playing = false;
 						return;
 					}

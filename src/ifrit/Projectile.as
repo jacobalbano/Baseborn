@@ -27,12 +27,12 @@ package ifrit
 		protected var vx:Number;
 		protected var isBallistic:Boolean;
 		protected var lifetime:uint;
-		protected var ttl:uint;
-		protected var timeLimited:Boolean;
+		protected var timeToLive:uint;
+		protected var hasLifetime:Boolean;
 		
 		public var sound:Audio = new Audio;
 		
-		public function Projectile(bitmap:Bitmap, frameWidth:int, frameHeight:int, direction:int, x:Number, y:Number, friendly:Boolean = true, ttl:uint = 0, isBallistic:Boolean = false) 
+		public function Projectile(bitmap:Bitmap, frameWidth:int, frameHeight:int, direction:int, x:Number, y:Number, friendly:Boolean = true, timeToLive:uint = 0, isBallistic:Boolean = false) 
 		{
 			
 			this.container = new Sprite;
@@ -55,15 +55,19 @@ package ifrit
 			this.vx = this.dx;
 			this.friendly = friendly;
 			
-			if (ttl > 0)
+			if (timeToLive > 0)
 			{
-				this.timeLimited = true;
+				this.hasLifetime = true;
 				this.lifetime = 0;
-				this.ttl = ttl;
+				this.timeToLive = timeToLive;
 			}
 			
 			this.isBallistic = isBallistic;
-			if (!this.isBallistic)	this.rotationY = direction > 0 ? 0 : 180;
+			
+			if (!this.isBallistic)
+			{
+				this.rotationY = direction > 0 ? 0 : 180;
+			}
 		}
 		
 		public function stop():void
@@ -94,18 +98,26 @@ package ifrit
 					
 					
 					if (this.isBallistic)
+					{
 						this.rotation = Math.atan2( this.y + this.vy - this.y, this.x + this.vx - this.x) * 180 / Math.PI;
+					}
 					
 					this.y += this.vy;
 					
 				}
 				
-				if (this.timeLimited)
+				if (this.hasLifetime)
 				{
-					this.lifetime++;
-					if (this.lifetime >= this.ttl)	this.alpha -= 0.2;
+					if (this.lifetime++ >= this.timeToLive)
+					{
+						this.alpha -= 0.2;
+					}
 					
-					if (this.alpha <= 0) 	this.destroy();
+					if (this.alpha <= 0)
+					{
+						this.destroy();
+						return;
+					}
 				}
 				
 				this.x += vx;
@@ -126,6 +138,7 @@ package ifrit
 					},
 					function (d:Decal):void
 					{
+						d.alpha = alpha;
 						d.rotation = Math.atan2( y + vy - y, x + vx - x) * 180 / Math.PI;
 					});
 				}

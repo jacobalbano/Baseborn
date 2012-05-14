@@ -25,6 +25,7 @@ package ifrit
 		public var lastHeading:Boolean;
 		public var fleeMode:Boolean;
 		public var holdingGround:Boolean;
+		public var attacking:Boolean;
 		
 		protected var behaviorFlags:uint;
 		protected var tipsOverWhenDead:Boolean; //	Ultra stupid variable name
@@ -37,6 +38,7 @@ package ifrit
 		private var homeRect:Rectangle;
 		private var alertedThisFrame:Boolean;
 		
+		private const debug:Boolean = false;
 		private var homeRectDebug:Sprite;
 		
 		public function Enemy(x:Number, y:Number, bitmap:Bitmap, frameWidth:int, frameHeight:int, collisionWidth:int, collisionHeight:int, behaviorFlags:uint = 0)
@@ -52,6 +54,7 @@ package ifrit
 			
 			this.heading = true;
 			this.fleeMode = false;
+			this.attacking = false;
 			this.holdingGround = true;
 			this.heading = Boolean(Math.round(Math.random()));
 			this.speed = Math.random();
@@ -183,7 +186,9 @@ package ifrit
 			}
 			
 			if (this.tipsOverWhenDead)
+			{
 				this.collisionHull.x += this.collisionHull.width * 1.5;
+			}
 		}
 		
 		/**
@@ -192,40 +197,52 @@ package ifrit
 		private function checkPickup():void
 		{
 			if (!this.pickup)
+			{
 				return;
+			}
 			
 			if (this.pickup.alpha < 1)
+			{
 				this.pickup.alpha -= 0.1;
+			}
 			
 			if (this.pickup.alpha <= 0)
 			{
 				this.pickup.parent.removeChild(this.pickup);
 				this.pickup = null;
+				return;
 			}
-			else if (!Game.man.isDestroyed && this.pickup.hitTestObject(Game.man.collisionHull))
+			
+			if (!Game.man.isDestroyed)
 			{
-				if (this.pickup.type == Pickup.HEALTH)
-					HUD.healPlayer(10.001, true);
-				else if (this.pickup.type == Pickup.MANA)
-					HUD.restoreMana(25);
-				else if (this.pickup.type == Pickup.KEY)
-					Game.man.hasKey = true;
-				else if (this.pickup.type == Pickup.ARROW)
-					HUD.restoreAmmo(5);
-				else if (this.pickup.type == Pickup.SHURIKEN)
-					HUD.restoreAmmo(5);
-				
-				if (this.pickup.type == Pickup.KEY)
-					World.audio.playSFX("keys");
-				else
-					World.audio.playSFX("pickup");
-				
-				this.pickup.parent.removeChild(this.pickup);
-				this.pickup = null;
-			}
-			else if (this.pickup.lifetime == 270)
-			{
-				this.pickup.alpha = 0.9;
+				if (this.pickup.hitTestObject(Game.man.collisionHull))
+				{
+					
+					switch (this.pickup.type)
+					{
+						case Pickup.HEALTH:
+							HUD.healPlayer(10.00, true);
+							World.audio.playSFX("pickup");
+							break;
+						case Pickup.MANA:
+							HUD.restoreMana(25);
+							World.audio.playSFX("pickup");
+							break;
+						case Pickup.KEY:
+							Game.man.hasKey = true;
+							World.audio.playSFX("keys");
+							break;
+						case Pickup.ARROW:
+						case Pickup.SHURIKEN:
+							HUD.restoreAmmo(5);
+							break;
+						default:
+							throw new Error("Congratulations, you just broke the universe. I hope you know the Doctor.");
+					}
+					
+					this.pickup.parent.removeChild(this.pickup);
+					this.pickup = null;
+				}
 			}
 		
 		}
@@ -236,10 +253,13 @@ package ifrit
 		 */
 		private function testHealth():void
 		{
-			if (this.hitpoints <= 0 && !isDestroyed)
-				this.destroy();
-			else if (this.hitpoints <= this.maxHealth)
-				this.hitpoints += 0.05
+			if (!isDestroyed)
+			{
+				if (this.hitpoints <= 0)
+				{
+					this.destroy();
+				}
+			}
 		}
 		
 		/**
@@ -262,15 +282,15 @@ package ifrit
 			this.homeRect.x = this.heading ? this.x - 100 : this.x - 200;
 			this.homeRect.y = this.y - 30;
 			
-			/**
-			 * Uncomment to see debugging view for search rectangle
-			 */
-			//Game.stage.removeChild(this.homeRectDebug);
-			//this.homeRectDebug = new Sprite;
-			//this.homeRectDebug.graphics.beginFill(0x00ffff, 0.1);
-			//this.homeRectDebug.graphics.drawRect(this.homeRect.x, this.homeRect.y, this.homeRect.width, this.homeRect.height);
-			//this.homeRectDebug.graphics.endFill();
-			//Game.stage.addChild(this.homeRectDebug);
+			if (debug)
+			{
+				Game.stage.removeChild(this.homeRectDebug);
+				this.homeRectDebug = new Sprite;
+				this.homeRectDebug.graphics.beginFill(0x00ffff, 0.1);
+				this.homeRectDebug.graphics.drawRect(this.homeRect.x, this.homeRect.y, this.homeRect.width, this.homeRect.height);
+				this.homeRectDebug.graphics.endFill();
+				Game.stage.addChild(this.homeRectDebug);
+			}
 		}
 		
 		/**
@@ -455,12 +475,12 @@ package ifrit
 			
 			if (holdingGround)
 			{
-				this.graphic.play("stand");
+				if (!attacking)
+				{
+					this.graphic.play("stand");
+				}
 			}
-			
-			
-			
-			
+
 			this.lastPosition.x = this.x;
 			this.lastPosition.y = this.y;
 			
@@ -508,16 +528,23 @@ package ifrit
 					if (!(behaviorFlags & NO_RANGED) > 0)
 					{
 						shoot();
+						return;
 					}
 				}
-				else
+				
+				
+				if (Point.distance(new Point(this.x, this.y), new Point(Game.man.x, Game.man.y)) > this.collisionHull.width)
 				{
 					if (!(behaviorFlags & NO_MELEE) > 0)
 					{
+						attacking = true;
 						this.graphic.play("attack");
 						stab();
+						return;
 					}
 				}
+				
+				attacking = false;
 			}
 		}
 		
@@ -528,12 +555,15 @@ package ifrit
 			for (var step:uint = 0; step < steps; step++)
 			{
 				
-				//WorldUtils.addDecal(new Bitmap(new BitmapData(2, 2)), x + (heading ? offset : -offset), y + 5 + (collisionHull.height / 2) + step * 10, function(d:Decal):*
-					//{
-						//Function won't run until next frame
-						//So removing it immediately is fine
-						//Game.stage.removeChild(d);
-					//});
+				if (debug)
+				{
+					WorldUtils.addDecal(new Bitmap(new BitmapData(2, 2)), x + (heading ? offset : -offset), y + 5 + (collisionHull.height / 2) + step * 10, function(d:Decal):*
+						{
+							//Function won't run until next frame
+							//So removing it immediately is fine
+							Game.stage.removeChild(d);
+						});
+				}
 				
 				for (var i:uint = 0; i < World.Platforms.length; i++)
 				{
@@ -551,17 +581,22 @@ package ifrit
 		{
 			var check:Number = 5;
 			
-			//WorldUtils.addDecal(new Bitmap(new BitmapData(2, 2, false, 0xff0000)), heading ? x + check : x - check, y + collisionHull.height / 2 + 10, function(d:Decal):*
-				//{
-					//Function won't run until next frame
-					//So removing it immediately is fine
-					//Game.stage.removeChild(d);
-				//});
+			if (debug)
+			{
+				WorldUtils.addDecal(new Bitmap(new BitmapData(2, 2, false, 0xff0000)), heading ? x + check : x - check, y + collisionHull.height / 2 + 10, function(d:Decal):*
+					{
+						//Function won't run until next frame
+						//So removing it immediately is fine
+						Game.stage.removeChild(d);
+					});
+			}
 			
 			for (var i:uint = 0; i < World.Platforms.length; i++)
 			{
 				if (World.Platforms[i].hitTestPoint(heading ? x + check : x - check, y + collisionHull.height / 2 + 10))
+				{
 					return true;
+				}
 			}
 			
 			return false;
@@ -580,7 +615,9 @@ package ifrit
 			while (Point.distance(goal, test) >= 10)
 			{
 				if (count++ > 200)
+				{
 					throw new Error("Loop count exceeded maximum");
+				}
 				
 				test.x += Game.man.x > this.x ? 5 : -5;
 				
@@ -595,7 +632,6 @@ package ifrit
 			
 			return false;
 		}
-	
 	}
 
 }

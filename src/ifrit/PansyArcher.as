@@ -20,9 +20,18 @@ package ifrit
 		{
 			super.preThink();
 			
-			if (!Game.man.isDestroyed && Point.distance(new Point(Game.man.x, Game.man.y), new Point(this.x, this.y)) < 200 && Math.abs(this.y - Game.man.y) < 15 && this.y < Game.man.y + 5)
+			if (!Game.man.isDestroyed)
 			{
-				this.shoot();
+				if (Point.distance(new Point(Game.man.x, Game.man.y), new Point(this.x, this.y)) < 200 )
+				{
+					if (Math.abs(this.y - Game.man.y) < 15)
+					{
+						if (this.y < Game.man.y + 5)
+						{
+							this.shoot();
+						}
+					}
+				}
 			}
 		}
 		
@@ -30,9 +39,14 @@ package ifrit
 		{
 			super.postThink();
 			
-			
-			if (this.fleeMode)	this.graphic.play("walk");
-			else				this.graphic.play("stand");
+			if (this.fleeMode)
+			{
+				this.graphic.play("walk");
+			}
+			else
+			{
+				this.graphic.play("stand");
+			}
 		}
 		
 	}

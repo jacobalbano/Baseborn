@@ -5,6 +5,7 @@
 	import com.thaumaturgistgames.flakit.Library;
 	import flash.display.Stage;
 	import flash.events.Event;
+	import flash.events.MouseEvent;
 	import flash.geom.Point;
 	import ifrit.*;
 	
@@ -17,12 +18,13 @@
 		public static var man:Player;
 		public static var boss:Boss;
 		public static var playerClass:uint;
+		public var startScreen:IfritObject;
 		
 		public static const DEBUG_MODE:Boolean = true;
 		
 		public function Game()
 		{
-			super(Library.USE_ALL);//, EmbeddedAssets);
+			super(Library.USE_ALL, EmbeddedAssets);
 		}
 		
 		override public function init():void 
@@ -30,9 +32,7 @@
 			super.init();
 			
 			Game.stage = this.stage;
-			
 			removeEventListener(Event.ADDED_TO_STAGE, init);
-			addEventListener(Event.ENTER_FRAME, enterFrame);
 			
 			Input.init(stage);
 			
@@ -41,9 +41,39 @@
 			
 			World.init();
 			
-			Game.playerClass = SaveState.playerClass;
+			if (!DEBUG_MODE)
+			{
+				this.startScreen = new IfritObject();
+				this.startScreen.addChild(Library.getImage("titleScreen.png"));
+				this.startScreen.x = 450;
+				this.startScreen.y = 225;
+				Game.stage.addEventListener(MouseEvent.CLICK, titleScreenClick);
+				stage.addChild(this.startScreen);
+			}
+			else
+			{
+				Game.stage.addEventListener(Event.ENTER_FRAME, enterFrame);
+				
+				Game.playerClass = SaveState.playerClass;
 			
-			WorldUtils.loadLevel( SaveState.level );
+				WorldUtils.loadLevel( SaveState.level );
+			}
+		}
+		
+		private function titleScreenClick(e:MouseEvent):void
+		{
+			Game.stage.removeEventListener(MouseEvent.CLICK, titleScreenClick);
+			Game.stage.addEventListener(Event.ENTER_FRAME, titleScreenEnterFrame);
+		}
+		
+		private function titleScreenEnterFrame(e:Event):void
+		{
+			if ((this.startScreen.alpha -= 0.1) >= 0)
+			{
+				Game.stage.removeChild(this.startScreen);
+				Game.stage.removeEventListener(Event.ENTER_FRAME, titleScreenEnterFrame);
+				Game.stage.addEventListener(Event.ENTER_FRAME, enterFrame);
+			}
 		}
 		
 		private function enterFrame(e:Event):void

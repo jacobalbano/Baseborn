@@ -52,6 +52,8 @@ package ifrit
 		
 		public function Player(x:Number, y:Number, type:uint)
 		{
+			destroyed = false;
+			
 			var animationName:String;
 			var frameWidth:int = 18;
 			var frameHeight:int = 25;
@@ -176,8 +178,11 @@ package ifrit
 		{			
 			if (HUD.healthAmount <= 0)
 			{
-				this.destroy();
-				this.graphic.play("death");
+				if (this.classType != Player.NONE)
+				{
+					this.destroy();
+					this.graphic.play("death");
+				}
 			}
 			
 			super.think();

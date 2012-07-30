@@ -368,10 +368,10 @@ package ifrit
 		 * Attepmt to attack player if on the same platform
 		 */
 		private function beginOffense():void
-		{			
+		{
 			if (!fleeMode)
 			{
-				if (this.homeRect.contains(Game.man.x, Game.man.y) && !Game.man.isDestroyed && Game.man.y <= this.y + this.height / 2)
+				if (this.homeRect.contains(Game.man.x, Game.man.y) && !Game.man.isDestroyed)// && Game.man.y <= this.y + this.height / 2)
 				{
 					if (wallIsOccluding())
 						return;
@@ -533,7 +533,7 @@ package ifrit
 				}
 				
 				
-				if (Point.distance(new Point(this.x, this.y), new Point(Game.man.x, Game.man.y)) > this.collisionHull.width)
+				if (Point.distance(new Point(this.x, this.y), new Point(Game.man.x, Game.man.y)) <= ((this.collisionHull.width / 2) + (Game.man.collisionHull.width / 2) + 10)) // a little extra padding
 				{
 					if (!(behaviorFlags & NO_MELEE) > 0)
 					{

@@ -41,8 +41,6 @@ package ifrit
 			//	It works the same way as a C++ (STL) map, storing objects with keys
 			Worlds = new Map(String, Function);
 			
-			Worlds.add("title", 		loadTitle);
-			
 			Worlds.add("beach_01", 		loadBeach_01);
 			Worlds.add("beach_02", 		loadBeach_02);
 			Worlds.add("beach_03", 		loadBeach_03);
@@ -95,35 +93,14 @@ package ifrit
 		 * 		Collide man w/ platform to debug.
 		 * 		NOTE: First non-bounds platform is #12
 		 *//////////////////////////////////////////////////////
-		
-		private static function loadTitle():void
-		{
-			audio.stopAll(["titleAmb"]);
-			audio.playSFX("titleAmb", 5);
-			
-			WorldUtils.makeBounds();
-			
-			Variables.add("intro", new Variable(0, true, ""));
-			WorldUtils.addDecal(Library.getImage("titleScreen.png"), 500, 250, beginGame);
-			
-			nextLevel = "beach_01";
-		}
-		
-		private static function beginGame(d:Decal):void
-		{
-			if (Input.isKeyDown(Input.ENTER) && Variables.retrive("intro").bool)
-			{
-				WorldUtils.addDecal(new Bitmap(new BitmapData(1000, 500, true, 0xff000000)), 500, 250, WorldUtils.fadeOutHold);
-				Variables.retrive("intro").bool = false;
-			}
-		}
 		 
 		private static function loadBeach_01():void
 		{
-			audio.stopAll(); // Remove this line when the title screen is used
-			//audio.stopSFX("titleAmb"); // Renew this line when the title screen is used
+			SaveState.resetAll();
+			
+			audio.stopSFX("titleAmb"); // Renew this line when the title screen is used
 			audio.playMusic("beach", 3);
-			//audio.playSFX("beachAmb"); // Renew this line when the title screen is used
+			audio.playSFX("beachAmb"); // Renew this line when the title screen is used
 			
 			WorldUtils.makeBounds();
 			
@@ -571,8 +548,9 @@ package ifrit
 			if (d.rotationY == 180 && Variables.retrive("lever").string != "open")
 			{
 				WorldUtils.addDecal(Library.getImage("tower.decals.gate.png"), 330, 350, null, null, [0, 1, 2, 3, 4], 135, 95, 5, false);
-				Variables.retrive("lever").string = "open"
-				Platforms.splice(41, 2);
+				Variables.retrive("lever").string = "open";
+				Platforms[52].x = -1000;
+				Platforms[53].x = -1000;
 			}
 		}
 		

@@ -74,9 +74,6 @@ package ifrit
 						{
 							item.channel.stop();
 						}
-						
-						item.playing = false;
-						return;
 					}
 				}
 			}
@@ -113,13 +110,12 @@ package ifrit
 			{
 				if (item.name == name)
 				{
-					if (item.playing)	return;
-					else
+					//if (item.playing)	return;
+					//else
 					{
 						if (!isMuted)
 						{
 							item.channel = item.sound.play(startTime, loops);
-							item.playing = true;
 							return;
 						}
 					}
@@ -226,7 +222,6 @@ package ifrit
 					if (sfx.channel)
 					{
 						sfx.channel.stop();
-						sfx.playing = false;
 					}
 				}
 					

@@ -9,6 +9,11 @@ package ifrit
 	{
 		private static const so:SharedObject = SharedObject.getLocal("com.thaumaturgistgames.ifrit");
 		
+		public static function resetAll():void
+		{
+			if (so) so.clear();
+		}
+		
 		public static function set level(level:String):void
 		{
 			if (so)	so.data.level = level;
@@ -16,7 +21,7 @@ package ifrit
 		
 		public static function get level():String
 		{
-			return so.data.level || null;
+			return so.data.level || "beach_01";
 		}
 		
 		public static function set playerClass(playerClass:uint):void

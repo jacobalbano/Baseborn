@@ -20,11 +20,11 @@
 		public static var playerClass:uint;
 		public var startScreen:IfritObject;
 		
-		public static const DEBUG_MODE:Boolean = true;
+		public static const DEBUG_MODE:Boolean = false;
 		
 		public function Game()
 		{
-			super(Library.USE_ALL, EmbeddedAssets);
+			super(Library.USE_ALL | Library.USE_EMBEDDED, EmbeddedAssets);
 		}
 		
 		override public function init():void 
@@ -73,6 +73,10 @@
 				Game.stage.removeChild(this.startScreen);
 				Game.stage.removeEventListener(Event.ENTER_FRAME, titleScreenEnterFrame);
 				Game.stage.addEventListener(Event.ENTER_FRAME, enterFrame);
+				
+				Game.playerClass = SaveState.playerClass;
+			
+				WorldUtils.loadLevel(SaveState.level);
 			}
 		}
 		
@@ -154,6 +158,11 @@
 			if (Input.isKeyDown(Input.ENTER) || Input.isKeyDown(Input.NUMPAD_ENTER))
 			{
 				WorldUtils.loadLevel( World.currentLevel);
+			}
+			
+			if (Input.isKeyDown(Input.R))
+			{
+				WorldUtils.loadLevel("beach_01");
 			}
 			 
 			if (Input.isKeyDown(Input.M))

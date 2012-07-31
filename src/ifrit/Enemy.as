@@ -38,7 +38,7 @@ package ifrit
 		private var homeRect:Rectangle;
 		private var alertedThisFrame:Boolean;
 		
-		private const debug:Boolean = false;
+		private const debug:Boolean = Game.DEBUG_MODE;
 		private var homeRectDebug:Sprite;
 		
 		public function Enemy(x:Number, y:Number, bitmap:Bitmap, frameWidth:int, frameHeight:int, collisionWidth:int, collisionHeight:int, behaviorFlags:uint = 0)
@@ -347,7 +347,7 @@ package ifrit
 				}
 				else
 				{
-					if (this.homeRect.contains(Game.man.x, Game.man.y))
+					if (this.homeRect.contains(Game.man.x, Game.man.y) && !wallIsOccluding())
 					{
 						holdingGround = true;
 						this.heading = this.x < Game.man.x;
@@ -365,7 +365,7 @@ package ifrit
 		
 		/**
 		 * AI synapse
-		 * Attepmt to attack player if on the same platform
+		 * Attepmt to attack player
 		 */
 		private function beginOffense():void
 		{
@@ -606,26 +606,32 @@ package ifrit
 		 * Determine if a wall exists between this enemy and the player
 		 * @return	If a wall exists between this enemy and the player
 		 */
-		private function wallIsOccluding():Boolean
-		{
-			var goal:Point = new Point(Game.man.x, Game.man.y);
-			var test:Point = new Point(x, Game.man.y);
-			var count:uint = 0;
-			
-			while (Point.distance(goal, test) >= 10)
+		private function wallIsOccluding(steps:int = 20):Boolean
+		{			
+			for (var step:uint = 0; step < steps; step++)
 			{
-				if (count++ > 200)
+				var test:Point = new Point(this.x + (step * (heading ? 10 : -10)), this.y);
+				
+				if (debug)
 				{
-					throw new Error("Loop count exceeded maximum");
+					WorldUtils.addDecal(new Bitmap(new BitmapData(2, 2)), test.x, test.y, function(d:Decal):*
+						{
+							//Function won't run until next frame
+							//So removing it immediately is fine
+							Game.stage.removeChild(d);
+						});
 				}
 				
-				test.x += Game.man.x > this.x ? 5 : -5;
-				
-				for each (var item:Platform in World.Platforms)
+				for (var i:uint = 0; i < World.Platforms.length; i++)
 				{
-					if (item.vertical && item.hitTestPoint(test.x, test.y))
+					if (World.Platforms[i].hitTestPoint(test.x, test.y))
 					{
 						return true;
+					}
+					
+					if (Game.man.hitTestPoint(test.x, test.y))
+					{
+						return false;
 					}
 				}
 			}

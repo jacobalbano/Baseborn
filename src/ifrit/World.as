@@ -667,7 +667,7 @@ package ifrit
 			WorldUtils.addEnemy(530, 366, Guard);
 			WorldUtils.addEnemy(730, 366, Guard);
 			WorldUtils.addEnemy(236, 223, Guard);
-			WorldUtils.addEnemy(390, 145, Archer);
+			WorldUtils.addEnemy(390, 140, Archer);
 			WorldUtils.addEnemy(266, 72, Guard);
 			WorldUtils.addEnemy(138, 45, Guard);
 			
@@ -694,11 +694,9 @@ package ifrit
 			
 			WorldUtils.addEnemy(150, 130, Zombie);
 			WorldUtils.addEnemy(150, 130, Zombie);
-			WorldUtils.addEnemy(150, 130, Zombie);
 			WorldUtils.addEnemy(150, 130, Spider);
 			
 			WorldUtils.addEnemy(320, 130, Zombie);
-			WorldUtils.addEnemy(500, 130, Zombie);
 			WorldUtils.addEnemy(680, 130, Zombie);
 			WorldUtils.addEnemy(850, 130, Zombie);
 			
@@ -712,7 +710,6 @@ package ifrit
 			WorldUtils.addEnemy(300, 380, Skeleton);
 			WorldUtils.addEnemy(400, 380, SkeletonMage);
 			WorldUtils.addEnemy(500, 380, Zombie);
-			WorldUtils.addEnemy(600, 380, Zombie);
 			WorldUtils.addEnemy(800, 380, Spider);
 			
 			WorldUtils.addWall( 565.5, 325, false, Library.getImage("dungeon.platform.png"), 742);
@@ -806,25 +803,19 @@ package ifrit
 			
 			WorldUtils.addLadder(680, 100, 290);
 			
-			WorldUtils.addEnemy(400, 320, Skeleton);
 			WorldUtils.addEnemy(200, 270, Zombie);
 			WorldUtils.addEnemy(300, 200, Zombie);
 			WorldUtils.addEnemy(280, 50, Skeleton);
 			WorldUtils.addEnemy(370, 30, SkeletonMage);
 			WorldUtils.addEnemy(500, 10, Zombie);
-			WorldUtils.addEnemy(550, 10, Zombie);
 			WorldUtils.addEnemy(600, 10, Zombie);
 			WorldUtils.addEnemy(850, 30, Skeleton);
 			WorldUtils.addEnemy(950, 90, Skeleton);
-			WorldUtils.addEnemy(850, 160, Skeleton);
-			WorldUtils.addEnemy(950, 240, Skeleton);
 			WorldUtils.addEnemy(850, 300, Skeleton);
 			
 			WorldUtils.addEnemy(600, 100, Spider);
 			WorldUtils.addEnemy(750, 100, Spider);
-			WorldUtils.addEnemy(600, 200, Spider);
 			WorldUtils.addEnemy(750, 200, Spider);
-			WorldUtils.addEnemy(600, 300, Spider);
 			WorldUtils.addEnemy(750, 300, Spider);
 			
 			Game.stage.addChild(new HUD);
@@ -858,7 +849,7 @@ package ifrit
 			WorldUtils.addWall( 406, 145, true, Library.getImage("dungeon.platform.png"), 150);
 			WorldUtils.addWall( 356, 78, true, Library.getImage("dungeon.platform.png"), 165);
 			
-			WorldUtils.addWall( 659, 306, false, Library.getImage("dungeon.platform.png"), 580);
+			WorldUtils.addWall( 659, 306, false, Library.getImage("dungeon.platform.png"), 600);
 			WorldUtils.addWall( 364, 331, true, Library.getImage("dungeon.platform.png"), 40);
 			WorldUtils.addWall( 55, 215, false, Library.getImage("dungeon.platform.png"), 50);
 			
@@ -873,9 +864,7 @@ package ifrit
 			WorldUtils.addEnemy(680, 100, Zombie);
 			
 			WorldUtils.addEnemy(500, 150, SkeletonMage);
-			WorldUtils.addEnemy(600, 150, SkeletonMage);
 			WorldUtils.addEnemy(650, 150, SkeletonMage);
-			WorldUtils.addEnemy(700, 150, SkeletonMage);
 			
 			WorldUtils.addEnemy(300, 150, Skeleton);
 			WorldUtils.addEnemy(320, 150, Skeleton);
@@ -884,10 +873,6 @@ package ifrit
 			WorldUtils.addEnemy(250, 300, Spider);
 			
 			WorldUtils.addEnemy(400, 280, Spider);
-			WorldUtils.addEnemy(500, 280, Spider);
-			WorldUtils.addEnemy(600, 280, SkeletonMage);
-			WorldUtils.addEnemy(700, 280, SkeletonMage);
-			WorldUtils.addEnemy(730, 280, SkeletonMage);
 			WorldUtils.addEnemy(800, 280, SkeletonMage);
 			
 			WorldUtils.addEnemy(300, 360, Skeleton);
@@ -895,7 +880,6 @@ package ifrit
 			WorldUtils.addEnemy(500, 360, SkeletonMage);
 			WorldUtils.addEnemy(600, 360, Spider);
 			WorldUtils.addEnemy(700, 360, Zombie);
-			WorldUtils.addEnemy(800, 360, Spider);
 			
 			WorldUtils.addEnemy(830, 150, SkeletonMage);
 			WorldUtils.addEnemy(850, 150, SkeletonMage);
@@ -934,7 +918,7 @@ package ifrit
 			
 			WorldUtils.addWall(600, 300, false, Library.getImage("forest.platform.png"), 50);
 			WorldUtils.addWall(631, 288, true, Library.getImage("forest.platform.png"), 30);
-			WorldUtils.addWall(685, 270, false, Library.getImage("forest.platform.png"), 100);
+			WorldUtils.addWall(685, 270, false, Library.getImage("forest.platform.png"), 120);
 			
 			WorldUtils.addWall(936, 300, false, Library.getImage("forest.platform.png"), 120);
 			WorldUtils.addWall(915, 150, false, Library.getImage("forest.platform.png"), 120);

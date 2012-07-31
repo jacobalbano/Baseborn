@@ -20,7 +20,7 @@
 		public static var playerClass:uint;
 		public var startScreen:IfritObject;
 		
-		public static const DEBUG_MODE:Boolean = false;
+		public static const DEBUG_MODE:Boolean = getCompilationMode();
 		
 		public function Game()
 		{
@@ -167,8 +167,14 @@
 			 
 			if (Input.isKeyDown(Input.M))
 			{
-				if (!Audio.isMuted)	World.audio.mute();
-				else				World.audio.unmute();
+				if (Audio.isMuted)
+				{
+					World.audio.unmute();
+				}
+				else
+				{
+					World.audio.mute();
+				}
 			}
 			
 			if (man && !man.isDestroyed)
@@ -776,6 +782,21 @@
 			
 			man.gravUp = true;
 			return null;
+		}
+		
+		private static function getCompilationMode():Boolean
+		{
+            try
+			{
+                throw new Error("stacktrace");
+            }
+            catch(e:Error)
+            {
+                var re:RegExp = /\[.*:[0-9]+\]/;
+				return re.test(e.getStackTrace());
+            }
+			
+			return false;
 		}
 		
 	}

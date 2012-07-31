@@ -87,27 +87,6 @@ package ifrit
 			if (d.alpha <= 0)	Game.stage.removeChild(d);
 		}
 		
-		public static function fadeOutHold(d:Decal):void
-		{
-			if (World.Variables.retrive("intro").string == "")
-			{
-				d.alpha = 0;
-				World.Variables.retrive("intro").string = "alpha0";
-			}
-			
-			if (d.alpha < 1)	d.alpha += 0.015;
-			
-			World.audio.fadeOut("titleAmb");
-			
-			if (d.alpha >= 1)
-			{
-				World.audio.playSFX("beachAmb", 5);
-				World.Variables.retrive("intro").number++;
-				
-				if (World.Variables.retrive("intro").number >= 500)	next();
-			}
-		}
-		
 		/**
 		 * Check if player has reached the exit and load the next level
 		 * @param	d			Standard reference parameter

@@ -30,7 +30,7 @@ package ifrit
 		
 		public function mute():void
 		{
-			if ((muteCooldown.currentCount >= 10 && !isMuted) || !muteCooldown.running)
+			if ((muteCooldown.currentCount >= 1 && !isMuted) || !muteCooldown.running)
 			{
 				for each (var sfx:SoundEffect in this.Sfx)
 				{	if (sfx.channel)	sfx.transform.volume = 0;	}
@@ -47,7 +47,7 @@ package ifrit
 		
 		public function unmute():void
 		{	
-			if (muteCooldown.currentCount >= 10 && isMuted)
+			if (muteCooldown.currentCount >= 1 && isMuted)
 			{
 				for each (var sfx:SoundEffect in this.Sfx)
 				{	if (sfx.channel && sfx.transform)	sfx.transform.volume = 1;	}
@@ -74,6 +74,9 @@ package ifrit
 						{
 							item.channel.stop();
 						}
+						
+						item.playing = false;
+						return;
 					}
 				}
 			}
@@ -110,12 +113,13 @@ package ifrit
 			{
 				if (item.name == name)
 				{
-					//if (item.playing)	return;
-					//else
+					if (item.playing)	return;
+					else
 					{
 						if (!isMuted)
 						{
 							item.channel = item.sound.play(startTime, loops);
+							item.playing = true;
 							return;
 						}
 					}
@@ -152,11 +156,10 @@ package ifrit
 				if (item && item.name == name)
 				{
 					if (!item.playing)
-					{
-						if (isMuted)	item.transform.volume = 0;
-						
+					{						
 						item.channel = item.sound.play(startTime, loops, item.transform);
 						item.playing = true;
+						if (isMuted)	item.transform.volume = 0;
 					}
 				}
 				
@@ -222,6 +225,7 @@ package ifrit
 					if (sfx.channel)
 					{
 						sfx.channel.stop();
+						sfx.playing = false;
 					}
 				}
 					

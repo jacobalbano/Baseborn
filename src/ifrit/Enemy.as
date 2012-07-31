@@ -41,6 +41,8 @@ package ifrit
 		private const debug:Boolean = Game.DEBUG_MODE;
 		private var homeRectDebug:Sprite;
 		
+		public var healthRect:Sprite;
+		
 		public function Enemy(x:Number, y:Number, bitmap:Bitmap, frameWidth:int, frameHeight:int, collisionWidth:int, collisionHeight:int, behaviorFlags:uint = 0)
 		{
 			super(x, y, bitmap, frameWidth, frameHeight, collisionWidth, collisionHeight);
@@ -63,6 +65,12 @@ package ifrit
 			this.homeRect = new Rectangle;
 			this.tipsOverWhenDead = true;
 			
+			if (!(this is Doppleganger) && !(this is Boss))
+			{
+				this.healthRect = new Sprite();
+				Game.stage.addChild(healthRect);
+			}
+			
 			Game.stage.addChild(this.homeRectDebug = new Sprite);
 		}
 		
@@ -84,6 +92,25 @@ package ifrit
 					this.graphic.play("stand");
 					skipThink = true;
 				}
+			}
+			
+			if (this.healthRect)
+			{
+				var healthColor:Number = 0;
+				
+				if 		(this.hitpoints / this.maxHealth <= 0.25)	healthColor = 0xE13800;
+				else if (this.hitpoints / this.maxHealth <= 0.50)	healthColor = 0xE19300;
+				else if (this.hitpoints / this.maxHealth <= 0.75)	healthColor = 0xDCE100;
+				else 												healthColor = 0x1EC600;
+				
+				if (this.isFrozen) healthColor = 0x00D9CE;
+				
+				this.healthRect.graphics.clear();
+				this.healthRect.graphics.beginFill(healthColor);
+				this.healthRect.graphics.drawRect(this.x, this.y, (this.hitpoints / this.maxHealth) * 40, 2.5);
+				this.healthRect.graphics.endFill();
+				this.healthRect.x = this.container.x + 2.5;
+				this.healthRect.y = this.container.y - 5;
 			}
 		}
 		
@@ -122,6 +149,8 @@ package ifrit
 			
 			this.sound.playSFX("die");
 			this.graphic.play("die");
+			
+			if (healthRect) Game.stage.removeChild(this.healthRect);
 			
 			if (!(this.behaviorFlags & PASSIVE) > 0)
 			{

@@ -332,66 +332,82 @@ package ifrit
 		{
 			this.lastHeading = heading;
 			
+			var reverse:int = 0;
+			var facePlayer:int = 1;
+			var noChange :int = 2;
+			
+			var lookDirection:int = noChange;
+			
+			var manInView:Boolean = this.homeRect.contains(Game.man.x, Game.man.y) && !Game.man.isDestroyed && Game.man.y <= this.y + this.height / 2 && !wallIsOccluding();
+			
+			//	If the enemy isn't supposed to be standing still...
 			if (!(this.behaviorFlags & STAND_GROUND) > 0 || this.fleeMode)
 			{
 				if (!holdingGround)
 				{
+					//	...turn him around when he hits an obstacle
 					if (heading)
 					{
 						if (this.x <= this.lastPosition.x)
 						{
-							heading = !heading;
+							lookDirection = reverse;
 						}
 					}
 					else
 					{
 						if (this.x >= this.lastPosition.x)
 						{
-							heading = !heading;
-						}
-					}
-				}
-			}
-			
-			if (this.homeRect.contains(Game.man.x, Game.man.y))
-			{
-				if (!Game.man.isDestroyed)
-				{
-					if (Game.man.y <= this.y + this.height / 2)
-					{
-						if (!fleeMode)
-						{
-							if (!wallIsOccluding())
-							{
-								this.heading = this.x < Game.man.x;
-							}
+							lookDirection = reverse;
 						}
 					}
 				}
 			}
 			
 			if (!fleeMode)
-			{
+			{				
 				if (findEdge())
 				{
+					//	If the enemy is on an edge but the player is in view
+					if (manInView)
+					{
+						lookDirection = facePlayer;
+					}
+					
 					holdingGround = false;
 				}
 				else
 				{
-					if (this.homeRect.contains(Game.man.x, Game.man.y) && !wallIsOccluding())
+					//	If the enemy is on an edge but the player is in view, wait on the edge
+					if (manInView)
 					{
 						holdingGround = true;
-						this.heading = this.x < Game.man.x;
+						lookDirection = facePlayer;
 					}
 					else
 					{
+						//	Otherwise turn around so as to not fall off the edge
 						if (castDown(1))
 						{
-							this.heading = !this.heading;
+							lookDirection = reverse;
 						}
 					}
 				}
 			}
+			
+			switch (lookDirection)
+			{
+				case reverse:
+					heading = !heading;
+					break;
+				case facePlayer:
+					this.heading = this.x < Game.man.x;
+					break;
+				case noChange:
+					break;
+				default:
+					throw new Error("This will never happen while the compiler is sane");
+			}
+			
 		}
 		
 		/**
@@ -488,7 +504,7 @@ package ifrit
 				this.fleeCooldown.reset();
 				if (!(this.behaviorFlags & AFRAID) > 0 && !this.isFrozen)
 				{
-					this.hitpoints = this.maxHealth / 2;
+					this.hitpoints++;
 				}
 			}
 		}
@@ -641,7 +657,7 @@ package ifrit
 		{			
 			for (var step:uint = 0; step < steps; step++)
 			{
-				var test:Point = new Point(this.x + (step * (heading ? 10 : -10)), this.y);
+				var test:Point = new Point(this.x + (step * (this.x < Game.man.x ? 10 : -10)), this.y);
 				
 				if (debug)
 				{
@@ -653,16 +669,16 @@ package ifrit
 						});
 				}
 				
-				for (var i:uint = 0; i < World.Platforms.length; i++)
+				if (Game.man.collisionHull.hitTestPoint(test.x, test.y))
+				{
+					return false;
+				}
+				
+				for (var i:uint = 0; i < World.Platforms.length; ++i)
 				{
 					if (World.Platforms[i].hitTestPoint(test.x, test.y))
 					{
 						return true;
-					}
-					
-					if (Game.man.hitTestPoint(test.x, test.y))
-					{
-						return false;
 					}
 				}
 			}

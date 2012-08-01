@@ -6,6 +6,7 @@ package ifrit
 	import flash.media.SoundTransform;
 	import flash.net.URLRequest;
 	import com.thaumaturgistgames.flakit.Library;
+	import flash.media.SoundMixer;
 	import flash.utils.Timer;
 	
 	/**
@@ -32,11 +33,7 @@ package ifrit
 		{
 			if ((muteCooldown.currentCount >= 1 && !isMuted) || !muteCooldown.running)
 			{
-				for each (var sfx:SoundEffect in this.Sfx)
-				{	if (sfx.channel)	sfx.transform.volume = 0;	}
-				
-				for each (var song:Music in this.Songs)
-				{	if (song.channel)	song.transform.volume = 0;	}
+				SoundMixer.soundTransform = new SoundTransform(0);
 				
 				isMuted = true;
 				muteCooldown.stop();
@@ -46,14 +43,10 @@ package ifrit
 		}
 		
 		public function unmute():void
-		{	
+		{
 			if (muteCooldown.currentCount >= 1 && isMuted)
 			{
-				for each (var sfx:SoundEffect in this.Sfx)
-				{	if (sfx.channel && sfx.transform)	sfx.transform.volume = 1;	}
-				
-				for each (var song:Music in this.Songs)
-				{	if (song.channel && song.transform)	song.transform.volume = 1;	}
+				SoundMixer.soundTransform = new SoundTransform(1);
 				
 				isMuted = false;
 				muteCooldown.stop();
@@ -116,12 +109,9 @@ package ifrit
 					if (item.playing)	return;
 					else
 					{
-						if (!isMuted)
-						{
-							item.channel = item.sound.play(startTime, loops);
-							item.playing = true;
-							return;
-						}
+						item.channel = item.sound.play(startTime, loops);
+						item.playing = true;
+						return;
 					}
 				}
 			}
@@ -159,7 +149,6 @@ package ifrit
 					{						
 						item.channel = item.sound.play(startTime, loops, item.transform);
 						item.playing = true;
-						if (isMuted)	item.transform.volume = 0;
 					}
 				}
 				

@@ -47,7 +47,7 @@ package ifrit
 		
 		override protected function update():void 
 		{
-			if (this.freeze.playing != "play")
+			if (!this.finished && this.freeze.playing != "play")
 			{
 				this.finished = true;
 			}

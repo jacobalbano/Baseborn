@@ -111,6 +111,8 @@ package ifrit
 				this.healthRect.graphics.endFill();
 				this.healthRect.x = this.container.x + 2.5;
 				this.healthRect.y = this.container.y - 5;
+				
+				this.healthRect.alpha =  75 / Math.max(Point.distance(new Point(Game.man.x, Game.man.y), new Point(this.x, this.y)), 1);
 			}
 		}
 		

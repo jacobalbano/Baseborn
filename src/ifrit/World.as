@@ -25,6 +25,7 @@ package ifrit
 		public static var currentLevel:String;
 		public static var hasKey:Boolean;
 		public static var audio:Audio;
+		public static var loading:Boolean;
 		
 		/**
 		 * Initialize the world manager
@@ -36,6 +37,8 @@ package ifrit
 			World.Projectiles 	= new Vector.<Projectile>;
 			World.Mobs 			= new Vector.<Mob>;
 			World.Ladders 		= new Vector.<Ladder>;
+			
+			loading = false;
 			
 			//	Using my custom map class to store levels
 			//	It works the same way as a C++ (STL) map, storing objects with keys
@@ -187,7 +190,11 @@ package ifrit
 		
 		private static function loadForest_01():void
 		{
-			audio.stopAll();
+			if (nextLevel != "forest_02")
+			{
+				audio.stopAll();
+			}
+			
 			audio.playMusic("forest", 3);
 			
 			WorldUtils.makeBounds();
@@ -335,7 +342,11 @@ package ifrit
 		
 		private static function loadTower_01():void
 		{
-			audio.stopAll();
+			if (nextLevel != "tower_02")
+			{
+				audio.stopAll();
+			}
+			
 			audio.playMusic("tower", 3);
 			
 			WorldUtils.makeBounds();
@@ -682,7 +693,11 @@ package ifrit
 		
 		private static function loadDungeon_01():void 
 		{
-			audio.stopAll();
+			if (nextLevel != "dungeon_02")
+			{
+				audio.stopAll();
+			}
+			
 			audio.playMusic("dungeon", 3);
 			
 			WorldUtils.makeBounds();
@@ -764,8 +779,8 @@ package ifrit
 			
 			WorldUtils.addWall( 250, 100, false, Library.getImage("dungeon.platform.png"), 100);
 			
-			WorldUtils.addWall( 300, 285, false, Library.getImage("dungeon.platform.png"), 75);
-			WorldUtils.addWall(267.5, 285, true, Library.getImage("misc.clipPlatform.png"), 5);
+			WorldUtils.addWall( 300, 290, false, Library.getImage("dungeon.platform.png"), 75);
+			WorldUtils.addWall(267.5, 290, true, Library.getImage("misc.clipPlatform.png"), 5);
 			
 			WorldUtils.addWall( 300, 220, false, Library.getImage("dungeon.platform.png"), 75);
 			
@@ -893,7 +908,11 @@ package ifrit
 		
 		private static function loadHellther_01():void
 		{
-			audio.stopAll();
+			if (nextLevel != "hellther_02")
+			{
+				audio.stopAll();
+			}
+			
 			audio.playMusic("hellther", 3);
 			
 			WorldUtils.makeBounds();

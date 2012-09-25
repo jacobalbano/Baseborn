@@ -177,7 +177,7 @@
 				}
 			}
 			
-			if (man && !man.isDestroyed)
+			if (man && !man.isDestroyed && !World.loading)
 			{	
 				if (checkLadder())
 				{

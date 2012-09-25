@@ -58,6 +58,7 @@ package ifrit
 			World.currentLevel = name;
 			SaveState.level = name;
 			
+			World.loading = true;
 			addDecal(new Bitmap(new BitmapData(1000, 500, true, 0xff000000)), 500, 250, fade );
 			
 		}
@@ -77,8 +78,12 @@ package ifrit
 		 */
 		public static function fade(d:Decal):void
 		{
+			World.loading = false;
 			if (d.alpha > 0) 	d.alpha -= 0.025;
-			if (d.alpha <= 0)	Game.stage.removeChild(d);
+			if (d.alpha <= 0)
+			{
+				Game.stage.removeChild(d);
+			}
 		}
 		
 		public static function slowFade(d:Decal):void

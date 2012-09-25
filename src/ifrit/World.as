@@ -72,13 +72,13 @@ package ifrit
 			
 			audio = new Audio;
 			
-			audio.addMusic("beach", Library.getSound("audio.music.beach.mp3"));
-			audio.addMusic("forest", Library.getSound("audio.music.forest.mp3"));
-			audio.addMusic("tower", Library.getSound("audio.music.tower.mp3"));
-			audio.addMusic("dungeon", Library.getSound("audio.music.dungeon.mp3"));
-			audio.addMusic("hellther", Library.getSound("audio.music.hellther.mp3"));
-			audio.addMusic("boss", Library.getSound("audio.music.boss.mp3"));
-			audio.addMusic("finale", Library.getSound("audio.music.finale.mp3"));
+			audio.addMusic("beach", Library.getSound("audio.music.beach.mp3"), Music.BEACH_VOL);
+			audio.addMusic("forest", Library.getSound("audio.music.forest.mp3"), Music.FOREST_VOL);
+			audio.addMusic("tower", Library.getSound("audio.music.tower.mp3"), Music.TOWER_VOL);
+			audio.addMusic("dungeon", Library.getSound("audio.music.dungeon.mp3"), Music.DUNGEON_VOL);
+			audio.addMusic("hellther", Library.getSound("audio.music.hellther.mp3"), Music.HELLTHER_VOL);
+			audio.addMusic("boss", Library.getSound("audio.music.boss.mp3"), Music.BOSS_VOL);
+			audio.addMusic("finale", Library.getSound("audio.music.finale.mp3"), Music.FINALE_VOL);
 			
 			audio.addSFX("titleAmb", Library.getSound("audio.sfx.titleScreenAmbiance.mp3"));
 			audio.addSFX("beachAmb", Library.getSound("audio.sfx.startToBeach.mp3"));
@@ -775,12 +775,12 @@ package ifrit
 			WorldUtils.addWall( 810, 395, false, Library.getImage("dungeon.platform.png"), 500);
 			
 			WorldUtils.addWall( 390, 355, false, Library.getImage("dungeon.platform.png"), 100);
-			WorldUtils.addWall(345, 355, true, Library.getImage("misc.clipPlatform.png"), 5);
+			WorldUtils.addWall( 345, 355, true, Library.getImage("misc.clipPlatform.png"), 5);
 			
 			WorldUtils.addWall( 250, 100, false, Library.getImage("dungeon.platform.png"), 100);
 			
 			WorldUtils.addWall( 300, 290, false, Library.getImage("dungeon.platform.png"), 75);
-			WorldUtils.addWall(267.5, 290, true, Library.getImage("misc.clipPlatform.png"), 5);
+			WorldUtils.addWall( 267.5, 290, true, Library.getImage("misc.clipPlatform.png"), 5);
 			
 			WorldUtils.addWall( 300, 220, false, Library.getImage("dungeon.platform.png"), 75);
 			

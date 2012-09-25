@@ -85,9 +85,8 @@
 			/**
 			* Debugging shortcuts
 			*/			
-			
 			if (DEBUG_MODE)
-			{
+			{	
 				// Next level
 				if (Input.isKeyDown(Input.DIGIT_1))
 					WorldUtils.next();

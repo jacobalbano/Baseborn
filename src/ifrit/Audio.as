@@ -117,7 +117,7 @@ package ifrit
 			}
 		}
 		
-		public function addMusic(name:String, data:Sound):void
+		public function addMusic(name:String, data:Sound, vol:Number):void
 		{
 			for each (var item:Music in Songs) 
 			{
@@ -128,7 +128,7 @@ package ifrit
 				}
 			}
 			
-			var newMusic:Music = new Music(name, data);
+			var newMusic:Music = new Music(name, data, vol);
 			
 			if (newMusic)	this.Songs.push(newMusic);
 		}
